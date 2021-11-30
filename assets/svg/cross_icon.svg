@@ -1,0 +1,7 @@
+<svg id="Icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <rect id="Rectangle" width="36" height="36" rx="12" fill="#fff"/>
+  <g id="Icon-2" data-name="Icon" transform="translate(12 12)">
+    <path id="Path" d="M0,0,12,12" fill="none" stroke="#712D7D" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Path-2" data-name="Path" d="M12,0,0,12" fill="none" stroke="#712D7D" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,97 @@
+name: cubit_template
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+3
+
+environment:
+  sdk: ">=2.14.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+  get: ^4.3.8
+
+  bloc: ^7.2.0
+
+  flutter_bloc: ^7.3.0
+
+  intl: ^0.17.0
+
+  hive: ^2.0.4
+
+  hive_flutter: ^1.1.0
+
+  dio: ^4.0.0
+
+  logger: ^1.1.0
+
+  sprintf: ^6.0.0
+
+  cached_network_image: ^3.1.0
+
+  flutter_svg: ^0.22.0
+
+  curved_navigation_bar: ^1.0.1
+
+  country_code_picker: ^2.0.2
+
+  injectable: ^1.5.0
+
+  get_it: ^7.2.0
+
+  injectable_generator: ^1.5.2
+
+#  flutter pub run change_app_package_name:main com.temp.cubit_temp
+#  change_app_package_name: ^1.0.0
+
+#  flutter pub run flutter_native_splash:create
+#  flutter_native_splash: ^1.2.4
+
+#  flutter pub run flutter_launcher_icons:main
+#  flutter_launcher_icons: ^0.9.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
+
+  hive_generator: ^1.1.1
+
+  build_runner: ^2.1.2
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/svg/
+
+  fonts:
+    - family: Dubai
+      fonts:
+        - asset: assets/fonts/Dubai/Dubai-Bold.TTF
+        - asset: assets/fonts/Dubai/Dubai-Medium.TTF
+        - asset: assets/fonts/Dubai/Dubai-Regular.TTF
+        - asset: assets/fonts/Dubai/Dubai-Light.TTF
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/final_logo.png
+  android: true
+  ios: true
+
+
+flutter_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/final_logo.png"
+
+flutter_intl:
+  enabled: true
