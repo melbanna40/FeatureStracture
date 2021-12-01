@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
-import 'package:cubit_template/CommonUtils/common_utils.dart';
-import 'package:cubit_template/UI/Main/main_screen.dart';
-import 'package:cubit_template/base/presenter/base_presenter.dart';
-import 'package:cubit_template/dependencies/dependency_init.dart';
-import 'package:cubit_template/generated/l10n.dart';
-import 'package:cubit_template/network/api/network_api.dart';
-import 'package:cubit_template/network/net_response.dart';
-import 'package:cubit_template/network/network_util.dart';
+import 'package:kafey/CommonUtils/common_utils.dart';
+import 'package:kafey/UI/Main/main_screen.dart';
+import 'package:kafey/base/presenter/base_presenter.dart';
+import 'package:kafey/dependencies/dependency_init.dart';
+import 'package:kafey/generated/l10n.dart';
+import 'package:kafey/network/api/network_api.dart';
+import 'package:kafey/network/net_response.dart';
+import 'package:kafey/network/network_util.dart';
 
 part 'verify_phone_state.dart';
 

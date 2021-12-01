@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:sprintf/sprintf.dart';
-import 'package:cubit_template/CommonUtils/log_utils.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 
 import 'exception/error_status.dart';
 

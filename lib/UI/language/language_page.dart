@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:cubit_template/Helpers/hivr_helper.dart';
-import 'package:cubit_template/generated/l10n.dart';
-import 'package:cubit_template/res/m_colors.dart';
+import 'package:kafey/Helpers/hivr_helper.dart';
+import 'package:kafey/generated/l10n.dart';
+import 'package:kafey/res/m_colors.dart';
 
 class LanguagesScreen extends StatefulWidget {
   const LanguagesScreen({Key? key}) : super(key: key);

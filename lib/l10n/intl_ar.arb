@@ -110,5 +110,8 @@
   "messageEnterCode": "ادخل رمز التأكيد الذي تم ارساله علي ",
   "receivedCode": "أدخل الرمز المرسل إلى البريد الإلكتروني",
   "reSend": "إعادة الإرسال",
-  "continue_key": "استمرار"
+  "continue_key": "استمرار",
+  "myTeams": "فريقي",
+  "attendance": "المواظبة",
+  "more": "المزيد"
 }

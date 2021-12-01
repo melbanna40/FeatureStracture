@@ -1,4 +1,4 @@
-# cubit_template
+# kafey
 
 A new Flutter project.
 

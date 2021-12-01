@@ -1,16 +1,16 @@
-import 'package:cubit_template/res/m_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
+import 'package:kafey/res/m_colors.dart';
 
 import 'Helpers/hivr_helper.dart';
-import 'UI/Main/main_screen.dart';
 import 'UI/User/login/cubit/login_cubit.dart';
-import 'UI/User/login/login_screen.dart';
 import 'UI/User/verify_phone/cubit/verify_phone_cubit.dart';
+import 'UI/splash/splash_screen.dart';
 import 'dependencies/dependency_init.dart';
 import 'generated/l10n.dart';
 
@@ -86,6 +86,8 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => VerifyPhoneCubit()),
+          BlocProvider(
+              create: (context) => HomeCubit()..updateCurrentDateTime()),
         ],
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
@@ -94,8 +96,6 @@ class MyApp extends StatelessWidget {
               ? Locale(Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE)
                   .get(HiveHelper.KEY_BOX_APP_LANGUAGE.toString()))
               : const Locale("ar"),
-
-          // fallbackLocale: local,
           supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [
             S.delegate,
@@ -105,11 +105,8 @@ class MyApp extends StatelessWidget {
           home: Hive.box(HiveHelper.KEY_BOX_TOKEN)
                       .get(HiveHelper.KEY_BOX_TOKEN) ==
                   null
-              ? LoginScreen()
-              :
-              // HomeScreenStyle2()
-
-              MainScreen(),
+              ? SplashScreen()
+              : SplashScreen(),
         ));
   }
 }

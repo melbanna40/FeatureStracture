@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:cubit_template/CommonUtils/common_utils.dart';
-import 'package:cubit_template/Helpers/hivr_helper.dart';
-import 'package:cubit_template/generated/l10n.dart';
-import 'package:cubit_template/res/gaps.dart';
+import 'package:kafey/CommonUtils/common_utils.dart';
+import 'package:kafey/Helpers/hivr_helper.dart';
+import 'package:kafey/generated/l10n.dart';
+import 'package:kafey/res/gaps.dart';
 
 import 'cubit/verify_phone_cubit.dart';
 import 'widgets/confirm_phone_custom_text_field.dart';

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-import 'package:cubit_template/network/exception/error_status.dart';
-import 'package:cubit_template/network/network_util.dart';
+import 'package:kafey/network/exception/error_status.dart';
+import 'package:kafey/network/network_util.dart';
 @lazySingleton
 class BasePresenter {
 

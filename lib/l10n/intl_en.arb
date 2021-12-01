@@ -110,6 +110,9 @@
   "messageEnterCode": "Enter 4-digit code sent to you at ",
   "receivedCode": "Haven't received the code yet?",
   "reSend": "Resend",
-  "continue_key": "Continue"
+  "continue_key": "Continue",
+  "myTeams": "My Teams",
+  "attendance": "Attendance",
+  "more": "More"
 
 }

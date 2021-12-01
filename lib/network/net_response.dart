@@ -1,5 +1,5 @@
 
-import 'package:cubit_template/CommonUtils/base_response_constants.dart';
+import 'package:kafey/CommonUtils/base_response_constants.dart';
 
 import 'entity_factory.dart';
 

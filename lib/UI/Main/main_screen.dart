@@ -3,9 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:cubit_template/CommonUtils/image_utils.dart';
-import 'package:cubit_template/generated/l10n.dart';
-import 'package:cubit_template/res/m_colors.dart';
+import 'package:kafey/CommonUtils/image_utils.dart';
+import 'package:kafey/CommonUtils/m_svg_icons_icons.dart';
+import 'package:kafey/generated/l10n.dart';
+import 'package:kafey/res/m_colors.dart';
 
 import 'cubit/main_cubit.dart';
 
@@ -30,15 +31,14 @@ class _MainScreenState extends State<MainScreen> {
             fontSize: 20),
       ),
       Text(
-        S.of(context).orders,
+        S.of(context).myTeams,
         style: TextStyle(
             color: MColors.colorPrimarySwatch,
             fontWeight: FontWeight.bold,
             fontSize: 20),
       ),
       Text(
-        // S.of(context).addNewProduct,
-        "",
+        S.of(context).attendance,
         style: TextStyle(
             color: MColors.colorPrimarySwatch,
             fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
             fontSize: 20),
       ),
       Text(
-        S.of(context).chat,
+        S.of(context).more,
         style: TextStyle(
             color: MColors.colorPrimarySwatch,
             fontWeight: FontWeight.bold,
@@ -73,21 +73,10 @@ class _MainScreenState extends State<MainScreen> {
                 elevation: 0,
                 title: appBarTitles[cubit.currentIndex],
                 centerTitle: true,
-                leading: InkWell(
-                  onTap: () {
-                    _scaffoldKey.currentState!.openDrawer();
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.all(5),
-                    child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Icon(
-                          CupertinoIcons.text_aligncenter,
-                          color: MColors.colorPrimarySwatch,
-                        )),
-                  ),
+                leading: SvgPicture.asset(
+                  ImageUtils.getSVGPath('ic_logo'),
+                  width: 20,
+                  height: 20,
                 ),
               ),
               bottomNavigationBar: CurvedNavigationBar(
@@ -105,34 +94,45 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   Container(
                     margin: const EdgeInsets.all(4),
-                    child: SvgPicture.asset(
-                      ImageUtils.getSVGPath('notification_icon'),
+                    child: Icon(
+                      MSvgIcons.users,
                       color: cubit.currentIndex == 1
                           ? Colors.white
                           : MColors.colorPrimarySwatch,
                     ),
                   ),
                   Container(
-                      margin: const EdgeInsets.all(4),
-                      child: Icon(
-                        CupertinoIcons.chat_bubble_2_fill,
-                        color: cubit.currentIndex == 2
-                            ? Colors.white
-                            : MColors.colorPrimarySwatch,
-                      )
-
-                      // SvgPicture.asset(
-                      //   ImageUtils.getSVGPath('setting_icon'),
-                      //   color: cubit.currentIndex == 4
-                      //       ? Colors.white
-                      //       : MColors.colorPrimarySwatch,
-                      // ),
-                      ),
+                    margin: const EdgeInsets.all(4),
+                    child: Icon(
+                      MSvgIcons.clipboard_list,
+                      color: cubit.currentIndex == 2
+                          ? Colors.white
+                          : MColors.colorPrimarySwatch,
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(4),
+                    child: Icon(
+                      MSvgIcons.notifications_active,
+                      color: cubit.currentIndex == 3
+                          ? Colors.white
+                          : MColors.colorPrimarySwatch,
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(4),
+                    child: Icon(
+                      CupertinoIcons.square_list,
+                      color: cubit.currentIndex == 4
+                          ? Colors.white
+                          : MColors.colorPrimarySwatch,
+                    ),
+                  ),
                 ],
                 color: Colors.white,
                 buttonBackgroundColor: MColors.colorPrimarySwatch,
                 backgroundColor: Colors.white,
-                animationCurve: Curves.easeInOut,
+                animationCurve: Curves.elasticIn,
                 animationDuration: const Duration(milliseconds: 200),
                 onTap: (index) {
                   cubit.changeBottomNavBar(index);

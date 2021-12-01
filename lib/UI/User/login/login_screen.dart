@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:cubit_template/CommonUtils/image_utils.dart';
-import 'package:cubit_template/generated/l10n.dart';
-import 'package:cubit_template/res/gaps.dart';
-import 'package:cubit_template/res/m_colors.dart';
+import 'package:kafey/CommonUtils/image_utils.dart';
+import 'package:kafey/generated/l10n.dart';
+import 'package:kafey/res/gaps.dart';
+import 'package:kafey/res/m_colors.dart';
 
 import 'cubit/login_cubit.dart';
 

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:cubit_template/CommonUtils/log_utils.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 
 import 'api/network_api.dart';
 import 'exception/error_status.dart';

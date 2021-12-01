@@ -1,9 +1,9 @@
-name: cubit_template
+name: kafey
 description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+3
+version: 1.0.0+1
 
 environment:
   sdk: ">=2.14.2 <3.0.0"
@@ -46,7 +46,9 @@ dependencies:
 
   injectable_generator: ^1.5.2
 
-#  flutter pub run change_app_package_name:main com.temp.cubit_temp
+  lottie: ^1.2.1
+
+#  flutter pub run change_app_package_name:main com.ingaz.kafey
 #  change_app_package_name: ^1.0.0
 
 #  flutter pub run flutter_native_splash:create
@@ -71,6 +73,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - assets/lottie/
 
   fonts:
     - family: Dubai
@@ -80,9 +83,13 @@ flutter:
         - asset: assets/fonts/Dubai/Dubai-Regular.TTF
         - asset: assets/fonts/Dubai/Dubai-Light.TTF
 
+    - family: MSvgIcons
+      fonts:
+        - asset: assets/fonts/svgIcons/MSvgIcons.ttf
+
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/images/final_logo.png
+  image: assets/images/ic_logo.png
   android: true
   ios: true
 
@@ -91,7 +98,7 @@ flutter_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/images/final_logo.png"
+  image_path: "assets/images/ic_logo.png"
 
 flutter_intl:
   enabled: true

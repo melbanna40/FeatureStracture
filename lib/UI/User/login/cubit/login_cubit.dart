@@ -3,12 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
-import 'package:cubit_template/UI/User/verify_phone/verify_phone_screen.dart';
- import 'package:cubit_template/base/presenter/base_presenter.dart';
-import 'package:cubit_template/dependencies/dependency_init.dart';
- import 'package:cubit_template/network/api/network_api.dart';
-import 'package:cubit_template/network/net_response.dart';
-import 'package:cubit_template/network/network_util.dart';
+import 'package:kafey/UI/User/verify_phone/verify_phone_screen.dart';
+ import 'package:kafey/base/presenter/base_presenter.dart';
+import 'package:kafey/dependencies/dependency_init.dart';
+ import 'package:kafey/network/api/network_api.dart';
+import 'package:kafey/network/net_response.dart';
+import 'package:kafey/network/network_util.dart';
 
 part 'login_state.dart';
 

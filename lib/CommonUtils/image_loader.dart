@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cubit_template/network/api/network_api.dart';
+import 'package:kafey/network/api/network_api.dart';
 
 import 'image_utils.dart';
 
