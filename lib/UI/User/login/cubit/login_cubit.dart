@@ -22,7 +22,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future postCheckPhone(String phone) async {
     emit(LoginLoadingState());
     await _presenter.requestFutureData<BaseResponse>(Method.post,
-        url: Api.checkPhoneApi,
+        url: Api.doLoginApiCall,
         options: Options(method: Method.post.toString()),
         params: {"phone": phone}, onSuccess: (data) {
       if (data.code == 200) {

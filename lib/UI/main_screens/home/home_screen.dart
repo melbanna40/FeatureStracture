@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
-import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -13,8 +10,35 @@ import 'package:local_auth/local_auth.dart';
 
 import 'cubit/home_cubit.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  AnimationController? mAnimationController;
+  Animation<double>? animation;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    mAnimationController =
+        AnimationController(vsync: this, duration: Duration(microseconds:500 ,));
+    animation =
+        Tween<double>(begin: 85, end: 220).animate(mAnimationController!)
+          ..addListener(() {
+            setState(() {});
+          });
+    mAnimationController!.forward();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +72,7 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    '${S
-                        .of(context)
-                        .appName}',
+                    '${S.of(context).appName}',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Gaps.vGap30,
@@ -70,42 +92,52 @@ class HomeScreen extends StatelessWidget {
                   InkWell(
                     onTap: () async {
                       var localAuth = LocalAuthentication();
-                      bool didAuthenticate =
-                      await localAuth.authenticate(
-                          localizedReason: 'Please authenticate to show account balance');
 
-                      List<BiometricType> availableBiometrics =
-                      await localAuth.getAvailableBiometrics();
+                      bool didAuthenticate = await localAuth.authenticate(
+                          localizedReason:
+                              'Please authenticate to verify account');
 
-                      if (Platform.isIOS) {
-                        if (availableBiometrics.contains(BiometricType.face)) {
-                          // Face ID.
-                          Log.e('Face ID');
-                        } else if (availableBiometrics.contains(BiometricType.fingerprint)) {
-                          // Touch ID.
-                          Log.e('Touch ID');
-                        }
-                      }
-                      // final result = await localAuth.authenticate(
-                      //   localizedReason:
-                      //   'Please verify to login without credentials',
-                      //   biometricOnly: true,
-                      // );
-                      // if (result) {
-                      //   cubit.updateClickOnState();
+                      // List<BiometricType> availableBiometrics =
+                      //     await localAuth.getAvailableBiometrics();
+                      //
+                      // if (Platform.isIOS) {
+                      //   if (availableBiometrics.contains(BiometricType.face)) {
+                      //     // Face ID.
+                      //     Log.e('Face ID');
+                      //   } else if (availableBiometrics
+                      //       .contains(BiometricType.fingerprint)) {
+                      //     // Touch ID.
+                      //     Log.e('Touch ID');
+                      //   }
                       // }
+                      if (didAuthenticate) {
+                        cubit.updateClickOnState();
+
+                        mAnimationController!.reverse();
+                        mAnimationController!.forward();
+                      }
                     },
                     child: Container(
                       padding: EdgeInsets.all(50),
+                      height: animation != null ? animation!.value : 220,
+                      width: animation != null ? animation!.value : 220,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        gradient: RadialGradient(
-                          tileMode: TileMode.mirror,
-                          colors: [
-                            Colors.lightBlue,
-                            Colors.deepPurpleAccent,
-                          ],
-                        ), // inner circle color
+                        gradient: cubit.isLogged!
+                            ? RadialGradient(
+                                tileMode: TileMode.mirror,
+                                colors: [
+                                  Colors.deepOrange,
+                                  Colors.red,
+                                ],
+                              )
+                            : RadialGradient(
+                                tileMode: TileMode.mirror,
+                                colors: [
+                                  Colors.lightBlue,
+                                  Colors.deepPurpleAccent,
+                                ],
+                              ), // inner circle color
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(2), // border width
@@ -120,11 +152,9 @@ class HomeScreen extends StatelessWidget {
                                 height: 80,
                               ),
                               Text(
-                                cubit.isLogged! ? S
-                                    .of(context)
-                                    .clock_out : S
-                                    .of(context)
-                                    .clock_in,
+                                cubit.isLogged!
+                                    ? S.of(context).clock_out
+                                    : S.of(context).clock_in,
                                 style: TextStyle(color: Colors.white),
                               )
                             ],
@@ -149,17 +179,11 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       homeWorkingHoursWidget(context, 'ic_clock_in', '8:15 AM',
-                          S
-                              .of(context)
-                              .clock_in),
+                          S.of(context).clock_in),
                       homeWorkingHoursWidget(context, 'ic_clock_out', '4:30 PM',
-                          S
-                              .of(context)
-                              .clock_out),
+                          S.of(context).clock_out),
                       homeWorkingHoursWidget(context, 'ic_clock_total',
-                          '8:15 Hr\'s', S
-                              .of(context)
-                              .working_hours),
+                          '8:15 Hr\'s', S.of(context).working_hours),
                     ],
                   )
                 ],
@@ -171,8 +195,8 @@ class HomeScreen extends StatelessWidget {
     });
   }
 
-  Widget homeWorkingHoursWidget(BuildContext context, String imgPath,
-      String time, String state) {
+  Widget homeWorkingHoursWidget(
+      BuildContext context, String imgPath, String time, String state) {
     return Container(
       child: Column(
         children: [
@@ -187,4 +211,10 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+enum _SupportState {
+  unknown,
+  supported,
+  unsupported,
 }

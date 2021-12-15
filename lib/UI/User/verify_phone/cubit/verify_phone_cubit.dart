@@ -25,7 +25,7 @@ class VerifyPhoneCubit extends Cubit<VerifyPhoneState> {
     emit(VerifyPhoneLoadingState());
 
     await _presenter.requestFutureData<BaseResponse>(Method.post,
-        url: Api.verifyCodeApi,
+        url: Api.doLoginApiCall,
         options: Options(method: Method.post.toString()),
         params: {"phone": phone, "code": code}, onSuccess: (data) {
       if (data.code == 200) {

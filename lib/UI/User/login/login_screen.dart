@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:kafey/CommonUtils/image_utils.dart';
+import 'package:kafey/UI/Main/main_screen.dart';
 import 'package:kafey/UI/User/forget_password/forget_password_screen.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
@@ -21,7 +20,7 @@ class LoginScreen extends StatelessWidget {
     return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
       final cubit = BlocProvider.of<LoginCubit>(context);
       return GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Scaffold(
@@ -56,13 +55,11 @@ class LoginScreen extends StatelessWidget {
                         Gaps.vGap12,
                         TextFormField(
                           obscureText: true,
-
                           decoration: InputDecoration(
                               label: Text(S.of(context).password),
                               hintText: S.of(context).password,
                               prefixIcon: Icon(CupertinoIcons.lock)),
                         ),
-
                         Gaps.vGap30,
                         Container(
                           width: double.infinity,
@@ -77,28 +74,30 @@ class LoginScreen extends StatelessWidget {
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () {
-                                if (_phoneNumberController.text.length > 8) {
-                                  cubit.postCheckPhone(
-                                      _phoneNumberController.text);
-                                } else {
-                                  Get.snackbar(
-                                    Get.locale == const Locale('ar')
-                                        ? "تأكد من ادخال رقم صحيح"
-                                        : "check your phone number",
-                                    "",
-                                    snackPosition: SnackPosition.BOTTOM,
-                                  );
-                                }
+                                Get.to(MainScreen());
+                                // if (_phoneNumberController.text.length > 8) {
+                                //   cubit.postCheckPhone(
+                                //       _phoneNumberController.text);
+                                // } else {
+                                //   Get.snackbar(
+                                //     Get.locale == const Locale('ar')
+                                //         ? "تأكد من ادخال رقم صحيح"
+                                //         : "check your phone number",
+                                //     "",
+                                //     snackPosition: SnackPosition.BOTTOM,
+                                //   );
+                                // }
                               }),
                         ),
                         Gaps.vGap12,
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             Get.to(ForgetPasswordScreen());
                           },
-                          child: Text(S.of(context).forget_password,style: TextStyle(
-                            color: Colors.blue
-                          ),),
+                          child: Text(
+                            S.of(context).forget_password,
+                            style: TextStyle(color: Colors.blue),
+                          ),
                         ),
                       ],
                     ),

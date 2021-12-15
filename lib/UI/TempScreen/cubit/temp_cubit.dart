@@ -15,7 +15,7 @@ class TempCubit extends Cubit<TempState> {
   void getAllProductsApiCall() async {
     emit(TempLoading());
     await mPresenter!.requestFutureData<BaseResponse>(Method.get,
-        url: Api.getAllProductsApiCall,
+        url: Api.doLoginApiCall,
         options: Options(method: Method.get.toString(), headers: headers),
         onSuccess: (data) {
       emit(TempSuccess());

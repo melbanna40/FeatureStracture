@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
-import 'package:local_auth/local_auth.dart';
 
 part 'home_state.dart';
 
@@ -17,15 +15,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   bool? isLogged = false;
 
-  bool? _canCheckBiometrics;
-  List<BiometricType>? _availableBiometrics;
-  String _authorized = 'Not Authorized';
-  bool _isAuthenticating = false;
-
-
-
-
-
+  RadialGradient currentGradient = RadialGradient(
+    tileMode: TileMode.mirror,
+    colors: [
+      Colors.lightBlue,
+      Colors.deepPurpleAccent,
+    ],
+  );
 
   void updateCurrentDateTime() {
     initializeDateFormatting("en_us", '');

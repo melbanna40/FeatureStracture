@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +12,6 @@ import 'package:kafey/res/m_colors.dart';
 
 import 'Helpers/hivr_helper.dart';
 import 'UI/User/login/cubit/login_cubit.dart';
-import 'UI/User/login/login_screen.dart';
 import 'UI/User/verify_phone/cubit/verify_phone_cubit.dart';
 import 'UI/splash/splash_screen.dart';
 import 'dependencies/dependency_init.dart';
@@ -22,8 +23,11 @@ void main() async {
   await Hive.initFlutter();
 
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-  print('Running on ${androidInfo.androidId}');
+  if(Platform.isAndroid){
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    print('Running on ${androidInfo.androidId}');
+  }
+
 
   await Hive.openBox(HiveHelper.KEY_BOX_APP_LANGUAGE);
   await Hive.openBox(HiveHelper.KEY_BOX_LOGIN_RESPONSE);
@@ -108,13 +112,11 @@ class MyApp extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          home: LoginScreen()
-
-          // Hive.box(HiveHelper.KEY_BOX_TOKEN)
-          //             .get(HiveHelper.KEY_BOX_TOKEN) ==
-          //         null
-          //     ? SplashScreen()
-          //     : SplashScreen(),
+          home: Hive.box(HiveHelper.KEY_BOX_TOKEN)
+                      .get(HiveHelper.KEY_BOX_TOKEN) ==
+                  null
+              ? SplashScreen()
+              : SplashScreen(),
         ));
   }
 }
