@@ -1,5 +1,5 @@
 {
-  "appName": "ZaheyDashboard",
+  "appName": "Kafey",
   "global_statistics": "Global Statistics",
   "statistics": "Statistics",
   "order_statistics": "Order Statistics",
@@ -113,6 +113,8 @@
   "continue_key": "Continue",
   "myTeams": "My Teams",
   "attendance": "Attendance",
-  "more": "More"
-
+  "more": "More",
+  "clock_in": "Clock In",
+  "clock_out": "Clock Out",
+  "working_hours": "Working Hr's"
 }

@@ -1,5 +1,5 @@
 {
-  "appName": "داش بورد",
+  "appName": "كافي",
   "all": "الكل",
   "processing": "قيد التنفيذ",
   "global_statistics": "إحصائيات عامة",
@@ -113,5 +113,8 @@
   "continue_key": "استمرار",
   "myTeams": "فريقي",
   "attendance": "المواظبة",
-  "more": "المزيد"
+  "more": "المزيد",
+  "clock_in": "تسجيل حضور",
+  "clock_out": "تسجيل انصراف",
+  "working_hours": "ساعات العمل"
 }
