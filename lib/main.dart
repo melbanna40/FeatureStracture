@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
 import 'package:kafey/res/m_colors.dart';
 
@@ -22,11 +23,7 @@ void main() async {
   configureDependencies();
   await Hive.initFlutter();
 
-  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  if(Platform.isAndroid){
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    print('Running on ${androidInfo.androidId}');
-  }
+
 
 
   await Hive.openBox(HiveHelper.KEY_BOX_APP_LANGUAGE);

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/UI/Main/main_screen.dart';
 import 'package:kafey/UI/User/change_password/change_password_screen.dart';
 import 'package:kafey/UI/User/forget_password/forget_password_screen.dart';
@@ -75,7 +76,9 @@ class LoginScreen extends StatelessWidget {
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () {
-                                Get.to(ChangePasswordScreen());
+                                CommonUtils.getDeviceId();
+                                Get.to(MainScreen());
+                                //Get.to(ChangePasswordScreen());
                                 // if (_phoneNumberController.text.length > 8) {
                                 //   cubit.postCheckPhone(
                                 //       _phoneNumberController.text);

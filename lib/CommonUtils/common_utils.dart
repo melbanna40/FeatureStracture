@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 
 class CommonUtils {
   static Color getColorFromHex(String hexColor) {
@@ -16,5 +20,19 @@ class CommonUtils {
       message ?? '',
       snackPosition: SnackPosition.BOTTOM,
     );
+  }
+
+  static Future<String?> getDeviceId() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      Log.d('Device id ${androidInfo.androidId}');
+      return androidInfo.androidId;
+    }
+    if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      Log.d('Device id ${iosInfo.identifierForVendor}');
+      return iosInfo.identifierForVendor;
+    }
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,12 +20,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   AnimationController? mAnimationController;
   Animation<double>? animation;
+  late HomeCubit? cubit;
 
   @override
   void initState() {
-    // TODO: implement initState
-    mAnimationController =
-        AnimationController(vsync: this, duration: Duration(microseconds:500 ,));
+    Timer.periodic(Duration(seconds: 30), (Timer t) {
+      if (cubit != null) cubit!.updateCurrentDateTime();
+    });
+    mAnimationController = AnimationController(
+        vsync: this,
+        duration: Duration(
+          microseconds: 500,
+        ));
     animation =
         Tween<double>(begin: 85, end: 220).animate(mAnimationController!)
           ..addListener(() {
@@ -45,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     final localAuth = LocalAuthentication();
 
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-      final cubit = BlocProvider.of<HomeCubit>(context);
+      cubit = BlocProvider.of<HomeCubit>(context);
       if (state is HomeLoading) {
         return const Scaffold(
           body: Center(child: CircularProgressIndicator()),
@@ -79,12 +87,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   Column(
                     children: [
                       Text(
-                        '${cubit.currentTime}',
+                        '${cubit!.currentTime}',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '${cubit.currentDate}',
+                        '${cubit!.currentDate}',
                         style: TextStyle(fontSize: 18, color: Colors.grey),
                       ),
                     ],
@@ -94,6 +102,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       var localAuth = LocalAuthentication();
 
                       bool didAuthenticate = await localAuth.authenticate(
+                          biometricOnly: true,
+                          stickyAuth: true,
                           localizedReason:
                               'Please authenticate to verify account');
 
@@ -111,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       //   }
                       // }
                       if (didAuthenticate) {
-                        cubit.updateClickOnState();
+                        cubit!.updateClickOnState();
 
                         mAnimationController!.reverse();
                         mAnimationController!.forward();
@@ -119,11 +129,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     },
                     child: Container(
                       padding: EdgeInsets.all(50),
-                      height: animation != null ? animation!.value : 220,
-                      width: animation != null ? animation!.value : 220,
+                      height: animation!.value,
+                      width: animation!.value,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        gradient: cubit.isLogged!
+                        gradient: cubit!.isLogged!
                             ? RadialGradient(
                                 tileMode: TileMode.mirror,
                                 colors: [
@@ -147,12 +157,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           child: Column(
                             children: [
                               SvgPicture.asset(
-                                ImageUtils.getSVGPath('ic_hand_up'),
+                                ImageUtils.getSVGPath('ic_fingerprint'),
+                                color: Colors.white,
                                 width: 80,
                                 height: 80,
                               ),
                               Text(
-                                cubit.isLogged!
+                                cubit!.isLogged!
                                     ? S.of(context).clock_out
                                     : S.of(context).clock_in,
                                 style: TextStyle(color: Colors.white),
@@ -171,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         Text('Shebin elkom, menufia egypt'),
                         Icon(
                           (CupertinoIcons.location_solid),
-                        )
+                        ),
                       ],
                     ),
                   ),
