@@ -1,13 +1,10 @@
-import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
 import 'package:kafey/res/m_colors.dart';
 
@@ -22,9 +19,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   await Hive.initFlutter();
-
-
-
 
   await Hive.openBox(HiveHelper.KEY_BOX_APP_LANGUAGE);
   await Hive.openBox(HiveHelper.KEY_BOX_LOGIN_RESPONSE);
@@ -109,9 +103,7 @@ class MyApp extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          home:
-
-          Hive.box(HiveHelper.KEY_BOX_TOKEN)
+          home: Hive.box(HiveHelper.KEY_BOX_TOKEN)
                       .get(HiveHelper.KEY_BOX_TOKEN) ==
                   null
               ? SplashScreen()

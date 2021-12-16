@@ -1,4 +1,4 @@
-part of 'verify_phone_cubit.dart';
+part of 'verify_code_cubit.dart';
 
 @immutable
 abstract class VerifyCodeState {}
