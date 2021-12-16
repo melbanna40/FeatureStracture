@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/main_screen.dart';
 import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:lottie/lottie.dart';
@@ -35,10 +37,13 @@ class _SplashScreenState extends State<SplashScreen>
         onLoaded: (composition) {
           _controller!
             ..duration = composition.duration
-            ..forward().whenComplete(() => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
-            ));
+            ..forward().whenComplete(() {
+              if (HiveHelper.getUserToken().isNotEmpty) {
+                Get.to(() => MainScreen());
+              } else {
+                Get.to(() => LoginScreen());
+              }
+            });
         },
       ),
     );

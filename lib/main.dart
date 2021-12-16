@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -103,11 +102,7 @@ class MyApp extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          home: Hive.box(HiveHelper.KEY_BOX_TOKEN)
-                      .get(HiveHelper.KEY_BOX_TOKEN) ==
-                  null
-              ? SplashScreen()
-              : SplashScreen(),
+          home: SplashScreen(),
         ));
   }
 }

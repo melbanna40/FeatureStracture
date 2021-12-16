@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
-import 'package:kafey/UI/Main/main_screen.dart';
 import 'package:kafey/UI/User/forget_password/forget_password_screen.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
@@ -11,17 +10,11 @@ import 'package:kafey/res/m_colors.dart';
 
 import 'cubit/login_cubit.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final _phoneNumberController = TextEditingController();
-var obscureEnabled=false ;
-  final phoneFocusNode = FocusNode();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  String? deviceId;
 
   @override
   Widget build(BuildContext context) {
@@ -59,22 +52,16 @@ var obscureEnabled=false ;
                               hintText: S.of(context).email,
                               prefixIcon:
                                   Icon(CupertinoIcons.person_alt_circle)),
+                          controller: _emailController,
                         ),
                         Gaps.vGap12,
                         TextFormField(
-                          obscureText: obscureEnabled,
+                          obscureText: true,
                           decoration: InputDecoration(
                               label: Text(S.of(context).password),
                               hintText: S.of(context).password,
-                              prefixIcon: IconButton(
-                                  icon: Icon(obscureEnabled?CupertinoIcons.eye:CupertinoIcons.eye_slash),
-                                onPressed: (){
-                                  obscureEnabled=!obscureEnabled;
-                                  setState(() {
-
-                                  });
-                                },
-                                  )),
+                              prefixIcon: Icon(CupertinoIcons.lock_shield)),
+                          controller: _passwordController,
                         ),
                         Gaps.vGap30,
                         Container(
@@ -89,28 +76,28 @@ var obscureEnabled=false ;
                                 S.of(context).login,
                                 style: TextStyle(color: Colors.white),
                               ),
-                              onPressed: () {
-                                CommonUtils.getDeviceId();
-                                Get.to(MainScreen());
-                                //Get.to(ChangePasswordScreen());
-                                // if (_phoneNumberController.text.length > 8) {
-                                //   cubit.postCheckPhone(
-                                //       _phoneNumberController.text);
-                                // } else {
-                                //   Get.snackbar(
-                                //     Get.locale == const Locale('ar')
-                                //         ? "تأكد من ادخال رقم صحيح"
-                                //         : "check your phone number",
-                                //     "",
-                                //     snackPosition: SnackPosition.BOTTOM,
-                                //   );
-                                // }
+                              onPressed: () async {
+                                await CommonUtils.getDeviceId()
+                                    .then((value) => deviceId = value);
+                                if (_emailController.text.isEmpty) {
+                                  CommonUtils.showToastMessage('Enter Email');
+                                } else if (_passwordController.text.isEmpty) {
+                                  CommonUtils.showToastMessage(
+                                      'Enter Password');
+                                } else if (_passwordController.text.length <
+                                    4) {
+                                  CommonUtils.showToastMessage(
+                                      'Password length must be 8 letters contains upper&lower case');
+                                } else {
+                                  cubit.doServerLogin(_emailController.text,
+                                      _passwordController.text, deviceId!);
+                                }
                               }),
                         ),
                         Gaps.vGap12,
                         InkWell(
                           onTap: () {
-                            Get.to(ForgetPasswordScreen());
+                            Get.to(() => ForgetPasswordScreen());
                           },
                           child: Text(
                             S.of(context).forget_password,
@@ -240,6 +227,6 @@ var obscureEnabled=false ;
   }
 
   onDispose() {
-    _phoneNumberController.clear();
+    _emailController.clear();
   }
 }

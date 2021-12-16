@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           biometricOnly: true,
                           stickyAuth: true,
                           localizedReason:
-                              'Please authenticate to verify account');
+                              'ضع بصمتك لاتمام العمليه');
 
                       // List<BiometricType> availableBiometrics =
                       //     await localAuth.getAvailableBiometrics();

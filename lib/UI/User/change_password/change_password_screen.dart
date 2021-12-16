@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:kafey/UI/Main/main_screen.dart';
-import 'package:kafey/UI/User/forget_password/forget_password_screen.dart';
+import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/UI/User/login/cubit/login_cubit.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 
-
 class ChangePasswordScreen extends StatelessWidget {
-  ChangePasswordScreen({Key? key}) : super(key: key);
-  final _phoneNumberController = TextEditingController();
-  final phoneFocusNode = FocusNode();
+  String deviceId;
+  String userToken;
+
+  ChangePasswordScreen(this.deviceId, this.userToken);
+
+  final _oldPasswordController = TextEditingController();
+  final _newPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,6 @@ class ChangePasswordScreen extends StatelessWidget {
                           height: 150,
                         )),
                   ),
-
                   Expanded(
                     flex: 2,
                     child: Column(
@@ -48,18 +48,21 @@ class ChangePasswordScreen extends StatelessWidget {
                         TextFormField(
                           obscureText: true,
                           decoration: InputDecoration(
-                              label: Text(S.of(context).password),
-                              hintText: S.of(context).password,
-                              prefixIcon:
-                              Icon(CupertinoIcons.lock_shield)),
+                            label: Text(S.of(context).old_password),
+                            hintText: S.of(context).old_password,
+                            prefixIcon: Icon(CupertinoIcons.lock_shield),
+                          ),
+                          controller: _oldPasswordController,
                         ),
                         Gaps.vGap12,
                         TextFormField(
                           obscureText: true,
                           decoration: InputDecoration(
-                              label: Text(S.of(context).confirm_password),
-                              hintText: S.of(context).confirm_password,
-                              prefixIcon: Icon(CupertinoIcons.lock_shield)),
+                            label: Text(S.of(context).confirm_password),
+                            hintText: S.of(context).confirm_password,
+                            prefixIcon: Icon(CupertinoIcons.lock_shield),
+                          ),
+                          controller: _newPasswordController,
                         ),
                         Gaps.vGap30,
                         Container(
@@ -74,138 +77,30 @@ class ChangePasswordScreen extends StatelessWidget {
                                 S.of(context).submit,
                                 style: TextStyle(color: Colors.white),
                               ),
-                              onPressed: () {
-                                Get.offAll(MainScreen());
-                                // if (_phoneNumberController.text.length > 8) {
-                                //   cubit.postCheckPhone(
-                                //       _phoneNumberController.text);
-                                // } else {
-                                //   Get.snackbar(
-                                //     Get.locale == const Locale('ar')
-                                //         ? "تأكد من ادخال رقم صحيح"
-                                //         : "check your phone number",
-                                //     "",
-                                //     snackPosition: SnackPosition.BOTTOM,
-                                //   );
-                                // }
+                              onPressed: () async {
+                                if (_oldPasswordController.text.isEmpty) {
+                                  CommonUtils.showToastMessage(
+                                      'Enter Old Password');
+                                } else if (_newPasswordController
+                                    .text.isEmpty) {
+                                  CommonUtils.showToastMessage(
+                                      'Enter New Password');
+                                } else if (_newPasswordController.text.length <
+                                    4) {
+                                  CommonUtils.showToastMessage(
+                                      'Password length must be 8 letters contains upper&lower case');
+                                } else {
+                                  cubit.doChangePassword(
+                                      _oldPasswordController.text,
+                                      _newPasswordController.text,
+                                      deviceId,
+                                      userToken);
+                                }
                               }),
                         ),
-
                       ],
                     ),
                   ),
-
-                  // Row(
-                  //   children: [
-                  //     CountryCodePicker(
-                  //       onChanged: (val) {
-                  //         cubit.countryCode = val.dialCode;
-                  //       },
-                  //
-                  //       // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                  //       initialSelection: '+966',
-                  //
-                  //       countryFilter: const [
-                  //         // '+20',
-                  //         '+966',
-                  //         // '+212',
-                  //         // '+971',
-                  //         // '+973',
-                  //         // '+968',
-                  //         // '+965',
-                  //         // '+962',
-                  //         // '+963',
-                  //         // '+216',
-                  //         // '+218',
-                  //         // '+970',
-                  //         // '+213',
-                  //         // '+222',
-                  //         // '+961',
-                  //         // '+249',
-                  //         // '+964',
-                  //         // '+967',
-                  //         // '+253',
-                  //         // '+252',
-                  //         // '+269',
-                  //
-                  //       ],
-                  //       showCountryOnly: false,
-                  //       showOnlyCountryWhenClosed: false,
-                  //       alignLeft: false,
-                  //       onInit: (val) {
-                  //         cubit.countryCode = val!.dialCode;
-                  //       },
-                  //     ),
-                  //     Expanded(
-                  //       child: TextFormField(
-                  //         controller: _phoneNumberController,
-                  //         keyboardType: TextInputType.phone,
-                  //         decoration: InputDecoration(
-                  //             suffixIcon: const Icon(CupertinoIcons.phone_solid),
-                  //             errorBorder: const OutlineInputBorder(
-                  //                 borderRadius: BorderRadius.all(
-                  //                   Radius.circular(8),
-                  //                 ),
-                  //                 borderSide:
-                  //                     BorderSide(color: Colors.red, width: 1)),
-                  //             focusedErrorBorder: const OutlineInputBorder(
-                  //                 borderRadius: BorderRadius.horizontal(
-                  //                   left: Radius.circular(50),
-                  //                   right: Radius.circular(50),
-                  //                 ),
-                  //                 borderSide:
-                  //                     BorderSide(color: Colors.red, width: 1)),
-                  //             focusedBorder: OutlineInputBorder(
-                  //                 borderRadius: const BorderRadius.horizontal(
-                  //                   left: Radius.circular(50),
-                  //                   right: Radius.circular(50),
-                  //                 ),
-                  //                 borderSide: BorderSide(
-                  //                     color: MColors.colorPrimarySwatch, width: 1)),
-                  //             enabledBorder: const OutlineInputBorder(
-                  //                 borderRadius: BorderRadius.horizontal(
-                  //                   left: Radius.circular(50),
-                  //                   right: Radius.circular(50),
-                  //                 ),
-                  //                 borderSide: BorderSide(
-                  //                   color: Colors.grey,
-                  //                   width: 1,
-                  //                 )),
-                  //             border: const OutlineInputBorder(
-                  //               borderSide: BorderSide(color: Colors.grey),
-                  //               borderRadius: BorderRadius.horizontal(
-                  //                 left: Radius.circular(50),
-                  //                 right: Radius.circular(50),
-                  //               ),
-                  //             ),
-                  //             labelText: S.of(context).phoneNumber,
-                  //             contentPadding:
-                  //                 const EdgeInsets.symmetric(horizontal: 8.0)),
-                  //         inputFormatters: [
-                  //           LengthLimitingTextInputFormatter(30),
-                  //           FilteringTextInputFormatter.digitsOnly,
-                  //         ],
-                  //         // initialValue: phone,
-                  //         validator: (text) {
-                  //           if (text!.isEmpty) {
-                  //             return S.of(context).phoneIsRequired;
-                  //           }
-                  //           if (text.length < 9) {
-                  //             return S.of(context).phoneIsTooShort;
-                  //           }
-                  //           return null;
-                  //         },
-                  //         autofocus: false,
-                  //         focusNode: phoneFocusNode,
-                  //         textInputAction: TextInputAction.next,
-                  //         onTap: () {
-                  //           FocusScope.of(context).unfocus();
-                  //           FocusScope.of(context).requestFocus(phoneFocusNode);
-                  //         },
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                 ],
               ),
             )),
@@ -214,6 +109,6 @@ class ChangePasswordScreen extends StatelessWidget {
   }
 
   onDispose() {
-    _phoneNumberController.clear();
+    _oldPasswordController.clear();
   }
 }
