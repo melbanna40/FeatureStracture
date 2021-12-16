@@ -11,7 +11,7 @@
   "select": "اختر",
   "update": "تعديل",
 "forget_password": "هل نسيت كلمة المرور؟",
-
+"confirm_password": "تأكيد رقم السر",
   "Today": "اليوم",
   "Percent": "نسبة",
   "Numbers": "ثابت",

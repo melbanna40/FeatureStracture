@@ -112,7 +112,9 @@ class MyApp extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          home: Hive.box(HiveHelper.KEY_BOX_TOKEN)
+          home:
+
+          Hive.box(HiveHelper.KEY_BOX_TOKEN)
                       .get(HiveHelper.KEY_BOX_TOKEN) ==
                   null
               ? SplashScreen()

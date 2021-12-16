@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:kafey/UI/Main/main_screen.dart';
-import 'package:kafey/UI/User/change_password/change_password_screen.dart';
 import 'package:kafey/UI/User/forget_password/forget_password_screen.dart';
+import 'package:kafey/UI/User/login/cubit/login_cubit.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 
-import 'cubit/login_cubit.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class ChangePasswordScreen extends StatelessWidget {
+  ChangePasswordScreen({Key? key}) : super(key: key);
   final _phoneNumberController = TextEditingController();
   final phoneFocusNode = FocusNode();
 
@@ -47,18 +46,19 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
+                          obscureText: true,
                           decoration: InputDecoration(
-                              label: Text(S.of(context).email),
-                              hintText: S.of(context).email,
+                              label: Text(S.of(context).password),
+                              hintText: S.of(context).password,
                               prefixIcon:
-                                  Icon(CupertinoIcons.person_alt_circle)),
+                              Icon(CupertinoIcons.lock_shield)),
                         ),
                         Gaps.vGap12,
                         TextFormField(
                           obscureText: true,
                           decoration: InputDecoration(
-                              label: Text(S.of(context).password),
-                              hintText: S.of(context).password,
+                              label: Text(S.of(context).confirm_password),
+                              hintText: S.of(context).confirm_password,
                               prefixIcon: Icon(CupertinoIcons.lock_shield)),
                         ),
                         Gaps.vGap30,
@@ -71,11 +71,11 @@ class LoginScreen extends StatelessWidget {
                                   right: Radius.circular(8))),
                           child: MaterialButton(
                               child: Text(
-                                S.of(context).login,
+                                S.of(context).submit,
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () {
-                                Get.to(ChangePasswordScreen());
+                                Get.offAll(MainScreen());
                                 // if (_phoneNumberController.text.length > 8) {
                                 //   cubit.postCheckPhone(
                                 //       _phoneNumberController.text);
@@ -90,16 +90,7 @@ class LoginScreen extends StatelessWidget {
                                 // }
                               }),
                         ),
-                        Gaps.vGap12,
-                        InkWell(
-                          onTap: () {
-                            Get.to(ForgetPasswordScreen());
-                          },
-                          child: Text(
-                            S.of(context).forget_password,
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                        ),
+
                       ],
                     ),
                   ),
