@@ -10,7 +10,7 @@ import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 
-import 'cubit/verify_phone_cubit.dart';
+import 'cubit/verify_code_cubit.dart';
 import 'widgets/confirm_phone_custom_text_field.dart';
 
 class VerifyCodeScreen extends StatelessWidget {

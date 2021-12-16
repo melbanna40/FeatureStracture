@@ -13,7 +13,7 @@ import 'package:kafey/network/api/network_api.dart';
 import 'package:kafey/network/net_response.dart';
 import 'package:kafey/network/network_util.dart';
 
-part 'verify_phone_state.dart';
+part 'verify_code_state.dart';
 
 class VerifyCodeCubit extends Cubit<VerifyCodeState> {
   VerifyCodeCubit() : super(VerifyPhoneInitial());

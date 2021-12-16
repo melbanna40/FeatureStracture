@@ -13,7 +13,7 @@ import 'package:kafey/res/m_colors.dart';
 
 import 'Helpers/hivr_helper.dart';
 import 'UI/User/login/cubit/login_cubit.dart';
-import 'UI/User/verify_phone/cubit/verify_phone_cubit.dart';
+import 'UI/User/verify_code/cubit/verify_code_cubit.dart';
 import 'UI/splash/splash_screen.dart';
 import 'dependencies/dependency_init.dart';
 import 'generated/l10n.dart';
@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => LoginCubit()),
-          BlocProvider(create: (context) => VerifyPhoneCubit()),
+          BlocProvider(create: (context) => VerifyCodeCubit()),
           BlocProvider(
               create: (context) => HomeCubit()..updateCurrentDateTime()),
         ],
