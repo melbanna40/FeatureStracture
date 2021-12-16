@@ -11,9 +11,16 @@ import 'package:kafey/res/m_colors.dart';
 
 import 'cubit/login_cubit.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final _phoneNumberController = TextEditingController();
+var obscureEnabled=false ;
   final phoneFocusNode = FocusNode();
 
   @override
@@ -55,11 +62,19 @@ class LoginScreen extends StatelessWidget {
                         ),
                         Gaps.vGap12,
                         TextFormField(
-                          obscureText: true,
+                          obscureText: obscureEnabled,
                           decoration: InputDecoration(
                               label: Text(S.of(context).password),
                               hintText: S.of(context).password,
-                              prefixIcon: Icon(CupertinoIcons.lock_shield)),
+                              prefixIcon: IconButton(
+                                  icon: Icon(obscureEnabled?CupertinoIcons.eye:CupertinoIcons.eye_slash),
+                                onPressed: (){
+                                  obscureEnabled=!obscureEnabled;
+                                  setState(() {
+
+                                  });
+                                },
+                                  )),
                         ),
                         Gaps.vGap30,
                         Container(
