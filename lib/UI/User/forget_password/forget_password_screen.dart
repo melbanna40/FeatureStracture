@@ -70,8 +70,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                               ),
                               onPressed: () {
                                 if (_phoneNumberController.text.length > 8) {
-                                  cubit.postCheckPhone(
-                                      _phoneNumberController.text);
+                                  // cubit.doServerLogin(
+                                  //     _phoneNumberController.text);
                                 } else {
                                   Get.snackbar(
                                     Get.locale == const Locale('ar')

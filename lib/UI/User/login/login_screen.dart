@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
-import 'package:kafey/UI/Main/main_screen.dart';
 import 'package:kafey/UI/User/forget_password/forget_password_screen.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
@@ -13,8 +12,9 @@ import 'cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
-  final _phoneNumberController = TextEditingController();
-  final phoneFocusNode = FocusNode();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  String? deviceId;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +52,7 @@ class LoginScreen extends StatelessWidget {
                               hintText: S.of(context).email,
                               prefixIcon:
                                   Icon(CupertinoIcons.person_alt_circle)),
+                          controller: _emailController,
                         ),
                         Gaps.vGap12,
                         TextFormField(
@@ -60,6 +61,7 @@ class LoginScreen extends StatelessWidget {
                               label: Text(S.of(context).password),
                               hintText: S.of(context).password,
                               prefixIcon: Icon(CupertinoIcons.lock_shield)),
+                          controller: _passwordController,
                         ),
                         Gaps.vGap30,
                         Container(
@@ -74,28 +76,28 @@ class LoginScreen extends StatelessWidget {
                                 S.of(context).login,
                                 style: TextStyle(color: Colors.white),
                               ),
-                              onPressed: () {
-                                CommonUtils.getDeviceId();
-                                Get.to(MainScreen());
-                                //Get.to(ChangePasswordScreen());
-                                // if (_phoneNumberController.text.length > 8) {
-                                //   cubit.postCheckPhone(
-                                //       _phoneNumberController.text);
-                                // } else {
-                                //   Get.snackbar(
-                                //     Get.locale == const Locale('ar')
-                                //         ? "تأكد من ادخال رقم صحيح"
-                                //         : "check your phone number",
-                                //     "",
-                                //     snackPosition: SnackPosition.BOTTOM,
-                                //   );
-                                // }
+                              onPressed: () async {
+                                await CommonUtils.getDeviceId()
+                                    .then((value) => deviceId = value);
+                                if (_emailController.text.isEmpty) {
+                                  CommonUtils.showToastMessage('Enter Email');
+                                } else if (_passwordController.text.isEmpty) {
+                                  CommonUtils.showToastMessage(
+                                      'Enter Password');
+                                } else if (_passwordController.text.length <
+                                    4) {
+                                  CommonUtils.showToastMessage(
+                                      'Password length must be 8 letters contains upper&lower case');
+                                } else {
+                                  cubit.doServerLogin(_emailController.text,
+                                      _passwordController.text, deviceId!);
+                                }
                               }),
                         ),
                         Gaps.vGap12,
                         InkWell(
                           onTap: () {
-                            Get.to(ForgetPasswordScreen());
+                            Get.to(() => ForgetPasswordScreen());
                           },
                           child: Text(
                             S.of(context).forget_password,
@@ -225,6 +227,6 @@ class LoginScreen extends StatelessWidget {
   }
 
   onDispose() {
-    _phoneNumberController.clear();
+    _emailController.clear();
   }
 }
