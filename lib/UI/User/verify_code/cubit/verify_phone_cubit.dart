@@ -15,8 +15,8 @@ import 'package:kafey/network/network_util.dart';
 
 part 'verify_phone_state.dart';
 
-class VerifyPhoneCubit extends Cubit<VerifyPhoneState> {
-  VerifyPhoneCubit() : super(VerifyPhoneInitial());
+class VerifyCodeCubit extends Cubit<VerifyCodeState> {
+  VerifyCodeCubit() : super(VerifyPhoneInitial());
 
   final BasePresenter _presenter = getIt<BasePresenter>();
 

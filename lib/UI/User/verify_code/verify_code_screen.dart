@@ -13,10 +13,10 @@ import 'package:kafey/res/gaps.dart';
 import 'cubit/verify_phone_cubit.dart';
 import 'widgets/confirm_phone_custom_text_field.dart';
 
-class VerifyPhoneScreen extends StatelessWidget {
+class VerifyCodeScreen extends StatelessWidget {
   final String phone;
 
-  VerifyPhoneScreen(this.phone, {Key? key}) : super(key: key);
+  VerifyCodeScreen(this.phone, {Key? key}) : super(key: key);
 
   bool isShow = false,
       isFirstText = false,
@@ -43,9 +43,9 @@ class VerifyPhoneScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     firstNode!.requestFocus();
-    return BlocBuilder<VerifyPhoneCubit, VerifyPhoneState>(
+    return BlocBuilder<VerifyCodeCubit, VerifyCodeState>(
         builder: (context, state) {
-      final cubit = BlocProvider.of<VerifyPhoneCubit>(context);
+      final cubit = BlocProvider.of<VerifyCodeCubit>(context);
       return Scaffold(
         body: SingleChildScrollView(
           child: Column(

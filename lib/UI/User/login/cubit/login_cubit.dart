@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/UI/Main/main_screen.dart';
 import 'package:meta/meta.dart';
-import 'package:kafey/UI/User/verify_phone/verify_phone_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/network_api.dart';
