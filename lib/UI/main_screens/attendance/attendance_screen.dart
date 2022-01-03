@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:kafey/UI/main_screens/attendance/widget/clock_out_dialog.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -25,7 +26,7 @@ class AttendanceScreen extends StatelessWidget {
                 Text(
                   "11",
                   style: TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.bold),
+                      fontSize: 12, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "TUE",
@@ -52,10 +53,19 @@ class AttendanceScreen extends StatelessWidget {
             Icon(CupertinoIcons.arrow_down_left,
               size: 12,
             ),
-            Text("09:00PM",
-                style: TextStyle(
-                    fontSize: 12
-                )),
+            GestureDetector(
+              onTap: (){
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ClockOutDialog();
+                    });
+              },
+              child: Text("09:00PM",
+                  style: TextStyle(
+                      fontSize: 12
+                  )),
+            ),
           ],
         )),
         DataCell(Row(
@@ -106,10 +116,18 @@ class AttendanceScreen extends StatelessWidget {
                       dataRowHeight: 50,
                       // headingRowColor: Colors.grey,
                       columns: [
-                        DataColumn(label: Text(S.of(context).sDate)),
-                        DataColumn(label: Text(S.of(context).Clock_in)),
-                        DataColumn(label: Text(S.of(context).Clock_out)),
-                        DataColumn(label: Text(S.of(context).Working_Hr)),
+                        DataColumn(label: Text(S.of(context).sDate,style: TextStyle(
+                          fontSize: 12
+                        ),)),
+                        DataColumn(label: Text(S.of(context).Clock_in,style: TextStyle(
+                            fontSize: 12
+                        ),)),
+                        DataColumn(label: Text(S.of(context).Clock_out,style: TextStyle(
+                            fontSize: 12
+                        ),)),
+                        DataColumn(label: Text(S.of(context).Working_Hr,style: TextStyle(
+                            fontSize: 12
+                        ),)),
                       ],
                       rows:dataRowList
 
