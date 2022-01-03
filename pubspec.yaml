@@ -56,10 +56,10 @@ dependencies:
 #  change_app_package_name: ^1.0.0
 
 #  flutter pub run flutter_native_splash:create
-#  flutter_native_splash: ^1.2.4
+  flutter_native_splash: ^1.2.4
 
 #  flutter pub run flutter_launcher_icons:main
-#  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.9.2
 
 dev_dependencies:
   flutter_test:
@@ -93,7 +93,7 @@ flutter:
 
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/images/ic_logo.png
+  image: assets/images/ic_kafey_logo.png
   android: true
   ios: true
 
@@ -102,7 +102,7 @@ flutter_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/images/ic_logo.png"
+  image_path: "assets/images/ic_kafey_logo.png"
 
 flutter_intl:
   enabled: true

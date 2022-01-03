@@ -20,6 +20,13 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   String? countryCode;
+  bool passwordVisibility = true;
+
+  void updatePasswordVisibility() {
+    passwordVisibility = !passwordVisibility;
+    emit(LoginSuccessState());
+  }
+
   final BasePresenter _presenter = getIt<BasePresenter>();
 
   Future doServerLogin(String email, String password, String deviceId) async {
@@ -52,31 +59,5 @@ class LoginCubit extends Cubit<LoginState> {
     });
   }
 
-  Future doChangePassword(String oldPassword, String newPassword,
-      String deviceId, String userToken) async {
-    headers["Authorization"] = 'Bearer $userToken';
-    emit(LoginLoadingState());
-    await _presenter.requestFutureData<GlobalResponse>(Method.post,
-        url: Api.doChangePasswordFirstApiCall,
-        options: Options(method: Method.post.toString(), headers: headers),
-        params: {
-          "old_password": oldPassword,
-          "new_password": newPassword,
-          "mac_address": deviceId,
-        }, onSuccess: (data) {
-      if (data.code == 200) {
-        emit(LoginSuccessState());
-        CommonUtils.showToastMessage(data.message ?? '');
-        HiveHelper.setUserToken(userToken);
-        Get.to(() => MainScreen());
-        // Get.to(VerifyPhoneScreen());
-      } else {
-        emit(LoginErrorState());
-        CommonUtils.showToastMessage(data.message ?? '');
-      }
-    }, onError: (code, msg) {
-      emit(LoginErrorState());
-      CommonUtils.showToastMessage(msg);
-    });
-  }
+
 }

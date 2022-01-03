@@ -10,7 +10,6 @@ import 'package:kafey/res/m_colors.dart';
 import 'Helpers/hivr_helper.dart';
 import 'UI/User/login/cubit/login_cubit.dart';
 import 'UI/User/verify_code/cubit/verify_code_cubit.dart';
-import 'UI/main_screens/attendance/attendance_screen.dart';
 import 'UI/splash/splash_screen.dart';
 import 'dependencies/dependency_init.dart';
 import 'generated/l10n.dart';
@@ -102,9 +101,11 @@ class MyApp extends StatelessWidget {
             S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            DefaultMaterialLocalizations.delegate,
+            DefaultWidgetsLocalizations.delegate,
           ],
-          home:AttendanceScreen()
-          // SplashScreen(),
+          home: SplashScreen(),
         ));
   }
 }

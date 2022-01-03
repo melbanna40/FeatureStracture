@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
+import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/User/forget_password/forget_password_screen.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
@@ -36,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                     child: Container(
                         margin: const EdgeInsets.all(10),
                         child: Image.asset(
-                          "assets/images/ic_logo.png",
+                          ImageUtils.getImagePath('ic_kafey_logo'),
                           width: 150,
                           height: 150,
                         )),
@@ -56,8 +57,15 @@ class LoginScreen extends StatelessWidget {
                         ),
                         Gaps.vGap12,
                         TextFormField(
-                          obscureText: true,
+                          obscureText: cubit.passwordVisibility,
                           decoration: InputDecoration(
+                              suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    cubit.updatePasswordVisibility();
+                                  },
+                                  child: Icon(cubit.passwordVisibility
+                                      ? CupertinoIcons.eye
+                                      : CupertinoIcons.eye_slash)),
                               label: Text(S.of(context).password),
                               hintText: S.of(context).password,
                               prefixIcon: Icon(CupertinoIcons.lock_shield)),

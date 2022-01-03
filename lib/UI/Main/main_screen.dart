@@ -30,13 +30,13 @@ class _MainScreenState extends State<MainScreen> {
             fontWeight: FontWeight.bold,
             fontSize: 20),
       ),
-      Text(
-        S.of(context).myTeams,
-        style: TextStyle(
-            color: MColors.colorPrimarySwatch,
-            fontWeight: FontWeight.bold,
-            fontSize: 20),
-      ),
+      // Text(
+      //   S.of(context).myTeams,
+      //   style: TextStyle(
+      //       color: MColors.colorPrimarySwatch,
+      //       fontWeight: FontWeight.bold,
+      //       fontSize: 20),
+      // ),
       Text(
         S.of(context).attendance,
         style: TextStyle(
@@ -92,10 +92,19 @@ class _MainScreenState extends State<MainScreen> {
                           : MColors.colorPrimarySwatch,
                     ),
                   ),
+                  // Container(
+                  //   margin: const EdgeInsets.all(4),
+                  //   child: Icon(
+                  //     MSvgIcons.users,
+                  //     color: cubit.currentIndex == 1
+                  //         ? Colors.white
+                  //         : MColors.colorPrimarySwatch,
+                  //   ),
+                  // ),
                   Container(
                     margin: const EdgeInsets.all(4),
                     child: Icon(
-                      MSvgIcons.users,
+                      MSvgIcons.clipboard_list,
                       color: cubit.currentIndex == 1
                           ? Colors.white
                           : MColors.colorPrimarySwatch,
@@ -104,7 +113,7 @@ class _MainScreenState extends State<MainScreen> {
                   Container(
                     margin: const EdgeInsets.all(4),
                     child: Icon(
-                      MSvgIcons.clipboard_list,
+                      MSvgIcons.notifications_active,
                       color: cubit.currentIndex == 2
                           ? Colors.white
                           : MColors.colorPrimarySwatch,
@@ -113,17 +122,8 @@ class _MainScreenState extends State<MainScreen> {
                   Container(
                     margin: const EdgeInsets.all(4),
                     child: Icon(
-                      MSvgIcons.notifications_active,
-                      color: cubit.currentIndex == 3
-                          ? Colors.white
-                          : MColors.colorPrimarySwatch,
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(4),
-                    child: Icon(
                       CupertinoIcons.square_list,
-                      color: cubit.currentIndex == 4
+                      color: cubit.currentIndex == 3
                           ? Colors.white
                           : MColors.colorPrimarySwatch,
                     ),

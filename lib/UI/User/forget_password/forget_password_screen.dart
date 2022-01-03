@@ -36,7 +36,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     child: Container(
                         margin: const EdgeInsets.all(10),
                         child: Image.asset(
-                          "assets/images/ic_logo.png",
+                          ImageUtils.getImagePath('ic_kafey_logo'),
                           width: 150,
                           height: 150,
                         )),

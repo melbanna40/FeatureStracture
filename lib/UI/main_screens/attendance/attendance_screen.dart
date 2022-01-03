@@ -12,7 +12,7 @@ class AttendanceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    for (int i=0 ; i<40;i++){
+    for (int i=0 ; i<10;i++){
       dataRowList.add(  DataRow(cells: [
         DataCell(Card(
           // clipBehavior: Clip.hardEdge,
@@ -76,15 +76,6 @@ class AttendanceScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Text(
-          S.of(context).attendance,
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -110,7 +101,7 @@ class AttendanceScreen extends StatelessWidget {
                   DataTable(
 
                       // columnSpacing: 20,
-                      columnSpacing: 30,
+                      columnSpacing: 40,
                       horizontalMargin: 12,
                       dataRowHeight: 50,
                       // headingRowColor: Colors.grey,

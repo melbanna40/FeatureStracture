@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
-import 'package:kafey/UI/User/login/cubit/login_cubit.dart';
+import 'package:kafey/CommonUtils/image_utils.dart';
+import 'package:kafey/UI/User/change_password/cubit/change_password_cubit.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -18,8 +19,9 @@ class ChangePasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
-      final cubit = BlocProvider.of<LoginCubit>(context);
+    return BlocBuilder<ChangePasswordCubit, ChangePasswordState>(
+        builder: (context, state) {
+      final cubit = BlocProvider.of<ChangePasswordCubit>(context);
       return GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -36,7 +38,7 @@ class ChangePasswordScreen extends StatelessWidget {
                     child: Container(
                         margin: const EdgeInsets.all(10),
                         child: Image.asset(
-                          "assets/images/ic_logo.png",
+                          ImageUtils.getImagePath('ic_kafey_logo'),
                           width: 150,
                           height: 150,
                         )),
@@ -46,8 +48,15 @@ class ChangePasswordScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
-                          obscureText: true,
+                          obscureText: cubit.oldPasswordVisibility,
                           decoration: InputDecoration(
+                            suffixIcon: GestureDetector(
+                                onTap: () {
+                                  cubit.updatePasswordVisibility();
+                                },
+                                child: Icon(cubit.oldPasswordVisibility
+                                    ? CupertinoIcons.eye
+                                    : CupertinoIcons.eye_slash)),
                             label: Text(S.of(context).old_password),
                             hintText: S.of(context).old_password,
                             prefixIcon: Icon(CupertinoIcons.lock_shield),
@@ -56,8 +65,15 @@ class ChangePasswordScreen extends StatelessWidget {
                         ),
                         Gaps.vGap12,
                         TextFormField(
-                          obscureText: true,
+                          obscureText: cubit.newPasswordVisibility,
                           decoration: InputDecoration(
+                            suffixIcon: GestureDetector(
+                                onTap: () {
+                                  cubit.updatePasswordVisibility();
+                                },
+                                child: Icon(cubit.newPasswordVisibility
+                                    ? CupertinoIcons.eye
+                                    : CupertinoIcons.eye_slash)),
                             label: Text(S.of(context).confirm_password),
                             hintText: S.of(context).confirm_password,
                             prefixIcon: Icon(CupertinoIcons.lock_shield),

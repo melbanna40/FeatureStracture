@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen>
               if (HiveHelper.getUserToken().isNotEmpty) {
                 Get.to(() => MainScreen());
               } else {
-                Get.to(() => LoginScreen());
+                Get.to(() => MainScreen());
               }
             });
         },
