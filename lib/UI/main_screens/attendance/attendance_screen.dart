@@ -6,10 +6,15 @@ import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 
-class AttendanceScreen extends StatelessWidget {
+class AttendanceScreen extends StatefulWidget {
    AttendanceScreen({Key? key}) : super(key: key);
-  List<DataRow> dataRowList =[];
 
+  @override
+  State<AttendanceScreen> createState() => _AttendanceScreenState();
+}
+
+class _AttendanceScreenState extends State<AttendanceScreen> {
+  List<DataRow> dataRowList =[];
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +66,12 @@ class AttendanceScreen extends StatelessWidget {
                       return ClockOutDialog();
                     });
               },
-              child: Text("09:00PM",
-                  style: TextStyle(
-                      fontSize: 12
-                  )),
+              child: Container(
+                child: Text("09:00PM",
+                    style: TextStyle(
+                        fontSize: 12
+                    )),
+              ),
             ),
           ],
         )),
