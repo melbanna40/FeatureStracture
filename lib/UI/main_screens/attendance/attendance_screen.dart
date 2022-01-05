@@ -53,7 +53,7 @@ class AttendanceScreen extends StatelessWidget {
             Icon(CupertinoIcons.arrow_down_left,
               size: 12,
             ),
-            GestureDetector(
+            InkWell(
               onTap: (){
                 showDialog(
                     context: context,

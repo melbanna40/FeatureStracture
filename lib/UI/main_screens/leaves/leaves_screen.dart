@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:get/get.dart';
+import 'package:kafey/UI/main_screens/leaves/apply_leave/apply_leave.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -17,30 +19,35 @@ class LeavesScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
-                child: CircularPercentIndicator(
-                  radius: 200,
-                  lineWidth: 10,
-                  // arcType: ArcType.FULL,
-                  percent: .75,
-                  animation: true,
-                  circularStrokeCap: CircularStrokeCap.round,
-                  // arcBackgroundColor:
-                  // MColors.colorPrimarySwatch.withOpacity(.2),
-                  progressColor: MColors.colorPrimarySwatch.withOpacity(.8),
-                  center: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "05",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                      const Text(
-                        "Leave Balance",
-                        style: TextStyle(color: Colors.grey, fontSize: 20),
-                      ),
-                    ],
+              InkWell(
+                onTap: (){
+                  Get.to(ApplyLeaveScreen());
+                },
+                child: Center(
+                  child: CircularPercentIndicator(
+                    radius: 200,
+                    lineWidth: 10,
+                    // arcType: ArcType.FULL,
+                    percent: .75,
+                    animation: true,
+                    circularStrokeCap: CircularStrokeCap.round,
+                    // arcBackgroundColor:
+                    // MColors.colorPrimarySwatch.withOpacity(.2),
+                    progressColor: MColors.colorPrimarySwatch.withOpacity(.8),
+                    center: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "05",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
+                          "Leave Balance",
+                          style: TextStyle(color: Colors.grey, fontSize: 20),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

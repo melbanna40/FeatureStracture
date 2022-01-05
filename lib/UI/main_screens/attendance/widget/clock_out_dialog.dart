@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kafey/UI/main_screens/attendance/widget/time_updated_dialog.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -46,15 +47,12 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
                       "تعديل الوقت",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-
-
                   ],
                 ),
                 Container(
                   height: 150,
                   child: CupertinoTimerPicker(
-                    mode: CupertinoTimerPickerMode.hm,
-
+                      mode: CupertinoTimerPickerMode.hm,
                       onTimerDurationChanged: (val) {}),
                 ),
                 Divider(),
@@ -85,14 +83,19 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
                   decoration: BoxDecoration(
                       color: MColors.colorPrimarySwatch,
                       borderRadius: const BorderRadius.horizontal(
-                          left: Radius.circular(8),
-                          right: Radius.circular(8))),
+                          left: Radius.circular(8), right: Radius.circular(8))),
                   child: MaterialButton(
                       child: Text(
                         S.of(context).submit,
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
+                        Navigator.pop(context);
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return TimeUpdatedDialog();
+                            });
 
                       }),
                 ),
