@@ -10,8 +10,8 @@
   "in_progress": "جاري",
   "select": "اختر",
   "update": "تعديل",
-"forget_password": "هل نسيت كلمة المرور؟",
-"confirm_password": "تأكيد رقم السر",
+  "forget_password": "هل نسيت كلمة المرور؟",
+  "confirm_password": "تأكيد رقم السر",
   "sDate": "التاريخ",
   "Clock_in": "الدخول",
   "Clock_out": "الخروج",
@@ -126,4 +126,4 @@
   "clock_in": "تسجيل حضور",
   "clock_out": "تسجيل انصراف",
   "working_hours": "ساعات العمل"
- }
+}
