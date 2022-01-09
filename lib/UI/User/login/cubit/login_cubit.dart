@@ -3,12 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
-import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/main_screen.dart';
-import 'package:kafey/UI/User/change_password/change_password_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
-import 'package:kafey/network/api/ApiResponse/global_response.dart';
 import 'package:kafey/network/api/ApiResponse/login_response.dart';
 import 'package:kafey/network/api/network_api.dart';
 import 'package:kafey/network/network_util.dart';
@@ -37,17 +34,12 @@ class LoginCubit extends Cubit<LoginState> {
         params: {
           "email": email,
           "password": password,
-          "mac_address": deviceId,
+          // "mac_address": deviceId,
         }, onSuccess: (data) {
       if (data.code == 200) {
         emit(LoginSuccessState());
         CommonUtils.showToastMessage(data.message ?? '');
-        Get.to(
-          () => ChangePasswordScreen(
-            deviceId,
-            data.data!.accessToken!,
-          ),
-        );
+        Get.to(() => MainScreen());
         // Get.to(VerifyPhoneScreen());
       } else {
         emit(LoginErrorState());
@@ -58,6 +50,4 @@ class LoginCubit extends Cubit<LoginState> {
       CommonUtils.showToastMessage(msg);
     });
   }
-
-
 }

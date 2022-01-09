@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen>
             ..duration = composition.duration
             ..forward().whenComplete(() {
               if (HiveHelper.getUserToken().isNotEmpty) {
-                Get.to(() => MainScreen());
+                Get.to(() => LoginScreen());
               } else {
                 Get.to(() => MainScreen());
               }

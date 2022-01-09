@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kafey/UI/main_screens/attendance/cubit/attendance_cubit.dart';
 import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
 import 'package:kafey/res/m_colors.dart';
 
@@ -87,7 +88,13 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => VerifyCodeCubit()),
           BlocProvider(
-              create: (context) => HomeCubit()..updateCurrentDateTime()),
+              create: (context) =>
+                  AttendanceCubit()..getAttendanceHistoryApiCal()),
+          BlocProvider(create: (context) => VerifyCodeCubit()),
+          BlocProvider(
+              create: (context) => HomeCubit()
+                ..updateCurrentDateTime()
+                ..getHomeStatistics()),
         ],
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
