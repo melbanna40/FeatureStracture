@@ -50,8 +50,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final localAuth = LocalAuthentication();
-
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
       cubit = BlocProvider.of<HomeCubit>(context);
       if (state is HomeLoading) {
@@ -104,8 +102,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       bool didAuthenticate = await localAuth.authenticate(
                           biometricOnly: true,
                           stickyAuth: true,
-                          localizedReason:
-                              'ضع بصمتك لاتمام العمليه');
+                          localizedReason: 'ضع بصمتك لاتمام العمليه');
 
                       // List<BiometricType> availableBiometrics =
                       //     await localAuth.getAvailableBiometrics();
