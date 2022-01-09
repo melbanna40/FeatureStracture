@@ -106,4 +106,9 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
       ),
     );
   }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 }
