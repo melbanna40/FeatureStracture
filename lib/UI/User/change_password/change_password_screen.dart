@@ -9,10 +9,9 @@ import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
-  String deviceId;
   String userToken;
 
-  ChangePasswordScreen(this.deviceId, this.userToken);
+  ChangePasswordScreen(this.userToken);
 
   final _oldPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
@@ -107,10 +106,7 @@ class ChangePasswordScreen extends StatelessWidget {
                                       'Password length must be 8 letters contains upper&lower case');
                                 } else {
                                   cubit.doChangePassword(
-                                      _oldPasswordController.text,
-                                      _newPasswordController.text,
-                                      deviceId,
-                                      userToken);
+                                      _newPasswordController.text, userToken);
                                 }
                               }),
                         ),

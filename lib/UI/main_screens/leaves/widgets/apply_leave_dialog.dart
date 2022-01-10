@@ -128,8 +128,9 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                           'reason': _reasonController.text,
                           'leave_type_id': selectedLeaveType!.id
                         });
+                        Navigator.pop(context);
                       }
-                      Navigator.pop(context);
+
                       // Log.e(selectedLeaveType!.id.toString());
                       // Log.e(start);
                       // Log.e(end);

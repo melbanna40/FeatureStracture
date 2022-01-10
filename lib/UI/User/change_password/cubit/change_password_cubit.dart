@@ -32,21 +32,18 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
 
   final BasePresenter _presenter = getIt<BasePresenter>();
 
-  Future doChangePassword(String oldPassword, String newPassword,
-      String deviceId, String userToken) async {
+  Future doChangePassword(String newPassword, String userToken) async {
     headers["Authorization"] = 'Bearer $userToken';
     emit(ChangePasswordLoadingState());
     await _presenter.requestFutureData<GlobalResponse>(Method.post,
         url: Api.doChangePasswordFirstApiCall,
         options: Options(method: Method.post.toString(), headers: headers),
         params: {
-          "old_password": oldPassword,
           "new_password": newPassword,
-          "mac_address": deviceId,
         }, onSuccess: (data) {
       if (data.code == 200) {
         emit(ChangePasswordSuccessState());
-         HiveHelper.setUserToken(userToken);
+        HiveHelper.setUserToken(userToken);
         Get.to(() => MainScreen());
         // Get.to(VerifyPhoneScreen());
       } else {

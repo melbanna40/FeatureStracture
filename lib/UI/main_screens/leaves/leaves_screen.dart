@@ -61,7 +61,7 @@ class LeavesScreen extends StatelessWidget {
                                   fontSize: 30, fontWeight: FontWeight.bold),
                             ),
                             const Text(
-                              "Leave Balance",
+                              "Click to apply leave",
                               style:
                                   TextStyle(color: Colors.grey, fontSize: 20),
                             ),
@@ -72,7 +72,7 @@ class LeavesScreen extends StatelessWidget {
                   ),
                   Gaps.vGap8,
                   Text(
-                    "Click to apply leave",
+                    "Leave Balance",
                     style: TextStyle(
                         color: MColors.colorPrimarySwatch.withOpacity(0.4),
                         fontSize: 16,

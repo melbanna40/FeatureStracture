@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/main_screen.dart';
+import 'package:kafey/UI/User/change_password/change_password_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/login_response.dart';
@@ -41,9 +42,12 @@ class LoginCubit extends Cubit<LoginState> {
           "mac_address": 'mac_address',
         }, onSuccess: (data) {
       if (data.code == 200) {
+        // if (data.data!.first_login ?? false) {
+        //   Get.offAll(() => ChangePasswordScreen('userToken'));
+        // }
         doSaveDeviceToken(data.data!.original!.accessToken!);
         emit(LoginSuccessState());
-         HiveHelper.setUserToken(data.data!.original!.accessToken!);
+        HiveHelper.setUserToken(data.data!.original!.accessToken!);
         Get.offAll(() => MainScreen());
         // Get.to(VerifyPhoneScreen());
       } else {
