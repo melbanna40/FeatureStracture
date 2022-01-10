@@ -41,7 +41,7 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginSuccessState());
         CommonUtils.showToastMessage(data.message ?? '');
         HiveHelper.setUserToken(data.data!.original!.accessToken!);
-        Get.to(() => MainScreen());
+        Get.offAll(() => MainScreen());
         // Get.to(VerifyPhoneScreen());
       } else {
         emit(LoginErrorState());

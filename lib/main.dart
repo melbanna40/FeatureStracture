@@ -8,6 +8,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kafey/UI/main_screens/attendance/cubit/attendance_cubit.dart';
 import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
+import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
 import 'package:kafey/res/m_colors.dart';
 
 import 'Helpers/hivr_helper.dart';
@@ -106,9 +107,10 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => VerifyCodeCubit()),
+          BlocProvider(create: (context) => NotificationsCubit()),
           BlocProvider(
               create: (context) =>
-              AttendanceCubit()..getAttendanceHistoryApiCal()),
+                  AttendanceCubit()..getAttendanceHistoryApiCal()),
           BlocProvider(create: (context) => VerifyCodeCubit()),
           BlocProvider(
               create: (context) => HomeCubit()

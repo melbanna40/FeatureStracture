@@ -190,12 +190,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         homeWorkingHoursWidget(
                             context,
                             'ic_clock_out',
-                            cubit!.mHomeStatisticsData!.clockOut!,
+                            cubit!.mHomeStatisticsData!.clockOut??'00:00',
                             S.of(context).clock_out),
                         homeWorkingHoursWidget(
                             context,
                             'ic_clock_total',
-                            '${cubit!.mHomeStatisticsData!.hoursPerDay!} Hr\'s',
+                            cubit!.mHomeStatisticsData!.hoursPerDay ??'00:00',
                             S.of(context).working_hours),
                       ],
                     )

@@ -61,6 +61,9 @@ class HomeCubit extends Cubit<HomeState> {
         onSuccess: (data) {
       if (data.code == 200) {
         mHomeStatisticsData = data.data!;
+        if (data.data!.clockIn != null && data.data!.clockOut == null)
+          isLogged = !isLogged!;
+        emit(UpdateCurrentDateState());
         emit(HomeSuccess());
         CommonUtils.showToastMessage(data.message ?? '');
       }

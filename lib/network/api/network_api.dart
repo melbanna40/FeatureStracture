@@ -14,5 +14,7 @@ class Api {
 
   static const String doChangePasswordFirstApiCall = "change-password-first";
 
+  static const String getNotificationsHistoryApiCall = "change-password-first";
+
   static const String doLogoutApiCall = "logout";
 }
