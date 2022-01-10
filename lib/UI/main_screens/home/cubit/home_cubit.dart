@@ -50,6 +50,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   final BasePresenter _presenter = getIt<BasePresenter>();
+  HomeStatisticsData? mHomeStatisticsData;
 
   Future getHomeStatistics() async {
     headers[HttpHeaders.authorizationHeader] =
@@ -59,6 +60,7 @@ class HomeCubit extends Cubit<HomeState> {
         options: Options(method: Method.get.toString(), headers: headers),
         onSuccess: (data) {
       if (data.code == 200) {
+        mHomeStatisticsData = data.data!;
         emit(HomeSuccess());
         CommonUtils.showToastMessage(data.message ?? '');
       }

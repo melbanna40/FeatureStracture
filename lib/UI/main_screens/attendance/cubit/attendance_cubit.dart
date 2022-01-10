@@ -16,16 +16,18 @@ class AttendanceCubit extends Cubit<AttendanceState> {
   AttendanceCubit() : super(AttendanceInitial());
 
   final BasePresenter _presenter = getIt<BasePresenter>();
+  List<AttendanceHistoryData>? mAttendanceHistoryDataList;
 
   Future getAttendanceHistoryApiCal() async {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
     emit(AttendanceLoading());
     await _presenter.requestFutureData<AttendanceHistoryResponse>(Method.get,
-        url: Api.doClockOutApiCall,
+        url: Api.getAttendanceHistoryApiCall,
         options: Options(method: Method.get.toString(), headers: headers),
         onSuccess: (data) {
       if (data.code == 200) {
+        mAttendanceHistoryDataList = data.data!;
         emit(AttendanceSuccess());
         CommonUtils.showToastMessage(data.message ?? '');
       } else {

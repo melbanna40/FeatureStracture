@@ -108,7 +108,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => VerifyCodeCubit()),
           BlocProvider(
               create: (context) =>
-                  AttendanceCubit()..getAttendanceHistoryApiCal()),
+              AttendanceCubit()..getAttendanceHistoryApiCal()),
           BlocProvider(create: (context) => VerifyCodeCubit()),
           BlocProvider(
               create: (context) => HomeCubit()

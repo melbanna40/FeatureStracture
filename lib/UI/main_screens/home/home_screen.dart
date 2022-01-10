@@ -56,11 +56,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         return const Scaffold(
           body: Center(child: CircularProgressIndicator()),
         );
-      } else if (state is HomeSuccess) {
-        return Scaffold(
-          backgroundColor: MColors.colorPrimary.withOpacity(0.5),
-          body: Container(),
-        );
       } else {
         return Scaffold(
           backgroundColor: MColors.colorPrimary.withOpacity(0.5),
@@ -183,17 +178,27 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      homeWorkingHoursWidget(context, 'ic_clock_in', '8:15 AM',
-                          S.of(context).clock_in),
-                      homeWorkingHoursWidget(context, 'ic_clock_out', '4:30 PM',
-                          S.of(context).clock_out),
-                      homeWorkingHoursWidget(context, 'ic_clock_total',
-                          '8:15 Hr\'s', S.of(context).working_hours),
-                    ],
-                  )
+                  if (cubit!.mHomeStatisticsData != null)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        homeWorkingHoursWidget(
+                            context,
+                            'ic_clock_in',
+                            cubit!.mHomeStatisticsData!.clockIn!,
+                            S.of(context).clock_in),
+                        homeWorkingHoursWidget(
+                            context,
+                            'ic_clock_out',
+                            cubit!.mHomeStatisticsData!.clockOut!,
+                            S.of(context).clock_out),
+                        homeWorkingHoursWidget(
+                            context,
+                            'ic_clock_total',
+                            '${cubit!.mHomeStatisticsData!.hoursPerDay!} Hr\'s',
+                            S.of(context).working_hours),
+                      ],
+                    )
                 ],
               ),
             ),

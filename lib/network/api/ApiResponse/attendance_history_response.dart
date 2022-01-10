@@ -1,7 +1,7 @@
 class AttendanceHistoryResponse {
   AttendanceHistoryResponse({
       int? code, 
-      List<Data>? data, 
+      List<AttendanceHistoryData>? data,
       String? message,}){
     _code = code;
     _data = data;
@@ -13,17 +13,17 @@ class AttendanceHistoryResponse {
     if (json['data'] != null) {
       _data = [];
       json['data'].forEach((v) {
-        _data?.add(Data.fromJson(v));
+        _data?.add(AttendanceHistoryData.fromJson(v));
       });
     }
     _message = json['message'];
   }
   int? _code;
-  List<Data>? _data;
+  List<AttendanceHistoryData>? _data;
   String? _message;
 
   int? get code => _code;
-  List<Data>? get data => _data;
+  List<AttendanceHistoryData>? get data => _data;
   String? get message => _message;
 
   Map<String, dynamic> toJson() {
@@ -38,33 +38,33 @@ class AttendanceHistoryResponse {
 
 }
 
-class Data {
-  Data({
+class AttendanceHistoryData {
+  AttendanceHistoryData({
       int? id, 
       String? clockIn, 
-      String? clockOut, 
-      int? hoursPerDay,}){
+      String? clockOut,
+    String? hoursPerDay,}){
     _id = id;
     _clockIn = clockIn;
     _clockOut = clockOut;
     _hoursPerDay = hoursPerDay;
 }
 
-  Data.fromJson(dynamic json) {
+  AttendanceHistoryData.fromJson(dynamic json) {
     _id = json['id'];
     _clockIn = json['clock_in'];
     _clockOut = json['clock_out'];
-    _hoursPerDay = json['hours_per_day'];
+    _hoursPerDay = json['hours_per_day'].toString();
   }
   int? _id;
   String? _clockIn;
   String? _clockOut;
-  int? _hoursPerDay;
+  String? _hoursPerDay;
 
   int? get id => _id;
   String? get clockIn => _clockIn;
   String? get clockOut => _clockOut;
-  int? get hoursPerDay => _hoursPerDay;
+  String? get hoursPerDay => _hoursPerDay;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

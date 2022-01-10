@@ -1,7 +1,7 @@
 class HomeStatisticsResponse {
   HomeStatisticsResponse({
       int? code, 
-      Data? data, 
+      HomeStatisticsData? data,
       String? message,}){
     _code = code;
     _data = data;
@@ -10,15 +10,15 @@ class HomeStatisticsResponse {
 
   HomeStatisticsResponse.fromJson(dynamic json) {
     _code = json['code'];
-    _data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    _data = json['data'] != null ? HomeStatisticsData.fromJson(json['data']) : null;
     _message = json['message'];
   }
   int? _code;
-  Data? _data;
+  HomeStatisticsData? _data;
   String? _message;
 
   int? get code => _code;
-  Data? get data => _data;
+  HomeStatisticsData? get data => _data;
   String? get message => _message;
 
   Map<String, dynamic> toJson() {
@@ -33,8 +33,8 @@ class HomeStatisticsResponse {
 
 }
 
-class Data {
-  Data({
+class HomeStatisticsData {
+  HomeStatisticsData({
       int? id, 
       int? userId, 
       String? date, 
@@ -59,7 +59,7 @@ class Data {
     _updatedAt = updatedAt;
 }
 
-  Data.fromJson(dynamic json) {
+  HomeStatisticsData.fromJson(dynamic json) {
     _id = json['id'];
     _userId = json['user_id'];
     _date = json['date'];
