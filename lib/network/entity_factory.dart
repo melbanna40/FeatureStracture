@@ -2,6 +2,9 @@ import 'package:kafey/network/api/ApiResponse/attendance_history_response.dart';
 import 'package:kafey/network/api/ApiResponse/global_response.dart';
 import 'package:kafey/network/api/ApiResponse/home_statistics_response.dart';
 import 'package:kafey/network/api/ApiResponse/login_response.dart';
+import 'package:kafey/network/api/ApiResponse/my_leaves_balance_response.dart';
+import 'package:kafey/network/api/ApiResponse/my_leaves_history_response.dart';
+import 'package:kafey/network/api/ApiResponse/my_leaves_types_response.dart';
 
 class EntityFactory {
   static T? generateOBJ<T>(json) {
@@ -15,16 +18,14 @@ class EntityFactory {
       return HomeStatisticsResponse.fromJson(json) as T;
     } else if (T.toString() == "AttendanceHistoryResponse") {
       return AttendanceHistoryResponse.fromJson(json) as T;
+    } else if (T.toString() == "MyLeavesBalanceResponse") {
+      return MyLeavesBalanceResponse.fromJson(json) as T;
+    } else if (T.toString() == "MyLeavesTypesResponse") {
+      return MyLeavesTypesResponse.fromJson(json) as T;
+    } else if (T.toString() == "MyLeavesHistoryResponse") {
+      return MyLeavesHistoryResponse.fromJson(json) as T;
     }
-    //
-    // else if (T.toString() == "ProductsResponse") {
-    //   return ProductsResponse.fromJson(json) as T;
-    // } //
-    //
-    // else if (T.toString() == "ProductsResponse") {
-    //   return ProductsResponse.fromJson(json) as T;
-    // } //
-    //
+
     // else if (T.toString() == "ProductsResponse") {
     //   return ProductsResponse.fromJson(json) as T;
     // }

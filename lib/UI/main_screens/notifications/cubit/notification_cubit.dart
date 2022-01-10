@@ -30,8 +30,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
       if (data.code == 200) {
         // mNotificationsHistoryDataList = data.data!;
         emit(NotificationsSuccess());
-        CommonUtils.showToastMessage(data.message ?? '');
-      } else {
+       } else {
         emit(NotificationsError());
         CommonUtils.showToastMessage(data.message ?? '');
       }

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
-import 'package:kafey/res/m_colors.dart';
 
 class TimeUpdatedDialog extends StatefulWidget {
   final Function(Map<String, dynamic>)? onCreateClickedCallBack;
@@ -19,8 +17,9 @@ class TimeUpdatedDialog extends StatefulWidget {
 class _TimeUpdatedDialogState extends State<TimeUpdatedDialog> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2))
-        .then((value) => Navigator.pop(context));
+    if (mounted)
+      Future.delayed(Duration(seconds: 2))
+          .then((value) => Navigator.pop(context));
     super.initState();
   }
 
@@ -36,15 +35,18 @@ class _TimeUpdatedDialogState extends State<TimeUpdatedDialog> {
             padding: const EdgeInsets.all(8),
             child: Center(
               child: ListView(
-
                 padding: const EdgeInsets.all(15),
                 children: [
                   Gaps.vGap50,
-                 Icon(CupertinoIcons.clock,size: 80,),
+                  Icon(
+                    CupertinoIcons.clock,
+                    size: 80,
+                  ),
                   Center(
-                    child: Text("Time Update Request Sent",style: TextStyle(
-                      fontSize: 20
-                    ),),
+                    child: Text(
+                      "Time Update Request Sent",
+                      style: TextStyle(fontSize: 20),
+                    ),
                   )
                 ],
               ),

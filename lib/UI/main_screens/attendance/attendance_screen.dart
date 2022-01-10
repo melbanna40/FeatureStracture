@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/UI/main_screens/attendance/cubit/attendance_cubit.dart';
 import 'package:kafey/UI/main_screens/attendance/widget/clock_out_dialog.dart';
 import 'package:kafey/generated/l10n.dart';
@@ -21,9 +22,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return BlocBuilder<AttendanceCubit, AttendanceState>(
         builder: (context, state) {
       final cubit = BlocProvider.of<AttendanceCubit>(context);
@@ -40,17 +38,19 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 // clipBehavior: Clip.hardEdge,
                 child: Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2),
+                      const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "11",
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                        item.dayOfMonth!.toString(),
+                        style: TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "TUE",
-                        style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold),
+                        item.dayOfWeek!,
+                        style:
+                            TextStyle(fontSize: 8, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -60,8 +60,27 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 children: [
                   Icon(CupertinoIcons.arrow_down_left,
                       size: 12, color: Colors.green),
-                  Text(item.clockIn!,
-                      style: TextStyle(color: Colors.green, fontSize: 12)),
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return ClockOutDialog(
+                              onCreateClickedCallBack:
+                                  (Map<String, dynamic> data) {
+                                data.addAll({
+                                  'type': 'in',
+                                });
+                                Log.e(data.toString());
+                                cubit.updateAttendanceRequestApiCall(
+                                    context, item.id!.toString(), data);
+                              },
+                            );
+                          });
+                    },
+                    child: Text(item.clockIn!,
+                        style: TextStyle(color: Colors.green, fontSize: 12)),
+                  ),
                 ],
               )),
               DataCell(Row(
@@ -75,18 +94,30 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return ClockOutDialog();
+                            return ClockOutDialog(
+                              onCreateClickedCallBack:
+                                  (Map<String, dynamic> data) {
+                                data.addAll({
+                                  'type': 'out',
+                                });
+                                Log.e(data.toString());
+                                cubit.updateAttendanceRequestApiCall(
+                                    context, item.id!.toString(), data);
+                              },
+                            );
                           });
                     },
                     child: Container(
-                      child: Text(item.clockOut!, style: TextStyle(fontSize: 12)),
+                      child:
+                          Text(item.clockOut!, style: TextStyle(fontSize: 12)),
                     ),
                   ),
                 ],
               )),
               DataCell(Row(
                 children: [
-                  Icon(CupertinoIcons.arrow_down_left, size: 12, color: Colors.red),
+                  Icon(CupertinoIcons.arrow_down_left,
+                      size: 12, color: Colors.red),
                   Text(item.hoursPerDay!,
                       style: TextStyle(color: Colors.red, fontSize: 12)),
                   Spacer(),
@@ -152,7 +183,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                             ),
                             DataColumn(
                               label: Text(
-                                S.of(context).Working_Hr,overflow: TextOverflow.ellipsis,
+                                S.of(context).Working_Hr,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 12),
                               ),
                             ),

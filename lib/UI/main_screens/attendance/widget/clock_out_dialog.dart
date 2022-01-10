@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kafey/UI/main_screens/attendance/widget/time_updated_dialog.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -18,6 +17,9 @@ class ClockOutDialog extends StatefulWidget {
 }
 
 class _ClockOutDialogState extends State<ClockOutDialog> {
+  String? pickedTime;
+  final noteController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -53,19 +55,23 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
                   height: 150,
                   child: CupertinoTimerPicker(
                       mode: CupertinoTimerPickerMode.hm,
-                      onTimerDurationChanged: (val) {}),
+                      onTimerDurationChanged: (Duration val) {
+                        setState(() {
+                          pickedTime = getTimeFormat(val);
+                        });
+                      }),
                 ),
                 Divider(),
-                Text(
-                  "قائد الفريق",
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-                Text(
-                  "أحمد حسن",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
+                // Text(
+                //   "قائد الفريق",
+                //   style: TextStyle(fontSize: 12, color: Colors.grey),
+                // ),
+                // Text(
+                //   "أحمد حسن",
+                //   style: TextStyle(
+                //     fontSize: 20,
+                //   ),
+                // ),
                 Gaps.vGap15,
                 Text(
                   "تعليق",
@@ -74,6 +80,7 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
                 Container(
                   height: 100,
                   child: TextFormField(
+                    controller: noteController,
                     maxLines: 5,
                   ),
                 ),
@@ -90,13 +97,21 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        Navigator.pop(context);
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return TimeUpdatedDialog();
-                            });
+                        if (pickedTime != null) {
+                          widget.onCreateClickedCallBack!.call({
+                            'time': pickedTime,
+                            if (noteController.text.isNotEmpty)
+                              'notes': noteController.text,
+                          });
+                          Navigator.pop(context);
 
+                        }
+                        // Navigator.pop(context);
+                        // showDialog(
+                        //     context: context,
+                        //     builder: (BuildContext context) {
+                        //       return TimeUpdatedDialog();
+                        //     });
                       }),
                 ),
               ],
@@ -106,6 +121,14 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
       ),
     );
   }
+
+  String getTimeFormat(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose

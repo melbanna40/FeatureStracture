@@ -93,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                                   CommonUtils.showToastMessage(
                                       'Enter Password');
                                 } else if (_passwordController.text.length <
-                                    4) {
+                                    6) {
                                   CommonUtils.showToastMessage(
                                       'Password length must be 8 letters contains upper&lower case');
                                 } else {

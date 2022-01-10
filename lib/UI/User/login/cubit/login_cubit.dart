@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
@@ -35,17 +38,37 @@ class LoginCubit extends Cubit<LoginState> {
         params: {
           "email": email,
           "password": password,
-          // "mac_address": deviceId,
+          "mac_address": 'mac_address',
         }, onSuccess: (data) {
       if (data.code == 200) {
+        doSaveDeviceToken(data.data!.original!.accessToken!);
         emit(LoginSuccessState());
-        CommonUtils.showToastMessage(data.message ?? '');
-        HiveHelper.setUserToken(data.data!.original!.accessToken!);
+         HiveHelper.setUserToken(data.data!.original!.accessToken!);
         Get.offAll(() => MainScreen());
         // Get.to(VerifyPhoneScreen());
       } else {
         emit(LoginErrorState());
         CommonUtils.showToastMessage(data.message ?? '');
+      }
+    }, onError: (code, msg) {
+      emit(LoginErrorState());
+      CommonUtils.showToastMessage(msg);
+    });
+  }
+
+  Future doSaveDeviceToken(String token) async {
+    headers[HttpHeaders.authorizationHeader] = "Bearer " + token;
+    emit(LoginLoadingState());
+    await _presenter.requestFutureData<LoginResponse>(Method.post,
+        url: Api.doLoginApiCall,
+        options: Options(method: Method.post.toString(), headers: headers),
+        params: {
+          "device_token": await FirebaseMessaging.instance.getToken(),
+        }, onSuccess: (data) {
+      if (data.code == 200) {
+        emit(LoginSuccessState());
+      } else {
+        emit(LoginErrorState());
       }
     }, onError: (code, msg) {
       emit(LoginErrorState());

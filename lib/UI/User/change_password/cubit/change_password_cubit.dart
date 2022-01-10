@@ -46,8 +46,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
         }, onSuccess: (data) {
       if (data.code == 200) {
         emit(ChangePasswordSuccessState());
-        CommonUtils.showToastMessage(data.message ?? '');
-        HiveHelper.setUserToken(userToken);
+         HiveHelper.setUserToken(userToken);
         Get.to(() => MainScreen());
         // Get.to(VerifyPhoneScreen());
       } else {
