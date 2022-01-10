@@ -39,8 +39,8 @@ class Data {
       int? userId, 
       String? date, 
       String? clockIn, 
-      String? clockOut, 
-      int? hoursPerDay, 
+      String? clockOut,
+    String? hoursPerDay,
       int? status, 
       int? workingFrom, 
       dynamic notes, 
@@ -65,7 +65,7 @@ class Data {
     _date = json['date'];
     _clockIn = json['clock_in'];
     _clockOut = json['clock_out'];
-    _hoursPerDay = json['hours_per_day'];
+    _hoursPerDay = json['hours_per_day'].toString();
     _status = json['status'];
     _workingFrom = json['working_from'];
     _notes = json['notes'];
@@ -77,7 +77,7 @@ class Data {
   String? _date;
   String? _clockIn;
   String? _clockOut;
-  int? _hoursPerDay;
+  String? _hoursPerDay;
   int? _status;
   int? _workingFrom;
   dynamic _notes;
@@ -89,7 +89,7 @@ class Data {
   String? get date => _date;
   String? get clockIn => _clockIn;
   String? get clockOut => _clockOut;
-  int? get hoursPerDay => _hoursPerDay;
+  String? get hoursPerDay => _hoursPerDay;
   int? get status => _status;
   int? get workingFrom => _workingFrom;
   dynamic get notes => _notes;

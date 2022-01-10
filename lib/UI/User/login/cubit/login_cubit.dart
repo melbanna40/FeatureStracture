@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
+import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/main_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
@@ -39,6 +40,7 @@ class LoginCubit extends Cubit<LoginState> {
       if (data.code == 200) {
         emit(LoginSuccessState());
         CommonUtils.showToastMessage(data.message ?? '');
+        HiveHelper.setUserToken(data.data!.original!.accessToken!);
         Get.to(() => MainScreen());
         // Get.to(VerifyPhoneScreen());
       } else {

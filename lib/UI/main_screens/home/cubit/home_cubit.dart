@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
+import 'package:kafey/Helpers/LocationHelper.dart';
+import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/global_response.dart';
@@ -38,69 +42,87 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void updateClickOnState() {
-    isLogged = !isLogged!;
-    if (isLogged!) {
+    if (!isLogged!) {
       doClockInApiCal();
-    }
-    else {
+    } else {
       doClockOutApiCal();
     }
-    emit(UpdateCurrentDateState());
   }
 
   final BasePresenter _presenter = getIt<BasePresenter>();
 
   Future getHomeStatistics() async {
-    emit(HomeLoading());
+    headers[HttpHeaders.authorizationHeader] =
+        "Bearer " + HiveHelper.getUserToken();
     await _presenter.requestFutureData<HomeStatisticsResponse>(Method.get,
         url: Api.getHomeStatisticsApiCall,
-        options: Options(method: Method.get.toString()), onSuccess: (data) {
-          if (data.code == 200) {
-            emit(HomeSuccess());
-            CommonUtils.showToastMessage(data.message ?? '');
-          } else {
-            emit(HomeError());
-            CommonUtils.showToastMessage(data.message ?? '');
-          }
-        }, onError: (code, msg) {
-          emit(HomeError());
-          CommonUtils.showToastMessage(msg);
-        });
+        options: Options(method: Method.get.toString(), headers: headers),
+        onSuccess: (data) {
+      if (data.code == 200) {
+        emit(HomeSuccess());
+        CommonUtils.showToastMessage(data.message ?? '');
+      }
+      if (data.code == 400) {
+        emit(HomeSuccess());
+      } else {
+        emit(HomeError());
+        CommonUtils.showToastMessage(data.message ?? '');
+      }
+    }, onError: (code, msg) {
+      emit(HomeError());
+      CommonUtils.showToastMessage(msg);
+    });
   }
 
   Future doClockInApiCal() async {
-    emit(HomeLoading());
-    await _presenter.requestFutureData<GlobalResponse>(Method.get,
+    headers[HttpHeaders.authorizationHeader] =
+        "Bearer " + HiveHelper.getUserToken();
+    var location = await LocationHelper.determinePosition();
+
+    await _presenter.requestFutureData<GlobalResponse>(Method.post,
         url: Api.doClockInApiCall,
-        options: Options(method: Method.get.toString()), onSuccess: (data) {
-          if (data.code == 200) {
-            emit(HomeSuccess());
-            CommonUtils.showToastMessage(data.message ?? '');
-          } else {
-            emit(HomeError());
-            CommonUtils.showToastMessage(data.message ?? '');
-          }
-        }, onError: (code, msg) {
-          emit(HomeError());
-          CommonUtils.showToastMessage(msg);
-        });
+        options: Options(method: Method.post.toString(), headers: headers),
+        // params: {'lat': location.latitude, 'lng': location.longitude},
+        params: {'lat': '24.774265', 'lng': '46.738586'}, onSuccess: (data) {
+      if (data.code == 200) {
+        emit(HomeSuccess());
+        isLogged = !isLogged!;
+        emit(UpdateCurrentDateState());
+        getHomeStatistics();
+        CommonUtils.showToastMessage(data.message ?? '');
+      } else {
+        emit(HomeError());
+        CommonUtils.showToastMessage(data.message ?? '');
+      }
+    }, onError: (code, msg) {
+      emit(HomeError());
+      CommonUtils.showToastMessage(msg);
+    });
   }
 
   Future doClockOutApiCal() async {
-    emit(HomeLoading());
-    await _presenter.requestFutureData<GlobalResponse>(Method.get,
+    headers[HttpHeaders.authorizationHeader] =
+        "Bearer " + HiveHelper.getUserToken();
+    var location = await LocationHelper.determinePosition();
+
+    await _presenter.requestFutureData<GlobalResponse>(Method.post,
         url: Api.doClockOutApiCall,
-        options: Options(method: Method.get.toString()), onSuccess: (data) {
-          if (data.code == 200) {
-            emit(HomeSuccess());
-            CommonUtils.showToastMessage(data.message ?? '');
-          } else {
-            emit(HomeError());
-            CommonUtils.showToastMessage(data.message ?? '');
-          }
-        }, onError: (code, msg) {
-          emit(HomeError());
-          CommonUtils.showToastMessage(msg);
-        });
+        options: Options(method: Method.post.toString(), headers: headers),
+        // params: {'lat': location.latitude, 'lng': location.longitude},
+        params: {'lat': '24.774265', 'lng': '46.738586'}, onSuccess: (data) {
+      if (data.code == 200) {
+        emit(HomeSuccess());
+        isLogged = !isLogged!;
+        emit(UpdateCurrentDateState());
+        getHomeStatistics();
+        CommonUtils.showToastMessage(data.message ?? '');
+      } else {
+        emit(HomeError());
+        CommonUtils.showToastMessage(data.message ?? '');
+      }
+    }, onError: (code, msg) {
+      emit(HomeError());
+      CommonUtils.showToastMessage(msg);
+    });
   }
 }
