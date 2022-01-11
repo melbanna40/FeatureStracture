@@ -49,12 +49,11 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2030),
                   );
-                  if (picked != null && picked != null) {
+                  if (picked != null) {
                     print(picked);
-                    start = DateFormat.yMd('en').format(picked.start);
-                    end = DateFormat.yMd('en').format(picked.end);
+                    start = DateFormat('yyyy-MM-dd', 'en').format(picked.start);
+                    end = DateFormat('yyyy-MM-dd', 'en').format(picked.end);
 
-                    print("  من  " + start + " إلى  " + end);
                     _dateController.text = "   من  " + start + "  إلى   " + end;
                     setState(() {});
                   }
@@ -126,7 +125,7 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                           'from': start,
                           'to': end,
                           'reason': _reasonController.text,
-                          'leave_type_id': selectedLeaveType!.id
+                          'leave_type_id': selectedLeaveType!.leaveType.id
                         });
                         Navigator.pop(context);
                       }

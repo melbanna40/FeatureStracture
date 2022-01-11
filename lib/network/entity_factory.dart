@@ -1,3 +1,4 @@
+import 'package:kafey/network/api/ApiResponse/apply_leave_response.dart';
 import 'package:kafey/network/api/ApiResponse/attendance_history_response.dart';
 import 'package:kafey/network/api/ApiResponse/global_response.dart';
 import 'package:kafey/network/api/ApiResponse/home_statistics_response.dart';
@@ -24,8 +25,15 @@ class EntityFactory {
       return MyLeavesTypesResponse.fromJson(json) as T;
     } else if (T.toString() == "MyLeavesHistoryResponse") {
       return MyLeavesHistoryResponse.fromJson(json) as T;
+    } else if (T.toString() == "ApplyLeaveResponse") {
+      return ApplyLeaveResponse.fromJson(json) as T;
     }
-
+    // else if (T.toString() == "ProductsResponse") {
+    //   return ProductsResponse.fromJson(json) as T;
+    // }
+    // else if (T.toString() == "ProductsResponse") {
+    //   return ProductsResponse.fromJson(json) as T;
+    // }
     // else if (T.toString() == "ProductsResponse") {
     //   return ProductsResponse.fromJson(json) as T;
     // }

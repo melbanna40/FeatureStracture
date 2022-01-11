@@ -6,7 +6,7 @@ import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
-import 'package:kafey/network/api/ApiResponse/global_response.dart';
+import 'package:kafey/network/api/ApiResponse/apply_leave_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_balance_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_history_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_types_response.dart';
@@ -23,6 +23,7 @@ class LeavesCubit extends Cubit<LeavesState> {
   MyLeavesBalanceData? mMyLeavesBalanceData;
 
   Future getMyLeavesBalances() async {
+    emit(LeavesLoading());
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
     await _presenter.requestFutureData<MyLeavesBalanceResponse>(Method.get,
@@ -38,7 +39,6 @@ class LeavesCubit extends Cubit<LeavesState> {
         emit(LeavesSuccess());
       } else {
         emit(LeavesError());
-        CommonUtils.showToastMessage(data.message);
       }
     }, onError: (code, msg) {
       emit(LeavesError());
@@ -49,6 +49,7 @@ class LeavesCubit extends Cubit<LeavesState> {
   List<MyLeavesTypesData>? mMyLeavesTypesDataList;
 
   Future getMyLeavesTypes() async {
+    emit(LeavesLoading());
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
     await _presenter.requestFutureData<MyLeavesTypesResponse>(Method.get,
@@ -63,7 +64,6 @@ class LeavesCubit extends Cubit<LeavesState> {
         emit(LeavesError());
       } else {
         emit(LeavesError());
-        CommonUtils.showToastMessage(data.message);
       }
     }, onError: (code, msg) {
       emit(LeavesError());
@@ -74,6 +74,7 @@ class LeavesCubit extends Cubit<LeavesState> {
   List<MyLeavesHistoryData>? mMyLeavesHistoryDataList;
 
   Future getMyLeavesHistory() async {
+    emit(LeavesLoading());
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
     await _presenter.requestFutureData<MyLeavesHistoryResponse>(Method.get,
@@ -88,7 +89,6 @@ class LeavesCubit extends Cubit<LeavesState> {
         emit(LeavesError());
       } else {
         emit(LeavesError());
-        CommonUtils.showToastMessage(data.message);
       }
     }, onError: (code, msg) {
       emit(LeavesError());
@@ -99,14 +99,16 @@ class LeavesCubit extends Cubit<LeavesState> {
   Future applyLeave(Map<String, dynamic> data) async {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
-    await _presenter.requestFutureData<GlobalResponse>(Method.post,
-        url: Api.doLoginApiCall,
+    await _presenter.requestFutureData<ApplyLeaveResponse>(Method.post,
+        url: Api.postApplyForLeaveApiCall,
         options: Options(method: Method.post.toString(), headers: headers),
         params: data, onSuccess: (data) {
       if (data.code == 200) {
-        CommonUtils.showToastMessage(data.message);
+        getMyLeavesBalances();
+        getMyLeavesHistory();
         emit(LeavesSuccess());
       } else {
+        CommonUtils.showToastMessage(data.message);
         emit(LeavesError());
       }
     }, onError: (code, msg) {

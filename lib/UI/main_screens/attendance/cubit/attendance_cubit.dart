@@ -21,6 +21,13 @@ class AttendanceCubit extends Cubit<AttendanceState> {
   final BasePresenter _presenter = getIt<BasePresenter>();
   List<AttendanceHistoryData>? mAttendanceHistoryDataList;
 
+  DateTime? attendanceDay = DateTime.now();
+
+  void updateAttendanceDate(DateTime newDate) {
+    attendanceDay = newDate;
+    emit(AttendanceSuccess());
+  }
+
   Future getAttendanceHistoryApiCal() async {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
@@ -32,7 +39,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       if (data.code == 200) {
         mAttendanceHistoryDataList = data.data!;
         emit(AttendanceSuccess());
-       } else {
+      } else {
         emit(AttendanceError());
         CommonUtils.showToastMessage(data.message ?? '');
       }
@@ -60,7 +67,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
             });
         getAttendanceHistoryApiCal();
         emit(AttendanceSuccess());
-       } else {
+      } else {
         emit(AttendanceError());
         CommonUtils.showToastMessage(data.message ?? '');
       }

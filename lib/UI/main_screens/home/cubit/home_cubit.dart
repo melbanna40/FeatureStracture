@@ -65,12 +65,14 @@ class HomeCubit extends Cubit<HomeState> {
           isLogged = !isLogged!;
         emit(UpdateCurrentDateState());
         emit(HomeSuccess());
-       }
+      }
       if (data.code == 400) {
+        CommonUtils.showToastMessage(data.message);
         emit(HomeSuccess());
       } else {
+        CommonUtils.showToastMessage(data.message);
         emit(HomeError());
-       }
+      }
     }, onError: (code, msg) {
       emit(HomeError());
       CommonUtils.showToastMessage(msg);
@@ -92,9 +94,10 @@ class HomeCubit extends Cubit<HomeState> {
         isLogged = !isLogged!;
         emit(UpdateCurrentDateState());
         getHomeStatistics();
-       } else {
+      } else {
+        CommonUtils.showToastMessage(data.message);
         emit(HomeError());
-       }
+      }
     }, onError: (code, msg) {
       emit(HomeError());
       CommonUtils.showToastMessage(msg);
@@ -116,9 +119,10 @@ class HomeCubit extends Cubit<HomeState> {
         isLogged = !isLogged!;
         emit(UpdateCurrentDateState());
         getHomeStatistics();
-       } else {
+      } else {
+        CommonUtils.showToastMessage(data.message);
         emit(HomeError());
-       }
+      }
     }, onError: (code, msg) {
       emit(HomeError());
       CommonUtils.showToastMessage(msg);
