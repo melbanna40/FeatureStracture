@@ -125,5 +125,6 @@
   "more": "More",
   "clock_in": "Clock In",
   "clock_out": "Clock Out",
-  "working_hours": "Working Hr's"
+  "working_hours": "Working Hr's",
+  "new_employee": "New employee ?!"
 }

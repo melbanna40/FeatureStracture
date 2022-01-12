@@ -1,32 +1,24 @@
 class GlobalResponse {
   GlobalResponse({
-      int? code, 
-      String? data, 
-      String? message,}){
-    _code = code;
-    _data = data;
-    _message = message;
-}
+    required this.code,
+    this.data,
+    required this.message,
+  });
+  late final int code;
+  late final Null data;
+  late final String message;
 
-  GlobalResponse.fromJson(dynamic json) {
-    _code = json['code'];
-    _data = json['data'];
-    _message = json['message'];
+  GlobalResponse.fromJson(Map<String, dynamic> json){
+    code = json['code'];
+    data = null;
+    message = json['message'];
   }
-  int? _code;
-  String? _data;
-  String? _message;
-
-  int? get code => _code;
-  String? get data => _data;
-  String? get message => _message;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['code'] = _code;
-    map['data'] = _data;
-    map['message'] = _message;
-    return map;
+    final _data = <String, dynamic>{};
+    _data['code'] = code;
+    _data['data'] = data;
+    _data['message'] = message;
+    return _data;
   }
-
 }

@@ -6,6 +6,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kafey/UI/User/change_password/cubit/change_password_cubit.dart';
+import 'package:kafey/UI/User/forget_password/cubit/forget_password_cubit.dart';
 import 'package:kafey/UI/main_screens/attendance/cubit/attendance_cubit.dart';
 import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
@@ -107,6 +109,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => LoginCubit()),
+          BlocProvider(create: (context) => ForgetPasswordCubit()),
+          BlocProvider(create: (context) => ChangePasswordCubit()),
           BlocProvider(create: (context) => VerifyCodeCubit()),
           BlocProvider(create: (context) => NotificationsCubit()),
           BlocProvider(

@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
-import 'package:kafey/UI/main_screens/attendance/widget/time_updated_dialog.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/attendance_history_response.dart';
@@ -25,17 +25,19 @@ class AttendanceCubit extends Cubit<AttendanceState> {
 
   void updateAttendanceDate(DateTime newDate) {
     attendanceDay = newDate;
-    emit(AttendanceSuccess());
+    // Log.e(DateFormat('y-M','en').format(newDate).replaceAll('/', '-'));
+    getAttendanceHistoryApiCal(
+        date: DateFormat('y-M', 'en').format(newDate).replaceAll('/', '-'));
   }
 
-  Future getAttendanceHistoryApiCal() async {
+  Future getAttendanceHistoryApiCal({String? date}) async {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
     emit(AttendanceLoading());
     await _presenter.requestFutureData<AttendanceHistoryResponse>(Method.get,
         url: Api.getAttendanceHistoryApiCall,
         options: Options(method: Method.get.toString(), headers: headers),
-        onSuccess: (data) {
+        queryParams: {'date': date}, onSuccess: (data) {
       if (data.code == 200) {
         mAttendanceHistoryDataList = data.data!;
         emit(AttendanceSuccess());
@@ -60,16 +62,11 @@ class AttendanceCubit extends Cubit<AttendanceState> {
         options: Options(method: Method.post.toString(), headers: headers),
         params: map, onSuccess: (data) {
       if (data.code == 200) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return TimeUpdatedDialog();
-            });
         getAttendanceHistoryApiCal();
         emit(AttendanceSuccess());
       } else {
         emit(AttendanceError());
-        CommonUtils.showToastMessage(data.message ?? '');
+        CommonUtils.showToastMessage(data.message);
       }
     }, onError: (code, msg) {
       emit(AttendanceError());

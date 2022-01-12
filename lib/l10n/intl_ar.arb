@@ -11,7 +11,7 @@
   "select": "اختر",
   "update": "تعديل",
   "forget_password": "هل نسيت كلمة المرور؟",
-  "confirm_password": "تأكيد رقم السر",
+  "confirm_password": "تأكيد الرقم السري",
   "sDate": "التاريخ",
   "Clock_in": "الدخول",
   "Clock_out": "الخروج",
@@ -125,5 +125,6 @@
   "more": "المزيد",
   "clock_in": "تسجيل حضور",
   "clock_out": "تسجيل انصراف",
-  "working_hours": "ساعات العمل"
+  "working_hours": "ساعات العمل",
+  "new_employee": "موظف جديد ؟!"
 }

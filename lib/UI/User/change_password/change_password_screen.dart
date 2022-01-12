@@ -56,8 +56,8 @@ class ChangePasswordScreen extends StatelessWidget {
                                 child: Icon(cubit.oldPasswordVisibility
                                     ? CupertinoIcons.eye
                                     : CupertinoIcons.eye_slash)),
-                            label: Text(S.of(context).old_password),
-                            hintText: S.of(context).old_password,
+                            label: Text(S.of(context).password),
+                            hintText: S.of(context).password,
                             prefixIcon: Icon(CupertinoIcons.lock_shield),
                           ),
                           controller: _oldPasswordController,
@@ -68,7 +68,7 @@ class ChangePasswordScreen extends StatelessWidget {
                           decoration: InputDecoration(
                             suffixIcon: GestureDetector(
                                 onTap: () {
-                                  cubit.updatePasswordVisibility();
+                                  cubit.updateNewPasswordVisibility();
                                 },
                                 child: Icon(cubit.newPasswordVisibility
                                     ? CupertinoIcons.eye
@@ -83,10 +83,11 @@ class ChangePasswordScreen extends StatelessWidget {
                         Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: MColors.colorPrimarySwatch,
-                              borderRadius: const BorderRadius.horizontal(
-                                  left: Radius.circular(8),
-                                  right: Radius.circular(8))),
+                            color: MColors.colorPrimarySwatch,
+                            borderRadius: const BorderRadius.horizontal(
+                                left: Radius.circular(8),
+                                right: Radius.circular(8)),
+                          ),
                           child: MaterialButton(
                               child: Text(
                                 S.of(context).submit,
@@ -95,15 +96,19 @@ class ChangePasswordScreen extends StatelessWidget {
                               onPressed: () async {
                                 if (_oldPasswordController.text.isEmpty) {
                                   CommonUtils.showToastMessage(
-                                      'Enter Old Password');
+                                      'ادخل الرقم السري');
                                 } else if (_newPasswordController
                                     .text.isEmpty) {
                                   CommonUtils.showToastMessage(
-                                      'Enter New Password');
+                                      'ادخل الرقم السري التأكيدي');
                                 } else if (_newPasswordController.text.length <
-                                    4) {
+                                    6) {
                                   CommonUtils.showToastMessage(
-                                      'Password length must be 8 letters contains upper&lower case');
+                                      'الرقم السري يجب ان لا يقل عن 6 احرف');
+                                } else if (_newPasswordController.text.trim() !=
+                                    _oldPasswordController.text.trim()) {
+                                  CommonUtils.showToastMessage(
+                                      'الرقم السري غير متطابق');
                                 } else {
                                   cubit.doChangePassword(
                                       _newPasswordController.text, userToken);
@@ -118,9 +123,5 @@ class ChangePasswordScreen extends StatelessWidget {
             )),
       );
     });
-  }
-
-  onDispose() {
-    _oldPasswordController.clear();
   }
 }

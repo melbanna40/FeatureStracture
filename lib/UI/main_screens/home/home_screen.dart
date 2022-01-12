@@ -24,9 +24,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    Timer.periodic(Duration(seconds: 30), (Timer t) {
-      if (cubit != null) cubit!.updateCurrentDateTime();
-    });
+    if (mounted)
+      Timer.periodic(Duration(seconds: 30), (Timer t) {
+        if (cubit != null) cubit!.updateCurrentDateTime();
+      });
     mAnimationController = AnimationController(
         vsync: this,
         duration: Duration(
@@ -60,146 +61,155 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         return Scaffold(
           backgroundColor: MColors.colorPrimary.withOpacity(0.5),
           body: Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(200),
               ),
             ),
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    '${S.of(context).appName}',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Gaps.vGap30,
-                  Column(
-                    children: [
-                      Text(
-                        '${cubit!.currentTime}',
+            child: RefreshIndicator(
+              onRefresh: () async {
+                cubit!.getHomeStatistics();
+              },
+              child: Center(
+                child: ListView(
+                  children: [
+                    Center(
+                      child: Text(
+                        '${S.of(context).appName}',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        '${cubit!.currentDate}',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      var localAuth = LocalAuthentication();
-
-                      bool didAuthenticate = await localAuth.authenticate(
-                          biometricOnly: true,
-                          stickyAuth: true,
-                          localizedReason: 'ضع بصمتك لاتمام العمليه');
-
-                      // List<BiometricType> availableBiometrics =
-                      //     await localAuth.getAvailableBiometrics();
-                      //
-                      // if (Platform.isIOS) {
-                      //   if (availableBiometrics.contains(BiometricType.face)) {
-                      //     // Face ID.
-                      //     Log.e('Face ID');
-                      //   } else if (availableBiometrics
-                      //       .contains(BiometricType.fingerprint)) {
-                      //     // Touch ID.
-                      //     Log.e('Touch ID');
-                      //   }
-                      // }
-                      if (didAuthenticate) {
-                        cubit!.updateClickOnState();
-
-                        mAnimationController!.reverse();
-                        mAnimationController!.forward();
-                      }
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(50),
-                      height: animation!.value,
-                      width: animation!.value,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: cubit!.isLogged!
-                            ? RadialGradient(
-                                tileMode: TileMode.mirror,
-                                colors: [
-                                  Colors.deepOrange,
-                                  Colors.red,
-                                ],
-                              )
-                            : RadialGradient(
-                                tileMode: TileMode.mirror,
-                                colors: [
-                                  Colors.lightBlue,
-                                  Colors.deepPurpleAccent,
-                                ],
-                              ), // inner circle color
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(2), // border width
-                        child: Container(
-                          // or ClipRRect if you need to clip the content
-
-                          child: Column(
-                            children: [
-                              SvgPicture.asset(
-                                ImageUtils.getSVGPath('ic_fingerprint'),
-                                color: Colors.white,
-                                width: 80,
-                                height: 80,
-                              ),
-                              Text(
-                                cubit!.isLogged!
-                                    ? S.of(context).clock_out
-                                    : S.of(context).clock_in,
-                                style: TextStyle(color: Colors.white),
-                              )
-                            ],
-                          ), // inner content
-                        ),
-                      ),
                     ),
-                  ),
-                  Gaps.vGap30,
-                  Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
+                    Gaps.vGap30,
+                    Column(
                       children: [
-                        Text('Shebin elkom, menufia egypt'),
-                        Icon(
-                          (CupertinoIcons.location_solid),
+                        Text(
+                          '${cubit!.currentTime}',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          '${cubit!.currentDate}',
+                          style: TextStyle(fontSize: 18, color: Colors.grey),
                         ),
                       ],
                     ),
-                  ),
-                  if (cubit!.mHomeStatisticsData != null)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        homeWorkingHoursWidget(
-                            context,
-                            'ic_clock_in',
-                            cubit!.mHomeStatisticsData!.clockIn!,
-                            S.of(context).clock_in),
-                        homeWorkingHoursWidget(
-                            context,
-                            'ic_clock_out',
-                            cubit!.mHomeStatisticsData!.clockOut??'00:00',
-                            S.of(context).clock_out),
-                        homeWorkingHoursWidget(
-                            context,
-                            'ic_clock_total',
-                            cubit!.mHomeStatisticsData!.hoursPerDay ??'00:00',
-                            S.of(context).working_hours),
-                      ],
-                    )
-                ],
+                    Gaps.vGap50,
+                    InkWell(
+                      onTap: () async {
+                        var localAuth = LocalAuthentication();
+
+                        bool didAuthenticate = await localAuth.authenticate(
+                            biometricOnly: true,
+                            stickyAuth: true,
+                            localizedReason: 'ضع بصمتك لاتمام العمليه');
+
+                        // List<BiometricType> availableBiometrics =
+                        //     await localAuth.getAvailableBiometrics();
+                        //
+                        // if (Platform.isIOS) {
+                        //   if (availableBiometrics.contains(BiometricType.face)) {
+                        //     // Face ID.
+                        //     Log.e('Face ID');
+                        //   } else if (availableBiometrics
+                        //       .contains(BiometricType.fingerprint)) {
+                        //     // Touch ID.
+                        //     Log.e('Touch ID');
+                        //   }
+                        // }
+                        if (didAuthenticate) {
+                          cubit!.updateClickOnState();
+
+                          mAnimationController!.reverse();
+                          mAnimationController!.forward();
+                        }
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(50),
+                        height: animation!.value,
+                        width: animation!.value,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: cubit!.isLogged!
+                              ? RadialGradient(
+                                  tileMode: TileMode.mirror,
+                                  colors: [
+                                    Colors.deepOrange,
+                                    Colors.red,
+                                  ],
+                                )
+                              : RadialGradient(
+                                  tileMode: TileMode.mirror,
+                                  colors: [
+                                    Colors.lightBlue,
+                                    Colors.deepPurpleAccent,
+                                  ],
+                                ), // inner circle color
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(2), // border width
+                          child: Container(
+                            // or ClipRRect if you need to clip the content
+
+                            child: Column(
+                              children: [
+                                SvgPicture.asset(
+                                  ImageUtils.getSVGPath('ic_fingerprint'),
+                                  color: Colors.white,
+                                  width: 80,
+                                  height: 80,
+                                ),
+                                Text(
+                                  cubit!.isLogged!
+                                      ? S.of(context).clock_out
+                                      : S.of(context).clock_in,
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
+                            ), // inner content
+                          ),
+                        ),
+                      ),
+                    ),
+                    Gaps.vGap50,
+                    Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Shebin elkom, menufia egypt'),
+                          Icon(
+                            (CupertinoIcons.location_solid),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Gaps.vGap50,
+                    if (cubit!.mHomeStatisticsData != null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          homeWorkingHoursWidget(
+                              context,
+                              'ic_clock_in',
+                              cubit!.mHomeStatisticsData!.clockIn!,
+                              S.of(context).clock_in),
+                          homeWorkingHoursWidget(
+                              context,
+                              'ic_clock_out',
+                              cubit!.mHomeStatisticsData!.clockOut ?? '00:00',
+                              S.of(context).clock_out),
+                          homeWorkingHoursWidget(
+                              context,
+                              'ic_clock_total',
+                              cubit!.mHomeStatisticsData!.hoursPerDay ??
+                                  '00:00',
+                              S.of(context).working_hours),
+                        ],
+                      )
+                  ],
+                ),
               ),
             ),
           ),

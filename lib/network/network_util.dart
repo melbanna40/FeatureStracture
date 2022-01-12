@@ -13,6 +13,7 @@ import 'net_response.dart';
 Map<String, dynamic> headers = {
   "Accept": "application/json",
   "Content-Type": "application/json",
+  "lang": "ar",
 };
 
 class DioUtils {
@@ -33,7 +34,6 @@ class DioUtils {
 
   DioUtils._internal() {
     _options = BaseOptions(
-
       baseUrl: Api.baseUrl,
       connectTimeout: 15000,
       receiveTimeout: 5000,
@@ -57,10 +57,10 @@ class DioUtils {
       {dynamic data,
       Map<String, dynamic>? queryParameters,
       CancelToken? cancelToken,
-      Options? options,void Function(int,int)?  onSendProgress}) async {
+      Options? options,
+      void Function(int, int)? onSendProgress}) async {
     var response = await _dio!.request(url,
-onSendProgress: onSendProgress,
-
+        onSendProgress: onSendProgress,
         data: data,
         queryParameters: queryParameters,
         options: _setOptions(method, options!),
@@ -80,11 +80,10 @@ onSendProgress: onSendProgress,
       Function(List<T> list)? onSuccessList,
       Function(int code, String msg)? onError,
       dynamic params,
-
       Map<String, dynamic>? queryParameters,
       CancelToken? cancelToken,
       Options? options,
-        void Function(int,int)?  onSendProgress,
+      void Function(int, int)? onSendProgress,
       bool isList = false}) async {
     if (newBaseUrl.isNotEmpty) {
       _options!.baseUrl = newBaseUrl;
@@ -92,7 +91,8 @@ onSendProgress: onSendProgress,
       _options!.baseUrl = Api.baseUrl;
     }
     String requestMethod = _getMethod(method);
-    return await _request<T>(requestMethod, url,onSendProgress: onSendProgress,
+    return await _request<T>(requestMethod, url,
+            onSendProgress: onSendProgress,
             data: params,
             queryParameters: queryParameters,
             options: options,

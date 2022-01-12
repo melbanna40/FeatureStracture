@@ -39,20 +39,21 @@ class LoginCubit extends Cubit<LoginState> {
         params: {
           "email": email,
           "password": password,
-          "mac_address": 'mac_address',
+          "mac_address": await CommonUtils.getDeviceId(),
         }, onSuccess: (data) {
       if (data.code == 200) {
-        // if (data.data!.first_login ?? false) {
-        //   Get.offAll(() => ChangePasswordScreen('userToken'));
-        // }
-        doSaveDeviceToken(data.data!.original!.accessToken!);
-        emit(LoginSuccessState());
-        HiveHelper.setUserToken(data.data!.original!.accessToken!);
-        Get.offAll(() => MainScreen());
-        // Get.to(VerifyPhoneScreen());
+        if (data.data.original.loggedBefore == 1) {
+          doSaveDeviceToken(data.data.original.accessToken);
+          emit(LoginSuccessState());
+          HiveHelper.setUserToken(data.data.original.accessToken);
+          Get.offAll(() => MainScreen());
+        }
+        else if(data.data.original.loggedBefore == 0){
+          Get.to(() => ChangePasswordScreen(data.data.original.accessToken));
+        }
       } else {
         emit(LoginErrorState());
-        CommonUtils.showToastMessage(data.message ?? '');
+        CommonUtils.showToastMessage(data.message);
       }
     }, onError: (code, msg) {
       emit(LoginErrorState());

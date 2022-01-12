@@ -4,7 +4,7 @@ class Api {
 
   static const String doLoginApiCall = "login";
 
-  static const String doChangePasswordFirstApiCall = "change-password-first";
+  static const String doChangePasswordFirstApiCall = "change-password";
 
 
 

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/CommonUtils/m_svg_icons_icons.dart';
+import 'package:kafey/UI/Main/widgets/drawer.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/m_colors.dart';
 
@@ -73,12 +74,18 @@ class _MainScreenState extends State<MainScreen> {
                 elevation: 0,
                 title: appBarTitles[cubit.currentIndex],
                 centerTitle: true,
-                leading: SvgPicture.asset(
-                  ImageUtils.getSVGPath('ic_logo'),
-                  width: 20,
-                  height: 20,
+                leading: InkWell(
+                  onTap: () {
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                  child: SvgPicture.asset(
+                    ImageUtils.getSVGPath('ic_logo'),
+                    width: 20,
+                    height: 20,
+                  ),
                 ),
               ),
+              drawer: CustomDrawer(cubit),
               bottomNavigationBar: CurvedNavigationBar(
                 index: 0,
                 height: 60.0,

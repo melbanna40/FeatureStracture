@@ -32,7 +32,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
         emit(NotificationsSuccess());
        } else {
         emit(NotificationsError());
-        CommonUtils.showToastMessage(data.message ?? '');
+        CommonUtils.showToastMessage(data.message);
       }
     }, onError: (code, msg) {
       emit(NotificationsError());

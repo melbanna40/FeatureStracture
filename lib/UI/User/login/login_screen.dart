@@ -108,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                             Get.to(() => ForgetPasswordScreen());
                           },
                           child: Text(
-                            S.of(context).forget_password,
+                            S.of(context).new_employee,
                             style: TextStyle(color: Colors.blue),
                           ),
                         ),

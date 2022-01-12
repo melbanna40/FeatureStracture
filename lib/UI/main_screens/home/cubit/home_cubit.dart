@@ -36,8 +36,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   void updateCurrentDateTime() {
     initializeDateFormatting("en_us", '');
-    currentDate = DateFormat.yMMMMEEEEd('en_us').format(DateTime.now());
-    currentTime = DateFormat.Hm('en_us').format(DateTime.now());
+    currentDate = DateFormat.yMEd('ar').format(DateTime.now());
+    currentTime = DateFormat.Hm('ar').format(DateTime.now());
     emit(UpdateCurrentDateState());
   }
 
@@ -62,11 +62,11 @@ class HomeCubit extends Cubit<HomeState> {
       if (data.code == 200) {
         mHomeStatisticsData = data.data!;
         if (data.data!.clockIn != null && data.data!.clockOut == null)
-          isLogged = !isLogged!;
+          isLogged = true;
         emit(UpdateCurrentDateState());
         emit(HomeSuccess());
       }
-      if (data.code == 400) {
+      else if (data.code == 400) {
         CommonUtils.showToastMessage(data.message);
         emit(HomeSuccess());
       } else {
@@ -87,14 +87,20 @@ class HomeCubit extends Cubit<HomeState> {
     await _presenter.requestFutureData<GlobalResponse>(Method.post,
         url: Api.doClockInApiCall,
         options: Options(method: Method.post.toString(), headers: headers),
-        // params: {'lat': location.latitude, 'lng': location.longitude},
-        params: {'lat': '24.774265', 'lng': '46.738586'}, onSuccess: (data) {
+        params: {'lat': location.latitude, 'lng': location.longitude},
+        // params: {'lat': '24.774265', 'lng': '46.738586'},
+        onSuccess: (data) {
       if (data.code == 200) {
         emit(HomeSuccess());
         isLogged = !isLogged!;
         emit(UpdateCurrentDateState());
         getHomeStatistics();
-      } else {
+      }
+      // else if(data.code==400){
+      //   CommonUtils.showToastMessage(data.message);
+      //   isLogged = !isLogged!;
+      // }
+      else {
         CommonUtils.showToastMessage(data.message);
         emit(HomeError());
       }
@@ -112,8 +118,9 @@ class HomeCubit extends Cubit<HomeState> {
     await _presenter.requestFutureData<GlobalResponse>(Method.post,
         url: Api.doClockOutApiCall,
         options: Options(method: Method.post.toString(), headers: headers),
-        // params: {'lat': location.latitude, 'lng': location.longitude},
-        params: {'lat': '24.774265', 'lng': '46.738586'}, onSuccess: (data) {
+        params: {'lat': location.latitude, 'lng': location.longitude},
+        // params: {'lat': '24.774265', 'lng': '46.738586'},
+        onSuccess: (data) {
       if (data.code == 200) {
         emit(HomeSuccess());
         isLogged = !isLogged!;
