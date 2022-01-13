@@ -84,7 +84,7 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                               child: Container(
                                   margin:
                                       const EdgeInsets.symmetric(horizontal: 4),
-                                  child: Text(item.leaveType.name)),
+                                  child: Text(item.leaveType!.name!)),
                               value: item))
                       .toList(),
                   onChanged: (MyLeavesTypesData? val) {
@@ -125,7 +125,7 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                           'from': start,
                           'to': end,
                           'reason': _reasonController.text,
-                          'leave_type_id': selectedLeaveType!.leaveType.id
+                          'leave_type_id': selectedLeaveType!.leaveType!.id!
                         });
                         Navigator.pop(context);
                       }

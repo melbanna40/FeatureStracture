@@ -21,6 +21,7 @@
   "Working_Hr": "Working Hr's",
   "sDate": "Date",
   "update": "Update",
+  "refresh": "Refresh",
   "Today": "Today",
   "Percent": "Percent",
   "Numbers": "Numbers",
@@ -126,5 +127,6 @@
   "clock_in": "Clock In",
   "clock_out": "Clock Out",
   "working_hours": "Working Hr's",
-  "new_employee": "New employee ?!"
+  "new_employee": "New employee ?!",
+  "no_data_contact_admin": "No Data Contact With Admin"
 }

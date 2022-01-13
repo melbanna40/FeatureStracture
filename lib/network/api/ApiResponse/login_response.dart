@@ -1,89 +1,68 @@
 class LoginResponse {
+  final int? code;
+  final Data? data;
+  final String? message;
+
   LoginResponse({
-    required this.code,
-    required this.data,
-    required this.message,
+    this.code,
+    this.data,
+    this.message,
   });
-  late final int code;
-  late final Data data;
-  late final String message;
 
-  LoginResponse.fromJson(Map<String, dynamic> json){
-    code = json['code'];
-    data = Data.fromJson(json['data']);
-    message = json['message'];
-  }
+  LoginResponse.fromJson(Map<String, dynamic> json)
+      : code = json['code'] as int?,
+        data = (json['data'] as Map<String,dynamic>?) != null ? Data.fromJson(json['data'] as Map<String,dynamic>) : null,
+        message = json['message'] as String?;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['code'] = code;
-    _data['data'] = data.toJson();
-    _data['message'] = message;
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'code' : code,
+    'data' : data?.toJson(),
+    'message' : message
+  };
 }
 
 class Data {
+  final Original? original;
+  final dynamic exception;
+
   Data({
-    required this.headers,
-    required this.original,
+    this.original,
     this.exception,
   });
-  late final Headers headers;
-  late final Original original;
-  late final Null exception;
 
-  Data.fromJson(Map<String, dynamic> json){
-    headers = Headers.fromJson(json['headers']);
-    original = Original.fromJson(json['original']);
-    exception = null;
-  }
+  Data.fromJson(Map<String, dynamic> json)
+      : original = (json['original'] as Map<String,dynamic>?) != null ? Original.fromJson(json['original'] as Map<String,dynamic>) : null,
+        exception = json['exception'];
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['headers'] = headers.toJson();
-    _data['original'] = original.toJson();
-    _data['exception'] = exception;
-    return _data;
-  }
-}
-
-class Headers {
-  Headers();
-
-  Headers.fromJson(Map json);
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'original' : original?.toJson(),
+    'exception' : exception
+  };
 }
 
 class Original {
+  final String? accessToken;
+  final String? tokenType;
+  final int? expiresIn;
+  final int? loggedBefore;
+
   Original({
-    required this.accessToken,
-    required this.tokenType,
-    required this.expiresIn,
-    required this.loggedBefore,
+    this.accessToken,
+    this.tokenType,
+    this.expiresIn,
+    this.loggedBefore,
   });
-  late final String accessToken;
-  late final String tokenType;
-  late final int expiresIn;
-  late final int loggedBefore;
 
-  Original.fromJson(Map<String, dynamic> json){
-    accessToken = json['access_token'];
-    tokenType = json['token_type'];
-    expiresIn = json['expires_in'];
-    loggedBefore = json['logged_before'];
-  }
+  Original.fromJson(Map<String, dynamic> json)
+      : accessToken = json['access_token'] as String?,
+        tokenType = json['token_type'] as String?,
+        expiresIn = json['expires_in'] as int?,
+        loggedBefore = json['logged_before'] as int?;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['access_token'] = accessToken;
-    _data['token_type'] = tokenType;
-    _data['expires_in'] = expiresIn;
-    _data['logged_before'] = loggedBefore;
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'access_token' : accessToken,
+    'token_type' : tokenType,
+    'expires_in' : expiresIn,
+    'logged_before' : loggedBefore
+  };
 }

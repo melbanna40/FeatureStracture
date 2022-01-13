@@ -37,7 +37,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
     await _presenter.requestFutureData<AttendanceHistoryResponse>(Method.get,
         url: Api.getAttendanceHistoryApiCall,
         options: Options(method: Method.get.toString(), headers: headers),
-        queryParams: {'date': date}, onSuccess: (data) {
+        queryParams: date != null ? {'date': date} : null, onSuccess: (data) {
       if (data.code == 200) {
         mAttendanceHistoryDataList = data.data!;
         emit(AttendanceSuccess());

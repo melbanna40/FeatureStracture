@@ -1,94 +1,88 @@
 class MyLeavesHistoryResponse {
+  final int? code;
+  final List<MyLeavesHistoryData>? data;
+  final String? message;
+
   MyLeavesHistoryResponse({
-    required this.code,
-    required this.data,
-    required this.message,
+    this.code,
+    this.data,
+    this.message,
   });
-  late final int code;
-  late final List<MyLeavesHistoryData> data;
-  late final String message;
 
-  MyLeavesHistoryResponse.fromJson(Map<String, dynamic> json){
-    code = json['code'];
-    data = List.from(json['data']).map((e)=>MyLeavesHistoryData.fromJson(e)).toList();
-    message = json['message'];
-  }
+  MyLeavesHistoryResponse.fromJson(Map<String, dynamic> json)
+      : code = json['code'] as int?,
+        data = (json['data'] as List?)?.map((dynamic e) => MyLeavesHistoryData.fromJson(e as Map<String,dynamic>)).toList(),
+        message = json['message'] as String?;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['code'] = code;
-    _data['data'] = data.map((e)=>e.toJson()).toList();
-    _data['message'] = message;
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'code' : code,
+    'data' : data?.map((e) => e.toJson()).toList(),
+    'message' : message
+  };
 }
 
 class MyLeavesHistoryData {
+  final int? id;
+  final int? userId;
+  final int? numberOfDayes;
+  final int? leaveTypeId;
+  final String? reason;
+  final String? from;
+  final String? to;
+  final String? status;
+  final LeaveType? leaveType;
+
   MyLeavesHistoryData({
-    required this.id,
-    required this.userId,
-    required this.numberOfDayes,
-    required this.leaveTypeId,
+    this.id,
+    this.userId,
+    this.numberOfDayes,
+    this.leaveTypeId,
     this.reason,
-    required this.from,
-    required this.to,
-    required this.status,
-    required this.leaveType,
+    this.from,
+    this.to,
+    this.status,
+    this.leaveType,
   });
-  late final int id;
-  late final int userId;
-  late final int numberOfDayes;
-  late final int leaveTypeId;
-  late final Null reason;
-  late final String from;
-  late final String to;
-  late final String status;
-  late final LeaveType leaveType;
 
-  MyLeavesHistoryData.fromJson(Map<String, dynamic> json){
-    id = json['id'];
-    userId = json['user_id'];
-    numberOfDayes = json['number_of_dayes'];
-    leaveTypeId = json['leave_type_id'];
-    reason = null;
-    from = json['from'];
-    to = json['to'];
-    status = json['status'];
-    leaveType = LeaveType.fromJson(json['leave_type']);
-  }
+  MyLeavesHistoryData.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int?,
+        userId = json['user_id'] as int?,
+        numberOfDayes = json['number_of_dayes'] as int?,
+        leaveTypeId = json['leave_type_id'] as int?,
+        reason = json['reason'] as String?,
+        from = json['from'] as String?,
+        to = json['to'] as String?,
+        status = json['status'] as String?,
+        leaveType = (json['leave_type'] as Map<String,dynamic>?) != null ? LeaveType.fromJson(json['leave_type'] as Map<String,dynamic>) : null;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['user_id'] = userId;
-    _data['number_of_dayes'] = numberOfDayes;
-    _data['leave_type_id'] = leaveTypeId;
-    _data['reason'] = reason;
-    _data['from'] = from;
-    _data['to'] = to;
-    _data['status'] = status;
-    _data['leave_type'] = leaveType.toJson();
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'id' : id,
+    'user_id' : userId,
+    'number_of_dayes' : numberOfDayes,
+    'leave_type_id' : leaveTypeId,
+    'reason' : reason,
+    'from' : from,
+    'to' : to,
+    'status' : status,
+    'leave_type' : leaveType?.toJson()
+  };
 }
 
 class LeaveType {
+  final int? id;
+  final String? name;
+
   LeaveType({
-    required this.id,
-    required this.name,
+    this.id,
+    this.name,
   });
-  late final int id;
-  late final String name;
 
-  LeaveType.fromJson(Map<String, dynamic> json){
-    id = json['id'];
-    name = json['name'];
-  }
+  LeaveType.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int?,
+        name = json['name'] as String?;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['name'] = name;
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'id' : id,
+    'name' : name
+  };
 }

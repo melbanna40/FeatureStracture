@@ -42,14 +42,13 @@ class LoginCubit extends Cubit<LoginState> {
           "mac_address": await CommonUtils.getDeviceId(),
         }, onSuccess: (data) {
       if (data.code == 200) {
-        if (data.data.original.loggedBefore == 1) {
-          doSaveDeviceToken(data.data.original.accessToken);
+        if (data.data!.original!.loggedBefore == 1) {
+          doSaveDeviceToken(data.data!.original!.accessToken!);
           emit(LoginSuccessState());
-          HiveHelper.setUserToken(data.data.original.accessToken);
+          HiveHelper.setUserToken(data.data!.original!.accessToken!);
           Get.offAll(() => MainScreen());
-        }
-        else if(data.data.original.loggedBefore == 0){
-          Get.to(() => ChangePasswordScreen(data.data.original.accessToken));
+        } else if (data.data!.original!.loggedBefore == 0) {
+          Get.to(() => ChangePasswordScreen(data.data!.original!.accessToken!));
         }
       } else {
         emit(LoginErrorState());

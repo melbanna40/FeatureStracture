@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/widgets/apply_leave_dialog.dart';
+import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -21,15 +22,37 @@ class LeavesScreen extends StatelessWidget {
           body: Center(child: CircularProgressIndicator()),
         );
       } else if (cubit.mMyLeavesBalanceData == null) {
-        return const Scaffold(
-          body: Center(child: Text('لايوجد بيانات تواصل مع المدير')),
+        return Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(S.of(context).no_data_contact_admin),
+                Gaps.vGap16,
+                Container(
+                  width: 200,
+                  decoration: BoxDecoration(
+                      color: MColors.colorPrimarySwatch,
+                      borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(8), right: Radius.circular(8))),
+                  child: MaterialButton(
+                      child: Text(
+                        S.of(context).refresh,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        _onRefresh(cubit);
+                      }),
+                ),
+              ],
+            ),
+          ),
         );
       } else {
         return Scaffold(
           body: RefreshIndicator(
             onRefresh: () async {
-              cubit.getMyLeavesBalances();
-              cubit.getMyLeavesHistory();
+              _onRefresh(cubit);
             },
             child: SingleChildScrollView(
               child: Padding(
@@ -64,7 +87,7 @@ class LeavesScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                cubit.mMyLeavesBalanceData!.statisics.remaining
+                                cubit.mMyLeavesBalanceData!.statisics!.remaining
                                     .toString(),
                                 style: TextStyle(
                                     fontSize: 30, fontWeight: FontWeight.bold),
@@ -114,13 +137,13 @@ class LeavesScreen extends StatelessWidget {
                       children: [
                         Gaps.hGap8,
                         Text(
-                          cubit.mMyLeavesBalanceData!.statisics.totalBalance,
+                          cubit.mMyLeavesBalanceData!.statisics!.totalBalance!,
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Spacer(),
                         Text(
-                          cubit.mMyLeavesBalanceData!.statisics.remaining
+                          cubit.mMyLeavesBalanceData!.statisics!.remaining!
                               .toString(),
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
@@ -132,7 +155,7 @@ class LeavesScreen extends StatelessWidget {
                     StaggeredGridView.countBuilder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: cubit.mMyLeavesBalanceData!.leavesType.length,
+                      itemCount: cubit.mMyLeavesBalanceData!.leavesType!.length,
                       crossAxisCount: 6,
                       mainAxisSpacing: 8,
                       crossAxisSpacing: 4,
@@ -147,12 +170,12 @@ class LeavesScreen extends StatelessWidget {
                             progressColor:
                                 MColors.colorPrimarySwatch.withOpacity(.8),
                             center: Text(cubit.mMyLeavesBalanceData!
-                                .leavesType[index].numOfDays
+                                .leavesType![index].numOfDays
                                 .toString()),
                           ),
                           Text(
-                            cubit.mMyLeavesBalanceData!.leavesType[index]
-                                .leaveType.name,
+                            cubit.mMyLeavesBalanceData!.leavesType![index]
+                                .leaveType!.name!,
                             overflow: TextOverflow.ellipsis,
                           )
                         ],
@@ -217,7 +240,7 @@ class LeavesScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         cubit.mMyLeavesHistoryDataList![index]
-                                            .leaveType.name,
+                                            .leaveType!.name!,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16),
@@ -239,7 +262,7 @@ class LeavesScreen extends StatelessWidget {
                                             cubit
                                                 .mMyLeavesHistoryDataList![
                                                     index]
-                                                .status,
+                                                .status!,
                                             style:
                                                 TextStyle(color: Colors.grey),
                                           ),
@@ -270,5 +293,10 @@ class LeavesScreen extends StatelessWidget {
         );
       }
     });
+  }
+
+  Future<void> _onRefresh(LeavesCubit cubit) async {
+    cubit.getMyLeavesBalances();
+    cubit.getMyLeavesHistory();
   }
 }

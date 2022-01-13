@@ -28,8 +28,8 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
           "mac_address": await CommonUtils.getDeviceId(),
         }, onSuccess: (data) {
       if (data.code == 200) {
-        if (data.data.original.loggedBefore == 0) {
-          Get.to(() => ChangePasswordScreen(data.data.original.accessToken));
+        if (data.data!.original!.loggedBefore == 0) {
+          Get.to(() => ChangePasswordScreen(data.data!.original!.accessToken!));
         } else {
           CommonUtils.showToastMessage(data.message);
           Get.to(() => LoginScreen());

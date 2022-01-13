@@ -1,120 +1,110 @@
 class MyLeavesBalanceResponse {
+  final int? code;
+  final MyLeavesBalanceData? data;
+  final String? message;
+
   MyLeavesBalanceResponse({
-    required this.code,
-    required this.data,
-    required this.message,
+    this.code,
+    this.data,
+    this.message,
   });
-  late final int code;
-  late final MyLeavesBalanceData data;
-  late final String message;
 
-  MyLeavesBalanceResponse.fromJson(Map<String, dynamic> json){
-    code = json['code'];
-    data = MyLeavesBalanceData.fromJson(json['data']);
-    message = json['message'];
-  }
+  MyLeavesBalanceResponse.fromJson(Map<String, dynamic> json)
+      : code = json['code'] as int?,
+        data = (json['data'] as Map<String,dynamic>?) != null ? MyLeavesBalanceData.fromJson(json['data'] as Map<String,dynamic>) : null,
+        message = json['message'] as String?;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['code'] = code;
-    _data['data'] = data.toJson();
-    _data['message'] = message;
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'code' : code,
+    'data' : data?.toJson(),
+    'message' : message
+  };
 }
 
 class MyLeavesBalanceData {
+  final List<LeavesType>? leavesType;
+  final Statisics? statisics;
+
   MyLeavesBalanceData({
-    required this.leavesType,
-    required this.statisics,
+    this.leavesType,
+    this.statisics,
   });
-  late final List<LeavesType> leavesType;
-  late final Statisics statisics;
 
-  MyLeavesBalanceData.fromJson(Map<String, dynamic> json){
-    leavesType = List.from(json['leaves_type']).map((e)=>LeavesType.fromJson(e)).toList();
-    statisics = Statisics.fromJson(json['statisics']);
-  }
+  MyLeavesBalanceData.fromJson(Map<String, dynamic> json)
+      : leavesType = (json['leaves_type'] as List?)?.map((dynamic e) => LeavesType.fromJson(e as Map<String,dynamic>)).toList(),
+        statisics = (json['statisics'] as Map<String,dynamic>?) != null ? Statisics.fromJson(json['statisics'] as Map<String,dynamic>) : null;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['leaves_type'] = leavesType.map((e)=>e.toJson()).toList();
-    _data['statisics'] = statisics.toJson();
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'leaves_type' : leavesType?.map((e) => e.toJson()).toList(),
+    'statisics' : statisics?.toJson()
+  };
 }
 
 class LeavesType {
+  final int? leaveId;
+  final int? numOfDays;
+  final LeaveType? leaveType;
+
   LeavesType({
-    required this.leaveId,
-    required this.numOfDays,
-    required this.leaveType,
+    this.leaveId,
+    this.numOfDays,
+    this.leaveType,
   });
-  late final int leaveId;
-  late final int numOfDays;
-  late final LeaveType leaveType;
 
-  LeavesType.fromJson(Map<String, dynamic> json){
-    leaveId = json['leave_id'];
-    numOfDays = json['num_of_days'];
-    leaveType = LeaveType.fromJson(json['leave_type']);
-  }
+  LeavesType.fromJson(Map<String, dynamic> json)
+      : leaveId = json['leave_id'] as int?,
+        numOfDays = json['num_of_days'] as int?,
+        leaveType = (json['leave_type'] as Map<String,dynamic>?) != null ? LeaveType.fromJson(json['leave_type'] as Map<String,dynamic>) : null;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['leave_id'] = leaveId;
-    _data['num_of_days'] = numOfDays;
-    _data['leave_type'] = leaveType.toJson();
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'leave_id' : leaveId,
+    'num_of_days' : numOfDays,
+    'leave_type' : leaveType?.toJson()
+  };
 }
 
 class LeaveType {
+  final int? id;
+  final String? name;
+  final int? employeBalance;
+
   LeaveType({
-    required this.id,
-    required this.name,
-    required this.employeBalance,
+    this.id,
+    this.name,
+    this.employeBalance,
   });
-  late final int id;
-  late final String name;
-  late final int employeBalance;
 
-  LeaveType.fromJson(Map<String, dynamic> json){
-    id = json['id'];
-    name = json['name'];
-    employeBalance = json['employe_balance'];
-  }
+  LeaveType.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int?,
+        name = json['name'] as String?,
+        employeBalance = json['employe_balance'] as int?;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['name'] = name;
-    _data['employe_balance'] = employeBalance;
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'id' : id,
+    'name' : name,
+    'employe_balance' : employeBalance
+  };
 }
 
 class Statisics {
+  final int? totalEmployeeLeaves;
+  final String? totalBalance;
+  final int? remaining;
+
   Statisics({
-    required this.totalEmployeeLeaves,
-    required this.totalBalance,
-    required this.remaining,
+    this.totalEmployeeLeaves,
+    this.totalBalance,
+    this.remaining,
   });
-  late final int totalEmployeeLeaves;
-  late final String totalBalance;
-  late final int remaining;
 
-  Statisics.fromJson(Map<String, dynamic> json){
-    totalEmployeeLeaves = json['total_employee_leaves'];
-    totalBalance = json['total_Balance'];
-    remaining = json['remaining'];
-  }
+  Statisics.fromJson(Map<String, dynamic> json)
+      : totalEmployeeLeaves = json['total_employee_leaves'] as int?,
+        totalBalance = json['total_Balance'] as String?,
+        remaining = json['remaining'] as int?;
 
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['total_employee_leaves'] = totalEmployeeLeaves;
-    _data['total_Balance'] = totalBalance;
-    _data['remaining'] = remaining;
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+    'total_employee_leaves' : totalEmployeeLeaves,
+    'total_Balance' : totalBalance,
+    'remaining' : remaining
+  };
 }

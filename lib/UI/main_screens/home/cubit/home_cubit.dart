@@ -126,7 +126,7 @@ class HomeCubit extends Cubit<HomeState> {
         isLogged = !isLogged!;
         emit(UpdateCurrentDateState());
         getHomeStatistics();
-      } else {
+      } else if(data.code == 400) {
         CommonUtils.showToastMessage(data.message);
         emit(HomeError());
       }
