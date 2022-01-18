@@ -87,8 +87,8 @@ class MyApp extends StatelessWidget {
                 Radius.circular(8),
               ),
               borderSide: BorderSide(
-                color: Colors.grey,
-                width: 1,
+                color: MColors.colorPrimarySwatch,
+                width: 1.5,
               )),
           hintStyle: const TextStyle(
             color: Colors.grey,
@@ -98,7 +98,7 @@ class MyApp extends StatelessWidget {
             color: Colors.grey,
           ),
           border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.grey),
+            borderSide: const BorderSide(  color: MColors.colorPrimarySwatch,),
             borderRadius: BorderRadius.circular(15),
           ),
         ),
@@ -143,7 +143,8 @@ class MyApp extends StatelessWidget {
             DefaultMaterialLocalizations.delegate,
             DefaultWidgetsLocalizations.delegate,
           ],
-          home: SplashScreen(),
+          home:
+          SplashScreen(),
         ));
   }
 }
