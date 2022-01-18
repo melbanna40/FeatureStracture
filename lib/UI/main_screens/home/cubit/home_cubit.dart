@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/Helpers/LocationHelper.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
+import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/global_response.dart';
@@ -65,10 +68,12 @@ class HomeCubit extends Cubit<HomeState> {
           isLogged = true;
         emit(UpdateCurrentDateState());
         emit(HomeSuccess());
-      }
-      else if (data.code == 400) {
+      } else if (data.code == 400) {
         CommonUtils.showToastMessage(data.message);
         emit(HomeSuccess());
+      } else if (data.code == 401) {
+        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Get.offAll(LoginScreen());
       } else {
         CommonUtils.showToastMessage(data.message);
         emit(HomeError());
@@ -100,7 +105,7 @@ class HomeCubit extends Cubit<HomeState> {
       //   CommonUtils.showToastMessage(data.message);
       //   isLogged = !isLogged!;
       // }
-      else {
+      else if (data.code == 400) {
         CommonUtils.showToastMessage(data.message);
         emit(HomeError());
       }
@@ -126,7 +131,7 @@ class HomeCubit extends Cubit<HomeState> {
         isLogged = !isLogged!;
         emit(UpdateCurrentDateState());
         getHomeStatistics();
-      } else if(data.code == 400) {
+      } else if (data.code == 400) {
         CommonUtils.showToastMessage(data.message);
         emit(HomeError());
       }

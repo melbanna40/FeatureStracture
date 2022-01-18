@@ -6,6 +6,7 @@ import 'package:kafey/network/api/ApiResponse/login_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_balance_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_history_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_types_response.dart';
+import 'package:kafey/network/api/ApiResponse/save_device_token_response.dart';
 
 class EntityFactory {
   static T? generateOBJ<T>(json) {
@@ -27,10 +28,9 @@ class EntityFactory {
       return MyLeavesHistoryResponse.fromJson(json) as T;
     } else if (T.toString() == "ApplyLeaveResponse") {
       return ApplyLeaveResponse.fromJson(json) as T;
+    } else if (T.toString() == "SaveDeviceTokenResponse") {
+      return SaveDeviceTokenResponse.fromJson(json) as T;
     }
-    // else if (T.toString() == "ProductsResponse") {
-    //   return ProductsResponse.fromJson(json) as T;
-    // }
     // else if (T.toString() == "ProductsResponse") {
     //   return ProductsResponse.fromJson(json) as T;
     // }

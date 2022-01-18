@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
+import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/attendance_history_response.dart';
@@ -41,7 +44,12 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       if (data.code == 200) {
         mAttendanceHistoryDataList = data.data!;
         emit(AttendanceSuccess());
-      } else {
+      }
+      else if(data.code==401){
+        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+         Get.offAll(LoginScreen());
+      }
+      else {
         emit(AttendanceError());
         CommonUtils.showToastMessage(data.message ?? '');
       }
@@ -63,8 +71,14 @@ class AttendanceCubit extends Cubit<AttendanceState> {
         params: map, onSuccess: (data) {
       if (data.code == 200) {
         getAttendanceHistoryApiCal();
+        CommonUtils.showToastMessage(data.message);
         emit(AttendanceSuccess());
-      } else {
+      }
+      else if(data.code==401){
+        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+         Get.offAll(LoginScreen());
+      }
+      else {
         emit(AttendanceError());
         CommonUtils.showToastMessage(data.message);
       }

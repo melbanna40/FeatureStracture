@@ -5,13 +5,16 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/main_screen.dart';
 import 'package:kafey/UI/User/change_password/change_password_screen.dart';
+import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/login_response.dart';
+import 'package:kafey/network/api/ApiResponse/save_device_token_response.dart';
 import 'package:kafey/network/api/network_api.dart';
 import 'package:kafey/network/network_util.dart';
 import 'package:meta/meta.dart';
@@ -63,15 +66,19 @@ class LoginCubit extends Cubit<LoginState> {
   Future doSaveDeviceToken(String token) async {
     headers[HttpHeaders.authorizationHeader] = "Bearer " + token;
     emit(LoginLoadingState());
-    await _presenter.requestFutureData<LoginResponse>(Method.post,
-        url: Api.doLoginApiCall,
+    await _presenter.requestFutureData<SaveDeviceTokenResponse>(Method.post,
+        url: Api.postNotificationsDeviceTokenApiCall,
         options: Options(method: Method.post.toString(), headers: headers),
         params: {
           "device_token": await FirebaseMessaging.instance.getToken(),
         }, onSuccess: (data) {
       if (data.code == 200) {
         emit(LoginSuccessState());
-      } else {
+      } else if (data.code == 401) {
+        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Get.offAll(LoginScreen());
+      } else if (data.code == 400) {
+        CommonUtils.showToastMessage(data.message);
         emit(LoginErrorState());
       }
     }, onError: (code, msg) {

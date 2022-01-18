@@ -1,11 +1,17 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/CommonUtils/m_svg_icons_icons.dart';
+import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/widgets/drawer.dart';
+import 'package:kafey/UI/User/login/cubit/login_cubit.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/m_colors.dart';
 
@@ -19,6 +25,96 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    LoginCubit().doSaveDeviceToken(HiveHelper.getUserToken());
+
+    var initializationSettingsAndroid =
+        new AndroidInitializationSettings('@drawable/splash');
+
+    var initializationSettingsIOS = new IOSInitializationSettings(
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+
+    var initializationSettings = new InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+
+    FlutterLocalNotificationsPlugin().initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      displayNotification(message);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      displayNotification(message);
+    });
+    FirebaseMessaging.onBackgroundMessage(
+        (RemoteMessage message) => displayNotification(message));
+    _firebaseMessaging.requestPermission(alert: true, badge: true, sound: true);
+    _firebaseMessaging.getToken().then((token) {
+      assert(token != null);
+      print(token);
+    });
+  }
+
+  Future<void> displayNotification(RemoteMessage message) async {
+    await Firebase.initializeApp();
+    Log.i(message.toString());
+
+    await FlutterLocalNotificationsPlugin().show(
+      0,
+      message.data['title'],
+      message.data['body'],
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          'channelid', 'flutterfcm',
+          importance: Importance.max,
+          priority: Priority.high,
+          playSound: true,
+          // sound: RawResourceAndroidNotificationSound(message.data['sound'])
+        ),
+        iOS: IOSNotificationDetails(),
+      ),
+      payload: message.data['title'],
+    );
+  }
+
+  void onSelectNotification(String? payload) {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+
+    Navigator.push(
+      context,
+      new MaterialPageRoute(builder: (context) => MainScreen()),
+    );
+  }
+
+  void onDidReceiveLocalNotification(
+      int id, String? title, String? body, String? payload) async {
+    // display a dialog with the notification details, tap ok to go to another page
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => new CupertinoAlertDialog(
+        title: new Text(title ?? ''),
+        content: new Text(body ?? ''),
+        actions: [
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            child: new Text('Ok'),
+            onPressed: () async {
+              Navigator.of(context, rootNavigator: true).pop();
+              // CommonUtils.showToastMessage(title);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -69,22 +165,22 @@ class _MainScreenState extends State<MainScreen> {
             return Scaffold(
               key: _scaffoldKey,
               backgroundColor: Colors.white,
-              appBar: AppBar(
-                backgroundColor: Colors.white,
-                elevation: 0,
-                title: appBarTitles[cubit.currentIndex],
-                centerTitle: true,
-                leading: InkWell(
-                  onTap: () {
-                    _scaffoldKey.currentState!.openDrawer();
-                  },
-                  child: SvgPicture.asset(
-                    ImageUtils.getSVGPath('ic_logo'),
-                    width: 20,
-                    height: 20,
-                  ),
-                ),
-              ),
+              // appBar: AppBar(
+              //   backgroundColor: Colors.white,
+              //   elevation: 0,
+              //   title: appBarTitles[cubit.currentIndex],
+              //   centerTitle: true,
+              //   leading: InkWell(
+              //     onTap: () {
+              //       _scaffoldKey.currentState!.openDrawer();
+              //     },
+              //     child: SvgPicture.asset(
+              //       ImageUtils.getSVGPath('ic_logo'),
+              //       width: 20,
+              //       height: 20,
+              //     ),
+              //   ),
+              // ),
               drawer: CustomDrawer(cubit),
               bottomNavigationBar: CurvedNavigationBar(
                 index: 0,

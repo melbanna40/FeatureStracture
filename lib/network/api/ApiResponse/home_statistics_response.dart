@@ -65,7 +65,7 @@ class HomeStatisticsData {
     _date = json['date'];
     _clockIn = json['clock_in'];
     _clockOut = json['clock_out'];
-    _hoursPerDay = json['hours_per_day'].toString();
+    _hoursPerDay = json['hours_per_day'];
     _status = json['status'];
     _workingFrom = json['working_from'];
     _notes = json['notes'];

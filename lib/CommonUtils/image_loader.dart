@@ -18,12 +18,12 @@ class ImageLoader {
       placeholder: (context, url) =>
           iconPlaceholder ??
           Image.asset(
-            ImageUtils.getImagePath("app_logo"),
+            ImageUtils.getImagePath("ic_kafey_logo"),
           ),
       errorWidget: (context, url, error) =>
           iconPlaceholder ??
           Image.asset(
-            ImageUtils.getImagePath("app_logo"),
+            ImageUtils.getImagePath("ic_kafey_logo"),
           ),
     );
   }
@@ -42,7 +42,7 @@ class ImageLoader {
       progressIndicatorBuilder: (context, url, downloadProgress) => Center(
           child: CircularProgressIndicator(value: downloadProgress.progress)),
       errorWidget: (context, url, error) =>
-          Image(image: AssetImage(ImageUtils.getImagePath('img-placeholder'))),
+          Image(image: AssetImage(ImageUtils.getImagePath('ic_kafey_logo'))),
       // Image.asset(ImageUtils.getImagePath('img-placeholder')),
     );
   }
@@ -72,12 +72,12 @@ class ImageLoader {
       placeholder: (context, url) =>
           iconPlaceholder ??
           Image.asset(
-            ImageUtils.getImagePath("app_logo"),
+            ImageUtils.getImagePath("ic_kafey_logo"),
           ),
       errorWidget: (context, url, error) =>
           iconPlaceholder ??
           Image.asset(
-            ImageUtils.getImagePath("app_logo"),
+            ImageUtils.getImagePath("ic_kafey_logo"),
           ),
     );
   }

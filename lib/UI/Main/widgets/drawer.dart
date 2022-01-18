@@ -19,8 +19,8 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountEmail: Text("Seller Email"),
-            accountName: Text("Seller Name"),
+            accountEmail: Text("User Email",style: TextStyle(color: Colors.black),),
+            accountName: Text("User Name",style: TextStyle(color: Colors.black),),
             currentAccountPicture: GestureDetector(
               child: const CircleAvatar(
                 backgroundImage: NetworkImage(
@@ -29,10 +29,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: () => print("This is your current account."),
             ),
             decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(
-                        "https://thumbs.dreamstime.com/b/business-intelligence-diagram-graph-stock-trading-investment-dashboard-transparent-blurred-background-148087121.jpg"),
-                    fit: BoxFit.fill)),
+                color: Colors.white),
           ),
           // ListTile(
           //     title: Text(S.of(context).chat),
@@ -43,8 +40,7 @@ class CustomDrawer extends StatelessWidget {
           //       Navigator.of(context).pop();
           //       // Navigator.of(context).push(  MaterialPageRoute(builder: (BuildContext context) =>   Page("First Page")));
           //     }),
-          const Divider(),
-          ListTile(
+           ListTile(
             title: Text(S.of(context).setting),
             trailing: Icon(Localizations.localeOf(context).toString() == 'ar'
                 ? CupertinoIcons.chevron_left

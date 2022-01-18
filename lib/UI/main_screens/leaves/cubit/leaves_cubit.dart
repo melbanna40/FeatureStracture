@@ -2,8 +2,11 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
+import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/apply_leave_response.dart';
@@ -37,6 +40,10 @@ class LeavesCubit extends Cubit<LeavesState> {
       }
       if (data.code == 400) {
         emit(LeavesSuccess());
+        // CommonUtils.showToastMessage(data.message);
+      } else if (data.code == 401) {
+        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Get.offAll(LoginScreen());
       } else {
         emit(LeavesError());
       }
@@ -59,9 +66,12 @@ class LeavesCubit extends Cubit<LeavesState> {
       if (data.code == 200) {
         mMyLeavesTypesDataList = data.data;
         emit(LeavesSuccess());
-      }
-      if (data.code == 400) {
+      } else if (data.code == 401) {
+        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Get.offAll(LoginScreen());
+      } else if (data.code == 400) {
         emit(LeavesError());
+        // CommonUtils.showToastMessage(data.message);
       } else {
         emit(LeavesError());
       }
@@ -84,9 +94,12 @@ class LeavesCubit extends Cubit<LeavesState> {
       if (data.code == 200) {
         mMyLeavesHistoryDataList = data.data;
         emit(LeavesSuccess());
-      }
-      if (data.code == 400) {
+      } else if (data.code == 401) {
+        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Get.offAll(LoginScreen());
+      } else if (data.code == 400) {
         emit(LeavesError());
+        // CommonUtils.showToastMessage(data.message);
       } else {
         emit(LeavesError());
       }
@@ -107,8 +120,11 @@ class LeavesCubit extends Cubit<LeavesState> {
         getMyLeavesBalances();
         getMyLeavesHistory();
         emit(LeavesSuccess());
-      } else {
-        CommonUtils.showToastMessage(data.message);
+      } else if (data.code == 401) {
+        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Get.offAll(LoginScreen());
+      } else if (data.code == 400) {
+        // CommonUtils.showToastMessage(data.message);
         emit(LeavesError());
       }
     }, onError: (code, msg) {

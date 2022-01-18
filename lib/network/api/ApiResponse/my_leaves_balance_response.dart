@@ -87,7 +87,7 @@ class LeaveType {
 }
 
 class Statisics {
-  final int? totalEmployeeLeaves;
+  final String? totalEmployeeLeaves;
   final String? totalBalance;
   final int? remaining;
 
@@ -98,8 +98,8 @@ class Statisics {
   });
 
   Statisics.fromJson(Map<String, dynamic> json)
-      : totalEmployeeLeaves = json['total_employee_leaves'] as int?,
-        totalBalance = json['total_Balance'] as String?,
+      : totalEmployeeLeaves = json['total_employee_leaves'].toString(),
+        totalBalance = json['total_Balance'].toString(),
         remaining = json['remaining'] as int?;
 
   Map<String, dynamic> toJson() => {
