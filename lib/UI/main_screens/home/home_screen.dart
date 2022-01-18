@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kafey/CommonUtils/image_loader.dart';
@@ -10,6 +11,7 @@ import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:local_auth/local_auth.dart';
 
+import 'check_dialog.dart';
 import 'cubit/home_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -253,109 +255,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       barrierLabel: "Barrier",
       barrierDismissible: false,
       barrierColor: Colors.white.withOpacity(0.2),
-      transitionDuration: Duration(milliseconds: 500),
+      transitionDuration: Duration(milliseconds: 200),
       pageBuilder: (_, __, ___) {
-        return Center(
-          child: Container(
-             color: Colors.transparent,
-            child: Dialog(
-              backgroundColor: Colors.transparent,
-              child: Stack(
-                children: [
-                  Container(
-                    height: 260,
-                    child: SvgPicture.asset(
-                      ImageUtils.getSVGPath('bg_dialog'),
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '" لم يحن موعد الرحيل بعد"',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontFamily: 'Dubai',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Gaps.vGap8,
-                      Text(
-                        'هل أنت متأكد من \n ${cubit!.isLogged! ? S.of(context).clock_out : S.of(context).clock_in}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontFamily: 'Dubai',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              callback.call(true);
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              height: 30,
-                              width: 50,
-                              margin: EdgeInsets.symmetric(horizontal: 16),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'نعم',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 17,
-                                    fontFamily: 'Dubai',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              callback.call(false);
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              height: 30,
-                              width: 50,
-                              margin: EdgeInsets.symmetric(horizontal: 16),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'لا',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 17,
-                                    fontFamily: 'Dubai',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
+        return CheckDialog(callback:callback,cubit: cubit,);
       },
       transitionBuilder: (_, anim, __, child) {
         Tween<Offset> tween;
