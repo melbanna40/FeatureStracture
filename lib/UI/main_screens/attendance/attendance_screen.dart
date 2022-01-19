@@ -7,6 +7,7 @@ import 'package:kafey/UI/main_screens/attendance/cubit/attendance_cubit.dart';
 import 'package:kafey/UI/main_screens/attendance/widget/clock_out_dialog.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/network/api/ApiResponse/attendance_history_response.dart';
+import 'package:kafey/res/styles.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class AttendanceScreen extends StatefulWidget {
@@ -136,22 +137,21 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           }
         return Scaffold(
           backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            elevation: 0,
+            title: Text(
+              "المواظبة",
+              style: KStyles.textStyle30,
+            ),
+          ),
           body: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
 
               children: [
-                Center(
-                  child: Text(
-                    'المواظبة',
-                    style: TextStyle(
-                      color: Color(0xff0077ff),
-                      fontSize: 32,
-                      fontFamily: 'Dubai',
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
+
                 InkWell(
                   onTap: () async {
                     DateTime initialDate = DateTime.now();
