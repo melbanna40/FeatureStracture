@@ -27,21 +27,20 @@ class _LeavesScreenState extends State<LeavesScreen>
   Widget build(BuildContext context) {
     _cardController = TabController(length: 3, vsync: this);
     List<Widget> taps = [
-      Tab(
-        text: "الطلبات"
-      ),
+      Tab(text: "الطلبات"),
       Tab(
         text: "الأجازات السابقة",
       ),
       Tab(
-        text: S.of(context).pending,
+        text: "المرتبات",
       ),
     ];
     return BlocBuilder<LeavesCubit, LeavesState>(builder: (context, state) {
       final cubit = BlocProvider.of<LeavesCubit>(context);
-      void _taped(int status) {
+      void _taped(int status) async {
+        await cubit.getMyLeavesHistory();
         // cubit.getAllOrdersData(status: status);
-        setState(() {});
+        // setState(() {});
       }
 
       if (state is LeavesLoading) {
@@ -50,6 +49,8 @@ class _LeavesScreenState extends State<LeavesScreen>
         );
       } else if (cubit.mMyLeavesBalanceData == null) {
         return Scaffold(
+
+
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -165,7 +166,8 @@ class _LeavesScreenState extends State<LeavesScreen>
                           onPressed: () {
                             Get.to(ApplyLeaveDialog(
                               cubit.mMyLeavesTypesDataList,
-                              onCreateClickedCallBack: (Map<String, dynamic> data) {
+                              onCreateClickedCallBack:
+                                  (Map<String, dynamic> data) {
                                 cubit.applyLeave(data);
                               },
                             ));
@@ -173,7 +175,6 @@ class _LeavesScreenState extends State<LeavesScreen>
                     ),
                     Gaps.vGap30,
                     StaggeredGridView.countBuilder(
-
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: cubit.mMyLeavesBalanceData!.leavesType!.length,
@@ -270,120 +271,50 @@ class _LeavesScreenState extends State<LeavesScreen>
                       //Add this to give height
 
                       child: TabBarView(
+                        physics: NeverScrollableScrollPhysics(),
                         controller: _cardController,
                         children: List.generate(3, (index) {
                           return ListView.builder(
-                            itemCount: 10,
+                            itemCount: cubit.mMyLeavesHistoryDataList?.length??0,
                             itemBuilder: (BuildContext context, int inx) {
-                              return Container(
-                                child: Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 4,
-                                    ),
-                                    Gaps.hGap4,
-                                    Container(
-                                      width: 220,
-                                      child: Text(
-                                        "تم التقديم على اجازة مرضية يوم 16 يناير",
-                                        style: KStyles.textStyle13,
+                              return cubit.mMyLeavesHistoryDataList != null
+                                  ? Container(
+                                      child: Row(
+                                        children: [
+                                          CircleAvatar(
+                                            radius: 4,
+                                          ),
+                                          Gaps.hGap4,
+                                          Container(
+                                            width: 220,
+                                            child: Text(
+                                              " تم التقديم على أجازة   ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""} ",
+                                              style: KStyles.textStyle13,
+                                            ),
+                                          ),
+                                          Chip(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                Radius.circular(4),
+                                              )),
+                                              backgroundColor: Colors
+                                                  .greenAccent
+                                                  .withOpacity(.3),
+                                              label: Text(
+                                                "تحت الطلب",
+                                                style: TextStyle(
+                                                    color: Colors.green),
+                                              )),
+                                        ],
                                       ),
-                                    ),
-                                    Chip(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                          Radius.circular(4),
-                                        )),
-                                        backgroundColor:
-                                            Colors.greenAccent.withOpacity(.3),
-                                        label: Text(
-                                          "تحت الطلب",
-                                          style: TextStyle(color: Colors.green),
-                                        )),
-                                  ],
-                                ),
-                              );
+                                    )
+                                  : Container();
                             },
                           );
                         }),
                       ),
                     ),
-                    if (cubit.mMyLeavesHistoryDataList != null)
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                        child: ListView.builder(
-                          itemCount: cubit.mMyLeavesHistoryDataList!.length,
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () {
-                              // Get.to(MessagesScreen());
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(14)),
-                                color: index == 0 || index % 2 == 0
-                                    ? MColors.colorPrimarySwatch.withOpacity(.2)
-                                    : Colors.transparent,
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        cubit.mMyLeavesHistoryDataList![index]
-                                            .leaveType!.name!,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          // Text(
-                                          //   cubit
-                                          //       .mMyLeavesHistoryDataList![
-                                          //           index]
-                                          //       .numberOfDayes
-                                          //       .toString(),
-                                          //   style:
-                                          //       TextStyle(color: Colors.grey),
-                                          // ),
-                                          Text(
-                                            cubit
-                                                .mMyLeavesHistoryDataList![
-                                                    index]
-                                                .status!,
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text("11:44 "),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                   ],
                 ),
               ),

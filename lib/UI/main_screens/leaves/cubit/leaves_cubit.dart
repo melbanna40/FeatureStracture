@@ -92,7 +92,7 @@ class LeavesCubit extends Cubit<LeavesState> {
         options: Options(method: Method.get.toString(), headers: headers),
         onSuccess: (data) {
       if (data.code == 200) {
-        mMyLeavesHistoryDataList = data.data;
+        mMyLeavesHistoryDataList = data.data!;
         emit(LeavesSuccess());
       } else if (data.code == 401) {
         Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();

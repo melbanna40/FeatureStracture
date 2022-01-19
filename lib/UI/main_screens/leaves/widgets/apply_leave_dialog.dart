@@ -63,8 +63,8 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                   );
                   if (picked != null) {
                     print(picked);
-                    start = DateFormat('MM-dd', 'en').format(picked.start);
-                    end = DateFormat('MM-dd', 'en').format(picked.end);
+                    start = DateFormat('yyyy-MM-dd', 'en').format(picked.start);
+                    end = DateFormat('yyyy-MM-dd', 'en').format(picked.end);
 
                     _dateController.text = "   من   " + start + "  إلى    " + end;
                     setState(() {});
