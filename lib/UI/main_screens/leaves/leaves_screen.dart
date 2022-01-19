@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/widgets/apply_leave_dialog.dart';
 import 'package:kafey/generated/l10n.dart';
@@ -62,17 +63,24 @@ class LeavesScreen extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return ApplyLeaveDialog(
-                                cubit.mMyLeavesTypesDataList,
-                                onCreateClickedCallBack:
-                                    (Map<String, dynamic> data) {
-                                  cubit.applyLeave(data);
-                                },
-                              );
-                            });
+                        Get.to(ApplyLeaveDialog(
+                          cubit.mMyLeavesTypesDataList,
+                          onCreateClickedCallBack:
+                              (Map<String, dynamic> data) {
+                            cubit.applyLeave(data);
+                          },
+                        ));
+                        // showDialog(
+                        //     context: context,
+                        //     builder: (BuildContext context) {
+                        //       return ApplyLeaveDialog(
+                        //         cubit.mMyLeavesTypesDataList,
+                        //         onCreateClickedCallBack:
+                        //             (Map<String, dynamic> data) {
+                        //           cubit.applyLeave(data);
+                        //         },
+                        //       );
+                        //     });
                       },
                       child: Center(
                         child: CircularPercentIndicator(
