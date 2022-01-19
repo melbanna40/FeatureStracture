@@ -53,7 +53,7 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("اختار تاريخ الأجازة",style: KStyles.textStyle16),
+              Text("اختار تاريخ الأجازة", style: KStyles.textStyle16),
               InkWell(
                 onTap: () async {
                   final picked = await showDateRangePicker(
@@ -66,32 +66,31 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                     start = DateFormat('yyyy-MM-dd', 'en').format(picked.start);
                     end = DateFormat('yyyy-MM-dd', 'en').format(picked.end);
 
-                    _dateController.text = "   من   " + start + "  إلى    " + end;
+                    _dateController.text =
+                        "   من   " + start + "  إلى    " + end;
                     setState(() {});
                   }
                 },
                 child: TextFormField(
                   controller: _dateController,
                   enabled: false,
-                  style:KStyles.textStyle16,
-
+                  style: KStyles.textStyle16,
                   decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                        borderSide: const BorderSide(color: MColors.colorPrimarySwatch, width: 1.0),),
-
-                    suffixIcon: Icon(CupertinoIcons.calendar,  color: MColors.colorPrimarySwatch,)
-
-                  ),
+                      border: const OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: MColors.colorPrimarySwatch, width: 1.0),
+                      ),
+                      suffixIcon: Icon(
+                        CupertinoIcons.calendar,
+                        color: MColors.colorPrimarySwatch,
+                      )),
                 ),
               ),
               Gaps.vGap15,
-              Text("اختار نوع الأجازة",style: KStyles.textStyle16),
+              Text("اختار نوع الأجازة", style: KStyles.textStyle16),
               DropdownButtonHideUnderline(
-
                 child: DropdownButton<MyLeavesTypesData>(
                   isExpanded: true,
-
-
                   icon: Container(
                       padding: const EdgeInsets.all(4),
                       margin: const EdgeInsets.all(4),
@@ -120,7 +119,7 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                 ),
               ),
               Gaps.vGap15,
-              Text("السبب",style: KStyles.textStyle16),
+              Text("السبب", style: KStyles.textStyle16),
               Container(
                 height: 200,
                 child: TextFormField(

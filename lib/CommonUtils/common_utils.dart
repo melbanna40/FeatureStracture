@@ -18,7 +18,7 @@ class CommonUtils {
     Get.snackbar(
       title ?? '',
       message ?? '',
-      duration: Duration(milliseconds: 800),
+      duration: Duration(seconds: 1),
       snackPosition: SnackPosition.BOTTOM,
     );
   }
