@@ -6,6 +6,7 @@ import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dar
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
+import 'package:kafey/res/styles.dart';
 
 class NotificationsScreen extends StatefulWidget {
   NotificationsScreen({Key? key}) : super(key: key);
@@ -27,28 +28,52 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       } else if (cubit.mNotificationDataList == null ||
           cubit.mNotificationDataList!.isEmpty) {
         return Scaffold(
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(S.of(context).empty_data),
-                Gaps.vGap16,
-                Container(
-                  width: 200,
-                  decoration: BoxDecoration(
-                      color: MColors.colorPrimarySwatch,
-                      borderRadius: const BorderRadius.horizontal(
-                          left: Radius.circular(8), right: Radius.circular(8))),
-                  child: MaterialButton(
-                      child: Text(
-                        S.of(context).refresh,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        _onRefresh(cubit);
-                      }),
-                ),
-              ],
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            elevation: 0,
+            title: Text(
+              "الاشعارات",
+              style: KStyles.textStyle30,
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+              child: ListView.builder(
+                itemCount: 40,
+                itemBuilder: (BuildContext context, int inx) {
+                  return Container(
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 4,
+                        ),
+                        Gaps.hGap4,
+                        Container(
+                          width: 220,
+                          child: Text(
+                            "تم التقديم على اجازة مرضية يوم 16 يناير",
+                            style: KStyles.textStyle13,
+                          ),
+                        ),
+                        Chip(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(4),
+                                )),
+                            backgroundColor:
+                            Colors.greenAccent.withOpacity(.3),
+                            label: Text(
+                              "تحت الطلب",
+                              style: TextStyle(color: Colors.green),
+                            )),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         );

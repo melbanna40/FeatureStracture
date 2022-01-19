@@ -77,6 +77,16 @@ class _LeavesScreenState extends State<LeavesScreen>
         );
       } else {
         return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            centerTitle: true,
+            elevation: 0,
+            title: Text(
+              "اجازاتي",
+              style: KStyles.textStyle30,
+            ),
+          ),
           body: RefreshIndicator(
             onRefresh: () async {
               _onRefresh(cubit);
@@ -87,10 +97,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "اجازاتي",
-                      style: KStyles.textStyle30,
-                    ),
+
                     Gaps.vGap30,
                     InkWell(
                       onTap: () {
@@ -156,10 +163,12 @@ class _LeavesScreenState extends State<LeavesScreen>
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () {
-                            // Log.e(selectedLeaveType!.id.toString());
-                            // Log.e(start);
-                            // Log.e(end);
-                            // Log.e(_reasonController.text);
+                            Get.to(ApplyLeaveDialog(
+                              cubit.mMyLeavesTypesDataList,
+                              onCreateClickedCallBack: (Map<String, dynamic> data) {
+                                cubit.applyLeave(data);
+                              },
+                            ));
                           }),
                     ),
                     Gaps.vGap30,

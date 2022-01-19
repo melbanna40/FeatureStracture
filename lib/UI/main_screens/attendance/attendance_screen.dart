@@ -138,334 +138,346 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           backgroundColor: Colors.white,
           body: Padding(
             padding: const EdgeInsets.all(12.0),
-            child: RefreshIndicator(
-              onRefresh: () async {
-                await cubit.getAttendanceHistoryApiCal();
-              },
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  Center(
-                    child: Text(
-                      'المواظبة',
-                      style: TextStyle(
-                        color: Color(0xff0077ff),
-                        fontSize: 32,
-                        fontFamily: 'Dubai',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      DateTime initialDate = DateTime.now();
+            child: Column(
 
-                      final DateTime? selected = await showMonthPicker(
-                        context: context,
-                        firstDate: DateTime(initialDate.year - 1, 5),
-                        lastDate: DateTime(initialDate.year + 1, 9),
-                        initialDate: initialDate,
-                      );
-                      cubit.updateAttendanceDate(selected!);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Icon(
-                          Icons.arrow_back_ios,
-                          color: Color(0xff0995f5),
-                        ),
-                        Text(
-                          DateFormat.yMMMM('ar').format(cubit.attendanceDay!),
-                          style: TextStyle(
-                            color: Color(0xff0995f5),
-                            fontSize: 20,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color(0xff0995f5),
-                        ),
-                      ],
+              children: [
+                Center(
+                  child: Text(
+                    'المواظبة',
+                    style: TextStyle(
+                      color: Color(0xff0077ff),
+                      fontSize: 32,
+                      fontFamily: 'Dubai',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                  cubit.mAttendanceHistoryDataList != null &&
-                          cubit.mAttendanceHistoryDataList!.isNotEmpty
-                      ? Container(
-                          height: 200,
-                          child: ListView.builder(
-                              itemCount:
-                                  cubit.mAttendanceHistoryDataList!.length,
-                              itemBuilder: (context, index) => InkWell(
-                                    onTap: () {
-                                      // Get.to(MessagesScreen());
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(14)),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Container(
-                                            height: 60,
-                                            width: 60,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xffe5e5e5),
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  cubit
-                                                      .mAttendanceHistoryDataList![
-                                                          index]
-                                                      .dayOfMonth!
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Container(
-                                                  width: 24,
-                                                  child: Text(
+                ),
+                InkWell(
+                  onTap: () async {
+                    DateTime initialDate = DateTime.now();
+
+                    final DateTime? selected = await showMonthPicker(
+                      context: context,
+                      firstDate: DateTime(initialDate.year - 1, 5),
+                      lastDate: DateTime(initialDate.year + 1, 9),
+                      initialDate: initialDate,
+                    );
+                    cubit.updateAttendanceDate(selected!);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Icon(
+                        Icons.arrow_back_ios,
+                        color: Color(0xff0995f5),
+                      ),
+                      Text(
+                        DateFormat.yMMMM('ar').format(cubit.attendanceDay!),
+                        style: TextStyle(
+                          color: Color(0xff0995f5),
+                          fontSize: 20,
+                          fontFamily: 'Dubai',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Color(0xff0995f5),
+                      ),
+                    ],
+                  ),
+                ),
+                ListView(
+                  shrinkWrap: true,
+                  children: [
+
+
+                    cubit.mAttendanceHistoryDataList != null &&
+                            cubit.mAttendanceHistoryDataList!.isNotEmpty
+                        ? Container(
+                            height: 200,
+                            child: Container(
+                              child:   RefreshIndicator(
+
+                                onRefresh: () async {
+                                  await cubit.getAttendanceHistoryApiCal();
+                                },
+                                child: ListView.builder(
+                                    itemCount:
+                                    cubit.mAttendanceHistoryDataList!.length,
+                                    itemBuilder: (context, index) => InkWell(
+                                      onTap: () {
+                                        // Get.to(MessagesScreen());
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(14)),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: 60,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xffe5e5e5),
+                                                borderRadius:
+                                                BorderRadius.circular(15),
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
                                                     cubit
                                                         .mAttendanceHistoryDataList![
-                                                            index]
-                                                        .dayOfWeek!,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
+                                                    index]
+                                                        .dayOfMonth!
+                                                        .toString(),
                                                     style: TextStyle(
-                                                        fontSize: 8,
+                                                        fontSize: 12,
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                        FontWeight.bold),
                                                   ),
-                                                )
-                                              ],
+                                                  Container(
+                                                    width: 24,
+                                                    child: Text(
+                                                      cubit
+                                                          .mAttendanceHistoryDataList![
+                                                      index]
+                                                          .dayOfWeek!,
+                                                      overflow:
+                                                      TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                          fontSize: 8,
+                                                          fontWeight:
+                                                          FontWeight.bold),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          Container(
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  margin: EdgeInsets.all(4),
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 6,
-                                                      horizontal: 12),
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xff00c950),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            13),
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        'الحضور ',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 11,
-                                                          fontFamily: 'Dubai',
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '10:01',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 11,
-                                                          fontFamily: 'Dubai',
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.all(4),
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 6,
-                                                      horizontal: 12),
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xffff3434),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            13),
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        'الانصراف ',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 11,
-                                                          fontFamily: 'Dubai',
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '10:01',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 11,
-                                                          fontFamily: 'Dubai',
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  margin: EdgeInsets.all(4),
-                                                  padding: EdgeInsets.all(4),
-                                                  height: 25,
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        'ساعات العمل ',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xff828282),
-                                                          fontSize: 11,
-                                                          fontFamily: 'Dubai',
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '07:05',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xff828282),
-                                                          fontSize: 11,
-                                                          fontFamily: 'Dubai',
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.all(4),
-                                                  padding: EdgeInsets.all(4),
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        'الحاله ',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xff828282),
-                                                          fontSize: 11,
-                                                          fontFamily: 'Dubai',
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                vertical: 6,
-                                                                horizontal: 12),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0xffffaa00),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(13),
-                                                        ),
-                                                        child: Text(
-                                                          'حاضر',
+                                            Container(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    margin: EdgeInsets.all(4),
+                                                    padding: EdgeInsets.symmetric(
+                                                        vertical: 6,
+                                                        horizontal: 12),
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xff00c950),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          13),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          'الحضور ',
                                                           style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 11,
                                                             fontFamily: 'Dubai',
                                                             fontWeight:
-                                                                FontWeight.w700,
+                                                            FontWeight.w700,
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                        Text(
+                                                          '10:01',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 11,
+                                                            fontFamily: 'Dubai',
+                                                            fontWeight:
+                                                            FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Container(
+                                                    margin: EdgeInsets.all(4),
+                                                    padding: EdgeInsets.symmetric(
+                                                        vertical: 6,
+                                                        horizontal: 12),
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xffff3434),
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          13),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          'الانصراف ',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 11,
+                                                            fontFamily: 'Dubai',
+                                                            fontWeight:
+                                                            FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '10:01',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 11,
+                                                            fontFamily: 'Dubai',
+                                                            fontWeight:
+                                                            FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                            Container(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    margin: EdgeInsets.all(4),
+                                                    padding: EdgeInsets.all(4),
+                                                    height: 25,
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          'ساعات العمل ',
+                                                          style: TextStyle(
+                                                            color:
+                                                            Color(0xff828282),
+                                                            fontSize: 11,
+                                                            fontFamily: 'Dubai',
+                                                            fontWeight:
+                                                            FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '07:05',
+                                                          style: TextStyle(
+                                                            color:
+                                                            Color(0xff828282),
+                                                            fontSize: 11,
+                                                            fontFamily: 'Dubai',
+                                                            fontWeight:
+                                                            FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: EdgeInsets.all(4),
+                                                    padding: EdgeInsets.all(4),
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          'الحاله ',
+                                                          style: TextStyle(
+                                                            color:
+                                                            Color(0xff828282),
+                                                            fontSize: 11,
+                                                            fontFamily: 'Dubai',
+                                                            fontWeight:
+                                                            FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 6,
+                                                              horizontal: 12),
+                                                          decoration:
+                                                          BoxDecoration(
+                                                            color:
+                                                            Color(0xffffaa00),
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(13),
+                                                          ),
+                                                          child: Text(
+                                                            'حاضر',
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 11,
+                                                              fontFamily: 'Dubai',
+                                                              fontWeight:
+                                                              FontWeight.w700,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  )),
-                        )
-                      // Stack(
-                      //         children: [
-                      //           Container(
-                      //             color: Colors.grey[50],
-                      //             height: 57,
-                      //           ),
-                      //           DataTable(
-                      //               // columnSpacing: 20,
-                      //               columnSpacing: 20,
-                      //               horizontalMargin: 12,
-                      //               dataRowHeight: 50,
-                      //               dataTextStyle:
-                      //                   TextStyle(overflow: TextOverflow.ellipsis),
-                      //               // headingRowColor: Colors.grey,
-                      //               columns: [
-                      //                 DataColumn(
-                      //                   label: Text(
-                      //                     S.of(context).sDate,
-                      //                     style: TextStyle(fontSize: 12),
-                      //                   ),
-                      //                 ),
-                      //                 DataColumn(
-                      //                   label: Text(
-                      //                     S.of(context).Clock_in,
-                      //                     style: TextStyle(fontSize: 12),
-                      //                   ),
-                      //                 ),
-                      //                 DataColumn(
-                      //                   label: Text(
-                      //                     S.of(context).Clock_out,
-                      //                     style: TextStyle(fontSize: 12),
-                      //                   ),
-                      //                 ),
-                      //                 DataColumn(
-                      //                   label: Text(
-                      //                     S.of(context).Working_Hr,
-                      //                     overflow: TextOverflow.ellipsis,
-                      //                     style: TextStyle(fontSize: 12),
-                      //                   ),
-                      //                 ),
-                      //               ],
-                      //               rows: dataRowList),
-                      //         ],
-                      //       )
-                      : Center(
-                          child: Text(S.of(context).empty_data),
-                        )
-                ],
-              ),
+                                    )),
+                              ),
+                            )
+
+
+                          )
+                        // Stack(
+                        //         children: [
+                        //           Container(
+                        //             color: Colors.grey[50],
+                        //             height: 57,
+                        //           ),
+                        //           DataTable(
+                        //               // columnSpacing: 20,
+                        //               columnSpacing: 20,
+                        //               horizontalMargin: 12,
+                        //               dataRowHeight: 50,
+                        //               dataTextStyle:
+                        //                   TextStyle(overflow: TextOverflow.ellipsis),
+                        //               // headingRowColor: Colors.grey,
+                        //               columns: [
+                        //                 DataColumn(
+                        //                   label: Text(
+                        //                     S.of(context).sDate,
+                        //                     style: TextStyle(fontSize: 12),
+                        //                   ),
+                        //                 ),
+                        //                 DataColumn(
+                        //                   label: Text(
+                        //                     S.of(context).Clock_in,
+                        //                     style: TextStyle(fontSize: 12),
+                        //                   ),
+                        //                 ),
+                        //                 DataColumn(
+                        //                   label: Text(
+                        //                     S.of(context).Clock_out,
+                        //                     style: TextStyle(fontSize: 12),
+                        //                   ),
+                        //                 ),
+                        //                 DataColumn(
+                        //                   label: Text(
+                        //                     S.of(context).Working_Hr,
+                        //                     overflow: TextOverflow.ellipsis,
+                        //                     style: TextStyle(fontSize: 12),
+                        //                   ),
+                        //                 ),
+                        //               ],
+                        //               rows: dataRowList),
+                        //         ],
+                        //       )
+                        : Center(
+                            child: Text(S.of(context).empty_data),
+                          )
+                  ],
+                ),
+              ],
             ),
           ),
         );
