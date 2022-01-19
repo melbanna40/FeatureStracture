@@ -9,15 +9,41 @@ import 'package:kafey/UI/main_screens/leaves/widgets/apply_leave_dialog.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
+import 'package:kafey/res/styles.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class LeavesScreen extends StatelessWidget {
+class LeavesScreen extends StatefulWidget {
   const LeavesScreen({Key? key}) : super(key: key);
 
   @override
+  State<LeavesScreen> createState() => _LeavesScreenState();
+}
+
+TabController? _cardController;
+
+class _LeavesScreenState extends State<LeavesScreen>
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    _cardController = TabController(length: 3, vsync: this);
+    List<Widget> taps = [
+      Tab(
+        text: "الطلبات"
+      ),
+      Tab(
+        text: "الأجازات السابقة",
+      ),
+      Tab(
+        text: S.of(context).pending,
+      ),
+    ];
     return BlocBuilder<LeavesCubit, LeavesState>(builder: (context, state) {
       final cubit = BlocProvider.of<LeavesCubit>(context);
+      void _taped(int status) {
+        // cubit.getAllOrdersData(status: status);
+        setState(() {});
+      }
+
       if (state is LeavesLoading) {
         return const Scaffold(
           body: Center(child: CircularProgressIndicator()),
@@ -61,12 +87,16 @@ class LeavesScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Text(
+                      "اجازاتي",
+                      style: KStyles.textStyle30,
+                    ),
+                    Gaps.vGap30,
                     InkWell(
                       onTap: () {
                         Get.to(ApplyLeaveDialog(
                           cubit.mMyLeavesTypesDataList,
-                          onCreateClickedCallBack:
-                              (Map<String, dynamic> data) {
+                          onCreateClickedCallBack: (Map<String, dynamic> data) {
                             cubit.applyLeave(data);
                           },
                         ));
@@ -86,7 +116,7 @@ class LeavesScreen extends StatelessWidget {
                         child: CircularPercentIndicator(
                           radius: 200,
                           lineWidth: 10,
-                          percent: 1,
+                          percent: .75,
                           animation: true,
                           circularStrokeCap: CircularStrokeCap.round,
                           progressColor:
@@ -98,10 +128,12 @@ class LeavesScreen extends StatelessWidget {
                                 cubit.mMyLeavesBalanceData!.statisics!.remaining
                                     .toString(),
                                 style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
+                                    color: MColors.colorPrimarySwatch,
+                                    fontSize: 60,
+                                    fontWeight: FontWeight.bold),
                               ),
                               const Text(
-                                "Click to apply leave",
+                                "رصيد الأجازات",
                                 style:
                                     TextStyle(color: Colors.grey, fontSize: 20),
                               ),
@@ -111,111 +143,161 @@ class LeavesScreen extends StatelessWidget {
                       ),
                     ),
                     Gaps.vGap8,
-                    Text(
-                      "Leave Balance",
-                      style: TextStyle(
-                          color: MColors.colorPrimarySwatch.withOpacity(0.4),
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            Text("total leaves"),
-                            Gaps.hGap8,
-                            CircleAvatar(
-                              radius: 3,
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        Row(
-                          children: [
-                            Text("leaves used"),
-                            Gaps.hGap8,
-                            CircleAvatar(
-                              radius: 3,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Gaps.hGap8,
-                        Text(
-                          cubit.mMyLeavesBalanceData!.statisics!.totalBalance!,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Spacer(),
-                        Text(
-                          cubit.mMyLeavesBalanceData!.statisics!.remaining!
-                              .toString(),
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Gaps.hGap8,
-                      ],
+                    Container(
+                      width: 200,
+                      decoration: BoxDecoration(
+                          color: MColors.colorPrimarySwatch,
+                          borderRadius: const BorderRadius.horizontal(
+                              left: Radius.circular(8),
+                              right: Radius.circular(8))),
+                      child: MaterialButton(
+                          child: Text(
+                            "اضغط لطلب اجازة",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            // Log.e(selectedLeaveType!.id.toString());
+                            // Log.e(start);
+                            // Log.e(end);
+                            // Log.e(_reasonController.text);
+                          }),
                     ),
                     Gaps.vGap30,
                     StaggeredGridView.countBuilder(
+
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: cubit.mMyLeavesBalanceData!.leavesType!.length,
                       crossAxisCount: 6,
                       mainAxisSpacing: 8,
-                      crossAxisSpacing: 4,
-                      itemBuilder: (context, index) => Column(
-                        children: [
-                          CircularPercentIndicator(
-                            radius: 50,
-                            lineWidth: 5,
-                            percent: 1,
-                            animation: true,
-                            circularStrokeCap: CircularStrokeCap.round,
-                            progressColor:
-                                MColors.colorPrimarySwatch.withOpacity(.8),
-                            center: Text(cubit.mMyLeavesBalanceData!
-                                .leavesType![index].numOfDays
-                                .toString()),
-                          ),
-                          Text(
-                            cubit.mMyLeavesBalanceData!.leavesType![index]
-                                .leaveType!.name!,
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        ],
+                      crossAxisSpacing: 12,
+                      itemBuilder: (context, index) => Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: index == 0
+                                ? MColors.colorPrimarySwatch.withOpacity(.2)
+                                : index == 1
+                                    ? Colors.green.withOpacity(.2)
+                                    : index == 2
+                                        ? Colors.grey.withOpacity(.18)
+                                        : index == 3
+                                            ? Colors.pink.withOpacity(.2)
+                                            : Colors.yellow.withOpacity(.2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        child: Column(
+                          children: [
+                            CircularPercentIndicator(
+                              radius: 50,
+                              lineWidth: 5,
+                              percent: .75,
+                              animation: true,
+                              circularStrokeCap: CircularStrokeCap.round,
+                              progressColor: index == 0
+                                  ? MColors.colorPrimarySwatch
+                                  : index == 1
+                                      ? Colors.green
+                                      : index == 2
+                                          ? Colors.grey
+                                          : index == 3
+                                              ? Colors.pink
+                                              : Colors.yellow,
+                              center: Text(cubit.mMyLeavesBalanceData!
+                                  .leavesType![index].numOfDays
+                                  .toString()),
+                            ),
+                            Text(
+                              cubit.mMyLeavesBalanceData!.leavesType![index]
+                                  .leaveType!.name!,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          ],
+                        ),
                       ),
                       staggeredTileBuilder: (index) => StaggeredTile.fit(2),
                     ),
                     Gaps.vGap40,
-                    Row(
-                      children: [
-                        Visibility(
-                          visible: false,
-                          child: Container(
-                            width: 200,
-                            decoration: BoxDecoration(
+                    Container(
+                        height: 40,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            // color: MColors.colorPrimarySwatch.withOpacity(.2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        child: Center(
+                          child: TabBar(
+                            isScrollable: true,
+                            labelStyle: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            // onTap: _taped,
+                            indicatorColor: Colors.white,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            padding: EdgeInsets.symmetric(horizontal: 7),
+                            indicator: BoxDecoration(
                                 color: MColors.colorPrimarySwatch,
-                                borderRadius: const BorderRadius.horizontal(
-                                    left: Radius.circular(8),
-                                    right: Radius.circular(8))),
-                            child: MaterialButton(
-                                child: Text(
-                                  "Approvals",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () {}),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+
+                            // UnderlineTabIndicator(
+                            //
+                            //     borderSide:
+                            //         BorderSide(color: Colors.white, width: 30)),
+                            labelColor: Colors.white,
+                            indicatorPadding:
+                                const EdgeInsets.symmetric(vertical: 4),
+                            unselectedLabelColor: Colors.black87,
+                            controller: _cardController,
+                            tabs: List.generate(
+                              taps.length,
+                              (index) => taps[index],
+                            ),
                           ),
-                        ),
-                        Spacer(),
-                        Text("Leaves History",
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ))
-                      ],
+                        )),
+                    Container(
+                      height: 200,
+                      //Add this to give height
+
+                      child: TabBarView(
+                        controller: _cardController,
+                        children: List.generate(3, (index) {
+                          return ListView.builder(
+                            itemCount: 10,
+                            itemBuilder: (BuildContext context, int inx) {
+                              return Container(
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 4,
+                                    ),
+                                    Gaps.hGap4,
+                                    Container(
+                                      width: 220,
+                                      child: Text(
+                                        "تم التقديم على اجازة مرضية يوم 16 يناير",
+                                        style: KStyles.textStyle13,
+                                      ),
+                                    ),
+                                    Chip(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                          Radius.circular(4),
+                                        )),
+                                        backgroundColor:
+                                            Colors.greenAccent.withOpacity(.3),
+                                        label: Text(
+                                          "تحت الطلب",
+                                          style: TextStyle(color: Colors.green),
+                                        )),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        }),
+                      ),
                     ),
                     if (cubit.mMyLeavesHistoryDataList != null)
                       Container(
@@ -307,4 +389,8 @@ class LeavesScreen extends StatelessWidget {
     cubit.getMyLeavesBalances();
     cubit.getMyLeavesHistory();
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
