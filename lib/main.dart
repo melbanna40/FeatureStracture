@@ -113,7 +113,9 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => ForgetPasswordCubit()),
           BlocProvider(create: (context) => ChangePasswordCubit()),
           BlocProvider(create: (context) => VerifyCodeCubit()),
-          BlocProvider(create: (context) => NotificationsCubit()),
+          BlocProvider(
+              create: (context) =>
+                  NotificationsCubit()..getNotificationsHistoryApiCal()),
           BlocProvider(
               create: (context) => LeavesCubit()
                 ..getMyLeavesBalances()

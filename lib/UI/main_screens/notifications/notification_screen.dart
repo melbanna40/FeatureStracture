@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
+import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 
@@ -23,15 +24,45 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         return const Scaffold(
           body: Center(child: CircularProgressIndicator()),
         );
+      } else if (cubit.mNotificationDataList == null ||
+          cubit.mNotificationDataList!.isEmpty) {
+        return Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(S.of(context).empty_data),
+                Gaps.vGap16,
+                Container(
+                  width: 200,
+                  decoration: BoxDecoration(
+                      color: MColors.colorPrimarySwatch,
+                      borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(8), right: Radius.circular(8))),
+                  child: MaterialButton(
+                      child: Text(
+                        S.of(context).refresh,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        _onRefresh(cubit);
+                      }),
+                ),
+              ],
+            ),
+          ),
+        );
       } else {
         return Scaffold(
           backgroundColor: Colors.white,
           body: Container(
             padding: EdgeInsets.all(12),
             child: RefreshIndicator(
-              onRefresh: () async{},
+              onRefresh: () async {
+                _onRefresh(cubit);
+              },
               child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: cubit.mNotificationDataList!.length,
                   itemBuilder: (context, index) => InkWell(
                         onTap: () {
                           // Get.to(MessagesScreen());
@@ -71,15 +102,17 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
+                                children: [
                                   Text(
-                                    "احمد خالد",
+                                    cubit.mNotificationDataList![index]
+                                        .notification!.title!,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                   ),
                                   Text(
-                                    "طلب اجازه اعتياديه ",
+                                    cubit.mNotificationDataList![index]
+                                        .notification!.body!,
                                     style: TextStyle(color: Colors.grey),
                                   ),
                                 ],
@@ -101,5 +134,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         );
       }
     });
+  }
+
+  Future<void> _onRefresh(NotificationsCubit cubit) async {
+    cubit.getNotificationsHistoryApiCal();
   }
 }
