@@ -91,6 +91,7 @@ class LeavesCubit extends Cubit<LeavesState> {
         options: Options(method: Method.post.toString(), headers: headers),
         params: data, onSuccess: (data) {
       if (data.code == 200) {
+        CommonUtils.showToastMessage(data.message);
         getMyLeavesBalances();
         getMyLeavesHistory();
         emit(LeavesSuccess());

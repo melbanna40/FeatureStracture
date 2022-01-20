@@ -216,7 +216,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                       .color!)
                                   : Colors.grey,
                               center: Text(cubit.mMyLeavesBalanceData!
-                                  .leavesType![index].numOfDays
+                                  .leavesType![index].leaveType!.employeBalance
                                   .toString()),
                             ),
                             Text(
@@ -317,12 +317,13 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                     child: Center(
                                                       child: Text(
                                                         'يناير',
-                                                        overflow:
-                                                            TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: TextStyle(
                                                             fontSize: 8,
                                                             fontWeight:
-                                                                FontWeight.bold),
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
                                                     ),
                                                   )
@@ -449,7 +450,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                     child: Row(
                                                       children: [
                                                         Text(
-                                                          'التقييم ',
+                                                          'الراتب ',
                                                           style: TextStyle(
                                                             color: Color(
                                                                 0xff828282),
@@ -475,7 +476,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                                         13),
                                                           ),
                                                           child: Text(
-                                                            'ممتاز',
+                                                            '12000',
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.white,
@@ -515,7 +516,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                           ),
                                           Gaps.hGap4,
                                           Text(
-                                            " تم التقديم على أجازة   ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""} ",
+                                            " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""} \t \t حالة الطلب",
                                             style: KStyles.textStyle13,
                                           ),
                                           Spacer(),
@@ -528,16 +529,48 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                       BorderRadius.all(
                                                 Radius.circular(4),
                                               )),
-                                              backgroundColor:
-                                                  Colors.grey.withOpacity(.3),
+                                              backgroundColor: cubit
+                                                          .mMyLeavesHistoryDataList![
+                                                              inx]
+                                                          .status! ==
+                                                      1
+                                                  ? Colors.grey.withOpacity(0.3)
+                                                  : cubit
+                                                              .mMyLeavesHistoryDataList![
+                                                                  inx]
+                                                              .status! ==
+                                                          3
+                                                      ? Colors.red
+                                                          .withOpacity(0.3)
+                                                      : Colors.green
+                                                          .withOpacity(0.3),
                                               label: Container(
                                                 width: 60,
                                                 child: Center(
                                                   child: Text(
-                                                    // cubit.mMyLeavesHistoryDataList![inx].status
-                                                    'مُعلق',
+                                                    cubit
+                                                                .mMyLeavesHistoryDataList![
+                                                                    inx]
+                                                                .status! ==
+                                                            1
+                                                        ? 'مُعلق'
+                                                        : cubit.mMyLeavesHistoryDataList![inx]
+                                                                    .status! ==
+                                                                3
+                                                            ? 'مرفوض'
+                                                            : 'مقبول',
                                                     style: TextStyle(
-                                                      color: Colors.grey,
+                                                      color: cubit
+                                                                  .mMyLeavesHistoryDataList![
+                                                                      inx]
+                                                                  .status! ==
+                                                              1
+                                                          ? Colors.grey
+                                                          : cubit.mMyLeavesHistoryDataList![inx]
+                                                                      .status! ==
+                                                                  3
+                                                              ? Colors.red
+                                                              : Colors.green,
                                                     ),
                                                   ),
                                                 ),
