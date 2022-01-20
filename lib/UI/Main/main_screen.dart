@@ -316,7 +316,7 @@ class _MainScreenState extends State<MainScreen> {
                 color: Colors.white,
                 buttonBackgroundColor: Colors.transparent,
                 backgroundColor: Colors.white,
-                animationCurve: Curves.elasticIn,
+                animationCurve: Curves.easeOut,
                 animationDuration: const Duration(milliseconds: 300),
                 onTap: (index) {
                   cubit.changeBottomNavBar(index);

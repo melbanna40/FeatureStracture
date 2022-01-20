@@ -27,7 +27,7 @@ class CommonUtils {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      Log.d('Device id ${androidInfo.androidId}');
+      Log.d('Device id ${androidInfo.device}');
       return androidInfo.androidId;
     }
     if (Platform.isIOS) {
