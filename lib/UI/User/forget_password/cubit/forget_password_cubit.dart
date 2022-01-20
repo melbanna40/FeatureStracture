@@ -20,6 +20,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
 
   Future doServerLogin(String email) async {
     emit(ForgetPasswordLoading());
+    CommonUtils.showToastMessage('جآر التحميل');
     await _presenter.requestFutureData<LoginResponse>(Method.post,
         url: Api.doLoginApiCall,
         options: Options(method: Method.post.toString()),
@@ -28,8 +29,8 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
           "mac_address": await CommonUtils.getDeviceId(),
         }, onSuccess: (data) {
       if (data.code == 200) {
-        if (data.data!.original!.loggedBefore == 0) {
-          Get.to(() => ChangePasswordScreen(data.data!.original!.accessToken!));
+        if (data.data!.user!.loggedBefore! == 0) {
+          Get.to(() => ChangePasswordScreen(data.data!.accessToken!));
         } else {
           CommonUtils.showToastMessage(data.message);
           Get.to(() => LoginScreen());

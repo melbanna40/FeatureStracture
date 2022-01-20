@@ -12,13 +12,13 @@ part 'main_state.dart';
 class MainCubit extends Cubit<MainState> {
   MainCubit() : super(MainInitial());
 
-  int currentIndex = 0;
+  int currentIndex = 2;
   List<Widget> screens = [
-    HomeScreen(),
-    // Container(),
-    AttendanceScreen(),
+    Container(),
     NotificationsScreen(),
+    HomeScreen(),
     LeavesScreen(),
+    AttendanceScreen(),
   ];
 
   void changeBottomNavBar(int index) {

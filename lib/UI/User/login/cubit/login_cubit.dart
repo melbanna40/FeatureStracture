@@ -36,6 +36,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future doServerLogin(String email, String password, String deviceId) async {
     emit(LoginLoadingState());
+    CommonUtils.showToastMessage('جآر التحميل');
     await _presenter.requestFutureData<LoginResponse>(Method.post,
         url: Api.doLoginApiCall,
         options: Options(method: Method.post.toString()),
@@ -45,13 +46,15 @@ class LoginCubit extends Cubit<LoginState> {
           "mac_address": await CommonUtils.getDeviceId(),
         }, onSuccess: (data) {
       if (data.code == 200) {
-        if (data.data!.original!.loggedBefore == 1) {
-          doSaveDeviceToken(data.data!.original!.accessToken!);
+        if (data.data!.user!.loggedBefore! == 1) {
+          doSaveDeviceToken(data.data!.accessToken!);
           emit(LoginSuccessState());
-          HiveHelper.setUserToken(data.data!.original!.accessToken!);
-          Get.offAll(() => MainScreen());
-        } else if (data.data!.original!.loggedBefore == 0) {
-          Get.to(() => ChangePasswordScreen(data.data!.original!.accessToken!));
+          HiveHelper.setUserToken(data.data!.accessToken!);
+          Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE)
+              .put(HiveHelper.KEY_BOX_USER_RESPONSE,new Map<String, dynamic>.from(data.data!.toJson()));
+           Get.offAll(() => MainScreen());
+        } else if (data.data!.user!.loggedBefore! == 0) {
+          Get.to(() => ChangePasswordScreen(data.data!.accessToken!));
         }
       } else {
         emit(LoginErrorState());

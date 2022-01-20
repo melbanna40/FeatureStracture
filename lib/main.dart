@@ -17,7 +17,6 @@ import 'package:kafey/res/m_colors.dart';
 
 import 'Helpers/hivr_helper.dart';
 import 'UI/User/login/cubit/login_cubit.dart';
-import 'UI/User/verify_code/cubit/verify_code_cubit.dart';
 import 'UI/splash/splash_screen.dart';
 import 'dependencies/dependency_init.dart';
 import 'generated/l10n.dart';
@@ -112,19 +111,17 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => ForgetPasswordCubit()),
           BlocProvider(create: (context) => ChangePasswordCubit()),
-          BlocProvider(create: (context) => VerifyCodeCubit()),
           BlocProvider(
               create: (context) =>
                   NotificationsCubit()..getNotificationsHistoryApiCal()),
           BlocProvider(
               create: (context) => LeavesCubit()
                 ..getMyLeavesBalances()
-                ..getMyLeavesTypes()
                 ..getMyLeavesHistory()),
           BlocProvider(
               create: (context) =>
                   AttendanceCubit()..getAttendanceHistoryApiCal()),
-          BlocProvider(create: (context) => VerifyCodeCubit()),
+
           BlocProvider(
               create: (context) => HomeCubit()
                 ..updateCurrentDateTime()

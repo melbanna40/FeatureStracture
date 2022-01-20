@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
-import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 import 'package:kafey/res/styles.dart';
@@ -32,7 +31,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             centerTitle: true,
-            elevation: 0,
+            elevation: 4,
             title: Text(
               "الاشعارات",
               style: KStyles.textStyle30,
@@ -40,40 +39,50 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Center(
-              child: ListView.builder(
-                itemCount: 40,
-                itemBuilder: (BuildContext context, int inx) {
-                  return Container(
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 4,
-                        ),
-                        Gaps.hGap4,
-                        Container(
-                          width: 220,
-                          child: Text(
-                            "تم التقديم على اجازة مرضية يوم 16 يناير",
-                            style: KStyles.textStyle13,
-                          ),
-                        ),
-                        Chip(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(4),
-                                )),
-                            backgroundColor:
-                            Colors.greenAccent.withOpacity(.3),
-                            label: Text(
-                              "تحت الطلب",
-                              style: TextStyle(color: Colors.green),
-                            )),
-                      ],
-                    ),
-                  );
-                },
-              ),
+            child: ListView.builder(
+              itemCount: 10,
+              physics: BouncingScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int inx) {
+                return Container(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 4,
+                      ),
+                      Gaps.hGap4,
+                      Text(
+                        "تم التقديم على اجازة مرضية يوم ${inx + 1} يناير",
+                        style: KStyles.textStyle13,
+                      ),
+                      Spacer(),
+                      Chip(
+                          elevation: 2,
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                            Radius.circular(4),
+                          )),
+                          backgroundColor: inx.remainder(2) == 0
+                              ? Colors.green.withOpacity(.3)
+                              : Colors.red.withOpacity(.3),
+                          label: Container(
+                            width: 60,
+                            child: Center(
+                              child: Text(
+                                inx.remainder(2) == 0 ? 'مقبول' : 'مرفوض',
+                                style: TextStyle(
+                                  color: inx.remainder(2) == 0
+                                      ? Colors.green
+                                      : Colors.red,
+                                ),
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         );
@@ -105,6 +114,29 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              CircleAvatar(
+                                radius: 4,
+                              ),
+                              Gaps.hGap4,
+                              Container(
+                                width: 220,
+                                child: Text(
+                                  cubit.mNotificationDataList![index]
+                                      .notification!.title!,
+                                  style: KStyles.textStyle13,
+                                ),
+                              ),
+                              Chip(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                    Radius.circular(4),
+                                  )),
+                                  backgroundColor:
+                                      Colors.greenAccent.withOpacity(.3),
+                                  label: Text(
+                                    "تحت الطلب",
+                                    style: TextStyle(color: Colors.green),
+                                  )),
                               Stack(
                                 alignment: Alignment.bottomRight,
                                 children: [

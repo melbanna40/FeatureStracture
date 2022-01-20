@@ -8,7 +8,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/CommonUtils/log_utils.dart';
-import 'package:kafey/CommonUtils/m_svg_icons_icons.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/widgets/drawer.dart';
 import 'package:kafey/UI/User/login/cubit/login_cubit.dart';
@@ -183,64 +182,147 @@ class _MainScreenState extends State<MainScreen> {
               // ),
               drawer: CustomDrawer(cubit),
               bottomNavigationBar: CurvedNavigationBar(
-                index: 0,
-                height: 60.0,
                 items: <Widget>[
                   Container(
                     margin: const EdgeInsets.all(4),
-                    child: SvgPicture.asset(
-                      ImageUtils.getSVGPath('home_icon'),
-                      color: cubit.currentIndex == 0
-                          ? Colors.white
-                          : MColors.colorPrimarySwatch,
-                    ),
-                  ),
-                  // Container(
-                  //   margin: const EdgeInsets.all(4),
-                  //   child: Icon(
-                  //     MSvgIcons.users,
-                  //     color: cubit.currentIndex == 1
-                  //         ? Colors.white
-                  //         : MColors.colorPrimarySwatch,
-                  //   ),
-                  // ),
-                  Container(
-                    margin: const EdgeInsets.all(4),
-                    child: Icon(
-                      MSvgIcons.clipboard_list,
-                      color: cubit.currentIndex == 1
-                          ? Colors.white
-                          : MColors.colorPrimarySwatch,
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(4),
-                    child: Icon(
-                      MSvgIcons.notifications_active,
-                      color: cubit.currentIndex == 2
-                          ? Colors.white
-                          : MColors.colorPrimarySwatch,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.supervised_user_circle_outlined,
+                          color: cubit.currentIndex == 0
+                              ? Color(0xff0995f5)
+                              : Colors.black,
+                        ),
+                        Text(
+                          'الملف الشخصي',
+                          style: TextStyle(
+                            color: cubit.currentIndex == 0
+                                ? Color(0xff0995f5)
+                                : Colors.black,
+                            fontSize: 9,
+                            fontFamily: 'Dubai',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Container(
                     margin: const EdgeInsets.all(4),
-                    child: Icon(
-                      CupertinoIcons.square_list,
-                      color: cubit.currentIndex == 3
-                          ? Colors.white
-                          : MColors.colorPrimarySwatch,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          ImageUtils.getSVGPath('notification_bell'),
+                          color: cubit.currentIndex == 1
+                              ? Color(0xff0995f5)
+                              : Colors.black,
+                        ),
+                        Text(
+                          'الاشعارات',
+                          style: TextStyle(
+                            color: cubit.currentIndex == 1
+                                ? Color(0xff0995f5)
+                                : Colors.black,
+                            fontSize: 9,
+                            fontFamily: 'Dubai',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(4),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              gradient: LinearGradient(
+                                tileMode: TileMode.mirror,
+                                colors: [
+                                  Color(0xff2ad8fe),
+                                  Color(0xff5a7bef),
+                                ],
+                              )),
+                          child: SvgPicture.asset(
+                            ImageUtils.getSVGPath('fingerprint'),
+                            width: 35,
+                            height: 35,
+                            color: cubit.currentIndex == 2
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(4),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          ImageUtils.getSVGPath('add_request'),
+                          color: cubit.currentIndex == 3
+                              ? Color(0xff0995f5)
+                              : Colors.black,
+                        ),
+                        Text(
+                          'طلب الاجازه',
+                          style: TextStyle(
+                            color: cubit.currentIndex == 3
+                                ? Color(0xff0995f5)
+                                : Colors.black,
+                            fontSize: 9,
+                            fontFamily: 'Dubai',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(4),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          ImageUtils.getSVGPath('time_table'),
+                          color: cubit.currentIndex == 4
+                              ? Color(0xff0995f5)
+                              : Colors.black,
+                        ),
+                        Text(
+                          'المواظبة',
+                          style: TextStyle(
+                            color: cubit.currentIndex == 4
+                                ? Color(0xff0995f5)
+                                : Colors.black,
+                            fontSize: 9,
+                            fontFamily: 'Dubai',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
+                index: 2,
                 color: Colors.white,
-                buttonBackgroundColor: MColors.colorPrimarySwatch,
+                buttonBackgroundColor: Colors.transparent,
                 backgroundColor: Colors.white,
                 animationCurve: Curves.elasticIn,
-                animationDuration: const Duration(milliseconds: 200),
+                animationDuration: const Duration(milliseconds: 300),
                 onTap: (index) {
                   cubit.changeBottomNavBar(index);
                 },
                 letIndexChange: (index) => true,
+                height: 65.0,
               ),
               body: cubit.screens[cubit.currentIndex],
             );

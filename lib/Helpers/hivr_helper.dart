@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:kafey/CommonUtils/log_utils.dart';
+import 'package:kafey/network/api/ApiResponse/login_response.dart';
 
 class HiveHelper {
   static ValueNotifier<Locale> mobileLanguage = ValueNotifier(Locale(
@@ -25,6 +26,16 @@ class HiveHelper {
         ? Hive.box(HiveHelper.KEY_BOX_TOKEN).get(HiveHelper.KEY_BOX_TOKEN)
         : '';
   }
+
+  static UserDataModel? getUserData =
+      Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE).isNotEmpty
+          ? UserDataModel.fromJson(
+              new Map<String, dynamic>.from(
+                Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE)
+                    .get(HiveHelper.KEY_BOX_USER_RESPONSE),
+              ),
+            )
+          : null;
 
   static String getAppLanguage() {
     return Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE).isNotEmpty

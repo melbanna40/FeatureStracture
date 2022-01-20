@@ -53,33 +53,7 @@ class LeavesCubit extends Cubit<LeavesState> {
     });
   }
 
-  List<MyLeavesTypesData>? mMyLeavesTypesDataList;
 
-  Future getMyLeavesTypes() async {
-    emit(LeavesLoading());
-    headers[HttpHeaders.authorizationHeader] =
-        "Bearer " + HiveHelper.getUserToken();
-    await _presenter.requestFutureData<MyLeavesTypesResponse>(Method.get,
-        url: Api.getMyLeavesTypesApiCall,
-        options: Options(method: Method.get.toString(), headers: headers),
-        onSuccess: (data) {
-      if (data.code == 200) {
-        mMyLeavesTypesDataList = data.data;
-        emit(LeavesSuccess());
-      } else if (data.code == 401) {
-        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
-        Get.offAll(LoginScreen());
-      } else if (data.code == 400) {
-        emit(LeavesError());
-        CommonUtils.showToastMessage(data.message);
-      } else {
-        emit(LeavesError());
-      }
-    }, onError: (code, msg) {
-      emit(LeavesError());
-      CommonUtils.showToastMessage(msg);
-    });
-  }
 
   List<MyLeavesHistoryData>? mMyLeavesHistoryDataList;
 

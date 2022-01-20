@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/generated/l10n.dart';
-import 'package:kafey/network/api/ApiResponse/my_leaves_types_response.dart';
+import 'package:kafey/network/api/ApiResponse/my_leaves_balance_response.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 import 'package:kafey/res/styles.dart';
 
 class ApplyLeaveDialog extends StatefulWidget {
-  List<MyLeavesTypesData>? mMyLeavesTypesDataList;
+  List<LeavesType>? mLeavesTypeList;
   final Function(Map<String, dynamic>)? onCreateClickedCallBack;
 
-  ApplyLeaveDialog(this.mMyLeavesTypesDataList, {this.onCreateClickedCallBack});
+  ApplyLeaveDialog(this.mLeavesTypeList, {this.onCreateClickedCallBack});
 
   @override
   _ApplyLeaveDialogState createState() => _ApplyLeaveDialogState();
@@ -23,11 +23,11 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
   final _reasonController = TextEditingController();
   var start;
   var end;
-  MyLeavesTypesData? selectedLeaveType;
+  LeavesType? selectedLeaveType;
 
   @override
   void initState() {
-    selectedLeaveType = widget.mMyLeavesTypesDataList![0];
+    selectedLeaveType = widget.mLeavesTypeList![0];
     super.initState();
   }
 
@@ -57,10 +57,21 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
               InkWell(
                 onTap: () async {
                   final picked = await showDateRangePicker(
-                    context: context,
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(2030),
-                  );
+                      context: context,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2030),
+                      builder: (context, child) {
+                        return Column(
+                          children: [
+                            ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: 400.0,
+                              ),
+                              child: child,
+                            )
+                          ],
+                        );
+                      });
                   if (picked != null) {
                     print(picked);
                     start = DateFormat('yyyy-MM-dd', 'en').format(picked.start);
@@ -86,10 +97,15 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                       )),
                 ),
               ),
+              // Container(
+              //   height: MediaQuery.of(context).size.height*0.3,
+              //   child: DateRangePickerDialog(firstDate: DateTime.now(),
+              //     lastDate: DateTime(2030),),
+              // ),
               Gaps.vGap15,
               Text("اختار نوع الأجازة", style: KStyles.textStyle16),
               DropdownButtonHideUnderline(
-                child: DropdownButton<MyLeavesTypesData>(
+                child: DropdownButton<LeavesType>(
                   isExpanded: true,
                   icon: Container(
                       padding: const EdgeInsets.all(4),
@@ -101,16 +117,47 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                         CupertinoIcons.chevron_up_chevron_down,
                         color: MColors.colorPrimarySwatch,
                       )),
-                  items: widget.mMyLeavesTypesDataList!
-                      .map((MyLeavesTypesData item) =>
-                          DropdownMenuItem<MyLeavesTypesData>(
-                              child: Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  child: Text(item.leaveType!.name!)),
-                              value: item))
+                  items: widget.mLeavesTypeList!
+                      .map((LeavesType item) => DropdownMenuItem<LeavesType>(
+                          child: Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 4,
+                                    backgroundColor:
+                                        item.leaveType!.color!.isNotEmpty
+                                            ? CommonUtils.getColorFromHex(
+                                                item.leaveType!.color!)
+                                            : Colors.grey,
+                                  ),
+                                  Gaps.hGap4,
+                                  Text(
+                                    item.leaveType!.name!,
+                                    style: TextStyle(
+                                      color: item.leaveType!.color!.isNotEmpty
+                                          ? CommonUtils.getColorFromHex(
+                                              item.leaveType!.color!)
+                                          : Colors.grey,
+                                      fontSize: 16,
+                                      fontFamily: 'Dubai',
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    '${item.leaveType?.employeBalance.toString()} يوم متبقي',
+                                    style: TextStyle(
+                                      color: Color(0xff828282),
+                                      fontSize: 11,
+                                      fontFamily: 'Dubai',
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          value: item))
                       .toList(),
-                  onChanged: (MyLeavesTypesData? val) {
+                  onChanged: (LeavesType? val) {
                     setState(() {
                       selectedLeaveType = val!;
                     });

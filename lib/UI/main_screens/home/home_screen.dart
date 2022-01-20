@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kafey/CommonUtils/image_loader.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
+import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:local_auth/local_auth.dart';
@@ -92,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ),
                         ),
                         Text(
-                          'مرحباً محمد شعيب',
+                          'مرحباً ${HiveHelper.getUserData?.user?.name ?? ''}',
                           style: TextStyle(
                             color: Color(0xff828282),
                             fontSize: 18,
@@ -100,6 +101,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
+                        Spacer(),
+                        Image.asset(ImageUtils.getImagePath("ic_kafey_logo"),
+                            height: 50, width: 60),
                       ],
                     ),
                     Gaps.vGap30,
@@ -155,11 +159,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             localizedReason: 'ضع بصمتك لاتمام العمليه');
 
                         if (didAuthenticate) {
-                          showCustomDialog(context, (bool isOk) {
-                            if (isOk) {
-                              cubit!.updateClickOnState();
-                            }
-                          });
+                          cubit!.isLogged!
+                              ? showCustomDialog(context, (bool isOk) {
+                                  if (isOk) {
+                                    cubit!.updateClickOnState();
+                                  }
+                                })
+                              : cubit!.updateClickOnState();
                         }
                       },
                       child: Container(
@@ -257,7 +263,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       barrierColor: Colors.white.withOpacity(0.2),
       transitionDuration: Duration(milliseconds: 200),
       pageBuilder: (_, __, ___) {
-        return CheckDialog(callback:callback,cubit: cubit,);
+        return CheckDialog(
+          callback: callback,
+          cubit: cubit,
+        );
       },
       transitionBuilder: (_, anim, __, child) {
         Tween<Offset> tween;

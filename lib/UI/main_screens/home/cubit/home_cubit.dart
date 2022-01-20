@@ -64,8 +64,10 @@ class HomeCubit extends Cubit<HomeState> {
         onSuccess: (data) {
       if (data.code == 200) {
         mHomeStatisticsData = data.data!;
-        if (data.data!.clockIn != null && data.data!.clockOut == null)
+        if (data.data!.clockIn != null &&
+            (data.data!.clockOut == null || data.data!.clockOut!.isEmpty)) {
           isLogged = true;
+        }
         emit(UpdateCurrentDateState());
         emit(HomeSuccess());
       } else if (data.code == 400) {
@@ -89,6 +91,7 @@ class HomeCubit extends Cubit<HomeState> {
         "Bearer " + HiveHelper.getUserToken();
     var location = await LocationHelper.determinePosition();
 
+    CommonUtils.showToastMessage('جآر التحميل');
     await _presenter.requestFutureData<GlobalResponse>(Method.post,
         url: Api.doClockInApiCall,
         options: Options(method: Method.post.toString(), headers: headers),
@@ -100,12 +103,7 @@ class HomeCubit extends Cubit<HomeState> {
         isLogged = !isLogged!;
         emit(UpdateCurrentDateState());
         getHomeStatistics();
-      }
-      // else if(data.code==400){
-      //   CommonUtils.showToastMessage(data.message);
-      //   isLogged = !isLogged!;
-      // }
-      else if (data.code == 400) {
+      } else if (data.code == 400) {
         CommonUtils.showToastMessage(data.message);
         emit(HomeError());
       }
@@ -119,7 +117,7 @@ class HomeCubit extends Cubit<HomeState> {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
     var location = await LocationHelper.determinePosition();
-
+    CommonUtils.showToastMessage('جآر التحميل');
     await _presenter.requestFutureData<GlobalResponse>(Method.post,
         url: Api.doClockOutApiCall,
         options: Options(method: Method.post.toString(), headers: headers),
