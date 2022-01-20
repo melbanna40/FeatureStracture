@@ -298,7 +298,7 @@ class _MainScreenState extends State<MainScreen> {
                               : Colors.black,
                         ),
                         Text(
-                          'المواظبة',
+                          S.of(context).attendance,
                           style: TextStyle(
                             color: cubit.currentIndex == 4
                                 ? Color(0xff0995f5)

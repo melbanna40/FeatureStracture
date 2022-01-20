@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/attendance/cubit/attendance_cubit.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/styles.dart';
@@ -35,9 +36,19 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             centerTitle: true,
             elevation: 0,
             title: Text(
-              "المواظبة",
+              S.of(context).attendance,
               style: KStyles.textStyle30,
             ),
+            actions: [
+              Container(
+                padding: EdgeInsets.all(4),
+                child: Image.asset(
+                  ImageUtils.getImagePath('ic_kafey_logo'),
+                  width: 40,
+                  height: 40,
+                ),
+              )
+            ],
           ),
           body: Padding(
             padding: const EdgeInsets.all(12.0),

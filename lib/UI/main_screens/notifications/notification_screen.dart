@@ -36,6 +36,16 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               "الاشعارات",
               style: KStyles.textStyle30,
             ),
+            actions: [
+              Container(
+                padding: EdgeInsets.all(4),
+                child: Image.asset(
+                  ImageUtils.getImagePath('ic_kafey_logo'),
+                  width: 40,
+                  height: 40,
+                ),
+              )
+            ],
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),

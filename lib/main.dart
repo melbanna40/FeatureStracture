@@ -8,7 +8,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kafey/UI/User/change_password/cubit/change_password_cubit.dart';
 import 'package:kafey/UI/User/forget_password/cubit/forget_password_cubit.dart';
-import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:kafey/UI/main_screens/attendance/cubit/attendance_cubit.dart';
 import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
@@ -98,7 +97,9 @@ class MyApp extends StatelessWidget {
             color: Colors.grey,
           ),
           border: OutlineInputBorder(
-            borderSide: const BorderSide(  color: MColors.colorPrimarySwatch,),
+            borderSide: const BorderSide(
+              color: MColors.colorPrimarySwatch,
+            ),
             borderRadius: BorderRadius.circular(15),
           ),
         ),
@@ -121,11 +122,11 @@ class MyApp extends StatelessWidget {
           BlocProvider(
               create: (context) =>
                   AttendanceCubit()..getAttendanceHistoryApiCal()),
-
           BlocProvider(
               create: (context) => HomeCubit()
                 ..updateCurrentDateTime()
-                ..getHomeStatistics()),
+                ..getHomeStatistics()
+                ..updateCurrentLocation()),
         ],
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
@@ -143,8 +144,7 @@ class MyApp extends StatelessWidget {
             DefaultMaterialLocalizations.delegate,
             DefaultWidgetsLocalizations.delegate,
           ],
-          home:
-          SplashScreen(),
+          home: SplashScreen(),
         ));
   }
 }

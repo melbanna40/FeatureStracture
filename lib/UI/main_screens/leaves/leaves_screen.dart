@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
+import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/widgets/apply_leave_dialog.dart';
 import 'package:kafey/generated/l10n.dart';
@@ -86,6 +87,16 @@ class _LeavesScreenState extends State<LeavesScreen>
               "اجازاتي",
               style: KStyles.textStyle30,
             ),
+            actions: [
+              Container(
+                padding: EdgeInsets.all(4),
+                child: Image.asset(
+                  ImageUtils.getImagePath('ic_kafey_logo'),
+                  width: 40,
+                  height: 40,
+                ),
+              )
+            ],
           ),
           body: RefreshIndicator(
             onRefresh: () async {

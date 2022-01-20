@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/Helpers/LocationHelper.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/User/login/login_screen.dart';
@@ -26,6 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   String? currentDate;
   String? currentTime;
+  String? currentLocation;
 
   bool? isLogged = false;
 
@@ -36,6 +39,15 @@ class HomeCubit extends Cubit<HomeState> {
       Colors.deepPurpleAccent,
     ],
   );
+
+  void updateCurrentLocation() async {
+    var location = await LocationHelper.determinePosition();
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(location.latitude, location.longitude);
+    Log.e(placemarks.first.toJson().toString());
+    currentLocation = placemarks.first.street;
+    emit(UpdateCurrentDateState());
+  }
 
   void updateCurrentDateTime() {
     initializeDateFormatting("en_us", '');

@@ -7,7 +7,9 @@ class MyLeavesBalanceResponse {
 
   MyLeavesBalanceResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
-    data = json['data'] != null ? new MyLeavesBalanceData.fromJson(json['data']) : null;
+    data = json['data'] != null
+        ? new MyLeavesBalanceData.fromJson(json['data'])
+        : null;
     message = json['message'];
   }
 
@@ -89,12 +91,12 @@ class LeaveType {
 
   LeaveType(
       {this.id,
-        this.name,
-        this.color,
-        this.totalBalance,
-        this.employeBalance,
-        this.numOfLeaveDays,
-        this.percentage});
+      this.name,
+      this.color,
+      this.totalBalance,
+      this.employeBalance,
+      this.numOfLeaveDays,
+      this.percentage});
 
   LeaveType.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -127,12 +129,12 @@ class Statisics {
 
   Statisics(
       {this.totalEmployeeLeaves,
-        this.totalBalance,
-        this.remaining,
-        this.precentage});
+      this.totalBalance,
+      this.remaining,
+      this.precentage});
 
   Statisics.fromJson(Map<String, dynamic> json) {
-    totalEmployeeLeaves = json['total_employee_leaves'];
+    totalEmployeeLeaves = json['total_employee_leaves'].toString();
     totalBalance = json['total_Balance'];
     remaining = json['remaining'];
     precentage = json['precentage'];

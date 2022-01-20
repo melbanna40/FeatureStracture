@@ -67,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: RefreshIndicator(
               onRefresh: () async {
                 cubit!.getHomeStatistics();
+                cubit!.updateCurrentLocation();
               },
               child: Center(
                 child: ListView(
@@ -106,37 +107,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             height: 50, width: 60),
                       ],
                     ),
-                    Gaps.vGap30,
-                    Container(
-                      height: 45,
-                      margin: EdgeInsets.only(
-                        left: 118,
-                        right: 118,
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          gradient: LinearGradient(
-                            tileMode: TileMode.mirror,
-                            colors: [
-                              Color(0xff0eedff),
-                              Color(0xffab74f9),
-                            ],
-                          )),
-                      child: Center(
-                        child: Text(
-                          '${cubit!.currentTime}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 27,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w700,
+                    Gaps.vGap16,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          height: 45,
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              gradient: LinearGradient(
+                                tileMode: TileMode.mirror,
+                                colors: [
+                                  Color(0xff0eedff),
+                                  Color(0xffab74f9),
+                                ],
+                              )),
+                          child: Center(
+                            child: Text(
+                              '${cubit!.currentTime}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 27,
+                                fontFamily: 'Dubai',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    Gaps.vGap16,
-                    Column(
-                      children: [
                         Text(
                           '${cubit!.currentDate}',
                           style: TextStyle(
@@ -148,7 +146,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
-                    Gaps.vGap16,
                     InkWell(
                       onTap: () async {
                         var localAuth = LocalAuthentication();
@@ -199,11 +196,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     Center(
+                      child: Text(
+                        'في مؤسسة أُفُق',
+                        style: TextStyle(
+                          color: Color(0xff0077ff),
+                          fontSize: 18,
+                          fontFamily: 'Dubai',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Center(
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'location: shebin el-kom Monofia',
+                            cubit!.currentLocation ?? '',
                             style: TextStyle(
                               color: Color(0xff7b7b7b),
                               fontSize: 10,
