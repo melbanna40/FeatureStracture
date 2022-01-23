@@ -9,7 +9,7 @@ import 'package:kafey/res/m_colors.dart';
 import 'package:kafey/res/styles.dart';
 
 class ApplyLeaveDialog extends StatefulWidget {
-  List<LeavesType>? mLeavesTypeList;
+  final List<LeavesType>? mLeavesTypeList;
   final Function(Map<String, dynamic>)? onCreateClickedCallBack;
 
   ApplyLeaveDialog(this.mLeavesTypeList, {this.onCreateClickedCallBack});

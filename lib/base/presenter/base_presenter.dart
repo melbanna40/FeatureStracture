@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kafey/network/exception/error_status.dart';
 import 'package:kafey/network/network_util.dart';
+
 @lazySingleton
 class BasePresenter {
-
   Future requestFutureData<T>(Method method,
       {String? url,
       String? newBaseUrl,
@@ -18,9 +17,8 @@ class BasePresenter {
       Map<String, dynamic>? queryParams,
       CancelToken? cancelToken,
       Options? options,
-        void Function(int,int)?  onSendProgress,
-
-        bool isList = false}) async {
+      void Function(int, int)? onSendProgress,
+      bool isList = false}) async {
     await DioUtils.instance.requestDataFuture<T>(method, url!, newBaseUrl ?? "",
         onSendProgress: onSendProgress,
         params: params,

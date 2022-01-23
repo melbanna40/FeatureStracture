@@ -20,7 +20,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
 
   Future getNotificationsHistoryApiCal() async {
     headers[HttpHeaders.authorizationHeader] =
-        "Bearer " + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC90ZXN0LmlrYWZleS54eXpcL2FwaVwvbG9naW4iLCJpYXQiOjE2NDI0MjcwODcsIm5iZiI6MTY0MjQyNzA4NywianRpIjoiaVJhWlZ2eVk0N1k1cVhjRSIsInN1YiI6MzAsInBydiI6IjEzY2IxYjM3M2Y5M2MzYjhhODY5Zjg5MWZkZTU0YzlmMTNiNzJjNTYifQ.xtedZIqZCZQz867rWPBxsuPp1o5eGR6jVv6lRfZ-emo';
+        "Bearer " + HiveHelper.getUserToken();
     emit(NotificationsLoading());
     await _presenter.requestFutureData<NotificationsResponse>(Method.get,
         url: Api.getNotificationsHistoryApiCall,

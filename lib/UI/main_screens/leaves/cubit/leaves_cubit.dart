@@ -12,7 +12,6 @@ import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/apply_leave_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_balance_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_history_response.dart';
-import 'package:kafey/network/api/ApiResponse/my_leaves_types_response.dart';
 import 'package:kafey/network/api/network_api.dart';
 import 'package:kafey/network/network_util.dart';
 import 'package:meta/meta.dart';
@@ -52,8 +51,6 @@ class LeavesCubit extends Cubit<LeavesState> {
       CommonUtils.showToastMessage(msg);
     });
   }
-
-
 
   List<MyLeavesHistoryData>? mMyLeavesHistoryDataList;
 

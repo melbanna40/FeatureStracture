@@ -4,23 +4,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
+import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 
-import 'cubit/home_cubit.dart';
 
-class CheckDialog extends StatefulWidget {
+class RequestDetails extends StatefulWidget {
   final Function(bool)? callback;
 
   final HomeCubit? cubit;
 
-  const CheckDialog({Key? key, this.callback, this.cubit}) : super(key: key);
+  const RequestDetails({Key? key, this.callback, this.cubit}) : super(key: key);
 
   @override
-  _CheckDialogState createState() => _CheckDialogState();
+  _RequestDetailsState createState() => _RequestDetailsState();
 }
 
-class _CheckDialogState extends State<CheckDialog> {
+class _RequestDetailsState extends State<RequestDetails> {
   String? pickedTime;
   final noteController = TextEditingController();
 

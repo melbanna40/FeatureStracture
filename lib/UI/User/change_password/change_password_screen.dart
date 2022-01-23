@@ -9,7 +9,7 @@ import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
-  String userToken;
+  final String userToken;
 
   ChangePasswordScreen(this.userToken);
 

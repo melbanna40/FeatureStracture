@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
@@ -27,23 +28,47 @@ class _LeavesScreenState extends State<LeavesScreen>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     _cardController = TabController(length: 3, vsync: this);
     List<Widget> taps = [
-      Tab(text: "الطلبات"),
       Tab(
-        text: "الأجازات السابقة",
+        child: Text(
+          "الطلبات",
+          style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'Dubai',
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
       Tab(
-        text: "المرتبات",
+        child: Text(
+          "الأجازات السابقة",
+          style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'Dubai',
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+      Tab(
+        child: Text(
+          "المرتبات",
+          style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'Dubai',
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
     ];
     return BlocBuilder<LeavesCubit, LeavesState>(builder: (context, state) {
       final cubit = BlocProvider.of<LeavesCubit>(context);
-      void _taped(int status) async {
-        await cubit.getMyLeavesHistory();
-        // cubit.getAllOrdersData(status: status);
-        // setState(() {});
-      }
+      // void _taped(int status) async {
+      //   await cubit.getMyLeavesHistory();
+      //   cubit.getAllOrdersData(status: status);
+      //   setState(() {});
+      // }
 
       if (state is LeavesLoading) {
         return const Scaffold(
@@ -81,6 +106,7 @@ class _LeavesScreenState extends State<LeavesScreen>
           backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.white,
+            toolbarHeight: 85,
             centerTitle: true,
             elevation: 0,
             title: Text(
@@ -89,13 +115,17 @@ class _LeavesScreenState extends State<LeavesScreen>
             ),
             actions: [
               Container(
-                padding: EdgeInsets.all(4),
-                child: Image.asset(
-                  ImageUtils.getImagePath('ic_kafey_logo'),
-                  width: 40,
-                  height: 40,
+                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: Column(
+                  children: [
+                    SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
+                        height: 50, width: 60),
+                    Gaps.vGap4,
+                    SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_name"),
+                        height: 20, width: 20),
+                  ],
                 ),
-              )
+              ),
             ],
           ),
           body: RefreshIndicator(
@@ -287,309 +317,441 @@ class _LeavesScreenState extends State<LeavesScreen>
                         controller: _cardController,
                         children: List.generate(3, (index) {
                           if (index == 2) {
-                            return ListView.builder(
-                              itemCount:
-                                  cubit.mMyLeavesHistoryDataList?.length ?? 0,
-                              physics: BouncingScrollPhysics(),
-                              itemBuilder: (BuildContext context, int inx) {
-                                return cubit.mMyLeavesHistoryDataList != null
-                                    ? Container(
-                                        padding: EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(14)),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Container(
-                                              height: 60,
-                                              width: 60,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xffe5e5e5),
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'شهر'.toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Container(
-                                                    width: 24,
-                                                    child: Center(
-                                                      child: Text(
-                                                        'يناير',
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                            return BlocProvider(
+                              create: (BuildContext context) {
+                                return LeavesCubit()..getMyLeavesHistory();
+                              },
+                              child: BlocBuilder<LeavesCubit, LeavesState>(
+                                  builder: (context, state) {
+                                var cubit =
+                                    BlocProvider.of<LeavesCubit>(context);
+                                if (state is LeavesLoading ||
+                                    cubit.mMyLeavesHistoryDataList == null) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (cubit
+                                    .mMyLeavesHistoryDataList!.isEmpty) {
+                                  return Center(
+                                      child: Container(
+                                    child: Text('عذراً لا توجد بيانات'),
+                                  ));
+                                } else {
+                                  Future.delayed(Duration.zero);
+                                  return RefreshIndicator(
+                                    onRefresh: () async {
+                                      cubit.getMyLeavesHistory();
+                                    },
+                                    child: ListView.builder(
+                                      itemCount: cubit.mMyLeavesHistoryDataList
+                                              ?.length ??
+                                          0,
+                                      physics: BouncingScrollPhysics(),
+                                      itemBuilder:
+                                          (BuildContext context, int inx) {
+                                        return cubit.mMyLeavesHistoryDataList !=
+                                                null
+                                            ? Container(
+                                                padding: EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(14)),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Container(
+                                                      height: 60,
+                                                      width: 60,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xffe5e5e5),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15),
+                                                      ),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'شهر'.toString(),
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          Container(
+                                                            width: 24,
+                                                            child: Center(
+                                                              child: Text(
+                                                                'يناير',
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: TextStyle(
+                                                                    fontSize: 8,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
                                                       ),
                                                     ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    margin: EdgeInsets.all(4),
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 6,
-                                                            horizontal: 12),
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xff00c950),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              13),
-                                                    ),
-                                                    child: Row(
-                                                      children: [
-                                                        Text(
-                                                          'ايام العمل ',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 11,
-                                                            fontFamily: 'Dubai',
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          '21',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 11,
-                                                            fontFamily: 'Dubai',
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.all(4),
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 6,
-                                                            horizontal: 12),
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xffff3434),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              13),
-                                                    ),
-                                                    child: Row(
-                                                      children: [
-                                                        Text(
-                                                          'الغيابات ',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 11,
-                                                            fontFamily: 'Dubai',
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          '0',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 11,
-                                                            fontFamily: 'Dubai',
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    margin: EdgeInsets.all(4),
-                                                    padding: EdgeInsets.all(4),
-                                                    height: 25,
-                                                    child: Row(
-                                                      children: [
-                                                        Text(
-                                                          'ساعات العمل ',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xff828282),
-                                                            fontSize: 11,
-                                                            fontFamily: 'Dubai',
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          '172',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xff828282),
-                                                            fontSize: 11,
-                                                            fontFamily: 'Dubai',
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.all(4),
-                                                    padding: EdgeInsets.all(4),
-                                                    child: Row(
-                                                      children: [
-                                                        Text(
-                                                          'الراتب ',
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xff828282),
-                                                            fontSize: 11,
-                                                            fontFamily: 'Dubai',
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  vertical: 6,
-                                                                  horizontal:
-                                                                      12),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0xff00c950),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        13),
-                                                          ),
-                                                          child: Text(
-                                                            '12000',
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 11,
-                                                              fontFamily:
-                                                                  'Dubai',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700,
+                                                    Container(
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.all(
+                                                                    4),
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical: 6,
+                                                                    horizontal:
+                                                                        12),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xff00c950),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          13),
+                                                            ),
+                                                            child: Row(
+                                                              children: [
+                                                                Text(
+                                                                  'ايام العمل ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        11,
+                                                                    fontFamily:
+                                                                        'Dubai',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  '21',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        11,
+                                                                    fontFamily:
+                                                                        'Dubai',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
-                                                        ),
-                                                      ],
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.all(
+                                                                    4),
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical: 6,
+                                                                    horizontal:
+                                                                        12),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xffff3434),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          13),
+                                                            ),
+                                                            child: Row(
+                                                              children: [
+                                                                Text(
+                                                                  'الغيابات ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        11,
+                                                                    fontFamily:
+                                                                        'Dubai',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  '0',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        11,
+                                                                    fontFamily:
+                                                                        'Dubai',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    : Container();
-                              },
+                                                    Container(
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.all(
+                                                                    4),
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    4),
+                                                            height: 25,
+                                                            child: Row(
+                                                              children: [
+                                                                Text(
+                                                                  'ساعات العمل ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Color(
+                                                                        0xff828282),
+                                                                    fontSize:
+                                                                        11,
+                                                                    fontFamily:
+                                                                        'Dubai',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  '172',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Color(
+                                                                        0xff828282),
+                                                                    fontSize:
+                                                                        11,
+                                                                    fontFamily:
+                                                                        'Dubai',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.all(
+                                                                    4),
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    4),
+                                                            child: Row(
+                                                              children: [
+                                                                Text(
+                                                                  'الراتب ',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Color(
+                                                                        0xff828282),
+                                                                    fontSize:
+                                                                        11,
+                                                                    fontFamily:
+                                                                        'Dubai',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  padding: EdgeInsets
+                                                                      .symmetric(
+                                                                          vertical:
+                                                                              6,
+                                                                          horizontal:
+                                                                              12),
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color(
+                                                                        0xff00c950),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            13),
+                                                                  ),
+                                                                  child: Text(
+                                                                    '12000',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          11,
+                                                                      fontFamily:
+                                                                          'Dubai',
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w700,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            : Container();
+                                      },
+                                    ),
+                                  );
+                                }
+                              }),
                             );
                           } else {
-                            return ListView.builder(
-                              itemCount:
-                                  cubit.mMyLeavesHistoryDataList?.length ?? 0,
-                              physics: BouncingScrollPhysics(),
-                              itemBuilder: (BuildContext context, int inx) {
-                                return cubit.mMyLeavesHistoryDataList != null
-                                    ? Container(
-                                        child: Row(
-                                        children: [
-                                          CircleAvatar(
-                                            radius: 4,
-                                          ),
-                                          Gaps.hGap4,
-                                          Text(
-                                            " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""} \t \t حالة الطلب",
-                                            style: KStyles.textStyle13,
-                                          ),
-                                          Spacer(),
-                                          Chip(
-                                              elevation: 2,
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 4),
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                Radius.circular(4),
-                                              )),
-                                              backgroundColor: cubit
-                                                          .mMyLeavesHistoryDataList![
-                                                              inx]
-                                                          .status! ==
-                                                      1
-                                                  ? Colors.grey.withOpacity(0.3)
-                                                  : cubit
-                                                              .mMyLeavesHistoryDataList![
-                                                                  inx]
-                                                              .status! ==
-                                                          3
-                                                      ? Colors.red
-                                                          .withOpacity(0.3)
-                                                      : Colors.green
-                                                          .withOpacity(0.3),
-                                              label: Container(
-                                                width: 60,
-                                                child: Center(
-                                                  child: Text(
-                                                    cubit
-                                                                .mMyLeavesHistoryDataList![
-                                                                    inx]
-                                                                .status! ==
-                                                            1
-                                                        ? 'مُعلق'
-                                                        : cubit.mMyLeavesHistoryDataList![inx]
-                                                                    .status! ==
-                                                                3
-                                                            ? 'مرفوض'
-                                                            : 'مقبول',
-                                                    style: TextStyle(
-                                                      color: cubit
-                                                                  .mMyLeavesHistoryDataList![
-                                                                      inx]
-                                                                  .status! ==
-                                                              1
-                                                          ? Colors.grey
-                                                          : cubit.mMyLeavesHistoryDataList![inx]
-                                                                      .status! ==
-                                                                  3
-                                                              ? Colors.red
-                                                              : Colors.green,
-                                                    ),
-                                                  ),
-                                                ),
-                                              )),
-                                        ],
-                                      ))
-                                    : Container();
+                            return BlocProvider(
+                              create: (BuildContext context) {
+                                return LeavesCubit()..getMyLeavesHistory();
                               },
+                              child: BlocBuilder<LeavesCubit, LeavesState>(
+                                  builder: (context, state) {
+                                var cubit =
+                                    BlocProvider.of<LeavesCubit>(context);
+                                if (state is LeavesLoading ||
+                                    cubit.mMyLeavesHistoryDataList == null) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (cubit
+                                    .mMyLeavesHistoryDataList!.isEmpty) {
+                                  return Center(
+                                      child: Container(
+                                    child: Text('عذراً لا توجد بيانات'),
+                                  ));
+                                } else {
+                                  Future.delayed(Duration.zero);
+                                  return RefreshIndicator(
+                                      onRefresh: () async {
+                                        cubit.getMyLeavesHistory();
+                                      },
+                                      child: ListView.builder(
+                                        itemCount: cubit.mMyLeavesHistoryDataList
+                                            ?.length ??
+                                            0,
+                                        physics: BouncingScrollPhysics(),
+                                        itemBuilder:
+                                            (BuildContext context, int inx) {
+                                          return cubit.mMyLeavesHistoryDataList !=
+                                                  null
+                                              ? Container(
+                                                  child: Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 4,
+                                                    ),
+                                                    Gaps.hGap4,
+                                                    Text(
+                                                      " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""} \t \t حالة الطلب",
+                                                      style:
+                                                          KStyles.textStyle13,
+                                                    ),
+                                                    Spacer(),
+                                                    Chip(
+                                                        elevation: 2,
+                                                        padding:
+                                                            EdgeInsets.symmetric(
+                                                                horizontal: 4),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .all(
+                                                          Radius.circular(4),
+                                                        )),
+                                                        backgroundColor: cubit
+                                                                    .mMyLeavesHistoryDataList![
+                                                                        inx]
+                                                                    .status! ==
+                                                                1
+                                                            ? Colors
+                                                                .grey
+                                                                .withOpacity(
+                                                                    0.3)
+                                                            : cubit
+                                                                        .mMyLeavesHistoryDataList![
+                                                                            inx]
+                                                                        .status! ==
+                                                                    3
+                                                                ? Colors.red
+                                                                    .withOpacity(
+                                                                        0.3)
+                                                                : Colors.green
+                                                                    .withOpacity(
+                                                                        0.3),
+                                                        label: Container(
+                                                          width: 60,
+                                                          child: Center(
+                                                            child: Text(
+                                                              cubit.mMyLeavesHistoryDataList![inx]
+                                                                          .status! ==
+                                                                      1
+                                                                  ? 'مُعلق'
+                                                                  : cubit.mMyLeavesHistoryDataList![inx].status! == 3
+                                                                      ? 'مرفوض'
+                                                                      : 'مقبول',
+                                                              style: TextStyle(
+                                                                color: cubit
+                                                                            .mMyLeavesHistoryDataList![
+                                                                                inx]
+                                                                            .status! ==
+                                                                        1
+                                                                    ? Colors
+                                                                        .grey
+                                                                    : cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                            3
+                                                                        ? Colors
+                                                                            .red
+                                                                        : Colors
+                                                                            .green,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )),
+                                                  ],
+                                                ))
+                                              : Container();
+                                        },
+                                      ));
+                                }
+                              }),
                             );
                           }
                         }),

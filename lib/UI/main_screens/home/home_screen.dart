@@ -32,10 +32,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         if (cubit != null) cubit!.updateCurrentDateTime();
       });
     mAnimationController = AnimationController(
-        vsync: this,
-        duration: Duration(
-          microseconds: 500,
-        ));
+      vsync: this,
+      duration: Duration(
+        microseconds: 500,
+      ),
+    );
     animation =
         Tween<double>(begin: 85, end: 220).animate(mAnimationController!)
           ..addListener(() {
@@ -48,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               child: Center(
                 child: ListView(
                   children: [
-                    Gaps.vGap30,
+                    Gaps.hGap16,
                     Row(
                       children: [
                         Container(
@@ -103,8 +103,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ),
                         ),
                         Spacer(),
-                        Image.asset(ImageUtils.getImagePath("ic_kafey_logo"),
-                            height: 50, width: 60),
+                        Column(
+                          children: [
+                            SvgPicture.asset(
+                                ImageUtils.getSVGPath("ic_kafey_logo"),
+                                height: 50,
+                                width: 60),
+                            Gaps.vGap4,
+                            SvgPicture.asset(
+                                ImageUtils.getSVGPath("ic_kafey_name"),
+                                height: 20,
+                                width: 20),
+                          ],
+                        ),
                       ],
                     ),
                     Gaps.vGap16,
@@ -146,26 +157,31 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
-                    InkWell(
-                      onTap: () async {
-                        var localAuth = LocalAuthentication();
+                    Container(
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: InkWell(
+                        onTap: () async {
+                          var localAuth = LocalAuthentication();
 
-                        bool didAuthenticate = await localAuth.authenticate(
-                            biometricOnly: true,
-                            stickyAuth: true,
-                            localizedReason: 'ضع بصمتك لاتمام العمليه');
+                          bool didAuthenticate = await localAuth.authenticate(
+                              biometricOnly: true,
+                              stickyAuth: true,
+                              localizedReason: 'ضع بصمتك لاتمام العمليه');
 
-                        if (didAuthenticate) {
-                          cubit!.isLogged!
-                              ? showCustomDialog(context, (bool isOk) {
-                                  if (isOk) {
-                                    cubit!.updateClickOnState();
-                                  }
-                                })
-                              : cubit!.updateClickOnState();
-                        }
-                      },
-                      child: Container(
+                          if (didAuthenticate) {
+                            cubit!.isLogged!
+                                ? showCustomDialog(context, (bool isOk) {
+                                    if (isOk) {
+                                      cubit!.updateClickOnState();
+                                    }
+                                  })
+                                : cubit!.updateClickOnState();
+                          }
+                        },
                         child: SvgPicture.asset(ImageUtils.getSVGPath(
                             cubit!.isLogged! ? 'ic_clock_out' : 'ic_clock_in')),
                       ),
@@ -232,22 +248,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         homeWorkingHoursWidget(
                             context,
                             'ic_clock_in_timer',
-                            cubit!.mHomeStatisticsData?.clockIn ?? '00:00:00',
+                            cubit!.mHomeStatisticsData?.clockIn ?? '00:00',
                             S.of(context).clock_in,
                             Color(0xffdcf8ff),
                             Color(0xff0077ff)),
                         homeWorkingHoursWidget(
                             context,
                             'ic_clock_out_timer',
-                            cubit!.mHomeStatisticsData?.clockOut ?? '00:00:00',
+                            cubit!.mHomeStatisticsData?.clockOut ?? '00:00',
                             S.of(context).clock_out,
                             Color(0xffffe8f8),
                             Color(0xffab74f9)),
                         homeWorkingHoursWidget(
                             context,
                             'ic_working_hours_timer',
-                            cubit!.mHomeStatisticsData?.hoursPerDay ??
-                                '00:00:00',
+                            cubit!.mHomeStatisticsData?.hoursPerDay ?? '00:00',
                             S.of(context).working_hours,
                             Color(0xffe9e9e9),
                             Color(0xff707070)),
@@ -312,7 +327,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             width: 30,
           ),
           Text(
-            time,
+            time.isNotEmpty ? time : '00:00',
             style: TextStyle(
               color: currentTextColor,
               fontSize: 11,

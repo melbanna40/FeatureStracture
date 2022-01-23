@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
 import 'package:kafey/res/gaps.dart';
-import 'package:kafey/res/m_colors.dart';
 import 'package:kafey/res/styles.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -17,190 +17,105 @@ class NotificationsScreen extends StatefulWidget {
 class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NotificationsCubit, NotificationsState>(
-        builder: (context, state) {
-      final cubit = BlocProvider.of<NotificationsCubit>(context);
-      if (state is NotificationsLoading) {
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        );
-      } else if (cubit.mNotificationDataList == null ||
-          cubit.mNotificationDataList!.isEmpty) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            centerTitle: true,
-            elevation: 4,
-            title: Text(
-              "الاشعارات",
-              style: KStyles.textStyle30,
-            ),
-            actions: [
-              Container(
-                padding: EdgeInsets.all(4),
-                child: Image.asset(
-                  ImageUtils.getImagePath('ic_kafey_logo'),
-                  width: 40,
-                  height: 40,
-                ),
-              )
-            ],
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ListView.builder(
-              itemCount: 10,
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int inx) {
-                return Container(
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 4,
-                      ),
-                      Gaps.hGap4,
-                      Text(
-                        "تم التقديم على اجازة مرضية يوم ${inx + 1} يناير",
-                        style: KStyles.textStyle13,
-                      ),
-                      Spacer(),
-                      Chip(
-                          elevation: 2,
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                            Radius.circular(4),
-                          )),
-                          backgroundColor: inx.remainder(2) == 0
-                              ? Colors.green.withOpacity(.3)
-                              : Colors.red.withOpacity(.3),
-                          label: Container(
-                            width: 60,
-                            child: Center(
-                              child: Text(
-                                inx.remainder(2) == 0 ? 'مقبول' : 'مرفوض',
-                                style: TextStyle(
-                                  color: inx.remainder(2) == 0
-                                      ? Colors.green
-                                      : Colors.red,
-                                ),
-                              ),
-                            ),
-                          )),
-                    ],
-                  ),
-                );
-              },
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        toolbarHeight: 85,
+        centerTitle: true,
+        elevation: 0,
+        title: Text(
+          "الاشعارات",
+          style: KStyles.textStyle30,
+        ),
+        actions: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Column(
+              children: [
+                SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
+                    height: 50, width: 60),
+                Gaps.vGap4,
+                SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_name"),
+                    height: 20, width: 20),
+              ],
             ),
           ),
-        );
-      } else {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: Container(
+        ],
+      ),
+      body: BlocBuilder<NotificationsCubit, NotificationsState>(
+          builder: (context, state) {
+        final cubit = BlocProvider.of<NotificationsCubit>(context);
+        if (state is NotificationsLoading) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        } else if (cubit.mNotificationDataList == null ||
+            cubit.mNotificationDataList!.isEmpty) {
+          return Center(
+            child: Container(
+              child: Text('عذراً لا توجد بيانات'),
+            ),
+          );
+        } else {
+          return Container(
             padding: EdgeInsets.all(12),
             child: RefreshIndicator(
               onRefresh: () async {
                 _onRefresh(cubit);
               },
               child: ListView.builder(
-                  itemCount: cubit.mNotificationDataList!.length,
-                  itemBuilder: (context, index) => InkWell(
-                        onTap: () {
-                          // Get.to(MessagesScreen());
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(14)),
-                            color: index == 0 || index % 2 == 0
-                                ? MColors.colorPrimarySwatch.withOpacity(.2)
-                                : Colors.transparent,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CircleAvatar(
-                                radius: 4,
-                              ),
-                              Gaps.hGap4,
-                              Container(
-                                width: 220,
+                itemCount: cubit.mNotificationDataList!.length,
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    // Get.to(MessagesScreen());
+                  },
+                  child: Container(
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 4,
+                        ),
+                        Gaps.hGap4,
+                        Text(
+                          cubit.mNotificationDataList![index].notification!
+                              .body!,
+                          style: KStyles.textStyle13,
+                        ),
+                        Spacer(),
+                        Chip(
+                            elevation: 2,
+                            padding: EdgeInsets.symmetric(horizontal: 4),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                              Radius.circular(4),
+                            )),
+                            backgroundColor: index.remainder(2) == 0
+                                ? Colors.green.withOpacity(.3)
+                                : Colors.red.withOpacity(.3),
+                            label: Container(
+                              width: 60,
+                              child: Center(
                                 child: Text(
                                   cubit.mNotificationDataList![index]
-                                      .notification!.title!,
-                                  style: KStyles.textStyle13,
+                                      .notification!.body!,
+                                  style: TextStyle(
+                                    color: index.remainder(2) == 0
+                                        ? Colors.green
+                                        : Colors.red,
+                                  ),
                                 ),
                               ),
-                              Chip(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                    Radius.circular(4),
-                                  )),
-                                  backgroundColor:
-                                      Colors.greenAccent.withOpacity(.3),
-                                  label: Text(
-                                    "تحت الطلب",
-                                    style: TextStyle(color: Colors.green),
-                                  )),
-                              Stack(
-                                alignment: Alignment.bottomRight,
-                                children: [
-                                  Container(
-                                      width: 48,
-                                      height: 48,
-                                      decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(14)),
-                                          color: Colors.blue[200]),
-                                      child: ClipRRect(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(14)),
-                                          child: Image.asset(
-                                              ImageUtils.getImagePath(
-                                                  'ic_kafey_logo')))),
-                                ],
-                              ),
-                              Gaps.hGap8,
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    cubit.mNotificationDataList![index]
-                                        .notification!.title!,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                  Text(
-                                    cubit.mNotificationDataList![index]
-                                        .notification!.body!,
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text("11:44 "),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      )),
+                            )),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
-        );
-      }
-    });
+          );
+        }
+      }),
+    );
   }
 
   Future<void> _onRefresh(NotificationsCubit cubit) async {

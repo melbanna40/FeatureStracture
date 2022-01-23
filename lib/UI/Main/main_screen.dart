@@ -12,7 +12,6 @@ import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/widgets/drawer.dart';
 import 'package:kafey/UI/User/login/cubit/login_cubit.dart';
 import 'package:kafey/generated/l10n.dart';
-import 'package:kafey/res/m_colors.dart';
 
 import 'cubit/main_cubit.dart';
 
@@ -118,215 +117,215 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> appBarTitles = [
-      Text(
-        S.of(context).home,
-        style: TextStyle(
-            color: MColors.colorPrimarySwatch,
-            fontWeight: FontWeight.bold,
-            fontSize: 20),
-      ),
-      // Text(
-      //   S.of(context).myTeams,
-      //   style: TextStyle(
-      //       color: MColors.colorPrimarySwatch,
-      //       fontWeight: FontWeight.bold,
-      //       fontSize: 20),
-      // ),
-      Text(
-        S.of(context).attendance,
-        style: TextStyle(
-            color: MColors.colorPrimarySwatch,
-            fontWeight: FontWeight.bold,
-            fontSize: 20),
-      ),
-      Text(
-        S.of(context).notification,
-        style: TextStyle(
-            color: MColors.colorPrimarySwatch,
-            fontWeight: FontWeight.bold,
-            fontSize: 20),
-      ),
-      Text(
-        S.of(context).more,
-        style: TextStyle(
-            color: MColors.colorPrimarySwatch,
-            fontWeight: FontWeight.bold,
-            fontSize: 20),
-      ),
-    ];
+    // List<Widget> appBarTitles = [
+    //   Text(
+    //     S.of(context).home,
+    //     style: TextStyle(
+    //         color: MColors.colorPrimarySwatch,
+    //         fontWeight: FontWeight.bold,
+    //         fontSize: 20),
+    //   ),
+    //   // Text(
+    //   //   S.of(context).myTeams,
+    //   //   style: TextStyle(
+    //   //       color: MColors.colorPrimarySwatch,
+    //   //       fontWeight: FontWeight.bold,
+    //   //       fontSize: 20),
+    //   // ),
+    //   Text(
+    //     S.of(context).attendance,
+    //     style: TextStyle(
+    //         color: MColors.colorPrimarySwatch,
+    //         fontWeight: FontWeight.bold,
+    //         fontSize: 20),
+    //   ),
+    //   Text(
+    //     S.of(context).notification,
+    //     style: TextStyle(
+    //         color: MColors.colorPrimarySwatch,
+    //         fontWeight: FontWeight.bold,
+    //         fontSize: 20),
+    //   ),
+    //   Text(
+    //     S.of(context).more,
+    //     style: TextStyle(
+    //         color: MColors.colorPrimarySwatch,
+    //         fontWeight: FontWeight.bold,
+    //         fontSize: 20),
+    //   ),
+    // ];
     return BlocProvider(
-        create: (BuildContext context) => MainCubit(),
-        child: BlocConsumer<MainCubit, MainState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            var cubit = BlocProvider.of<MainCubit>(context);
-            return Scaffold(
-              key: _scaffoldKey,
-              backgroundColor: Colors.white,
-              // appBar: AppBar(
-              //   backgroundColor: Colors.white,
-              //   elevation: 0,
-              //   title: appBarTitles[cubit.currentIndex],
-              //   centerTitle: true,
-              //   leading: InkWell(
-              //     onTap: () {
-              //       _scaffoldKey.currentState!.openDrawer();
-              //     },
-              //     child: SvgPicture.asset(
-              //       ImageUtils.getSVGPath('ic_logo'),
-              //       width: 20,
-              //       height: 20,
-              //     ),
-              //   ),
-              // ),
-              drawer: CustomDrawer(cubit),
-              bottomNavigationBar: CurvedNavigationBar(
-                items: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.all(4),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.supervised_user_circle_outlined,
+      create: (BuildContext context) => MainCubit(),
+      child: BlocConsumer<MainCubit, MainState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var cubit = BlocProvider.of<MainCubit>(context);
+          return Scaffold(
+            key: _scaffoldKey,
+            backgroundColor: Colors.white,
+            // appBar: AppBar(
+            //   backgroundColor: Colors.white,
+            //   elevation: 0,
+            //   title: appBarTitles[cubit.currentIndex],
+            //   centerTitle: true,
+            //   leading: InkWell(
+            //     onTap: () {
+            //       _scaffoldKey.currentState!.openDrawer();
+            //     },
+            //     child: SvgPicture.asset(
+            //       ImageUtils.getSVGPath('ic_logo'),
+            //       width: 20,
+            //       height: 20,
+            //     ),
+            //   ),
+            // ),
+            drawer: CustomDrawer(cubit),
+            bottomNavigationBar: CurvedNavigationBar(
+              items: <Widget>[
+                Container(
+                  margin: const EdgeInsets.all(4),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        ImageUtils.getSVGPath('ic_users'),
+                        color: cubit.currentIndex == 0
+                            ? Color(0xff0995f5)
+                            : Colors.black,
+                      ),
+                      Text(
+                        'الملف الشخصي',
+                        style: TextStyle(
                           color: cubit.currentIndex == 0
                               ? Color(0xff0995f5)
                               : Colors.black,
+                          fontSize: 9,
+                          fontFamily: 'Dubai',
+                          fontWeight: FontWeight.w500,
                         ),
-                        Text(
-                          'الملف الشخصي',
-                          style: TextStyle(
-                            color: cubit.currentIndex == 0
-                                ? Color(0xff0995f5)
-                                : Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(4),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(
-                          ImageUtils.getSVGPath('notification_bell'),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(4),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        ImageUtils.getSVGPath('ic_notifications_outline'),
+                        color: cubit.currentIndex == 1
+                            ? Color(0xff0995f5)
+                            : Colors.black,
+                      ),
+                      Text(
+                        'الاشعارات',
+                        style: TextStyle(
                           color: cubit.currentIndex == 1
                               ? Color(0xff0995f5)
                               : Colors.black,
+                          fontSize: 9,
+                          fontFamily: 'Dubai',
+                          fontWeight: FontWeight.w500,
                         ),
-                        Text(
-                          'الاشعارات',
-                          style: TextStyle(
-                            color: cubit.currentIndex == 1
-                                ? Color(0xff0995f5)
-                                : Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w500,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(32),
+                          gradient: LinearGradient(
+                            tileMode: TileMode.mirror,
+                            colors: [
+                              Color(0xff2ad8fe),
+                              Color(0xff5a7bef),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(4),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              gradient: LinearGradient(
-                                tileMode: TileMode.mirror,
-                                colors: [
-                                  Color(0xff2ad8fe),
-                                  Color(0xff5a7bef),
-                                ],
-                              )),
+                        child: Container(
+                          margin: EdgeInsets.all(16),
                           child: SvgPicture.asset(
-                            ImageUtils.getSVGPath('fingerprint'),
-                            width: 35,
-                            height: 35,
+                            ImageUtils.getSVGPath('ic_finger_print_nav'),
                             color: cubit.currentIndex == 2
                                 ? Colors.white
                                 : Colors.black,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(4),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(
-                          ImageUtils.getSVGPath('add_request'),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(4),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        ImageUtils.getSVGPath('ic_attendance'),
+                        color: cubit.currentIndex == 3
+                            ? Color(0xff0995f5)
+                            : Colors.black,
+                      ),
+                      Text(
+                        'طلب الاجازه',
+                        style: TextStyle(
                           color: cubit.currentIndex == 3
                               ? Color(0xff0995f5)
                               : Colors.black,
+                          fontSize: 9,
+                          fontFamily: 'Dubai',
+                          fontWeight: FontWeight.w500,
                         ),
-                        Text(
-                          'طلب الاجازه',
-                          style: TextStyle(
-                            color: cubit.currentIndex == 3
-                                ? Color(0xff0995f5)
-                                : Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(4),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(
-                          ImageUtils.getSVGPath('time_table'),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(4),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        ImageUtils.getSVGPath('time_table'),
+                        color: cubit.currentIndex == 4
+                            ? Color(0xff0995f5)
+                            : Colors.black,
+                      ),
+                      Text(
+                        S.of(context).attendance,
+                        style: TextStyle(
                           color: cubit.currentIndex == 4
                               ? Color(0xff0995f5)
                               : Colors.black,
+                          fontSize: 9,
+                          fontFamily: 'Dubai',
+                          fontWeight: FontWeight.w500,
                         ),
-                        Text(
-                          S.of(context).attendance,
-                          style: TextStyle(
-                            color: cubit.currentIndex == 4
-                                ? Color(0xff0995f5)
-                                : Colors.black,
-                            fontSize: 9,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-                index: 2,
-                color: Colors.white,
-                buttonBackgroundColor: Colors.transparent,
-                backgroundColor: Colors.white,
-                animationCurve: Curves.easeOut,
-                animationDuration: const Duration(milliseconds: 300),
-                onTap: (index) {
-                  cubit.changeBottomNavBar(index);
-                },
-                letIndexChange: (index) => true,
-                height: 65.0,
-              ),
-              body: cubit.screens[cubit.currentIndex],
-            );
-          },
-        ));
+                ),
+              ],
+              index: 2,
+              color: Colors.white,
+              buttonBackgroundColor: Colors.white,
+              backgroundColor: Colors.white,
+              animationCurve: Curves.easeOut,
+              animationDuration: const Duration(milliseconds: 300),
+              onTap: (index) {
+                cubit.changeBottomNavBar(index);
+              },
+              letIndexChange: (index) => true,
+            ),
+            body: cubit.screens[cubit.currentIndex],
+          );
+        },
+      ),
+    );
   }
 }

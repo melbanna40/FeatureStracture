@@ -94,14 +94,14 @@ class User {
   String? _phone;
   int? _tenantId;
   String? _email;
-  dynamic? _emailVerifiedAt;
-  dynamic? _deviceToken;
-  dynamic? _image;
+  dynamic _emailVerifiedAt;
+  dynamic _deviceToken;
+  dynamic _image;
   int? _loggedBefore;
   String? _type;
   String? _createdAt;
   String? _updatedAt;
-  dynamic? _deletedAt;
+  dynamic _deletedAt;
   String? _macAddress;
 
   User(
@@ -110,14 +110,14 @@ class User {
         String? phone,
         int? tenantId,
         String? email,
-        dynamic? emailVerifiedAt,
-        dynamic? deviceToken,
-        dynamic? image,
+        dynamic emailVerifiedAt,
+        dynamic deviceToken,
+        dynamic image,
         int? loggedBefore,
         String? type,
         String? createdAt,
         String? updatedAt,
-        dynamic? deletedAt,
+        dynamic deletedAt,
         String? macAddress}) {
     if (id != null) {
       this._id = id;
@@ -173,13 +173,13 @@ class User {
   set tenantId(int? tenantId) => _tenantId = tenantId;
   String? get email => _email;
   set email(String? email) => _email = email;
-  dynamic? get emailVerifiedAt => _emailVerifiedAt;
-  set emailVerifiedAt(dynamic? emailVerifiedAt) =>
+  dynamic get emailVerifiedAt => _emailVerifiedAt;
+  set emailVerifiedAt(dynamic emailVerifiedAt) =>
       _emailVerifiedAt = emailVerifiedAt;
-  dynamic? get deviceToken => _deviceToken;
-  set deviceToken(dynamic? deviceToken) => _deviceToken = deviceToken;
-  dynamic? get image => _image;
-  set image(dynamic? image) => _image = image;
+  dynamic get deviceToken => _deviceToken;
+  set deviceToken(dynamic deviceToken) => _deviceToken = deviceToken;
+  dynamic get image => _image;
+  set image(dynamic image) => _image = image;
   int? get loggedBefore => _loggedBefore;
   set loggedBefore(int? loggedBefore) => _loggedBefore = loggedBefore;
   String? get type => _type;
@@ -188,8 +188,8 @@ class User {
   set createdAt(String? createdAt) => _createdAt = createdAt;
   String? get updatedAt => _updatedAt;
   set updatedAt(String? updatedAt) => _updatedAt = updatedAt;
-  dynamic? get deletedAt => _deletedAt;
-  set deletedAt(dynamic? deletedAt) => _deletedAt = deletedAt;
+  dynamic get deletedAt => _deletedAt;
+  set deletedAt(dynamic deletedAt) => _deletedAt = deletedAt;
   String? get macAddress => _macAddress;
   set macAddress(String? macAddress) => _macAddress = macAddress;
 

@@ -116,9 +116,7 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   NotificationsCubit()..getNotificationsHistoryApiCal()),
           BlocProvider(
-              create: (context) => LeavesCubit()
-                ..getMyLeavesBalances()
-                ..getMyLeavesHistory()),
+              create: (context) => LeavesCubit()..getMyLeavesBalances()),
           BlocProvider(
               create: (context) =>
                   AttendanceCubit()..getAttendanceHistoryApiCal()),

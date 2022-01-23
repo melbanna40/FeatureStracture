@@ -9,7 +9,7 @@ import 'package:kafey/generated/l10n.dart';
 
 
 class CustomDrawer extends StatelessWidget {
-  MainCubit cubit;
+  final MainCubit cubit;
 
   CustomDrawer(this.cubit);
 
