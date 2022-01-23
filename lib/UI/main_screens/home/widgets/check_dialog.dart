@@ -7,7 +7,7 @@ import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 
-import 'cubit/home_cubit.dart';
+import '../cubit/home_cubit.dart';
 
 class CheckDialog extends StatefulWidget {
   final Function(bool)? callback;

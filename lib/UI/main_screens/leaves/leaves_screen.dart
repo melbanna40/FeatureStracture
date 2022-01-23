@@ -119,7 +119,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                 child: Column(
                   children: [
                     SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
-                        height: 50, width: 60),
+                        height: 40, width: 50),
                     Gaps.vGap4,
                     SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_name"),
                         height: 20, width: 20),

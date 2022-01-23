@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
+import 'package:kafey/UI/main_screens/notifications/widget/request_details_dialog.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/styles.dart';
 
@@ -18,6 +19,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         toolbarHeight: 85,
@@ -33,7 +35,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             child: Column(
               children: [
                 SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
-                    height: 50, width: 60),
+                    height: 40, width: 50),
                 Gaps.vGap4,
                 SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_name"),
                     height: 20, width: 20),
@@ -46,9 +48,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           builder: (context, state) {
         final cubit = BlocProvider.of<NotificationsCubit>(context);
         if (state is NotificationsLoading) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
+          return Center(child: CircularProgressIndicator());
         } else if (cubit.mNotificationDataList == null ||
             cubit.mNotificationDataList!.isEmpty) {
           return Center(
@@ -67,7 +67,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 itemCount: cubit.mNotificationDataList!.length,
                 itemBuilder: (context, index) => InkWell(
                   onTap: () {
-                    // Get.to(MessagesScreen());
+                    showCustomDialog(context, (bool isOk) {
+                      if (isOk) {}
+                    });
                   },
                   child: Container(
                     child: Row(
@@ -83,29 +85,30 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         ),
                         Spacer(),
                         Chip(
-                            elevation: 2,
-                            padding: EdgeInsets.symmetric(horizontal: 4),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                              Radius.circular(4),
-                            )),
-                            backgroundColor: index.remainder(2) == 0
-                                ? Colors.green.withOpacity(.3)
-                                : Colors.red.withOpacity(.3),
-                            label: Container(
-                              width: 60,
-                              child: Center(
-                                child: Text(
-                                  cubit.mNotificationDataList![index]
-                                      .notification!.body!,
-                                  style: TextStyle(
-                                    color: index.remainder(2) == 0
-                                        ? Colors.green
-                                        : Colors.red,
-                                  ),
+                          elevation: 2,
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                            Radius.circular(4),
+                          )),
+                          backgroundColor: index.remainder(2) == 0
+                              ? Colors.green.withOpacity(.3)
+                              : Colors.red.withOpacity(.3),
+                          label: Container(
+                            width: 60,
+                            child: Center(
+                              child: Text(
+                                cubit.mNotificationDataList![index]
+                                    .notification!.body!,
+                                style: TextStyle(
+                                  color: index.remainder(2) == 0
+                                      ? Colors.green
+                                      : Colors.red,
                                 ),
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -115,6 +118,37 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           );
         }
       }),
+    );
+  }
+
+  void showCustomDialog(BuildContext context, Function(bool) callback) {
+    showGeneralDialog(
+      context: context,
+      barrierLabel: "Barrier",
+      barrierDismissible: false,
+      barrierColor: Colors.white.withOpacity(0.2),
+      transitionDuration: Duration(milliseconds: 200),
+      pageBuilder: (_, __, ___) {
+        return RequestDetails(
+          callback: callback,
+        );
+      },
+      transitionBuilder: (_, anim, __, child) {
+        Tween<Offset> tween;
+        if (anim.status == AnimationStatus.reverse) {
+          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
+        } else {
+          tween = Tween(begin: Offset(1, 0), end: Offset.zero);
+        }
+
+        return SlideTransition(
+          position: tween.animate(anim),
+          child: FadeTransition(
+            opacity: anim,
+            child: child,
+          ),
+        );
+      },
     );
   }
 

@@ -8,13 +8,10 @@ import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 
-
 class RequestDetails extends StatefulWidget {
   final Function(bool)? callback;
 
-  final HomeCubit? cubit;
-
-  const RequestDetails({Key? key, this.callback, this.cubit}) : super(key: key);
+  const RequestDetails({Key? key, this.callback}) : super(key: key);
 
   @override
   _RequestDetailsState createState() => _RequestDetailsState();
@@ -64,7 +61,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                         ),
                         Gaps.vGap8,
                         Text(
-                          'هل أنت متأكد من \n ${widget.cubit!.isLogged! ? S.of(context).clock_out : S.of(context).clock_in}',
+                          'هل أنت متأكد من \n ',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
