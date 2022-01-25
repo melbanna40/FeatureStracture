@@ -92,9 +92,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           elevation: 2,
                           padding: EdgeInsets.symmetric(horizontal: 4),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                            Radius.circular(4),
-                          )),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(4),
+                            ),
+                          ),
                           backgroundColor: (cubit.mNotificationDataList![index]
                                       .details!.status ==
                                   1)

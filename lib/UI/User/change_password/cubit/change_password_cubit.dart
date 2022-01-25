@@ -38,6 +38,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
         options: Options(method: Method.post.toString(), headers: headers),
         params: {
           "password": newPassword,
+          // "mac_address": await CommonUtils.getDeviceId(),
         }, onSuccess: (data) {
       if (data.code == 200) {
         emit(ChangePasswordSuccessState());
