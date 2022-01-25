@@ -34,6 +34,7 @@ void main() async {
   configureDependencies();
   await Firebase.initializeApp();
 
+
   await Hive.initFlutter();
 
   await Hive.openBox(HiveHelper.KEY_BOX_APP_LANGUAGE);

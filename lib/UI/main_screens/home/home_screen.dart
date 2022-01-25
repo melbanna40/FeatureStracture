@@ -124,160 +124,174 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               child: Center(
                 child: ListView(
                   children: [
-                    Gaps.hGap16,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 45,
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              gradient: LinearGradient(
-                                tileMode: TileMode.mirror,
-                                colors: [
-                                  Color(0xff0eedff),
-                                  Color(0xffab74f9),
-                                ],
-                              )),
-                          child: Center(
-                            child: Text(
-                              '${cubit!.currentTime}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 27,
-                                fontFamily: 'Dubai',
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          '${cubit!.currentDate}',
-                          style: TextStyle(
-                            color: Color(0xff828282),
-                            fontSize: 16,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: InkWell(
-                        onTap: () async {
-                          var localAuth = LocalAuthentication();
-
-                          bool didAuthenticate = await localAuth.authenticate(
-                              biometricOnly: true,
-                              stickyAuth: true,
-                              localizedReason: 'ضع بصمتك لاتمام العمليه');
-
-                          if (didAuthenticate) {
-                            cubit!.isLogged!
-                                ? showCustomDialog(context, (bool isOk) {
-                                    if (isOk) {
-                                      cubit!.updateClickOnState();
-                                    }
-                                  })
-                                : cubit!.updateClickOnState();
-                          }
-                        },
-                        child: SvgPicture.asset(ImageUtils.getSVGPath(
-                            cubit!.isLogged! ? 'ic_clock_out' : 'ic_clock_in')),
-                      ),
-                    ),
-                    Gaps.vGap16,
-                    Center(
-                      child: Text(
-                        'من فضلك أدخل بصمتك',
-                        style: TextStyle(
-                          color: Color(0xff707070),
-                          fontSize: 18,
-                          fontFamily: 'Dubai',
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        cubit!.isLogged!
-                            ? S.of(context).clock_out
-                            : S.of(context).clock_in,
-                        style: TextStyle(
-                          color: Color(0xff0077ff),
-                          fontSize: 26,
-                          fontFamily: 'Dubai',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        'في مؤسسة أُفُق',
-                        style: TextStyle(
-                          color: Color(0xff0077ff),
-                          fontSize: 18,
-                          fontFamily: 'Dubai',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
+                    Expanded(
+                      flex: 6,
+                      child: Column(
                         children: [
+                          Gaps.hGap16,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: 45,
+                                padding: EdgeInsets.symmetric(horizontal: 8),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    gradient: LinearGradient(
+                                      tileMode: TileMode.mirror,
+                                      colors: [
+                                        Color(0xff0eedff),
+                                        Color(0xffab74f9),
+                                      ],
+                                    )),
+                                child: Center(
+                                  child: Text(
+                                    '${cubit!.currentTime}',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 27,
+                                      fontFamily: 'Dubai',
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '${cubit!.currentDate}',
+                                style: TextStyle(
+                                  color: Color(0xff828282),
+                                  fontSize: 16,
+                                  fontFamily: 'Dubai',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
                           Container(
-                            width: 200,
+                            margin:
+                                EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: InkWell(
+                              onTap: () async {
+                                var localAuth = LocalAuthentication();
+
+                                bool didAuthenticate = await localAuth.authenticate(
+                                    biometricOnly: true,
+                                    stickyAuth: true,
+                                    localizedReason: 'ضع بصمتك لاتمام العمليه');
+
+                                if (didAuthenticate) {
+                                  cubit!.isLogged!
+                                      ? showCustomDialog(context, (bool isOk) {
+                                          if (isOk) {
+                                            cubit!.updateClickOnState();
+                                          }
+                                        })
+                                      : cubit!.updateClickOnState();
+                                }
+                              },
+                              child: SvgPicture.asset(ImageUtils.getSVGPath(
+                                  cubit!.isLogged! ? 'ic_clock_out' : 'ic_clock_in')),
+                            ),
+                          ),
+                          Gaps.vGap8,
+                          Center(
                             child: Text(
-                              cubit!.currentLocation ?? '',
-                              overflow: TextOverflow.ellipsis,
+                              'من فضلك أدخل بصمتك',
                               style: TextStyle(
-                                color: Color(0xff7b7b7b),
-                                fontSize: 10,
+                                color: Color(0xff707070),
+                                fontSize: 18,
+                                fontFamily: 'Dubai',
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: Text(
+                              cubit!.isLogged!
+                                  ? S.of(context).clock_out
+                                  : S.of(context).clock_in,
+                              style: TextStyle(
+                                color: Color(0xff0077ff),
+                                fontSize: 26,
                                 fontFamily: 'Dubai',
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
                           ),
-                          Icon(
-                            (CupertinoIcons.location_solid),
+                          Center(
+                            child: Text(
+                              'في مؤسسة أُفُق',
+                              style: TextStyle(
+                                color: Color(0xff0077ff),
+                                fontSize: 18,
+                                fontFamily: 'Dubai',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
+                          Gaps.vGap8,
+                          Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width: 200,
+                                  child: Text(
+                                    cubit!.currentLocation ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: Color(0xff7b7b7b),
+                                      fontSize: 10,
+                                      fontFamily: 'Dubai',
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                                Icon(
+                                  (CupertinoIcons.location_solid),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Gaps.vGap16,
                         ],
                       ),
                     ),
-                    Gaps.vGap16,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        homeWorkingHoursWidget(
-                            context,
-                            'ic_clock_in_timer',
-                            cubit!.mHomeStatisticsData?.clockIn ?? '00:00',
-                            S.of(context).clock_in,
-                            Color(0xffdcf8ff),
-                            Color(0xff0077ff)),
-                        homeWorkingHoursWidget(
-                            context,
-                            'ic_clock_out_timer',
-                            cubit!.mHomeStatisticsData?.clockOut ?? '00:00',
-                            S.of(context).clock_out,
-                            Color(0xffffe8f8),
-                            Color(0xffab74f9)),
-                        homeWorkingHoursWidget(
-                            context,
-                            'ic_working_hours_timer',
-                            cubit!.mHomeStatisticsData?.hoursPerDay ?? '00:00',
-                            S.of(context).working_hours,
-                            Color(0xffe9e9e9),
-                            Color(0xff707070)),
-                      ],
+                    Gaps.vGap15,
+                    
+                    Expanded(
+                      flex: 2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          homeWorkingHoursWidget(
+                              context,
+                              'ic_clock_in_timer',
+                              cubit!.mHomeStatisticsData?.clockIn ?? '00:00',
+                              S.of(context).clock_in,
+                              Color(0xffdcf8ff),
+                              Color(0xff0077ff)),
+                          homeWorkingHoursWidget(
+                              context,
+                              'ic_clock_out_timer',
+                              cubit!.mHomeStatisticsData?.clockOut ?? '00:00',
+                              S.of(context).clock_out,
+                              Color(0xffffe8f8),
+                              Color(0xffab74f9)),
+                          homeWorkingHoursWidget(
+                              context,
+                              'ic_working_hours_timer',
+                              cubit!.mHomeStatisticsData?.hoursPerDay ?? '00:00',
+                              S.of(context).working_hours,
+                              Color(0xffe9e9e9),
+                              Color(0xff707070)),
+                        ],
+                      ),
                     ),
+                    Gaps.vGap50,
                   ],
                 ),
               ),

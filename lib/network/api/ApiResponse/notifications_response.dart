@@ -28,7 +28,7 @@ class NotificationsResponse {
 }
 
 class NotificationData {
-  String? id;
+  dynamic id;
   int? notifiableId;
   dynamic readAt;
   Details? details;
@@ -56,14 +56,14 @@ class NotificationData {
 }
 
 class Details {
-  String? from;
-  String? to;
-  int? numberOfDayes;
+  dynamic from;
+  dynamic to;
+  dynamic numberOfDayes;
   LeaveType? leaveType;
   dynamic reason;
   String? comment;
   dynamic attachment;
-  int? status;
+  dynamic status;
 
   Details(
       {this.from,
@@ -105,8 +105,8 @@ class Details {
 }
 
 class LeaveType {
-  int? id;
-  int? tenantId;
+  dynamic id;
+  dynamic tenantId;
   String? name;
   String? createdAt;
   String? updatedAt;

@@ -181,6 +181,7 @@ class _MainScreenState extends State<MainScreen> {
             // ),
             drawer: CustomDrawer(cubit),
             bottomNavigationBar: CurvedNavigationBar(
+
               items: <Widget>[
                 Container(
                   margin: const EdgeInsets.all(4),
@@ -318,6 +319,7 @@ class _MainScreenState extends State<MainScreen> {
               buttonBackgroundColor: Colors.white,
               backgroundColor: Colors.white,
               animationCurve: Curves.easeOut,
+
               animationDuration: const Duration(milliseconds: 300),
               onTap: (index) {
                 cubit.changeBottomNavBar(index);
