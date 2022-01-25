@@ -47,11 +47,10 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Column(
                   children: [
+                    Gaps.vGap8,
                     SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
-                        height: 40, width: 50),
-                    Gaps.vGap4,
-                    SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_name"),
-                        height: 20, width: 20),
+                        height: 35, width: 40),
+
                   ],
                 ),
               ),
@@ -123,7 +122,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                                   index]
                                               .isHoliday!)
                                           ? Color(0xfffffdf6)
-                                          : cubit
+                                          : (cubit
                                                           .mAttendanceHistoryDataList![
                                                               index]
                                                           .status !=
@@ -132,9 +131,31 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                                           .mAttendanceHistoryDataList![
                                                               index]
                                                           .status ==
-                                                      4
+                                                      4)
                                               ? Color(0xfff6fbff)
                                               : null,
+                                      gradient: (!cubit
+                                                  .mAttendanceHistoryDataList![
+                                                      index]
+                                                  .isHoliday! &&
+                                              (cubit
+                                                          .mAttendanceHistoryDataList![
+                                                              index]
+                                                          .status !=
+                                                      null &&
+                                                  cubit
+                                                          .mAttendanceHistoryDataList![
+                                                              index]
+                                                          .status !=
+                                                      4))
+                                          ? LinearGradient(
+                                              colors: [
+                                                Color(0xff0eedff),
+                                                Color(0xffab74ff),
+                                                Color(0xffab74f9),
+                                              ],
+                                            )
+                                          : null,
                                     ),
                                     child: Row(
                                       mainAxisAlignment:

@@ -65,6 +65,7 @@ class Details {
   dynamic attachment;
   dynamic status;
   dynamic body;
+  dynamic notification_status;
 
   Details(
       {this.from,
@@ -75,7 +76,8 @@ class Details {
       this.comment,
       this.attachment,
       this.status,
-      this.body});
+      this.body,
+      this.notification_status});
 
   Details.fromJson(Map<String, dynamic> json) {
     from = json['from'];
@@ -89,6 +91,7 @@ class Details {
     attachment = json['attachment'];
     status = json['status'];
     body = json['body'];
+    notification_status = json['notification_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -104,6 +107,7 @@ class Details {
     data['attachment'] = this.attachment;
     data['status'] = this.status;
     data['body'] = this.body;
+    data['notification_status'] = this.notification_status;
     return data;
   }
 }

@@ -37,11 +37,10 @@ class _SalaryScreenState extends State<SalaryScreen>
             margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Column(
               children: [
+                Gaps.vGap8,
                 SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
-                    height: 40, width: 50),
-                Gaps.vGap4,
-                SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_name"),
-                    height: 20, width: 20),
+                    height: 35, width: 40),
+
               ],
             ),
           ),

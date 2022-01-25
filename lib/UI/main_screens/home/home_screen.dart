@@ -65,11 +65,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Column(
               children: [
+                Gaps.vGap8,
                 SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
-                    height: 40, width: 50),
-                Gaps.vGap4,
-                SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_name"),
-                    height: 20, width: 20),
+                    height: 35, width: 40),
+
               ],
             ),
           ),
@@ -83,12 +82,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             fontWeight: FontWeight.w700,
           ),
         ),
-        leadingWidth: 80,
+        leadingWidth: 65,
         leading: Row(
           children: [
             Container(
-              width: 60.0,
-              height: 60.0,
+              width: 45.0,
+              height: 45.0,
               margin: EdgeInsets.only(right: 16),
               decoration: new BoxDecoration(
                 shape: BoxShape.circle,
@@ -101,8 +100,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 borderRadius: BorderRadius.circular(80.0),
                 child: ImageLoader.loadDefaultA(
                     'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
-                    width: 60.0,
-                    height: 60.0,
+                    width: 45.0,
+                    height: 45.0,
                     fit: BoxFit.cover),
               ),
             ),
@@ -136,14 +135,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 height: 45,
                                 padding: EdgeInsets.symmetric(horizontal: 8),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    gradient: LinearGradient(
-                                      tileMode: TileMode.mirror,
-                                      colors: [
-                                        Color(0xff0eedff),
-                                        Color(0xffab74f9),
-                                      ],
-                                    )),
+                                  borderRadius: BorderRadius.circular(16),
+                                  gradient: LinearGradient(
+                                    tileMode: TileMode.mirror,
+                                    colors: [
+                                      Color(0xff0eedff),
+                                      Color(0xffab74f9),
+                                    ],
+                                  ),
+                                ),
                                 child: Center(
                                   child: Text(
                                     '${cubit!.currentTime}',
@@ -168,8 +168,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             ],
                           ),
                           Container(
-                            margin:
-                                EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 12),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(24),
                             ),
@@ -177,10 +177,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               onTap: () async {
                                 var localAuth = LocalAuthentication();
 
-                                bool didAuthenticate = await localAuth.authenticate(
-                                    biometricOnly: true,
-                                    stickyAuth: true,
-                                    localizedReason: 'ضع بصمتك لاتمام العمليه');
+                                bool didAuthenticate =
+                                    await localAuth.authenticate(
+                                        biometricOnly: true,
+                                        stickyAuth: true,
+                                        localizedReason:
+                                            'ضع بصمتك لاتمام العمليه');
 
                                 if (didAuthenticate) {
                                   cubit!.isLogged!
@@ -193,7 +195,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 }
                               },
                               child: SvgPicture.asset(ImageUtils.getSVGPath(
-                                  cubit!.isLogged! ? 'ic_clock_out' : 'ic_clock_in')),
+                                  cubit!.isLogged!
+                                      ? 'ic_clock_out'
+                                      : 'ic_clock_in')),
                             ),
                           ),
                           Gaps.vGap8,
@@ -261,7 +265,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     Gaps.vGap15,
-                    
                     Expanded(
                       flex: 2,
                       child: Row(
@@ -284,7 +287,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           homeWorkingHoursWidget(
                               context,
                               'ic_working_hours_timer',
-                              cubit!.mHomeStatisticsData?.hoursPerDay ?? '00:00',
+                              cubit!.mHomeStatisticsData?.hoursPerDay ??
+                                  '00:00',
                               S.of(context).working_hours,
                               Color(0xffe9e9e9),
                               Color(0xff707070)),
