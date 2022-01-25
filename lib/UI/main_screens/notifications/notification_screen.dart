@@ -79,8 +79,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         ),
                         Gaps.hGap4,
                         Text(
-                          cubit.mNotificationDataList![index].details!
-                              .leaveType!.name!,
+                          cubit.mNotificationDataList![index].details!.body !=
+                                  null
+                              ? cubit
+                                  .mNotificationDataList![index].details!.body
+                              : cubit.mNotificationDataList![index].details!
+                                  .leaveType!.name,
                           style: KStyles.textStyle13,
                         ),
                         Spacer(),
@@ -92,18 +96,23 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             Radius.circular(4),
                           )),
                           backgroundColor: (cubit.mNotificationDataList![index]
-                              .details!.status ==1)
+                                      .details!.status ==
+                                  1)
                               ? Colors.green.withOpacity(.3)
                               : Colors.red.withOpacity(.3),
                           label: Container(
                             width: 60,
                             child: Center(
                               child: Text(
-                                (cubit.mNotificationDataList![index]
-                                    .details!.status ==1)?'مقبوله':'مرفوضه',
+                                (cubit.mNotificationDataList![index].details!
+                                            .status ==
+                                        1)
+                                    ? 'مقبوله'
+                                    : 'مرفوضه',
                                 style: TextStyle(
                                   color: (cubit.mNotificationDataList![index]
-                                      .details!.status ==1)
+                                              .details!.status ==
+                                          1)
                                       ? Colors.green
                                       : Colors.red,
                                 ),

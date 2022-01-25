@@ -64,6 +64,7 @@ class Details {
   String? comment;
   dynamic attachment;
   dynamic status;
+  dynamic body;
 
   Details(
       {this.from,
@@ -73,7 +74,8 @@ class Details {
       this.reason,
       this.comment,
       this.attachment,
-      this.status});
+      this.status,
+      this.body});
 
   Details.fromJson(Map<String, dynamic> json) {
     from = json['from'];
@@ -86,6 +88,7 @@ class Details {
     comment = json['comment'];
     attachment = json['attachment'];
     status = json['status'];
+    body = json['body'];
   }
 
   Map<String, dynamic> toJson() {
@@ -100,6 +103,7 @@ class Details {
     data['comment'] = this.comment;
     data['attachment'] = this.attachment;
     data['status'] = this.status;
+    data['body'] = this.body;
     return data;
   }
 }
