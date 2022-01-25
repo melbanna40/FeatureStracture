@@ -10,4 +10,7 @@ class KStyles {
        TextStyle(color: MColors.colorPrimarySwatch, fontSize: 16,fontWeight: FontWeight.bold);
   static const textStyle30=
   TextStyle(color: MColors.colorPrimarySwatch, fontSize: 30,fontWeight: FontWeight.bold);
+
+  static const textWhiteStyle14=
+  TextStyle(color: Colors.white, fontSize: 14);
 }

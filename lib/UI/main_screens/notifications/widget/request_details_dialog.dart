@@ -5,13 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
+import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
+import 'package:kafey/res/styles.dart';
 
 class RequestDetails extends StatefulWidget {
   final Function(bool)? callback;
+  final NotificationsCubit cubit;
+  final int index;
 
-  const RequestDetails({Key? key, this.callback}) : super(key: key);
+  const RequestDetails(
+      {Key? key, this.callback, required this.cubit, required this.index})
+      : super(key: key);
 
   @override
   _RequestDetailsState createState() => _RequestDetailsState();
@@ -46,88 +52,58 @@ class _RequestDetailsState extends State<RequestDetails> {
                   children: [
                     SvgPicture.asset(
                       ImageUtils.getSVGPath('bg_dialog'),
+                      height: 400,
+                      width: 400,
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+
                       children: [
-                        Text(
-                          '" لم يحن موعد الرحيل بعد"',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Gaps.vGap8,
-                        Text(
-                          'هل أنت متأكد من \n ',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Gaps.vGap8,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            InkWell(
-                              onTap: () {
-                                widget.callback!.call(true);
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                height: 30,
-                                width: 50,
-                                margin: EdgeInsets.symmetric(horizontal: 16),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'نعم',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 17,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                // callback.call(false);
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                height: 30,
-                                width: 50,
-                                margin: EdgeInsets.symmetric(horizontal: 16),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'لا',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 17,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                            Text("نوع الأجازة:  "),
+                            Text(widget.cubit.mNotificationDataList![widget.index]
+                                .details!.leaveType!.name!,style: KStyles.textWhiteStyle14,
+                                )
                           ],
-                        )
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("تبدأ الأجازة من :  "),
+                            Text(widget.cubit.mNotificationDataList![widget.index]
+                                .details!.from,style: KStyles.textWhiteStyle14,
+                                )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("تنتهي الأجازة يوم :  "),
+                            Text(widget.cubit.mNotificationDataList![widget.index]
+                                .details!.to,style: KStyles.textWhiteStyle14,
+                                )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("سبب الأجازة هو:  "),
+                            Text(widget.cubit.mNotificationDataList![widget.index]
+                                .details!.reason,style: KStyles.textWhiteStyle14,
+                                )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("معلومات اضافية:  "),
+                            Text(widget.cubit.mNotificationDataList![widget.index]
+                                .details!.comment!,style: KStyles.textWhiteStyle14,
+                                )
+                          ],
+                        ),
                       ],
                     ),
                   ],

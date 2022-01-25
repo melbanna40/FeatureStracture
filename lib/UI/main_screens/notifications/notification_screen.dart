@@ -69,7 +69,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   onTap: () {
                     showCustomDialog(context, (bool isOk) {
                       if (isOk) {}
-                    });
+                    }, cubit,index);
                   },
                   child: Container(
                     child: Row(
@@ -133,7 +133,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     );
   }
 
-  void showCustomDialog(BuildContext context, Function(bool) callback) {
+  void showCustomDialog(
+      BuildContext context, Function(bool) callback, NotificationsCubit cubit,int index) {
     showGeneralDialog(
       context: context,
       barrierLabel: "Barrier",
@@ -141,9 +142,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       barrierColor: Colors.white.withOpacity(0.2),
       transitionDuration: Duration(milliseconds: 200),
       pageBuilder: (_, __, ___) {
-        return RequestDetails(
-          callback: callback,
-        );
+        return RequestDetails(callback: callback, cubit: cubit,index: index,);
       },
       transitionBuilder: (_, anim, __, child) {
         Tween<Offset> tween;
