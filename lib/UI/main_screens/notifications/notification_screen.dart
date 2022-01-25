@@ -91,7 +91,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               borderRadius: BorderRadius.all(
                             Radius.circular(4),
                           )),
-                          backgroundColor: index.remainder(2) == 0
+                          backgroundColor: (cubit.mNotificationDataList![index]
+                              .details!.status ==1)
                               ? Colors.green.withOpacity(.3)
                               : Colors.red.withOpacity(.3),
                           label: Container(
@@ -101,7 +102,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 (cubit.mNotificationDataList![index]
                                     .details!.status ==1)?'مقبوله':'مرفوضه',
                                 style: TextStyle(
-                                  color: index.remainder(2) == 0
+                                  color: (cubit.mNotificationDataList![index]
+                                      .details!.status ==1)
                                       ? Colors.green
                                       : Colors.red,
                                 ),

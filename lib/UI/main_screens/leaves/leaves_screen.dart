@@ -9,7 +9,6 @@ import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/widgets/apply_leave_dialog.dart';
-import 'package:kafey/UI/main_screens/salary/salary_screen.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -281,7 +280,6 @@ class _LeavesScreenState extends State<LeavesScreen>
                                 BorderRadius.all(Radius.circular(20))),
                         child: Center(
                           child: TabBar(
-                            isScrollable: true,
                             labelStyle: const TextStyle(
                               fontSize: 20,
                               color: Colors.white,
@@ -326,7 +324,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                               } else {
                                 return LeavesCubit()
                                   ..getMyLeavesHistory(
-                                      status: new List.from([2,3]));
+                                      status: new List.from([2, 3]));
                               }
                             },
                             child: BlocBuilder<LeavesCubit, LeavesState>(

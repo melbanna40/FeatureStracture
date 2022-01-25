@@ -61,7 +61,7 @@ class LeavesCubit extends Cubit<LeavesState> {
     await _presenter.requestFutureData<MyLeavesHistoryResponse>(Method.get,
         url: Api.getMyLeavesHistoryApiCall,
         options: Options(method: Method.get.toString(), headers: headers),
-        params: {
+        queryParams: {
           if (status != null) 'status[]': status,
         }, onSuccess: (data) {
       if (data.code == 200) {

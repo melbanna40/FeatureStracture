@@ -123,7 +123,18 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                                   index]
                                               .isHoliday!)
                                           ? Color(0xfffffdf6)
-                                          : null,
+                                          : cubit
+                                                          .mAttendanceHistoryDataList![
+                                                              index]
+                                                          .status !=
+                                                      null &&
+                                                  cubit
+                                                          .mAttendanceHistoryDataList![
+                                                              index]
+                                                          .status ==
+                                                      4
+                                              ? Color(0xfff6fbff)
+                                              : null,
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
