@@ -12,6 +12,8 @@ import 'package:kafey/UI/main_screens/attendance/cubit/attendance_cubit.dart';
 import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
+import 'package:kafey/UI/main_screens/salary/cubit/salary_cubit.dart';
+import 'package:kafey/UI/main_screens/salary_details/cubit/salary_details_cubit.dart';
 import 'package:kafey/res/m_colors.dart';
 
 import 'Helpers/hivr_helper.dart';
@@ -112,6 +114,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => ForgetPasswordCubit()),
           BlocProvider(create: (context) => ChangePasswordCubit()),
+          BlocProvider(create: (context) => SalaryCubit()..getMyLeavesHistory()),
+          BlocProvider(
+              create: (context) =>
+                  SalaryDetailsCubit()..getSalaryDetailsHistoryApiCal()),
           BlocProvider(
               create: (context) =>
                   NotificationsCubit()..getNotificationsHistoryApiCal()),

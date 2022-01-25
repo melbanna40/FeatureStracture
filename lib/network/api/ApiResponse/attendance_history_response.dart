@@ -40,50 +40,68 @@ class AttendanceHistoryResponse {
 
 class AttendanceHistoryData {
   AttendanceHistoryData({
-      int? id, 
       String? clockIn, 
-      String? clockOut,
-    String? hoursPerDay,
+      String? clockOut, 
+      String? hoursPerDay, 
+      String? date, 
       int? dayOfMonth, 
-      String? dayOfWeek,}){
-    _id = id;
+      String? dayOfWeek, 
+      int? clockInStatus, 
+      int? status, 
+      bool? isHoliday,}){
     _clockIn = clockIn;
     _clockOut = clockOut;
     _hoursPerDay = hoursPerDay;
+    _date = date;
     _dayOfMonth = dayOfMonth;
     _dayOfWeek = dayOfWeek;
+    _clockInStatus = clockInStatus;
+    _status = status;
+    _isHoliday = isHoliday;
 }
 
   AttendanceHistoryData.fromJson(dynamic json) {
-    _id = json['id'];
     _clockIn = json['clock_in'];
     _clockOut = json['clock_out'];
-    _hoursPerDay = json['hours_per_day'].toString();
+    _hoursPerDay = json['hours_per_day'];
+    _date = json['date'];
     _dayOfMonth = json['day_of_month'];
     _dayOfWeek = json['day_of_week'];
+    _clockInStatus = json['clock_in_status'];
+    _status = json['status'];
+    _isHoliday = json['is_holiday'];
   }
-  int? _id;
   String? _clockIn;
   String? _clockOut;
   String? _hoursPerDay;
+  String? _date;
   int? _dayOfMonth;
   String? _dayOfWeek;
+  int? _clockInStatus;
+  int? _status;
+  bool? _isHoliday;
 
-  int? get id => _id;
   String? get clockIn => _clockIn;
   String? get clockOut => _clockOut;
   String? get hoursPerDay => _hoursPerDay;
+  String? get date => _date;
   int? get dayOfMonth => _dayOfMonth;
   String? get dayOfWeek => _dayOfWeek;
+  int? get clockInStatus => _clockInStatus;
+  int? get status => _status;
+  bool? get isHoliday => _isHoliday;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = _id;
     map['clock_in'] = _clockIn;
     map['clock_out'] = _clockOut;
     map['hours_per_day'] = _hoursPerDay;
+    map['date'] = _date;
     map['day_of_month'] = _dayOfMonth;
     map['day_of_week'] = _dayOfWeek;
+    map['clock_in_status'] = _clockInStatus;
+    map['status'] = _status;
+    map['is_holiday'] = _isHoliday;
     return map;
   }
 

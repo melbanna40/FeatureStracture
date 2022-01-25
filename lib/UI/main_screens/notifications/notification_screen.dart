@@ -79,8 +79,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         ),
                         Gaps.hGap4,
                         Text(
-                          cubit.mNotificationDataList![index].notification!
-                              .body!,
+                          cubit.mNotificationDataList![index].details!
+                              .leaveType!.name!,
                           style: KStyles.textStyle13,
                         ),
                         Spacer(),
@@ -98,8 +98,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             width: 60,
                             child: Center(
                               child: Text(
-                                cubit.mNotificationDataList![index]
-                                    .notification!.body!,
+                                (cubit.mNotificationDataList![index]
+                                    .details!.status ==1)?'مقبوله':'مرفوضه',
                                 style: TextStyle(
                                   color: index.remainder(2) == 0
                                       ? Colors.green

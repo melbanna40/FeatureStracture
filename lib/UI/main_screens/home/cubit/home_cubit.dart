@@ -42,10 +42,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   void updateCurrentLocation() async {
     var location = await LocationHelper.determinePosition();
-    List<Placemark> placemarks =
+    List<Placemark> placeMarks =
         await placemarkFromCoordinates(location.latitude, location.longitude);
-    Log.e(placemarks.first.toJson().toString());
-    currentLocation = placemarks.first.street;
+    currentLocation = placeMarks.first.street;
     emit(UpdateCurrentDateState());
   }
 

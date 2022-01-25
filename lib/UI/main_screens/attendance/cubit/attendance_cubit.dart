@@ -37,19 +37,20 @@ class AttendanceCubit extends Cubit<AttendanceState> {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
     emit(AttendanceLoading());
+
+    mAttendanceHistoryDataList?.clear();
     await _presenter.requestFutureData<AttendanceHistoryResponse>(Method.get,
         url: Api.getAttendanceHistoryApiCall,
         options: Options(method: Method.get.toString(), headers: headers),
         queryParams: date != null ? {'date': date} : null, onSuccess: (data) {
       if (data.code == 200) {
+
         mAttendanceHistoryDataList = data.data!;
         emit(AttendanceSuccess());
-      }
-      else if(data.code==401){
+      } else if (data.code == 401) {
         Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
-         Get.offAll(LoginScreen());
-      }
-      else {
+        Get.offAll(LoginScreen());
+      } else {
         emit(AttendanceError());
         CommonUtils.showToastMessage(data.message ?? '');
       }
@@ -73,12 +74,10 @@ class AttendanceCubit extends Cubit<AttendanceState> {
         getAttendanceHistoryApiCal();
         CommonUtils.showToastMessage(data.message);
         emit(AttendanceSuccess());
-      }
-      else if(data.code==401){
+      } else if (data.code == 401) {
         Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
-         Get.offAll(LoginScreen());
-      }
-      else {
+        Get.offAll(LoginScreen());
+      } else {
         emit(AttendanceError());
         CommonUtils.showToastMessage(data.message);
       }

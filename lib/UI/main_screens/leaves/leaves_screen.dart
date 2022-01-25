@@ -9,6 +9,7 @@ import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/widgets/apply_leave_dialog.dart';
+import 'package:kafey/UI/main_screens/salary/salary_screen.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -29,7 +30,7 @@ class _LeavesScreenState extends State<LeavesScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    _cardController = TabController(length: 3, vsync: this);
+    _cardController = TabController(length: 2, vsync: this);
     List<Widget> taps = [
       Tab(
         child: Text(
@@ -51,16 +52,16 @@ class _LeavesScreenState extends State<LeavesScreen>
           ),
         ),
       ),
-      Tab(
-        child: Text(
-          "المرتبات",
-          style: TextStyle(
-            fontSize: 16,
-            fontFamily: 'Dubai',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
+      // Tab(
+      //   child: Text(
+      //     "المرتبات",
+      //     style: TextStyle(
+      //       fontSize: 16,
+      //       fontFamily: 'Dubai',
+      //       fontWeight: FontWeight.w700,
+      //     ),
+      //   ),
+      // ),
     ];
     return BlocBuilder<LeavesCubit, LeavesState>(builder: (context, state) {
       final cubit = BlocProvider.of<LeavesCubit>(context);
@@ -315,30 +316,36 @@ class _LeavesScreenState extends State<LeavesScreen>
                       child: TabBarView(
                         physics: NeverScrollableScrollPhysics(),
                         controller: _cardController,
-                        children: List.generate(3, (index) {
-                          if (index == 2) {
-                            return BlocProvider(
-                              create: (BuildContext context) {
-                                return LeavesCubit()..getMyLeavesHistory();
-                              },
-                              child: BlocBuilder<LeavesCubit, LeavesState>(
-                                  builder: (context, state) {
-                                var cubit =
-                                    BlocProvider.of<LeavesCubit>(context);
-                                if (state is LeavesLoading ||
-                                    cubit.mMyLeavesHistoryDataList == null) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (cubit
-                                    .mMyLeavesHistoryDataList!.isEmpty) {
-                                  return Center(
-                                      child: Container(
-                                    child: Text('عذراً لا توجد بيانات'),
-                                  ));
-                                } else {
-                                  Future.delayed(Duration.zero);
-                                  return RefreshIndicator(
+                        children: List.generate(2, (index) {
+                          return BlocProvider(
+                            create: (BuildContext context) {
+                              if (index == 0) {
+                                return LeavesCubit()
+                                  ..getMyLeavesHistory(
+                                      status: new List.from([1]));
+                              } else {
+                                return LeavesCubit()
+                                  ..getMyLeavesHistory(
+                                      status: new List.from([2,3]));
+                              }
+                            },
+                            child: BlocBuilder<LeavesCubit, LeavesState>(
+                                builder: (context, state) {
+                              var cubit = BlocProvider.of<LeavesCubit>(context);
+                              if (state is LeavesLoading ||
+                                  cubit.mMyLeavesHistoryDataList == null) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else if (cubit
+                                  .mMyLeavesHistoryDataList!.isEmpty) {
+                                return Center(
+                                    child: Container(
+                                  child: Text('عذراً لا توجد بيانات'),
+                                ));
+                              } else {
+                                Future.delayed(Duration.zero);
+                                return RefreshIndicator(
                                     onRefresh: () async {
                                       cubit.getMyLeavesHistory();
                                     },
@@ -352,408 +359,87 @@ class _LeavesScreenState extends State<LeavesScreen>
                                         return cubit.mMyLeavesHistoryDataList !=
                                                 null
                                             ? Container(
-                                                padding: EdgeInsets.all(10),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(14)),
-                                                ),
                                                 child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    Container(
-                                                      height: 60,
-                                                      width: 60,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xffe5e5e5),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            'شهر'.toString(),
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                          Container(
-                                                            width: 24,
-                                                            child: Center(
-                                                              child: Text(
-                                                                'يناير',
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                style: TextStyle(
-                                                                    fontSize: 8,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                              ),
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      child: Column(
-                                                        children: [
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.all(
-                                                                    4),
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    vertical: 6,
-                                                                    horizontal:
-                                                                        12),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xff00c950),
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: 4,
+                                                  ),
+                                                  Gaps.hGap4,
+                                                  Text(
+                                                    " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""} \t \t حالة الطلب",
+                                                    style: KStyles.textStyle13,
+                                                  ),
+                                                  Spacer(),
+                                                  Chip(
+                                                      elevation: 2,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 4),
+                                                      shape:
+                                                          RoundedRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
-                                                                      .circular(
-                                                                          13),
-                                                            ),
-                                                            child: Row(
-                                                              children: [
-                                                                Text(
-                                                                  'ايام العمل ',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        11,
-                                                                    fontFamily:
-                                                                        'Dubai',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '21',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        11,
-                                                                    fontFamily:
-                                                                        'Dubai',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.all(
-                                                                    4),
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    vertical: 6,
-                                                                    horizontal:
-                                                                        12),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xffff3434),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          13),
-                                                            ),
-                                                            child: Row(
-                                                              children: [
-                                                                Text(
-                                                                  'الغيابات ',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        11,
-                                                                    fontFamily:
-                                                                        'Dubai',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '0',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        11,
-                                                                    fontFamily:
-                                                                        'Dubai',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      child: Column(
-                                                        children: [
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.all(
-                                                                    4),
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    4),
-                                                            height: 25,
-                                                            child: Row(
-                                                              children: [
-                                                                Text(
-                                                                  'ساعات العمل ',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Color(
-                                                                        0xff828282),
-                                                                    fontSize:
-                                                                        11,
-                                                                    fontFamily:
-                                                                        'Dubai',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  '172',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Color(
-                                                                        0xff828282),
-                                                                    fontSize:
-                                                                        11,
-                                                                    fontFamily:
-                                                                        'Dubai',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.all(
-                                                                    4),
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    4),
-                                                            child: Row(
-                                                              children: [
-                                                                Text(
-                                                                  'الراتب ',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Color(
-                                                                        0xff828282),
-                                                                    fontSize:
-                                                                        11,
-                                                                    fontFamily:
-                                                                        'Dubai',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w700,
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  padding: EdgeInsets
-                                                                      .symmetric(
-                                                                          vertical:
-                                                                              6,
-                                                                          horizontal:
-                                                                              12),
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Color(
-                                                                        0xff00c950),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            13),
-                                                                  ),
-                                                                  child: Text(
-                                                                    '12000',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          11,
-                                                                      fontFamily:
-                                                                          'Dubai',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w700,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            : Container();
-                                      },
-                                    ),
-                                  );
-                                }
-                              }),
-                            );
-                          } else {
-                            return BlocProvider(
-                              create: (BuildContext context) {
-                                return LeavesCubit()..getMyLeavesHistory();
-                              },
-                              child: BlocBuilder<LeavesCubit, LeavesState>(
-                                  builder: (context, state) {
-                                var cubit =
-                                    BlocProvider.of<LeavesCubit>(context);
-                                if (state is LeavesLoading ||
-                                    cubit.mMyLeavesHistoryDataList == null) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (cubit
-                                    .mMyLeavesHistoryDataList!.isEmpty) {
-                                  return Center(
-                                      child: Container(
-                                    child: Text('عذراً لا توجد بيانات'),
-                                  ));
-                                } else {
-                                  Future.delayed(Duration.zero);
-                                  return RefreshIndicator(
-                                      onRefresh: () async {
-                                        cubit.getMyLeavesHistory();
-                                      },
-                                      child: ListView.builder(
-                                        itemCount: cubit.mMyLeavesHistoryDataList
-                                            ?.length ??
-                                            0,
-                                        physics: BouncingScrollPhysics(),
-                                        itemBuilder:
-                                            (BuildContext context, int inx) {
-                                          return cubit.mMyLeavesHistoryDataList !=
-                                                  null
-                                              ? Container(
-                                                  child: Row(
-                                                  children: [
-                                                    CircleAvatar(
-                                                      radius: 4,
-                                                    ),
-                                                    Gaps.hGap4,
-                                                    Text(
-                                                      " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""} \t \t حالة الطلب",
-                                                      style:
-                                                          KStyles.textStyle13,
-                                                    ),
-                                                    Spacer(),
-                                                    Chip(
-                                                        elevation: 2,
-                                                        padding:
-                                                            EdgeInsets.symmetric(
-                                                                horizontal: 4),
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .all(
-                                                          Radius.circular(4),
-                                                        )),
-                                                        backgroundColor: cubit
-                                                                    .mMyLeavesHistoryDataList![
-                                                                        inx]
-                                                                    .status! ==
-                                                                1
-                                                            ? Colors
-                                                                .grey
-                                                                .withOpacity(
-                                                                    0.3)
-                                                            : cubit
+                                                                      .all(
+                                                        Radius.circular(4),
+                                                      )),
+                                                      backgroundColor: cubit
+                                                                  .mMyLeavesHistoryDataList![
+                                                                      inx]
+                                                                  .status! ==
+                                                              1
+                                                          ? Colors.grey
+                                                              .withOpacity(0.3)
+                                                          : cubit
+                                                                      .mMyLeavesHistoryDataList![
+                                                                          inx]
+                                                                      .status! ==
+                                                                  3
+                                                              ? Colors.red
+                                                                  .withOpacity(
+                                                                      0.3)
+                                                              : Colors.green
+                                                                  .withOpacity(
+                                                                      0.3),
+                                                      label: Container(
+                                                        width: 60,
+                                                        child: Center(
+                                                          child: Text(
+                                                            cubit
                                                                         .mMyLeavesHistoryDataList![
                                                                             inx]
                                                                         .status! ==
-                                                                    3
-                                                                ? Colors.red
-                                                                    .withOpacity(
-                                                                        0.3)
-                                                                : Colors.green
-                                                                    .withOpacity(
-                                                                        0.3),
-                                                        label: Container(
-                                                          width: 60,
-                                                          child: Center(
-                                                            child: Text(
-                                                              cubit.mMyLeavesHistoryDataList![inx]
+                                                                    1
+                                                                ? 'مُعلق'
+                                                                : cubit.mMyLeavesHistoryDataList![inx]
+                                                                            .status! ==
+                                                                        3
+                                                                    ? 'مرفوض'
+                                                                    : 'مقبول',
+                                                            style: TextStyle(
+                                                              color: cubit
+                                                                          .mMyLeavesHistoryDataList![
+                                                                              inx]
                                                                           .status! ==
                                                                       1
-                                                                  ? 'مُعلق'
-                                                                  : cubit.mMyLeavesHistoryDataList![inx].status! == 3
-                                                                      ? 'مرفوض'
-                                                                      : 'مقبول',
-                                                              style: TextStyle(
-                                                                color: cubit
-                                                                            .mMyLeavesHistoryDataList![
-                                                                                inx]
-                                                                            .status! ==
-                                                                        1
-                                                                    ? Colors
-                                                                        .grey
-                                                                    : cubit.mMyLeavesHistoryDataList![inx].status! ==
-                                                                            3
-                                                                        ? Colors
-                                                                            .red
-                                                                        : Colors
-                                                                            .green,
-                                                              ),
+                                                                  ? Colors.grey
+                                                                  : cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                          3
+                                                                      ? Colors
+                                                                          .red
+                                                                      : Colors
+                                                                          .green,
                                                             ),
                                                           ),
-                                                        )),
-                                                  ],
-                                                ))
-                                              : Container();
-                                        },
-                                      ));
-                                }
-                              }),
-                            );
-                          }
+                                                        ),
+                                                      )),
+                                                ],
+                                              ))
+                                            : Container();
+                                      },
+                                    ));
+                              }
+                            }),
+                          );
                         }),
                       ),
                     ),

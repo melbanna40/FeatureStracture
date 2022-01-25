@@ -188,13 +188,15 @@ class _MainScreenState extends State<MainScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       SvgPicture.asset(
-                        ImageUtils.getSVGPath('ic_users'),
+                        ImageUtils.getSVGPath('ic_money'),
+                        width: 19,
+                        height: 16,
                         color: cubit.currentIndex == 0
                             ? Color(0xff0995f5)
                             : Colors.black,
                       ),
                       Text(
-                        'الملف الشخصي',
+                        'المرتبات',
                         style: TextStyle(
                           color: cubit.currentIndex == 0
                               ? Color(0xff0995f5)

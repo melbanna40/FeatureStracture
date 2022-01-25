@@ -54,14 +54,16 @@ class LeavesCubit extends Cubit<LeavesState> {
 
   List<MyLeavesHistoryData>? mMyLeavesHistoryDataList;
 
-  Future getMyLeavesHistory() async {
+  Future getMyLeavesHistory({List<int>? status}) async {
     emit(LeavesLoading());
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
     await _presenter.requestFutureData<MyLeavesHistoryResponse>(Method.get,
         url: Api.getMyLeavesHistoryApiCall,
         options: Options(method: Method.get.toString(), headers: headers),
-        onSuccess: (data) {
+        params: {
+          if (status != null) 'status[]': status,
+        }, onSuccess: (data) {
       if (data.code == 200) {
         mMyLeavesHistoryDataList = data.data!;
         emit(LeavesSuccess());
