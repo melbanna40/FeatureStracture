@@ -179,7 +179,7 @@ class _MainScreenState extends State<MainScreen> {
             //     ),
             //   ),
             // ),
-            drawer: CustomDrawer(cubit),
+
             bottomNavigationBar: CurvedNavigationBar(
 
               items: <Widget>[

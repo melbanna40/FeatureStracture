@@ -6,7 +6,13 @@ class MColors {
   static const Color colorPrimary = Color(0xFF3333cc);
 
   static const Color secondaryPrimary = Color(0xFF0066cc);
+  static List<Color> gradientColors = [
+    const Color(0xFF0066cc),
+    // const Color(0xff02d39a),
 
+
+    Colors.deepPurple.withOpacity(.8),
+  ];
   static const MaterialColor colorPrimarySwatch = MaterialColor(
     0xFF0066cc,
     {

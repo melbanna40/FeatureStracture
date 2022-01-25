@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kafey/CommonUtils/image_loader.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
+import 'package:kafey/UI/Main/widgets/drawer.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:local_auth/local_auth.dart';
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   AnimationController? mAnimationController;
   Animation<double>? animation;
   late HomeCubit? cubit;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -54,65 +56,71 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        toolbarHeight: 85,
-        elevation: 0,
-        actions: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Column(
-              children: [
-                Gaps.vGap8,
-                SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
-                    height: 35, width: 40),
-              ],
-            ),
-          ),
-        ],
-        title: Text(
-          'مرحباً ${HiveHelper.getUserData?.user?.name ?? ''}',
-          style: TextStyle(
-            color: Color(0xff828282),
-            fontSize: 18,
-            fontFamily: 'Dubai',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        leadingWidth: 65,
-        leading: Row(
-          children: [
-            Container(
-              width: 45.0,
-              height: 45.0,
-              margin: EdgeInsets.only(right: 16),
-              decoration: new BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Color(0xff0077ff),
-                  width: 2,
+    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      cubit = BlocProvider.of<HomeCubit>(context);
+      if (state is HomeLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else {
+        return Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            toolbarHeight: 85,
+            elevation: 0,
+            actions: [
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: Column(
+                  children: [
+                    Gaps.vGap8,
+                    SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
+                        height: 35, width: 40),
+                  ],
                 ),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(80.0),
-                child: ImageLoader.loadDefaultA(
-                    'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
-                    width: 45.0,
-                    height: 45.0,
-                    fit: BoxFit.cover),
+            ],
+            title: Text(
+              'مرحباً ${HiveHelper.getUserData?.user?.name ?? ''}',
+              style: TextStyle(
+                color: Color(0xff828282),
+                fontSize: 18,
+                fontFamily: 'Dubai',
+                fontWeight: FontWeight.w700,
               ),
             ),
-          ],
-        ),
-      ),
-      body: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-        cubit = BlocProvider.of<HomeCubit>(context);
-        if (state is HomeLoading) {
-          return Center(child: CircularProgressIndicator());
-        } else {
-          return Container(
+            leadingWidth: 65,
+            leading: InkWell(
+              onTap: () {
+                _scaffoldKey.currentState!.openDrawer();
+              },
+              child: Row(
+                children: [
+                  Container(
+                    width: 45.0,
+                    height: 45.0,
+                    margin: EdgeInsets.only(right: 16),
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Color(0xff0077ff),
+                        width: 2,
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(80.0),
+                      child: ImageLoader.loadDefaultA(
+                          'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
+                          width: 45.0,
+                          height: 45.0,
+                          fit: BoxFit.cover),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          body: Container(
             padding: EdgeInsets.all(12),
             child: RefreshIndicator(
               onRefresh: () async {
@@ -294,10 +302,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
             ),
-          );
-        }
-      }),
-    );
+          ),
+          drawer: CustomDrawer(cubit!),
+        );
+      }
+    });
   }
 
   void showCustomDialog(BuildContext context, Function(bool) callback) {

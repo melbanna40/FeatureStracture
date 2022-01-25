@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 import 'm_colors.dart';
 
@@ -13,4 +14,10 @@ class KStyles {
 
   static const textWhiteStyle14=
   TextStyle(color: Colors.white, fontSize: 14);
+
+  static const textWhiteStyle22=
+  TextStyle(color: Colors.white, fontSize: 22);
+
+  static const texBlackBold=
+  TextStyle(fontWeight: FontWeight.bold);
 }

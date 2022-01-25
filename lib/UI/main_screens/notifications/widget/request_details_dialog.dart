@@ -57,56 +57,59 @@ class _RequestDetailsState extends State<RequestDetails> {
                     children: [
                       SvgPicture.asset(
                         ImageUtils.getSVGPath('bg_dialog'),
-                        height: 400,
-                        width: 400,
+                        height: 350,
+                        width: 200,
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-
                         children: [
+                          Icon(Icons.check,size:80,color: Colors.white,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
+
                             children: [
-                              Text("نوع الأجازة:  "),
-                              Text(widget.cubit.mNotificationDataList![widget.index]
-                                  .details!.leaveType!.name!,style: KStyles.textWhiteStyle14,
+
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("نوع الأجازة:  ",style: KStyles.texBlackBold),
+                                  Text("تبدأ الأجازة من :  ",style: KStyles.texBlackBold),
+                                  Text("تنتهي الأجازة يوم :  ",style: KStyles.texBlackBold),
+                                  Text("سبب الأجازة هو:  ",style: KStyles.texBlackBold),
+                                  Text("معلومات اضافية:  ",style: KStyles.texBlackBold),
+                                  // Text(widget.cubit.mNotificationDataList![widget.index]
+                                  //     .details!.leaveType!.name!,style: KStyles.textWhiteStyle14,
+                                  //     )
+                                ],
+                              ),
+                              Gaps.hGap20,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+
+                                  Text(widget.cubit.mNotificationDataList![widget.index]
+                                      .details!.leaveType!.name!,style: KStyles.textWhiteStyle14,
+                                      ),
+                                  Text(widget.cubit.mNotificationDataList![widget.index]
+                                      .details!.from,style: KStyles.textWhiteStyle14,
+                                      ),
+                                  Text(widget.cubit.mNotificationDataList![widget.index]
+                                      .details!.to,style: KStyles.textWhiteStyle14,
+                                  ),
+                                  Text(widget.cubit.mNotificationDataList![widget.index]
+                                      .details!.reason,style: KStyles.textWhiteStyle14,
+                                  ),
+                                  Text(widget.cubit.mNotificationDataList![widget.index]
+                                      .details!.comment??"",style: KStyles.textWhiteStyle14,
                                   )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("تبدأ الأجازة من :  "),
-                              Text(widget.cubit.mNotificationDataList![widget.index]
-                                  .details!.from,style: KStyles.textWhiteStyle14,
-                                  )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("تنتهي الأجازة يوم :  "),
-                              Text(widget.cubit.mNotificationDataList![widget.index]
-                                  .details!.to,style: KStyles.textWhiteStyle14,
-                                  )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("سبب الأجازة هو:  "),
-                              Text(widget.cubit.mNotificationDataList![widget.index]
-                                  .details!.reason,style: KStyles.textWhiteStyle14,
-                                  )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("معلومات اضافية:  "),
-                              Text(widget.cubit.mNotificationDataList![widget.index]
-                                  .details!.comment!,style: KStyles.textWhiteStyle14,
-                                  )
+                                ],
+                              ),
+
+
+
+
                             ],
                           ),
                         ],
