@@ -45,6 +45,7 @@ class HomeCubit extends Cubit<HomeState> {
     List<Placemark> placeMarks =
         await placemarkFromCoordinates(location.latitude, location.longitude);
     currentLocation = placeMarks.first.street;
+
     emit(UpdateCurrentDateState());
   }
 

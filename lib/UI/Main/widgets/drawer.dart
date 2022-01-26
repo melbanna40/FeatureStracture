@@ -113,7 +113,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
                   ],
                 ),
-                Gaps.vGap100,
+                SizedBox(height: 200,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

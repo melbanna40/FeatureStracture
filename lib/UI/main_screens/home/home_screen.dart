@@ -249,20 +249,27 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
-                                width: 200,
-                                child: Text(
-                                  cubit!.currentLocation ?? '',
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Color(0xff7b7b7b),
-                                    fontSize: 10,
-                                    fontFamily: 'Dubai',
-                                    fontWeight: FontWeight.w700,
+                                width: 150,
+                                child: Center(
+                                  child: Text(
+                                    cubit!.currentLocation ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: Color(0xff7b7b7b),
+                                      fontSize: 10,
+                                      fontFamily: 'Dubai',
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ),
                               ),
-                              Icon(
-                                (CupertinoIcons.location_solid),
+                              InkWell(
+                                onTap: (){
+                                  cubit!.updateCurrentLocation();
+                                },
+                                child: Icon(
+                                  (CupertinoIcons.location_solid),
+                                ),
                               ),
                             ],
                           ),
