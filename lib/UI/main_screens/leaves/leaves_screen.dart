@@ -121,7 +121,6 @@ class _LeavesScreenState extends State<LeavesScreen>
                     Gaps.vGap8,
                     SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
                         height: 35, width: 40),
-
                   ],
                 ),
               ),
@@ -363,7 +362,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                   ),
                                                   Gaps.hGap4,
                                                   Text(
-                                                    " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""} \t \t حالة الطلب",
+                                                    " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""}",
                                                     style: KStyles.textStyle13,
                                                   ),
                                                   Spacer(),
@@ -380,17 +379,18 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                         Radius.circular(4),
                                                       )),
                                                       backgroundColor: cubit
-                                                                  .mMyLeavesHistoryDataList![
-                                                                      inx]
-                                                                  .status! ==
-                                                              1
-                                                          ? Colors.grey
-                                                              .withOpacity(0.3)
-                                                          : cubit
                                                                       .mMyLeavesHistoryDataList![
                                                                           inx]
-                                                                      .status! ==
-                                                                  3
+                                                                      .status !=
+                                                                  null &&
+                                                              cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                  1
+                                                          ? Colors.grey
+                                                              .withOpacity(0.3)
+                                                          : cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                      null &&
+                                                                  cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                      3
                                                               ? Colors.red
                                                                   .withOpacity(
                                                                       0.3)
@@ -401,26 +401,30 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                         width: 60,
                                                         child: Center(
                                                           child: Text(
-                                                            cubit
-                                                                        .mMyLeavesHistoryDataList![
-                                                                            inx]
-                                                                        .status! ==
-                                                                    1
-                                                                ? 'مُعلق'
-                                                                : cubit.mMyLeavesHistoryDataList![inx]
+                                                            cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                        null &&
+                                                                    cubit
+                                                                            .mMyLeavesHistoryDataList![
+                                                                                inx]
                                                                             .status! ==
-                                                                        3
+                                                                        1
+                                                                ? 'مُعلق'
+                                                                : cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                            null &&
+                                                                        cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                            3
                                                                     ? 'مرفوض'
                                                                     : 'مقبول',
                                                             style: TextStyle(
-                                                              color: cubit
-                                                                          .mMyLeavesHistoryDataList![
-                                                                              inx]
-                                                                          .status! ==
-                                                                      1
+                                                              color: cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                          null &&
+                                                                      cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                          1
                                                                   ? Colors.grey
-                                                                  : cubit.mMyLeavesHistoryDataList![inx].status! ==
-                                                                          3
+                                                                  : cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                              null &&
+                                                                          cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                              3
                                                                       ? Colors
                                                                           .red
                                                                       : Colors

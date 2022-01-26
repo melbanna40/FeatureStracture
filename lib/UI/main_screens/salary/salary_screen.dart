@@ -186,33 +186,7 @@ class _SalaryScreenState extends State<SalaryScreen>
                               Container(
                                 child: Column(
                                   children: [
-                                    Container(
-                                      margin: EdgeInsets.all(4),
-                                      padding: EdgeInsets.all(4),
-                                      height: 25,
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'ساعات العمل ',
-                                            style: TextStyle(
-                                              color: Color(0xff828282),
-                                              fontSize: 11,
-                                              fontFamily: 'Dubai',
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          Text(
-                                            '172',
-                                            style: TextStyle(
-                                              color: Color(0xff828282),
-                                              fontSize: 11,
-                                              fontFamily: 'Dubai',
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+
                                     Container(
                                       margin: EdgeInsets.all(4),
                                       padding: EdgeInsets.all(4),

@@ -37,7 +37,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 Gaps.vGap8,
                 SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
                     height: 35, width: 40),
-
               ],
             ),
           ),
@@ -68,7 +67,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   onTap: () {
                     showCustomDialog(context, (bool isOk) {
                       if (isOk) {}
-                    }, cubit,index);
+                    }, cubit, index);
                   },
                   child: Container(
                     child: Row(
@@ -95,9 +94,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               Radius.circular(4),
                             ),
                           ),
-                          backgroundColor: (cubit.mNotificationDataList![index].details!
-                              .notification_status ==
-                                  'مقبول')
+                          backgroundColor: (cubit.mNotificationDataList![index]
+                                      .details!.status ==
+                                  '2')
                               ? Colors.green.withOpacity(.3)
                               : Colors.red.withOpacity(.3),
                           label: Container(
@@ -105,11 +104,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             child: Center(
                               child: Text(
                                 cubit.mNotificationDataList![index].details!
-                                            .notification_status??'',
+                                        .notification_status ??
+                                    '',
                                 style: TextStyle(
                                   color: (cubit.mNotificationDataList![index]
                                               .details!.status ==
-                                          1)
+                                          '2')
                                       ? Colors.green
                                       : Colors.red,
                                 ),
@@ -129,8 +129,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     );
   }
 
-  void showCustomDialog(
-      BuildContext context, Function(bool) callback, NotificationsCubit cubit,int index) {
+  void showCustomDialog(BuildContext context, Function(bool) callback,
+      NotificationsCubit cubit, int index) {
     showGeneralDialog(
       context: context,
       barrierLabel: "Barrier",
@@ -138,7 +138,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       barrierColor: Colors.white.withOpacity(0.2),
       transitionDuration: Duration(milliseconds: 200),
       pageBuilder: (_, __, ___) {
-        return RequestDetails(callback: callback, cubit: cubit,index: index,);
+        return RequestDetails(
+          callback: callback,
+          cubit: cubit,
+          index: index,
+        );
       },
       transitionBuilder: (_, anim, __, child) {
         Tween<Offset> tween;

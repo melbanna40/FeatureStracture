@@ -50,7 +50,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     Gaps.vGap8,
                     SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
                         height: 35, width: 40),
-
                   ],
                 ),
               ),
@@ -134,28 +133,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                                       4)
                                               ? Color(0xfff6fbff)
                                               : null,
-                                      gradient: (!cubit
-                                                  .mAttendanceHistoryDataList![
-                                                      index]
-                                                  .isHoliday! &&
-                                              (cubit
-                                                          .mAttendanceHistoryDataList![
-                                                              index]
-                                                          .status !=
-                                                      null &&
-                                                  cubit
-                                                          .mAttendanceHistoryDataList![
-                                                              index]
-                                                          .status !=
-                                                      4))
-                                          ? LinearGradient(
-                                              colors: [
-                                                Color(0xff0eedff),
-                                                Color(0xffab74ff),
-                                                Color(0xffab74f9),
-                                              ],
-                                            )
-                                          : null,
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
@@ -173,6 +150,27 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                                 : Color(0xffe5e5e5),
                                             borderRadius:
                                                 BorderRadius.circular(15),
+                                            gradient: (!cubit
+                                                        .mAttendanceHistoryDataList![
+                                                            index]
+                                                        .isHoliday! &&
+                                                    (cubit
+                                                                .mAttendanceHistoryDataList![
+                                                                    index]
+                                                                .status !=
+                                                            null &&
+                                                        cubit
+                                                                .mAttendanceHistoryDataList![
+                                                                    index]
+                                                                .status !=
+                                                            4))
+                                                ? LinearGradient(
+                                                    colors: [
+                                                      Color(0xff0eedff),
+                                                      Color(0xffab74f9),
+                                                    ],
+                                                  )
+                                                : null,
                                           ),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.min,

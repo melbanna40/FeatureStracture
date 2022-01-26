@@ -3,11 +3,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
-import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
 import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
-import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/styles.dart';
 
@@ -41,7 +38,7 @@ class _RequestDetailsState extends State<RequestDetails> {
         borderRadius: BorderRadius.circular(4),
         child: Form(
           child: InkWell(
-            onTap: (){
+            onTap: () {
               Navigator.pop(context);
             },
             child: Container(
@@ -63,21 +60,32 @@ class _RequestDetailsState extends State<RequestDetails> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.check,size:80,color: Colors.white,),
+                          Icon(
+                            widget.cubit.mNotificationDataList![widget.index]
+                                        .details!.status! ==
+                                    '2'
+                                ? Icons.check
+                                : Icons.close,
+                            size: 80,
+                            color: Colors.white,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-
                             children: [
-
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("نوع الأجازة:  ",style: KStyles.texBlackBold),
-                                  Text("تبدأ الأجازة من :  ",style: KStyles.texBlackBold),
-                                  Text("تنتهي الأجازة يوم :  ",style: KStyles.texBlackBold),
-                                  Text("سبب الأجازة هو:  ",style: KStyles.texBlackBold),
-                                  Text("معلومات اضافية:  ",style: KStyles.texBlackBold),
+                                  Text("نوع الأجازة:  ",
+                                      style: KStyles.texBlackBold),
+                                  Text("تبدأ الأجازة من :  ",
+                                      style: KStyles.texBlackBold),
+                                  Text("تنتهي الأجازة يوم :  ",
+                                      style: KStyles.texBlackBold),
+                                  Text("سبب الأجازة هو:  ",
+                                      style: KStyles.texBlackBold),
+                                  Text("معلومات اضافية:  ",
+                                      style: KStyles.texBlackBold),
                                   // Text(widget.cubit.mNotificationDataList![widget.index]
                                   //     .details!.leaveType!.name!,style: KStyles.textWhiteStyle14,
                                   //     )
@@ -88,28 +96,51 @@ class _RequestDetailsState extends State<RequestDetails> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-
-                                  Text(widget.cubit.mNotificationDataList![widget.index]
-                                      .details!.leaveType!.name!,style: KStyles.textWhiteStyle14,
-                                      ),
-                                  Text(widget.cubit.mNotificationDataList![widget.index]
-                                      .details!.from,style: KStyles.textWhiteStyle14,
-                                      ),
-                                  Text(widget.cubit.mNotificationDataList![widget.index]
-                                      .details!.to,style: KStyles.textWhiteStyle14,
+                                  Text(
+                                    widget
+                                        .cubit
+                                        .mNotificationDataList![widget.index]
+                                        .details!
+                                        .leaveType!
+                                        .name!,
+                                    style: KStyles.textWhiteStyle14,
                                   ),
-                                  Text(widget.cubit.mNotificationDataList![widget.index]
-                                      .details!.reason,style: KStyles.textWhiteStyle14,
+                                  Text(
+                                    widget
+                                        .cubit
+                                        .mNotificationDataList![widget.index]
+                                        .details!
+                                        .from,
+                                    style: KStyles.textWhiteStyle14,
                                   ),
-                                  Text(widget.cubit.mNotificationDataList![widget.index]
-                                      .details!.comment??"",style: KStyles.textWhiteStyle14,
+                                  Text(
+                                    widget
+                                        .cubit
+                                        .mNotificationDataList![widget.index]
+                                        .details!
+                                        .to,
+                                    style: KStyles.textWhiteStyle14,
+                                  ),
+                                  Text(
+                                    widget
+                                        .cubit
+                                        .mNotificationDataList![widget.index]
+                                        .details!
+                                        .reason,
+                                    style: KStyles.textWhiteStyle14,
+                                  ),
+                                  Text(
+                                    widget
+                                            .cubit
+                                            .mNotificationDataList![
+                                                widget.index]
+                                            .details!
+                                            .comment ??
+                                        "",
+                                    style: KStyles.textWhiteStyle14,
                                   )
                                 ],
                               ),
-
-
-
-
                             ],
                           ),
                         ],
