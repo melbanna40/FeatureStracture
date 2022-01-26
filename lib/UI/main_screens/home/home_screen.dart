@@ -22,8 +22,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  AnimationController? mAnimationController;
-  Animation<double>? animation;
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(milliseconds: 800),
+    vsync: this,
+  )..repeat(reverse: true);
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.easeIn,
+  );
   late HomeCubit? cubit;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,18 +39,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       Timer.periodic(Duration(seconds: 30), (Timer t) {
         if (cubit != null) cubit!.updateCurrentDateTime();
       });
-    mAnimationController = AnimationController(
-      vsync: this,
-      duration: Duration(
-        microseconds: 500,
-      ),
-    );
-    animation =
-        Tween<double>(begin: 85, end: 220).animate(mAnimationController!)
-          ..addListener(() {
-            setState(() {});
-          });
-    mAnimationController!.forward();
 
     super.initState();
   }
@@ -201,10 +195,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     : cubit!.updateClickOnState();
                               }
                             },
-                            child: SvgPicture.asset(ImageUtils.getSVGPath(
-                                cubit!.isLogged!
-                                    ? 'ic_clock_out'
-                                    : 'ic_clock_in')),
+                            child: FadeTransition(
+                              opacity: _animation,
+                              child: SvgPicture.asset(ImageUtils.getSVGPath(
+                                  cubit!.isLogged!
+                                      ? 'ic_clock_out'
+                                      : 'ic_clock_in')),
+                            ),
                           ),
                         ),
                         Gaps.vGap8,

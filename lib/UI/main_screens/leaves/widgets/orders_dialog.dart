@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
-
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/styles.dart';
@@ -63,7 +62,7 @@ class _OrdersDialogState extends State<OrdersDialog> {
                         children: [
                           Icon(
                             widget.cubit.mMyLeavesHistoryDataList![widget.index]
-                                        .status ==
+                                        .details!.status ==
                                     '2'
                                 ? Icons.check
                                 : Icons.close,
@@ -107,28 +106,34 @@ class _OrdersDialogState extends State<OrdersDialog> {
                                   // ),
                                   Text(
                                     widget
-                                        .cubit
-                                        .mMyLeavesHistoryDataList![widget.index]
-                                        .from??"",
+                                            .cubit
+                                            .mMyLeavesHistoryDataList![
+                                                widget.index]
+                                            .details!
+                                            .from ??
+                                        "",
                                     style: KStyles.textWhiteStyle14,
                                   ),
                                   Text(
                                     widget
-                                        .cubit
-                                        .mMyLeavesHistoryDataList![widget.index]
-
-                                        .to??"",
+                                            .cubit
+                                            .mMyLeavesHistoryDataList![
+                                                widget.index]
+                                            .details!
+                                            .to ??
+                                        "",
                                     style: KStyles.textWhiteStyle14,
                                   ),
                                   Text(
                                     widget
-                                        .cubit
-                                        .mMyLeavesHistoryDataList![widget.index]
-
-                                        .reason??"",
+                                            .cubit
+                                            .mMyLeavesHistoryDataList![
+                                                widget.index]
+                                            .details!
+                                            .reason ??
+                                        "",
                                     style: KStyles.textWhiteStyle14,
                                   ),
-
                                 ],
                               ),
                             ],

@@ -10,7 +10,6 @@ import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/widgets/apply_leave_dialog.dart';
 import 'package:kafey/UI/main_screens/leaves/widgets/orders_dialog.dart';
-import 'package:kafey/UI/main_screens/notifications/widget/request_details_dialog.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -368,21 +367,23 @@ class _LeavesScreenState extends State<LeavesScreen>
                                         return cubit.mMyLeavesHistoryDataList !=
                                                 null
                                             ? InkWell(
-                                          onTap: () {
-                                            showCustomDialog(context, (bool isOk) {
-                                              if (isOk) {}
-                                            }, cubit, index);
-                                          },
-                                              child: Container(
-                                                  child: Row(
+                                                onTap: () {
+                                                  showCustomDialog(context,
+                                                      (bool isOk) {
+                                                    if (isOk) {}
+                                                  }, cubit, index);
+                                                },
+                                                child: Container(
+                                                    child: Row(
                                                   children: [
                                                     CircleAvatar(
                                                       radius: 4,
                                                     ),
                                                     Gaps.hGap4,
                                                     Text(
-                                                      " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""}",
-                                                      style: KStyles.textStyle13,
+                                                      " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].details!.leaveType?.name ?? ""}",
+                                                      style:
+                                                          KStyles.textStyle13,
                                                     ),
                                                     Spacer(),
                                                     Chip(
@@ -400,49 +401,48 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                         backgroundColor: cubit
                                                                         .mMyLeavesHistoryDataList![
                                                                             inx]
+                                                                        .details!
                                                                         .status !=
                                                                     null &&
-                                                                cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                cubit
+                                                                        .mMyLeavesHistoryDataList![
+                                                                            inx]
+                                                                        .details!
+                                                                        .status! ==
                                                                     1
                                                             ? Colors.grey
-                                                                .withOpacity(0.3)
-                                                            : cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                .withOpacity(
+                                                                    0.3)
+                                                            : cubit.mMyLeavesHistoryDataList![inx].details!.status !=
                                                                         null &&
-                                                                    cubit.mMyLeavesHistoryDataList![inx].status! ==
-                                                                        3
-                                                                ? Colors.red
-                                                                    .withOpacity(
-                                                                        0.3)
-                                                                : Colors.green
-                                                                    .withOpacity(
-                                                                        0.3),
+                                                                    cubit.mMyLeavesHistoryDataList![inx].details!.status! == 3
+                                                                ? Colors.red.withOpacity(0.3)
+                                                                : Colors.green.withOpacity(0.3),
                                                         label: Container(
                                                           width: 60,
                                                           child: Center(
                                                             child: Text(
-                                                              cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                              cubit.mMyLeavesHistoryDataList![inx].details!.status !=
                                                                           null &&
-                                                                      cubit
-                                                                              .mMyLeavesHistoryDataList![
-                                                                                  inx]
-                                                                              .status! ==
+                                                                      cubit.mMyLeavesHistoryDataList![inx].details!.status! ==
                                                                           1
                                                                   ? 'مُعلق'
-                                                                  : cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                  : cubit.mMyLeavesHistoryDataList![inx].details!.status !=
                                                                               null &&
-                                                                          cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                          cubit.mMyLeavesHistoryDataList![inx].details!.status! ==
                                                                               3
                                                                       ? 'مرفوض'
                                                                       : 'مقبول',
                                                               style: TextStyle(
-                                                                color: cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                color: cubit.mMyLeavesHistoryDataList![inx].details!.status !=
                                                                             null &&
-                                                                        cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                        cubit.mMyLeavesHistoryDataList![inx].details!.status! ==
                                                                             1
-                                                                    ? Colors.grey
-                                                                    : cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                    ? Colors
+                                                                        .grey
+                                                                    : cubit.mMyLeavesHistoryDataList![inx].details!.status !=
                                                                                 null &&
-                                                                            cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                            cubit.mMyLeavesHistoryDataList![inx].details!.status! ==
                                                                                 3
                                                                         ? Colors
                                                                             .red
@@ -454,7 +454,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                         )),
                                                   ],
                                                 )),
-                                            )
+                                              )
                                             : Container();
                                       },
                                     ));
@@ -472,9 +472,8 @@ class _LeavesScreenState extends State<LeavesScreen>
         );
       }
     });
-
-
   }
+
   void showCustomDialog(BuildContext context, Function(bool) callback,
       LeavesCubit cubit, int index) {
     showGeneralDialog(
