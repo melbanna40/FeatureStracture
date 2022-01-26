@@ -61,15 +61,32 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                       firstDate: DateTime.now(),
                       lastDate: DateTime(2030),
                       builder: (context, child) {
-                        return Column(
-                          children: [
-                            ConstrainedBox(
-                              constraints: BoxConstraints(
-                                maxWidth: 400.0,
-                              ),
-                              child: child,
-                            )
-                          ],
+                        return Theme(
+                          data: ThemeData.light().copyWith(
+                            appBarTheme: AppBarTheme(
+                              foregroundColor: MColors.colorPrimarySwatch,
+                              backgroundColor: MColors.colorPrimarySwatch
+                            ),
+                            //Header background color
+                            primaryColor: MColors.colorPrimarySwatch,
+                            //Background color
+                            scaffoldBackgroundColor: Colors.grey[50],
+                            //Divider color
+                            dividerColor: Colors.grey,
+                            //Non selected days of the month color
+                            textTheme: TextTheme(
+                              bodyText2: TextStyle(color: Colors.black),
+                            ),
+                            colorScheme: ColorScheme.fromSwatch().copyWith(
+                              //Selected dates background color
+                              primary: MColors.colorPrimarySwatch,
+                              //Month title and week days color
+                              onSurface: MColors.colorPrimarySwatch,
+                              //Header elements and selected dates text color
+                              //onPrimary: Colors.white,
+                            ),
+                          ),
+                          child: child!,
                         );
                       });
                   if (picked != null) {

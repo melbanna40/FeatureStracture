@@ -9,6 +9,8 @@ import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/widgets/apply_leave_dialog.dart';
+import 'package:kafey/UI/main_screens/leaves/widgets/orders_dialog.dart';
+import 'package:kafey/UI/main_screens/notifications/widget/request_details_dialog.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -173,7 +175,12 @@ class _LeavesScreenState extends State<LeavesScreen>
                     Container(
                       width: 200,
                       decoration: BoxDecoration(
-                          color: MColors.colorPrimarySwatch,
+                          // color: MColors.colorPrimarySwatch,
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: MColors.gradientColors,
+                          ),
                           borderRadius: const BorderRadius.horizontal(
                               left: Radius.circular(8),
                               right: Radius.circular(8))),
@@ -273,6 +280,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                         height: 40,
                         width: double.infinity,
                         decoration: BoxDecoration(
+
                             // color: MColors.colorPrimarySwatch.withOpacity(.2),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
@@ -288,7 +296,12 @@ class _LeavesScreenState extends State<LeavesScreen>
                             indicatorSize: TabBarIndicatorSize.tab,
                             padding: EdgeInsets.symmetric(horizontal: 7),
                             indicator: BoxDecoration(
-                                color: MColors.colorPrimarySwatch,
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: MColors.gradientColors,
+                                ),
+                                // color: MColors.colorPrimarySwatch,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20))),
 
@@ -354,87 +367,94 @@ class _LeavesScreenState extends State<LeavesScreen>
                                           (BuildContext context, int inx) {
                                         return cubit.mMyLeavesHistoryDataList !=
                                                 null
-                                            ? Container(
-                                                child: Row(
-                                                children: [
-                                                  CircleAvatar(
-                                                    radius: 4,
-                                                  ),
-                                                  Gaps.hGap4,
-                                                  Text(
-                                                    " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""}",
-                                                    style: KStyles.textStyle13,
-                                                  ),
-                                                  Spacer(),
-                                                  Chip(
-                                                      elevation: 2,
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 4),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .all(
-                                                        Radius.circular(4),
-                                                      )),
-                                                      backgroundColor: cubit
-                                                                      .mMyLeavesHistoryDataList![
-                                                                          inx]
-                                                                      .status !=
-                                                                  null &&
-                                                              cubit.mMyLeavesHistoryDataList![inx].status! ==
-                                                                  1
-                                                          ? Colors.grey
-                                                              .withOpacity(0.3)
-                                                          : cubit.mMyLeavesHistoryDataList![inx].status !=
-                                                                      null &&
-                                                                  cubit.mMyLeavesHistoryDataList![inx].status! ==
-                                                                      3
-                                                              ? Colors.red
-                                                                  .withOpacity(
-                                                                      0.3)
-                                                              : Colors.green
-                                                                  .withOpacity(
-                                                                      0.3),
-                                                      label: Container(
-                                                        width: 60,
-                                                        child: Center(
-                                                          child: Text(
-                                                            cubit.mMyLeavesHistoryDataList![inx].status !=
+                                            ? InkWell(
+                                          onTap: () {
+                                            showCustomDialog(context, (bool isOk) {
+                                              if (isOk) {}
+                                            }, cubit, index);
+                                          },
+                                              child: Container(
+                                                  child: Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 4,
+                                                    ),
+                                                    Gaps.hGap4,
+                                                    Text(
+                                                      " تم التقديم على أجازة ${cubit.mMyLeavesHistoryDataList![inx].leaveType?.name ?? ""}",
+                                                      style: KStyles.textStyle13,
+                                                    ),
+                                                    Spacer(),
+                                                    Chip(
+                                                        elevation: 2,
+                                                        padding:
+                                                            EdgeInsets.symmetric(
+                                                                horizontal: 4),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .all(
+                                                          Radius.circular(4),
+                                                        )),
+                                                        backgroundColor: cubit
+                                                                        .mMyLeavesHistoryDataList![
+                                                                            inx]
+                                                                        .status !=
+                                                                    null &&
+                                                                cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                    1
+                                                            ? Colors.grey
+                                                                .withOpacity(0.3)
+                                                            : cubit.mMyLeavesHistoryDataList![inx].status !=
                                                                         null &&
-                                                                    cubit
-                                                                            .mMyLeavesHistoryDataList![
-                                                                                inx]
-                                                                            .status! ==
-                                                                        1
-                                                                ? 'مُعلق'
-                                                                : cubit.mMyLeavesHistoryDataList![inx].status !=
-                                                                            null &&
-                                                                        cubit.mMyLeavesHistoryDataList![inx].status! ==
-                                                                            3
-                                                                    ? 'مرفوض'
-                                                                    : 'مقبول',
-                                                            style: TextStyle(
-                                                              color: cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                    cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                        3
+                                                                ? Colors.red
+                                                                    .withOpacity(
+                                                                        0.3)
+                                                                : Colors.green
+                                                                    .withOpacity(
+                                                                        0.3),
+                                                        label: Container(
+                                                          width: 60,
+                                                          child: Center(
+                                                            child: Text(
+                                                              cubit.mMyLeavesHistoryDataList![inx].status !=
                                                                           null &&
-                                                                      cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                      cubit
+                                                                              .mMyLeavesHistoryDataList![
+                                                                                  inx]
+                                                                              .status! ==
                                                                           1
-                                                                  ? Colors.grey
+                                                                  ? 'مُعلق'
                                                                   : cubit.mMyLeavesHistoryDataList![inx].status !=
                                                                               null &&
                                                                           cubit.mMyLeavesHistoryDataList![inx].status! ==
                                                                               3
-                                                                      ? Colors
-                                                                          .red
-                                                                      : Colors
-                                                                          .green,
+                                                                      ? 'مرفوض'
+                                                                      : 'مقبول',
+                                                              style: TextStyle(
+                                                                color: cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                            null &&
+                                                                        cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                            1
+                                                                    ? Colors.grey
+                                                                    : cubit.mMyLeavesHistoryDataList![inx].status !=
+                                                                                null &&
+                                                                            cubit.mMyLeavesHistoryDataList![inx].status! ==
+                                                                                3
+                                                                        ? Colors
+                                                                            .red
+                                                                        : Colors
+                                                                            .green,
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      )),
-                                                ],
-                                              ))
+                                                        )),
+                                                  ],
+                                                )),
+                                            )
                                             : Container();
                                       },
                                     ));
@@ -452,6 +472,41 @@ class _LeavesScreenState extends State<LeavesScreen>
         );
       }
     });
+
+
+  }
+  void showCustomDialog(BuildContext context, Function(bool) callback,
+      LeavesCubit cubit, int index) {
+    showGeneralDialog(
+      context: context,
+      barrierLabel: "Barrier",
+      barrierDismissible: false,
+      barrierColor: Colors.white.withOpacity(0.2),
+      transitionDuration: Duration(milliseconds: 200),
+      pageBuilder: (_, __, ___) {
+        return OrdersDialog(
+          callback: callback,
+          cubit: cubit,
+          index: index,
+        );
+      },
+      transitionBuilder: (_, anim, __, child) {
+        Tween<Offset> tween;
+        if (anim.status == AnimationStatus.reverse) {
+          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
+        } else {
+          tween = Tween(begin: Offset(1, 0), end: Offset.zero);
+        }
+
+        return SlideTransition(
+          position: tween.animate(anim),
+          child: FadeTransition(
+            opacity: anim,
+            child: child,
+          ),
+        );
+      },
+    );
   }
 
   Future<void> _onRefresh(LeavesCubit cubit) async {

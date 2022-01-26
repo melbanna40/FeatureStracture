@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -5,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
@@ -66,6 +68,7 @@ class LeavesCubit extends Cubit<LeavesState> {
         }, onSuccess: (data) {
       if (data.code == 200) {
         mMyLeavesHistoryDataList = data.data!;
+        Log.json(mMyLeavesHistoryDataList.toString());
         emit(LeavesSuccess());
       } else if (data.code == 401) {
         Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
