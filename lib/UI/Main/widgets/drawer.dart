@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kafey/CommonUtils/image_loader.dart';
@@ -21,11 +20,12 @@ class CustomDrawer extends StatelessWidget {
       child: Drawer(
           child: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: MColors.gradientColors,
-        )),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: MColors.gradientColors,
+          ),
+        ),
         child: Container(
           margin: EdgeInsets.only(top: 100),
           child: SingleChildScrollView(
@@ -113,7 +113,9 @@ class CustomDrawer extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 200,),
+                SizedBox(
+                  height: 200,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

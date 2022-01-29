@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class MColors {
@@ -9,7 +7,6 @@ class MColors {
   static List<Color> gradientColors = [
     const Color(0xFF0066cc),
     // const Color(0xff02d39a),
-
 
     Colors.deepPurple.withOpacity(.8),
   ];

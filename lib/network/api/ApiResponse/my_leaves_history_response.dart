@@ -36,7 +36,7 @@ class MyLeavesHistoryData {
   MyLeavesHistoryData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     details =
-    json['details'] != null ? new Details.fromJson(json['details']) : null;
+        json['details'] != null ? new Details.fromJson(json['details']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -55,19 +55,19 @@ class Details {
   int? numberOfDayes;
   LeaveType? leaveType;
   String? reason;
-  Null? comment;
+  dynamic comment;
   int? status;
   String? body;
 
   Details(
       {this.from,
-        this.to,
-        this.numberOfDayes,
-        this.leaveType,
-        this.reason,
-        this.comment,
-        this.status,
-        this.body});
+      this.to,
+      this.numberOfDayes,
+      this.leaveType,
+      this.reason,
+      this.comment,
+      this.status,
+      this.body});
 
   Details.fromJson(Map<String, dynamic> json) {
     from = json['from'];
@@ -108,11 +108,11 @@ class LeaveType {
 
   LeaveType(
       {this.id,
-        this.tenantId,
-        this.name,
-        this.createdAt,
-        this.updatedAt,
-        this.color});
+      this.tenantId,
+      this.name,
+      this.createdAt,
+      this.updatedAt,
+      this.color});
 
   LeaveType.fromJson(Map<String, dynamic> json) {
     id = json['id'];

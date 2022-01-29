@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
-
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/styles.dart';
 
@@ -38,7 +36,6 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                 Gaps.vGap8,
                 SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
                     height: 35, width: 40),
-
               ],
             ),
           ),
@@ -48,7 +45,7 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
           builder: (context, state) {
         final cubit = BlocProvider.of<SalaryDetailsCubit>(context);
         if (state is SalaryDetailsLoading) {
-          return   Container(
+          return Container(
             padding: EdgeInsets.all(12),
             child: RefreshIndicator(
               onRefresh: () async {
@@ -756,6 +753,4 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
       }),
     );
   }
-
-
 }

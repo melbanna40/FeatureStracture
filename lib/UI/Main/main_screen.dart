@@ -9,7 +9,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
-import 'package:kafey/UI/Main/widgets/drawer.dart';
 import 'package:kafey/UI/User/login/cubit/login_cubit.dart';
 import 'package:kafey/generated/l10n.dart';
 
@@ -181,7 +180,6 @@ class _MainScreenState extends State<MainScreen> {
             // ),
 
             bottomNavigationBar: CurvedNavigationBar(
-
               items: <Widget>[
                 Container(
                   margin: const EdgeInsets.all(4),
@@ -319,7 +317,6 @@ class _MainScreenState extends State<MainScreen> {
               buttonBackgroundColor: Colors.white,
               backgroundColor: Colors.white,
               animationCurve: Curves.easeOut,
-
               animationDuration: const Duration(milliseconds: 300),
               onTap: (index) {
                 cubit.changeBottomNavBar(index);

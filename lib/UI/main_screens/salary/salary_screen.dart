@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -40,7 +38,6 @@ class _SalaryScreenState extends State<SalaryScreen>
                 Gaps.vGap8,
                 SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
                     height: 35, width: 40),
-
               ],
             ),
           ),
@@ -186,7 +183,6 @@ class _SalaryScreenState extends State<SalaryScreen>
                               Container(
                                 child: Column(
                                   children: [
-
                                     Container(
                                       margin: EdgeInsets.all(4),
                                       padding: EdgeInsets.all(4),

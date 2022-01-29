@@ -6,7 +6,6 @@ import 'package:kafey/UI/main_screens/home/home_screen.dart';
 import 'package:kafey/UI/main_screens/leaves/leaves_screen.dart';
 import 'package:kafey/UI/main_screens/notifications/notification_screen.dart';
 import 'package:kafey/UI/main_screens/salary/salary_screen.dart';
-import 'package:meta/meta.dart';
 
 part 'main_state.dart';
 

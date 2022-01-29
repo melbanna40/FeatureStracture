@@ -9,7 +9,6 @@ import 'package:hive/hive.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
-import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/Helpers/LocationHelper.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/User/login/login_screen.dart';

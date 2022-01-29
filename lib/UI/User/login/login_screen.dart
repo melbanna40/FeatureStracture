@@ -15,7 +15,6 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  String? deviceId;
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +84,6 @@ class LoginScreen extends StatelessWidget {
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () async {
-                                await CommonUtils.getDeviceId()
-                                    .then((value) => deviceId = value);
                                 if (_emailController.text.isEmpty) {
                                   CommonUtils.showToastMessage('Enter Email');
                                 } else if (_passwordController.text.isEmpty) {
@@ -98,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                                       'Password length must be 8 letters contains upper&lower case');
                                 } else {
                                   cubit.doServerLogin(_emailController.text,
-                                      _passwordController.text, deviceId!);
+                                      _passwordController.text);
                                 }
                               }),
                         ),

@@ -34,7 +34,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   final BasePresenter _presenter = getIt<BasePresenter>();
 
-  Future doServerLogin(String email, String password, String deviceId) async {
+  Future doServerLogin(String email, String password) async {
     emit(LoginLoadingState());
     CommonUtils.showToastMessage('جآر التحميل');
     await _presenter.requestFutureData<LoginResponse>(Method.post,

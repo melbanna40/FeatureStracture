@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kafey/UI/User/change_password/cubit/change_password_cubit.dart';
 import 'package:kafey/UI/User/forget_password/cubit/forget_password_cubit.dart';
@@ -33,7 +32,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   await Firebase.initializeApp();
-
 
   await Hive.initFlutter();
 
@@ -115,7 +113,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => ForgetPasswordCubit()),
           BlocProvider(create: (context) => ChangePasswordCubit()),
-          BlocProvider(create: (context) => SalaryCubit()..getMyLeavesHistory()),
+          BlocProvider(
+              create: (context) => SalaryCubit()..getMyLeavesHistory()),
           BlocProvider(
               create: (context) =>
                   SalaryDetailsCubit()..getSalaryDetailsHistoryApiCal()),
