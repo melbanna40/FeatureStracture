@@ -128,5 +128,6 @@
   "clock_out": "Clock Out",
   "working_hours": "Working Hr's",
   "new_employee": "New employee ?!",
-  "no_data_contact_admin": "No Data Contact With Admin"
+  "no_data_contact_admin": "No Data Contact With Admin",
+  "company_domain": "company Domain"
 }

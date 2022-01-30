@@ -19,7 +19,7 @@ class CommonUtils {
       title ?? '',
       message ?? '',
       duration: Duration(milliseconds: 1500),
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
     );
   }
 

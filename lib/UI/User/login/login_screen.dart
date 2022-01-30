@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
-import 'package:kafey/UI/User/forget_password/forget_password_screen.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -13,7 +12,8 @@ import 'cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
-  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _companyDomainController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
@@ -48,11 +48,23 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         TextFormField(
                           decoration: InputDecoration(
-                              label: Text(S.of(context).email),
-                              hintText: S.of(context).email,
+                              label: Text(S.of(context).company_domain),
+                              hintText: S.of(context).company_domain,
+                              prefixIcon: Icon(Icons.add_business)),
+                          controller: _companyDomainController,
+                        ),
+                        Gaps.vGap12,
+                        TextFormField(
+                          decoration: InputDecoration(
+                              label: Text(S.of(context).phoneNumber),
+                              hintText: S.of(context).phoneNumber,
                               prefixIcon:
                                   Icon(CupertinoIcons.person_alt_circle)),
-                          controller: _emailController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          controller: _phoneController,
                         ),
                         Gaps.vGap12,
                         TextFormField(
@@ -84,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () async {
-                                if (_emailController.text.isEmpty) {
+                                if (_phoneController.text.isEmpty) {
                                   CommonUtils.showToastMessage('Enter Email');
                                 } else if (_passwordController.text.isEmpty) {
                                   CommonUtils.showToastMessage(
@@ -94,21 +106,23 @@ class LoginScreen extends StatelessWidget {
                                   CommonUtils.showToastMessage(
                                       'Password length must be 8 letters contains upper&lower case');
                                 } else {
-                                  cubit.doServerLogin(_emailController.text,
-                                      _passwordController.text);
+                                  cubit.doServerLogin(
+                                      _phoneController.text,
+                                      _passwordController.text,
+                                      _companyDomainController.text);
                                 }
                               }),
                         ),
                         Gaps.vGap12,
-                        InkWell(
-                          onTap: () {
-                            Get.to(() => ForgetPasswordScreen());
-                          },
-                          child: Text(
-                            S.of(context).new_employee,
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                        ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     Get.to(() => ForgetPasswordScreen());
+                        //   },
+                        //   child: Text(
+                        //     S.of(context).new_employee,
+                        //     style: TextStyle(color: Colors.blue),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -232,6 +246,6 @@ class LoginScreen extends StatelessWidget {
   }
 
   onDispose() {
-    _emailController.clear();
+    _phoneController.clear();
   }
 }

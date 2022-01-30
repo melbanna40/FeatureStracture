@@ -67,7 +67,7 @@ class LeavesCubit extends Cubit<LeavesState> {
         }, onSuccess: (data) {
       if (data.code == 200) {
         mMyLeavesHistoryDataList = data.data!;
-        Log.json(mMyLeavesHistoryDataList.toString());
+        // Log.json(mMyLeavesHistoryDataList.toString());
         emit(LeavesSuccess());
       } else if (data.code == 401) {
         Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();

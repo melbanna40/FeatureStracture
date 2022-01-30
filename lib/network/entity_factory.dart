@@ -1,5 +1,6 @@
 import 'package:kafey/network/api/ApiResponse/apply_leave_response.dart';
 import 'package:kafey/network/api/ApiResponse/attendance_history_response.dart';
+import 'package:kafey/network/api/ApiResponse/change_password_response.dart';
 import 'package:kafey/network/api/ApiResponse/global_response.dart';
 import 'package:kafey/network/api/ApiResponse/home_statistics_response.dart';
 import 'package:kafey/network/api/ApiResponse/login_response.dart';
@@ -33,10 +34,9 @@ class EntityFactory {
       return SaveDeviceTokenResponse.fromJson(json) as T;
     } else if (T.toString() == "NotificationsResponse") {
       return NotificationsResponse.fromJson(json) as T;
+    } else if (T.toString() == "ChangePasswordResponse") {
+      return ChangePasswordResponse.fromJson(json) as T;
     }
-    // else if (T.toString() == "ProductsResponse") {
-    //   return ProductsResponse.fromJson(json) as T;
-    // }
     //
     // else if (T.toString() == "ProductsResponse") {
     //   return ProductsResponse.fromJson(json) as T;

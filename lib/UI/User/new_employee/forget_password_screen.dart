@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
-import 'package:kafey/UI/User/forget_password/cubit/forget_password_cubit.dart';
-import 'package:kafey/generated/l10n.dart';
+ import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
+
+import 'cubit/forget_password_cubit.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({Key? key}) : super(key: key);

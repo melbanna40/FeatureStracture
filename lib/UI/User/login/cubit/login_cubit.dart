@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/main_screen.dart';
 import 'package:kafey/UI/User/change_password/change_password_screen.dart';
@@ -34,27 +35,41 @@ class LoginCubit extends Cubit<LoginState> {
 
   final BasePresenter _presenter = getIt<BasePresenter>();
 
-  Future doServerLogin(String email, String password) async {
+  Future doServerLogin(
+      String phone, String password, String company_sub_domain) async {
     emit(LoginLoadingState());
     CommonUtils.showToastMessage('جآر التحميل');
     await _presenter.requestFutureData<LoginResponse>(Method.post,
-        url: Api.doLoginApiCall,
+        url: Api.doNewLoginApiCall,
         options: Options(method: Method.post.toString()),
+        newBaseUrl: Api.firstBaseUrl,
         params: {
-          "email": email,
-          "password": password,
-          "mac_address": await CommonUtils.getDeviceId(),
+          "phone": phone.trim(),
+          "password": password.trim(),
+          "company_sub_domain": company_sub_domain.trim(),
+          // "mac_address": await CommonUtils.getDeviceId(),
         }, onSuccess: (data) {
       if (data.code == 200) {
-        if (data.data!.user!.loggedBefore! == 1) {
+        HiveHelper.setBaseUrl('http://${data.data!.user!.companyDomain!}/api/');
+        Api.baseUrl = 'http://${data.data!.user!.companyDomain!}/api/';
+
+        Log.i(HiveHelper.getBaseUrl());
+        if (data.data!.user!.loggedBefore! == 1 &&
+            data.data!.nextStep == 'redirect_to_home') {
           doSaveDeviceToken(data.data!.accessToken!);
           emit(LoginSuccessState());
           HiveHelper.setUserToken(data.data!.accessToken!);
-          Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE)
-              .put(HiveHelper.KEY_BOX_USER_RESPONSE,new Map<String, dynamic>.from(data.data!.toJson()));
-           Get.offAll(() => MainScreen());
-        } else if (data.data!.user!.loggedBefore! == 0) {
-          Get.to(() => ChangePasswordScreen(data.data!.accessToken!));
+          // HiveHelper.setUserData(data.data!.toJson());
+
+          Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE).put(
+              HiveHelper.KEY_BOX_USER_RESPONSE,
+              new Map<String, dynamic>.from(data.data!.toJson()));
+
+          Get.offAll(() => MainScreen());
+        } else if (data.data!.user!.loggedBefore! == 0 &&
+            data.data!.nextStep == 'redirect_to_change_password') {
+          Get.to(() => ChangePasswordScreen(data.data!.user!.id.toString(),
+              data.data!.user!.tenantId.toString()));
         }
       } else {
         emit(LoginErrorState());

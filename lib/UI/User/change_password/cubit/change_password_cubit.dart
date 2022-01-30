@@ -5,7 +5,7 @@ import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
-import 'package:kafey/network/api/ApiResponse/global_response.dart';
+import 'package:kafey/network/api/ApiResponse/change_password_response.dart';
 import 'package:kafey/network/api/network_api.dart';
 import 'package:kafey/network/network_util.dart';
 import 'package:meta/meta.dart';
@@ -30,20 +30,21 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
 
   final BasePresenter _presenter = getIt<BasePresenter>();
 
-  Future doChangePassword(String newPassword, String userToken) async {
-    headers["Authorization"] = 'Bearer $userToken';
+  Future doChangePassword(
+      String new_password, String user_id, String tenant_id) async {
     emit(ChangePasswordLoadingState());
-    await _presenter.requestFutureData<GlobalResponse>(Method.post,
-        url: Api.doChangePasswordFirstApiCall,
-        options: Options(method: Method.post.toString(), headers: headers),
+    await _presenter.requestFutureData<ChangePasswordResponse>(Method.post,
+        url: Api.doNewChangePasswordFirstApiCall,
+        options: Options(method: Method.post.toString()),
         params: {
-          "password": newPassword,
-          // "mac_address": await CommonUtils.getDeviceId(),
+          "tenant_id": tenant_id,
+          "user_id": user_id,
+          "new_password": new_password,
+          "mac_address": await CommonUtils.getDeviceId(),
         }, onSuccess: (data) {
       if (data.code == 200) {
         emit(ChangePasswordSuccessState());
         Get.offAll(() => LoginScreen());
-        // Get.to(VerifyPhoneScreen());
       } else {
         emit(ChangePasswordErrorState());
         CommonUtils.showToastMessage(data.message);

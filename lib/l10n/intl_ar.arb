@@ -128,5 +128,6 @@
   "clock_out": "تسجيل انصراف",
   "working_hours": "ساعات العمل",
   "new_employee": "موظف جديد ؟!",
-  "no_data_contact_admin": "لا يوجد بيانات الان من فضلك تواصل مع المسؤل"
+  "no_data_contact_admin": "لا يوجد بيانات الان من فضلك تواصل مع المسؤل",
+  "company_domain": "نطاق الشركة"
 }

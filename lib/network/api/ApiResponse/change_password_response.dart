@@ -1,12 +1,12 @@
-class LoginResponse {
-  UserDataModel? data;
+class ChangePasswordResponse {
+  Data? data;
   int? code;
   String? message;
 
-  LoginResponse({this.data, this.code, this.message});
+  ChangePasswordResponse({this.data, this.code, this.message});
 
-  LoginResponse.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new UserDataModel.fromJson(json['data']) : null;
+  ChangePasswordResponse.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     code = json['code'];
     message = json['message'];
   }
@@ -22,21 +22,21 @@ class LoginResponse {
   }
 }
 
-class UserDataModel {
+class Data {
   String? nextStep;
   String? accessToken;
   String? tokenType;
   int? expiresIn;
   User? user;
 
-  UserDataModel(
+  Data(
       {this.nextStep,
-        this.accessToken,
-        this.tokenType,
-        this.expiresIn,
-        this.user});
+      this.accessToken,
+      this.tokenType,
+      this.expiresIn,
+      this.user});
 
-  UserDataModel.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     nextStep = json['next_step'];
     accessToken = json['access_token'];
     tokenType = json['token_type'];
@@ -72,24 +72,22 @@ class User {
   String? updatedAt;
   dynamic deletedAt;
   String? macAddress;
-  String? companyDomain;
 
   User(
       {this.id,
-        this.name,
-        this.phone,
-        this.tenantId,
-        this.email,
-        this.emailVerifiedAt,
-        this.deviceToken,
-        this.image,
-        this.loggedBefore,
-        this.type,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.macAddress,
-        this.companyDomain});
+      this.name,
+      this.phone,
+      this.tenantId,
+      this.email,
+      this.emailVerifiedAt,
+      this.deviceToken,
+      this.image,
+      this.loggedBefore,
+      this.type,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.macAddress});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -106,7 +104,6 @@ class User {
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
     macAddress = json['mac_address'];
-    companyDomain = json['company_domain'];
   }
 
   Map<String, dynamic> toJson() {
@@ -125,7 +122,6 @@ class User {
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;
     data['mac_address'] = this.macAddress;
-    data['company_domain'] = this.companyDomain;
     return data;
   }
 }

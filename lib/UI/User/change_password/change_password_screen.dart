@@ -9,9 +9,10 @@ import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
-  final String userToken;
+  final String user_id;
+  final String tenant_id;
 
-  ChangePasswordScreen(this.userToken);
+  ChangePasswordScreen(this.user_id, this.tenant_id);
 
   final _oldPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
@@ -111,7 +112,7 @@ class ChangePasswordScreen extends StatelessWidget {
                                       'الرقم السري غير متطابق');
                                 } else {
                                   cubit.doChangePassword(
-                                      _newPasswordController.text, userToken);
+                                      _newPasswordController.text, user_id, tenant_id);
                                 }
                               }),
                         ),

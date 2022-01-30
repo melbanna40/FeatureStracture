@@ -30,7 +30,8 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
         }, onSuccess: (data) {
       if (data.code == 200) {
         if (data.data!.user!.loggedBefore! == 0) {
-          Get.to(() => ChangePasswordScreen(data.data!.accessToken!));
+          //todo update new employee
+          // Get.to(() => ChangePasswordScreen(data.data!.accessToken!));
         } else {
           CommonUtils.showToastMessage(data.message);
           Get.to(() => LoginScreen());

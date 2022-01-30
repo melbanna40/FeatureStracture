@@ -14,6 +14,19 @@ class HiveHelper {
 
   static var boxKeyAppTheme = "boxKeyAppTheme";
   static var KEY_BOX_APP_LANGUAGE = "KEY_BOX_APP_LANGUAGE";
+  static var KEY_APP_BASE_URL = "KEY_APP_BASE_URL";
+
+  static void setBaseUrl(String baseUrl) {
+    Hive.box(HiveHelper.KEY_APP_BASE_URL)
+        .put(HiveHelper.KEY_APP_BASE_URL, baseUrl)
+        .whenComplete(() => Log.i(baseUrl));
+  }
+
+  static String getBaseUrl() {
+    return Hive.box(HiveHelper.KEY_APP_BASE_URL).isNotEmpty
+        ? Hive.box(HiveHelper.KEY_APP_BASE_URL).get(HiveHelper.KEY_APP_BASE_URL)
+        : '';
+  }
 
   static void setUserToken(String token) {
     Hive.box(HiveHelper.KEY_BOX_TOKEN)
@@ -25,6 +38,11 @@ class HiveHelper {
     return Hive.box(HiveHelper.KEY_BOX_TOKEN).isNotEmpty
         ? Hive.box(HiveHelper.KEY_BOX_TOKEN).get(HiveHelper.KEY_BOX_TOKEN)
         : '';
+  }
+
+  static void setUserData(Map<String, dynamic> data) {
+    Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE).put(
+        HiveHelper.KEY_BOX_USER_RESPONSE, new Map<String, dynamic>.from(data));
   }
 
   static UserDataModel? getUserData =

@@ -1,12 +1,18 @@
+import 'package:kafey/Helpers/hivr_helper.dart';
+
 class Api {
   //base Url
-  static const String baseUrl = "http://test.ikafey.xyz/api/";
+
+  static String baseUrl = HiveHelper.getBaseUrl();
+
+  static const String firstBaseUrl = "http://ikafey.xyz/api/";
 
   static const String doLoginApiCall = "login";
+  static const String doNewLoginApiCall = "new-login";
 
   static const String doChangePasswordFirstApiCall = "change-password";
-
-
+  static const String doNewChangePasswordFirstApiCall =
+      "change-employee-password";
 
   static const String getHomeStatisticsApiCall = "ess/home-statistics-today";
 
@@ -19,7 +25,6 @@ class Api {
 
   static const String getAttendanceHistoryApiCall = "ess/attendance-history";
 
-
   static const String getMyLeavesBalancesApiCall = "ess/my-leaves-balances";
 
   static const String getMyLeavesTypesApiCall = "ess/my-leaves-types";
@@ -28,6 +33,7 @@ class Api {
 
   static const String getMyLeavesHistoryApiCall = "ess/my-leaves-history";
 
+  static const String getMySalariesHistoryApiCall = "hr/salaries-of-month";
 
   static const String postNotificationsDeviceTokenApiCall =
       "user/generate-device-token";
@@ -36,5 +42,4 @@ class Api {
       "user/user-notifications-history";
 
   static const String doLogoutApiCall = "logout";
-
 }
