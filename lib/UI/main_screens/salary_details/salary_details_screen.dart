@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
+import 'package:kafey/UI/widgets/empty_data_widget.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/styles.dart';
 
@@ -393,13 +394,8 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
               ),
             ),
           );
-        } else if (cubit.mNotificationDataList == null ||
-            cubit.mNotificationDataList!.isEmpty) {
-          return Center(
-            child: Container(
-              child: Text('عذراً لا توجد بيانات'),
-            ),
-          );
+        } else if (cubit.mSalaryDetailsData == null) {
+          return   EmptyDataWidget();
         } else {
           return Container(
             padding: EdgeInsets.all(12),
@@ -439,7 +435,7 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                                   ),
                                   Spacer(),
                                   Text(
-                                    '12000 جنيه',
+                                    cubit.mSalaryDetailsData?.basicSalary ?? '',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: 'Dubai',
@@ -449,27 +445,27 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                                 ],
                               ),
                               Gaps.vGap8,
-                              Row(
-                                children: [
-                                  Text(
-                                    'الساعات الاضافية',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    '10 ساعات',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              // Row(
+                              //   children: [
+                              //     Text(
+                              //       'الساعات الاضافية',
+                              //       style: TextStyle(
+                              //         color: Colors.black,
+                              //         fontFamily: 'Dubai',
+                              //         fontWeight: FontWeight.w700,
+                              //       ),
+                              //     ),
+                              //     Spacer(),
+                              //     Text(
+                              //       '10 ساعات',
+                              //       style: TextStyle(
+                              //         color: Colors.black,
+                              //         fontFamily: 'Dubai',
+                              //         fontWeight: FontWeight.w700,
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
                               Gaps.vGap8,
                               Row(
                                 children: [
@@ -491,7 +487,8 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                                       padding: EdgeInsets.symmetric(
                                           vertical: 4, horizontal: 8),
                                       child: Text(
-                                        '500',
+                                        cubit.mSalaryDetailsData?.bonusesSum ??
+                                            '',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontFamily: 'Dubai',
@@ -503,37 +500,37 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                                 ],
                               ),
                               Gaps.vGap8,
-                              Row(
-                                children: [
-                                  Text(
-                                    'البدلات',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0xff00c950),
-                                      borderRadius: BorderRadius.circular(13),
-                                    ),
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 4, horizontal: 8),
-                                      child: Text(
-                                        '300',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: 'Dubai',
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              // Row(
+                              //   children: [
+                              //     Text(
+                              //       'البدلات',
+                              //       style: TextStyle(
+                              //         color: Colors.black,
+                              //         fontFamily: 'Dubai',
+                              //         fontWeight: FontWeight.w700,
+                              //       ),
+                              //     ),
+                              //     Spacer(),
+                              //     Container(
+                              //       decoration: BoxDecoration(
+                              //         color: Color(0xff00c950),
+                              //         borderRadius: BorderRadius.circular(13),
+                              //       ),
+                              //       child: Container(
+                              //         padding: EdgeInsets.symmetric(
+                              //             vertical: 4, horizontal: 8),
+                              //         child: Text(
+                              //           '300',
+                              //           style: TextStyle(
+                              //             color: Colors.white,
+                              //             fontFamily: 'Dubai',
+                              //             fontWeight: FontWeight.w700,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
                             ],
                           ),
                         ),
@@ -589,50 +586,50 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                           padding: EdgeInsets.all(16),
                           child: Column(
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'التأمينات',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    '666 جنيه',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Gaps.vGap8,
-                              Row(
-                                children: [
-                                  Text(
-                                    'الضرائب',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    '120 جنيه',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Gaps.vGap8,
+                              // Row(
+                              //   children: [
+                              //     Text(
+                              //       'التأمينات',
+                              //       style: TextStyle(
+                              //         color: Colors.black,
+                              //         fontFamily: 'Dubai',
+                              //         fontWeight: FontWeight.w700,
+                              //       ),
+                              //     ),
+                              //     Spacer(),
+                              //     Text(
+                              //       '666 جنيه',
+                              //       style: TextStyle(
+                              //         color: Colors.black,
+                              //         fontFamily: 'Dubai',
+                              //         fontWeight: FontWeight.w700,
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              // Gaps.vGap8,
+                              // Row(
+                              //   children: [
+                              //     Text(
+                              //       'الضرائب',
+                              //       style: TextStyle(
+                              //         color: Colors.black,
+                              //         fontFamily: 'Dubai',
+                              //         fontWeight: FontWeight.w700,
+                              //       ),
+                              //     ),
+                              //     Spacer(),
+                              //     Text(
+                              //       '120 جنيه',
+                              //       style: TextStyle(
+                              //         color: Colors.black,
+                              //         fontFamily: 'Dubai',
+                              //         fontWeight: FontWeight.w700,
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              // Gaps.vGap8,
                               Row(
                                 children: [
                                   Text(
@@ -653,7 +650,9 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                                       padding: EdgeInsets.symmetric(
                                           vertical: 4, horizontal: 8),
                                       child: Text(
-                                        '222',
+                                        cubit.mSalaryDetailsData
+                                                ?.discountsSum ??
+                                            '',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontFamily: 'Dubai',
@@ -733,7 +732,7 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                           ),
                           child: Center(
                             child: Text(
-                              '12588 جنيه',
+                              cubit.mSalaryDetailsData?.netSalary ?? '',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Dubai',

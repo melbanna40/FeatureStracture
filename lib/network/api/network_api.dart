@@ -35,6 +35,9 @@ class Api {
 
   static const String getMySalariesHistoryApiCall = "hr/salaries-of-month";
 
+  static const String getSalaryDetailsApiCall =
+      "hr/get-details-of-single-salary";
+
   static const String postNotificationsDeviceTokenApiCall =
       "user/generate-device-token";
 

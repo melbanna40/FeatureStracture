@@ -113,10 +113,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ForgetPasswordCubit()),
         BlocProvider(create: (context) => ChangePasswordCubit()),
-        BlocProvider(create: (context) => SalaryCubit()..getMyLeavesHistory()),
+        BlocProvider(
+            create: (context) => SalaryCubit()..getMySalariesHistory()),
         BlocProvider(
             create: (context) =>
-                SalaryDetailsCubit()..getSalaryDetailsHistoryApiCal()),
+                SalaryDetailsCubit()..getSalaryDetailsApiCal()),
         BlocProvider(
             create: (context) =>
                 NotificationsCubit()..getNotificationsHistoryApiCal()),

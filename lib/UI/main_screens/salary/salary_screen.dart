@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/salary/cubit/salary_cubit.dart';
 import 'package:kafey/UI/main_screens/salary_details/salary_details_screen.dart';
+import 'package:kafey/UI/widgets/empty_data_widget.dart';
+import 'package:kafey/UI/widgets/loading_widget.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/styles.dart';
 
@@ -46,26 +48,22 @@ class _SalaryScreenState extends State<SalaryScreen>
       body: BlocBuilder<SalaryCubit, SalaryState>(builder: (context, state) {
         cubit = BlocProvider.of<SalaryCubit>(context);
 
-        if (state is SalaryLoading || cubit!.mMyLeavesHistoryDataList == null) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (cubit!.mMyLeavesHistoryDataList!.isEmpty) {
-          return Center(
-              child: Container(
-            child: Text('عذراً لا توجد بيانات'),
-          ));
+        if (state is SalaryLoading ||
+            cubit!.mMySalariesHistoryDataList == null) {
+          return const LoadingWidget();
+        } else if (cubit!.mMySalariesHistoryDataList!.isEmpty) {
+          return EmptyDataWidget();
         } else {
           Future.delayed(Duration.zero);
           return RefreshIndicator(
             onRefresh: () async {
-              cubit!.getMyLeavesHistory();
+              cubit!.getMySalariesHistory();
             },
             child: ListView.builder(
-              itemCount: cubit!.mMyLeavesHistoryDataList?.length ?? 0,
+              itemCount: cubit!.mMySalariesHistoryDataList?.length ?? 0,
               physics: BouncingScrollPhysics(),
-              itemBuilder: (BuildContext context, int inx) {
-                return cubit!.mMyLeavesHistoryDataList != null
+              itemBuilder: (BuildContext context, int index) {
+                return cubit!.mMySalariesHistoryDataList != null
                     ? InkWell(
                         onTap: () {
                           Get.to(() => SalaryDetailsScreen());
@@ -101,7 +99,10 @@ class _SalaryScreenState extends State<SalaryScreen>
                                       width: 24,
                                       child: Center(
                                         child: Text(
-                                          'يناير',
+                                          cubit!
+                                              .mMySalariesHistoryDataList![
+                                                  index]
+                                              .month!,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               fontSize: 8,
@@ -206,7 +207,11 @@ class _SalaryScreenState extends State<SalaryScreen>
                                                   BorderRadius.circular(13),
                                             ),
                                             child: Text(
-                                              '12000',
+                                              cubit!
+                                                  .mMySalariesHistoryDataList![
+                                                      index]
+                                                  .value!
+                                                  .toString(),
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 11,

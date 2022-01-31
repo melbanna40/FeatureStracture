@@ -91,7 +91,7 @@ class User {
         this.macAddress,
         this.companyDomain});
 
-  User.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'];
     name = json['name'];
     phone = json['phone'];
@@ -109,7 +109,7 @@ class User {
     companyDomain = json['company_domain'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<dynamic, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;

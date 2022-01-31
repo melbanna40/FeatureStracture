@@ -11,6 +11,7 @@ import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_history_response.dart';
+import 'package:kafey/network/api/ApiResponse/my_salaries_response.dart';
 import 'package:kafey/network/api/network_api.dart';
 import 'package:kafey/network/network_util.dart';
 
@@ -20,20 +21,20 @@ class SalaryCubit extends Cubit<SalaryState> {
   SalaryCubit() : super(SalaryInitial());
 
   final BasePresenter _presenter = getIt<BasePresenter>();
-  List<MyLeavesHistoryData>? mMyLeavesHistoryDataList;
+  List<MySalariesData>? mMySalariesHistoryDataList;
 
-  Future getMyLeavesHistory({List<int>? status}) async {
+  Future getMySalariesHistory({List<int>? status}) async {
     emit(SalaryLoading());
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
-    await _presenter.requestFutureData<MyLeavesHistoryResponse>(Method.get,
-        url: Api.getMyLeavesHistoryApiCall,
+    await _presenter.requestFutureData<MySalariesResponse>(Method.get,
+        url: Api.getMySalariesHistoryApiCall,
         options: Options(method: Method.get.toString(), headers: headers),
         params: {
           if (status != null) 'status[]': status,
         }, onSuccess: (data) {
           if (data.code == 200) {
-            mMyLeavesHistoryDataList = data.data!;
+            mMySalariesHistoryDataList = data.data!;
             emit(SalarySuccess());
           } else if (data.code == 401) {
             Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();

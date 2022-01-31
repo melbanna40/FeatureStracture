@@ -35,15 +35,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     if (mounted)
-      Timer.periodic(Duration(seconds: 30), (Timer t) {
-        if (cubit != null) cubit!.updateCurrentDateTime();
-      });
+      Timer.periodic(
+        Duration(seconds: 30),
+        (Timer t) {
+          if (cubit != null) cubit!.updateCurrentDateTime();
+        },
+      );
 
     super.initState();
   }
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 

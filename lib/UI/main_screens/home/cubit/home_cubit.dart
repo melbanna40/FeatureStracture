@@ -9,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/Helpers/LocationHelper.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/User/login/login_screen.dart';
@@ -41,11 +42,15 @@ class HomeCubit extends Cubit<HomeState> {
 
   void updateCurrentLocation() async {
     var location = await LocationHelper.determinePosition();
-    List<Placemark> placeMarks =
-        await placemarkFromCoordinates(location.latitude, location.longitude);
-    currentLocation = placeMarks.first.street;
+    try {
+      List<Placemark> placeMarks =
+          await placemarkFromCoordinates(location.latitude, location.longitude);
+      currentLocation = placeMarks.first.street;
 
-    emit(UpdateCurrentDateState());
+      emit(UpdateCurrentDateState());
+    } catch (e) {
+      CommonUtils.showToastMessage(e.toString());
+     }
   }
 
   void updateCurrentDateTime() {

@@ -7,7 +7,9 @@ import 'package:kafey/network/api/ApiResponse/login_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_balance_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_history_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_leaves_types_response.dart';
+import 'package:kafey/network/api/ApiResponse/my_salaries_response.dart';
 import 'package:kafey/network/api/ApiResponse/notifications_response.dart';
+import 'package:kafey/network/api/ApiResponse/salary_details_response.dart';
 import 'package:kafey/network/api/ApiResponse/save_device_token_response.dart';
 
 class EntityFactory {
@@ -36,8 +38,18 @@ class EntityFactory {
       return NotificationsResponse.fromJson(json) as T;
     } else if (T.toString() == "ChangePasswordResponse") {
       return ChangePasswordResponse.fromJson(json) as T;
-    }
-    //
+    } else if (T.toString() == "MySalariesResponse") {
+      return MySalariesResponse.fromJson(json) as T;
+    } //
+    else if (T.toString() == "SalaryDetailsResponse") {
+      return SalaryDetailsResponse.fromJson(json) as T;
+    } //
+    // else if (T.toString() == "ProductsResponse") {
+    //   return ProductsResponse.fromJson(json) as T;
+    // }    //
+    // else if (T.toString() == "ProductsResponse") {
+    //   return ProductsResponse.fromJson(json) as T;
+    // }    //
     // else if (T.toString() == "ProductsResponse") {
     //   return ProductsResponse.fromJson(json) as T;
     // }

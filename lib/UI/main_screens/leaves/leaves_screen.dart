@@ -8,6 +8,8 @@ import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/widgets/apply_leave_dialog.dart';
 import 'package:kafey/UI/main_screens/leaves/widgets/orders_dialog.dart';
+import 'package:kafey/UI/widgets/empty_data_widget.dart';
+import 'package:kafey/UI/widgets/loading_widget.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
@@ -61,21 +63,42 @@ class _LeavesScreenState extends State<LeavesScreen>
       //   ),
       // ),
     ];
-    return BlocBuilder<LeavesCubit, LeavesState>(builder: (context, state) {
-      final cubit = BlocProvider.of<LeavesCubit>(context);
-      // void _taped(int status) async {
-      //   await cubit.getMyLeavesHistory();
-      //   cubit.getAllOrdersData(status: status);
-      //   setState(() {});
-      // }
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        toolbarHeight: 85,
+        centerTitle: true,
+        elevation: 0,
+        title: Text(
+          "اجازاتي",
+          style: KStyles.textStyle30,
+        ),
+        actions: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Column(
+              children: [
+                Gaps.vGap8,
+                SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
+                    height: 35, width: 40),
+              ],
+            ),
+          ),
+        ],
+      ),
+      backgroundColor: Colors.white,
+      body: BlocBuilder<LeavesCubit, LeavesState>(builder: (context, state) {
+        final cubit = BlocProvider.of<LeavesCubit>(context);
+        // void _taped(int status) async {
+        //   await cubit.getMyLeavesHistory();
+        //   cubit.getAllOrdersData(status: status);
+        //   setState(() {});
+        // }
 
-      if (state is LeavesLoading) {
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        );
-      } else if (cubit.mMyLeavesBalanceData == null) {
-        return Scaffold(
-          body: Center(
+        if (state is LeavesLoading) {
+          return const LoadingWidget();
+        } else if (cubit.mMyLeavesBalanceData == null) {
+          return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -98,34 +121,9 @@ class _LeavesScreenState extends State<LeavesScreen>
                 ),
               ],
             ),
-          ),
-        );
-      } else {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            toolbarHeight: 85,
-            centerTitle: true,
-            elevation: 0,
-            title: Text(
-              "اجازاتي",
-              style: KStyles.textStyle30,
-            ),
-            actions: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Column(
-                  children: [
-                    Gaps.vGap8,
-                    SvgPicture.asset(ImageUtils.getSVGPath("ic_kafey_logo"),
-                        height: 35, width: 40),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          body: RefreshIndicator(
+          );
+        } else {
+          return RefreshIndicator(
             onRefresh: () async {
               _onRefresh(cubit);
             },
@@ -318,7 +316,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                           ),
                         )),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.2,
+                      height: MediaQuery.of(context).size.height * 0.3,
                       child: TabBarView(
                         physics: NeverScrollableScrollPhysics(),
                         controller: _cardController,
@@ -340,15 +338,10 @@ class _LeavesScreenState extends State<LeavesScreen>
                               var cubit = BlocProvider.of<LeavesCubit>(context);
                               if (state is LeavesLoading ||
                                   cubit.mMyLeavesHistoryDataList == null) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
+                                return const LoadingWidget();
                               } else if (cubit
                                   .mMyLeavesHistoryDataList!.isEmpty) {
-                                return Center(
-                                    child: Container(
-                                  child: Text('عذراً لا توجد بيانات'),
-                                ));
+                                return EmptyDataWidget();
                               } else {
                                 Future.delayed(Duration.zero);
                                 return RefreshIndicator(
@@ -466,10 +459,10 @@ class _LeavesScreenState extends State<LeavesScreen>
                 ),
               ),
             ),
-          ),
-        );
-      }
-    });
+          );
+        }
+      }),
+    );
   }
 
   void showCustomDialog(BuildContext context, Function(bool) callback,

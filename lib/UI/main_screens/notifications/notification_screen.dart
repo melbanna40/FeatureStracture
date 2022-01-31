@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
 import 'package:kafey/UI/main_screens/notifications/widget/request_details_dialog.dart';
+import 'package:kafey/UI/widgets/empty_data_widget.dart';
+import 'package:kafey/UI/widgets/loading_widget.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/styles.dart';
 
@@ -45,14 +47,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           builder: (context, state) {
         final cubit = BlocProvider.of<NotificationsCubit>(context);
         if (state is NotificationsLoading) {
-          return Center(child: CircularProgressIndicator());
+          return const LoadingWidget();
         } else if (cubit.mNotificationDataList == null ||
             cubit.mNotificationDataList!.isEmpty) {
-          return Center(
-            child: Container(
-              child: Text('عذراً لا توجد بيانات'),
-            ),
-          );
+          return EmptyDataWidget();
         } else {
           return Container(
             padding: EdgeInsets.all(12),
