@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/CommonUtils/image_loader.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
+import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/widgets/drawer.dart';
 import 'package:kafey/generated/l10n.dart';
@@ -180,22 +182,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           child: InkWell(
                             onTap: () async {
                               var localAuth = LocalAuthentication();
+                              bool canCheckBiometrics =
+                                  await localAuth.isDeviceSupported();
 
-                              bool didAuthenticate =
-                                  await localAuth.authenticate(
-                                      biometricOnly: true,
-                                      stickyAuth: true,
-                                      localizedReason:
-                                          'ضع بصمتك لاتمام العمليه');
+                              if (canCheckBiometrics) {
+                                try {
+                                  bool didAuthenticate =
+                                      await localAuth.authenticate(
+                                          biometricOnly: true,
+                                          stickyAuth: true,
+                                          localizedReason:
+                                              'ضع بصمتك لاتمام العمليه');
 
-                              if (didAuthenticate) {
-                                cubit!.isLogged!
-                                    ? showCustomDialog(context, (bool isOk) {
-                                        if (isOk) {
-                                          cubit!.updateClickOnState();
-                                        }
-                                      })
-                                    : cubit!.updateClickOnState();
+                                  if (didAuthenticate) {
+                                    cubit!.isLogged!
+                                        ? showCustomDialog(context,
+                                            (bool isOk) {
+                                            if (isOk) {
+                                              cubit!.updateClickOnState();
+                                            }
+                                          })
+                                        : cubit!.updateClickOnState();
+                                  }
+                                } catch (err) {
+                                  CommonUtils.showToastMessage(err.toString());
+                                }
+                              } else {
+                                CommonUtils.showToastMessage(
+                                    S.of(context).enable_finger_print);
                               }
                             },
                             child: FadeTransition(
