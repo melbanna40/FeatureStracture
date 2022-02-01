@@ -18,14 +18,14 @@ class SalaryDetailsCubit extends Cubit<SalaryDetailsState> {
   final BasePresenter _presenter = getIt<BasePresenter>();
   SalaryDetailsData? mSalaryDetailsData;
 
-  Future getSalaryDetailsApiCal() async {
+  Future getSalaryDetailsApiCal(int id) async {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
     emit(SalaryDetailsLoading());
-    await _presenter.requestFutureData<SalaryDetailsResponse>(Method.get,
+    await _presenter.requestFutureData<SalaryDetailsResponse>(Method.post,
         url: Api.getSalaryDetailsApiCall,
-        options: Options(method: Method.get.toString(), headers: headers),
-        onSuccess: (data) {
+        options: Options(method: Method.post.toString(), headers: headers),
+        params: {'salary_id': id}, onSuccess: (data) {
       if (data.code == 200) {
         mSalaryDetailsData = data.data!;
         emit(SalaryDetailsSuccess());

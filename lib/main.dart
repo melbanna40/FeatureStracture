@@ -117,7 +117,7 @@ class MyApp extends StatelessWidget {
             create: (context) => SalaryCubit()..getMySalariesHistory()),
         BlocProvider(
             create: (context) =>
-                SalaryDetailsCubit()..getSalaryDetailsApiCal()),
+                SalaryDetailsCubit()),
         BlocProvider(
             create: (context) =>
                 NotificationsCubit()..getNotificationsHistoryApiCal()),

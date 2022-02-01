@@ -362,7 +362,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                   showCustomDialog(context,
                                                       (bool isOk) {
                                                     if (isOk) {}
-                                                  }, cubit, index);
+                                                  }, cubit, inx);
                                                 },
                                                 child: Container(
                                                     child: Row(

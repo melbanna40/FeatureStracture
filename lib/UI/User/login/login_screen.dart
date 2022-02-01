@@ -42,7 +42,6 @@ class LoginScreen extends StatelessWidget {
                           height: 150,
                         )),
                   ),
-
                   Expanded(
                     flex: 2,
                     child: Column(
@@ -56,9 +55,10 @@ class LoginScreen extends StatelessWidget {
                         ),
                         Gaps.vGap12,
                         TextFormField(
+                          // textDirection: TextDirection.ltr,
                           decoration: InputDecoration(
                               label: Text(S.of(context).phoneNumber),
-                              suffixIcon:  CountryCodePicker(
+                              suffixIcon: CountryCodePicker(
                                 hideMainText: true,
                                 // showFlag: false,
                                 onChanged: (val) {
@@ -90,7 +90,6 @@ class LoginScreen extends StatelessWidget {
                                   // '+253',
                                   // '+252',
                                   // '+269',
-
                                 ],
                                 showCountryOnly: false,
                                 showOnlyCountryWhenClosed: false,
@@ -103,9 +102,9 @@ class LoginScreen extends StatelessWidget {
                               prefixIcon:
                                   Icon(CupertinoIcons.person_alt_circle)),
                           keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
+                          // inputFormatters: <TextInputFormatter>[
+                          //   FilteringTextInputFormatter.digitsOnly
+                          // ],
                           controller: _phoneController,
                         ),
                         Gaps.vGap12,
@@ -139,18 +138,18 @@ class LoginScreen extends StatelessWidget {
                               ),
                               onPressed: () async {
                                 if (_phoneController.text.isEmpty) {
-                                  CommonUtils.showToastMessage('Enter Email');
+                                  CommonUtils.showToastMessage('Enter phone');
                                 } else if (_passwordController.text.isEmpty) {
                                   CommonUtils.showToastMessage(
                                       'Enter Password');
                                 } else if (_passwordController.text.length <
-                                    6) {
+                                    4) {
                                   CommonUtils.showToastMessage(
-                                      'Password length must be 8 letters contains upper&lower case');
+                                      'Password length must be 4 letters contains upper&lower case');
                                 } else {
                                   cubit.doServerLogin(
-                                    // "${cubit.countryCode}"
-                                        "${_phoneController.text}",
+                                      // "${cubit.countryCode}"
+                                      "${_phoneController.text}",
                                       _passwordController.text,
                                       _companyDomainController.text);
                                 }
@@ -169,8 +168,6 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
-
                 ],
               ),
             )),

@@ -52,7 +52,11 @@ class _SalaryScreenState extends State<SalaryScreen>
             cubit!.mMySalariesHistoryDataList == null) {
           return const LoadingWidget();
         } else if (cubit!.mMySalariesHistoryDataList!.isEmpty) {
-          return EmptyDataWidget();
+          return EmptyDataWidget(
+            onRefreshClicked: () {
+              cubit!.getMySalariesHistory();
+            },
+          );
         } else {
           Future.delayed(Duration.zero);
           return RefreshIndicator(
@@ -66,7 +70,8 @@ class _SalaryScreenState extends State<SalaryScreen>
                 return cubit!.mMySalariesHistoryDataList != null
                     ? InkWell(
                         onTap: () {
-                          Get.to(() => SalaryDetailsScreen());
+                          Get.to(() => SalaryDetailsScreen(
+                              cubit!.mMySalariesHistoryDataList![index].id!));
                         },
                         child: Container(
                           padding: EdgeInsets.all(10),
