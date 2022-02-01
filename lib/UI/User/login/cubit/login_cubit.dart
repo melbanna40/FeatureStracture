@@ -71,7 +71,7 @@ class LoginCubit extends Cubit<LoginState> {
           Get.to(() => ChangePasswordScreen(data.data!.user!.id.toString(),
               data.data!.user!.tenantId.toString()));
         }
-      } else {
+      } else if(data.code==400) {
         emit(LoginErrorState());
         CommonUtils.showToastMessage(data.message);
       }

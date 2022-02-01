@@ -50,7 +50,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           return const LoadingWidget();
         } else if (cubit.mNotificationDataList == null ||
             cubit.mNotificationDataList!.isEmpty) {
-          return EmptyDataWidget();
+          return EmptyDataWidget(
+            onRefreshClicked: () {
+              _onRefresh(cubit);
+            },
+          );
         } else {
           return Container(
             padding: EdgeInsets.all(12),

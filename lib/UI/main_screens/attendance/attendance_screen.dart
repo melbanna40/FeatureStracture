@@ -353,7 +353,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                                     style: TextStyle(
                                                       color: Colors
                                                           .white,
-                                                      fontSize: 11,
+                                                      fontSize: 10,
                                                       fontFamily:
                                                       'Dubai',
                                                       fontWeight:
