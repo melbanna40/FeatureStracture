@@ -341,7 +341,15 @@ class _LeavesScreenState extends State<LeavesScreen>
                                 return const LoadingWidget();
                               } else if (cubit
                                   .mMyLeavesHistoryDataList!.isEmpty) {
-                                return EmptyDataWidget();
+                                return EmptyDataWidget(onRefreshClicked: (){
+                                  if (index == 0) {
+                                    cubit.getMyLeavesHistory(
+                                          status: new List.from([1]));
+                                  } else {
+                                    cubit.getMyLeavesHistory(
+                                          status: new List.from([2, 3]));
+                                  }
+                                },);
                               } else {
                                 Future.delayed(Duration.zero);
                                 return RefreshIndicator(

@@ -36,7 +36,6 @@ void main() async {
 
   await Hive.openBox(HiveHelper.KEY_BOX_APP_LANGUAGE);
   await Hive.openBox(HiveHelper.KEY_BOX_LOGIN_RESPONSE);
-  await Hive.openBox(HiveHelper.KEY_BOX_USER_RESPONSE);
   await Hive.openBox(HiveHelper.KEY_BOX_TOKEN);
   await Hive.openBox(HiveHelper.KEY_APP_BASE_URL);
 

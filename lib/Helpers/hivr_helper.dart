@@ -9,7 +9,6 @@ class HiveHelper {
       '${Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE).get(HiveHelper.KEY_BOX_APP_LANGUAGE) != null}',
       'ar'));
   static const KEY_BOX_LOGIN_RESPONSE = "boxKeyLoginResponse";
-  static const KEY_BOX_USER_RESPONSE = "boxKeyUserResponse";
 
   static var KEY_BOX_TOKEN = "boxKeyUserToken";
 
@@ -41,20 +40,7 @@ class HiveHelper {
         : '';
   }
 
-  static void setUserData(Map<String, dynamic> data) {
-    Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE).put(
-        HiveHelper.KEY_BOX_USER_RESPONSE, new Map<String, dynamic>.from(data));
-  }
 
-  static UserDataModel? getUserData =
-      Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE).isNotEmpty
-          ? UserDataModel.fromJson(
-              new Map<String, dynamic>.from(
-                Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE)
-                    .get(HiveHelper.KEY_BOX_USER_RESPONSE),
-              ),
-            )
-          : null;
 
   static String getAppLanguage() {
     return Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE).isNotEmpty

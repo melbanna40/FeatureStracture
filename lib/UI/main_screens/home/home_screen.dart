@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/CommonUtils/image_loader.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
-import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/widgets/drawer.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
@@ -79,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
             ],
             title: Text(
-              'مرحباً ${HiveHelper.getUserData?.user?.name ?? ''}',
+              'مرحباً ${cubit!.mProfileData != null ? cubit!.mProfileData!.userName! : ''}',
               style: TextStyle(
                 color: Color(0xff828282),
                 fontSize: 18,
@@ -108,7 +107,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(80.0),
                       child: ImageLoader.loadDefaultA(
-                          'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
+                          cubit!.mProfileData != null
+                              ? cubit!.mProfileData!.image!
+                              : 'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
                           width: 45.0,
                           height: 45.0,
                           fit: BoxFit.cover),

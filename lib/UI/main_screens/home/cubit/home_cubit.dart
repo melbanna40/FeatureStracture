@@ -16,6 +16,7 @@ import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/global_response.dart';
 import 'package:kafey/network/api/ApiResponse/home_statistics_response.dart';
+import 'package:kafey/network/api/ApiResponse/profile_response.dart';
 import 'package:kafey/network/api/network_api.dart';
 import 'package:kafey/network/network_util.dart';
 
@@ -157,8 +158,7 @@ class HomeCubit extends Cubit<HomeState> {
   void clearData() {
     Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
     Hive.box(HiveHelper.KEY_APP_BASE_URL).clear();
-    Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE).clear();
-    Get.offAll(() => LoginScreen());
+     Get.offAll(() => LoginScreen());
   }
 
   Future doLogoutApiCall() async {
@@ -184,15 +184,18 @@ class HomeCubit extends Cubit<HomeState> {
     // });
   }
 
+  ProfileData? mProfileData;
+
   Future getUserDataApiCal() async {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
-    await _presenter.requestFutureData<GlobalResponse>(Method.post,
+    await _presenter.requestFutureData<ProfileResponse>(Method.post,
         url: Api.getUserDataApiCal,
         options: Options(method: Method.post.toString(), headers: headers),
         onSuccess: (data) {
       if (data.code == 200) {
         emit(HomeSuccess());
+        mProfileData = data.data;
       } else if (data.code == 400) {
         CommonUtils.showToastMessage(data.message);
         emit(HomeError());

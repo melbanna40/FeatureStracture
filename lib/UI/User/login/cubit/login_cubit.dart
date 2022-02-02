@@ -61,17 +61,13 @@ class LoginCubit extends Cubit<LoginState> {
           HiveHelper.setUserToken(data.data!.accessToken!);
           // HiveHelper.setUserData(data.data!.toJson());
 
-          Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE).put(
-              HiveHelper.KEY_BOX_USER_RESPONSE,
-              new Map<String, dynamic>.from(data.data!.toJson()));
-
           Get.offAll(() => MainScreen());
         } else if (data.data!.user!.loggedBefore! == 0 &&
             data.data!.nextStep == 'redirect_to_change_password') {
           Get.to(() => ChangePasswordScreen(data.data!.user!.id.toString(),
               data.data!.user!.tenantId.toString()));
         }
-      } else if(data.code==400) {
+      } else if (data.code == 400) {
         emit(LoginErrorState());
         CommonUtils.showToastMessage(data.message);
       }

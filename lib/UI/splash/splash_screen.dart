@@ -21,7 +21,8 @@ class _SplashScreenState extends State<SplashScreen>
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 800),
     vsync: this,
-  )..repeat(reverse: true, period: const Duration(milliseconds: 800));
+  )
+    ..repeat(reverse: true, period: const Duration(milliseconds: 800));
   late final Animation<double> _animation = CurvedAnimation(
     parent: _controller,
     curve: Curves.easeIn,
@@ -35,7 +36,9 @@ class _SplashScreenState extends State<SplashScreen>
         const Duration(
           seconds: 5,
         ), (timer) {
-      if (HiveHelper.getUserToken().isNotEmpty) {
+      if (HiveHelper
+          .getUserToken()
+          .isNotEmpty) {
         Get.offAll(() => MainScreen());
       } else {
         Get.offAll(() => LoginScreen());
@@ -46,6 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void dispose() {
     timer!.cancel();
+    _controller.dispose();
     super.dispose();
   }
 

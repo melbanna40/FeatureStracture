@@ -45,7 +45,9 @@ class CustomDrawer extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(80.0),
                     child: ImageLoader.loadDefaultA(
-                        'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
+                        cubit.mProfileData != null
+                            ? cubit.mProfileData!.image!
+                            : 'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
                         width: 50.0,
                         height: 50.0,
                         fit: BoxFit.fill),
@@ -54,7 +56,9 @@ class CustomDrawer extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      "محمد شعيب ",
+                      cubit.mProfileData != null
+                          ? cubit.mProfileData!.userName!
+                          : "",
                       style: KStyles.textWhiteStyle22,
                     ),
                     Row(
@@ -66,7 +70,11 @@ class CustomDrawer extends StatelessWidget {
                           color: Colors.white,
                         ),
                         Gaps.hGap10,
-                        Text("مصمم جرافك", style: KStyles.textWhiteStyle14),
+                        Text(
+                            cubit.mProfileData != null
+                                ? cubit.mProfileData!.empJobTitle!
+                                : "",
+                            style: KStyles.textWhiteStyle14),
                       ],
                     ),
                   ],
@@ -87,7 +95,11 @@ class CustomDrawer extends StatelessWidget {
                           color: Colors.white,
                         ),
                         Gaps.hGap10,
-                        Text("1-7-2021", style: KStyles.textWhiteStyle14),
+                        Text(
+                            cubit.mProfileData != null
+                                ? cubit.mProfileData!.empDateOfJoin!
+                                : "",
+                            style: KStyles.textWhiteStyle14),
                       ],
                     ),
                   ],
@@ -96,7 +108,9 @@ class CustomDrawer extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      "مؤسسة آفاق",
+                      cubit.mProfileData != null
+                          ? cubit.mProfileData!.companyName!
+                          : "مؤسسة آفاق",
                       style: KStyles.textWhiteStyle22,
                     ),
                     Row(
@@ -108,7 +122,11 @@ class CustomDrawer extends StatelessWidget {
                           color: Colors.white,
                         ),
                         Gaps.hGap10,
-                        Text("فرع الرياض", style: KStyles.textWhiteStyle14),
+                        Text(
+                            cubit.mProfileData != null
+                                ? cubit.mProfileData!.empBranch!
+                                : "",
+                            style: KStyles.textWhiteStyle14),
                       ],
                     ),
                   ],
