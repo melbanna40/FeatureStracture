@@ -113,8 +113,26 @@ class CustomDrawer extends StatelessWidget {
                     ),
                   ],
                 ),
+                Gaps.vGap50,
+                InkWell(
+                  onTap: () {
+                    cubit.doLogoutApiCall();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 20,
+                        width: 4,
+                        color: Colors.white,
+                      ),
+                      Gaps.hGap10,
+                      Text("تسجيل الخروج", style: KStyles.textWhiteStyle22),
+                    ],
+                  ),
+                ),
                 SizedBox(
-                  height: 200,
+                  height: MediaQuery.of(context).size.height * 0.3,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

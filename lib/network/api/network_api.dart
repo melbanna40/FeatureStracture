@@ -9,6 +9,7 @@ class Api {
 
   static const String doLoginApiCall = "login";
   static const String doNewLoginApiCall = "new-login";
+  static const String getUserDataApiCal = "me";
 
   static const String doChangePasswordFirstApiCall = "change-password";
   static const String doNewChangePasswordFirstApiCall =

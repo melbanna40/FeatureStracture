@@ -38,8 +38,8 @@ class _LoadingWidgetState extends State<LoadingWidget>
         opacity: _animation,
         child: SvgPicture.asset(
           ImageUtils.getSVGPath('ic_kafey_logo'),
-          width: 200,
-          height: 200,
+          width: 50,
+          height: 50,
           color: Colors.grey,
         ),
       ),

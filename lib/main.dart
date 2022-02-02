@@ -115,9 +115,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(
             create: (context) => SalaryCubit()..getMySalariesHistory()),
-        BlocProvider(
-            create: (context) =>
-                SalaryDetailsCubit()),
+        BlocProvider(create: (context) => SalaryDetailsCubit()),
         BlocProvider(
             create: (context) =>
                 NotificationsCubit()..getNotificationsHistoryApiCal()),
@@ -129,7 +127,8 @@ class MyApp extends StatelessWidget {
             create: (context) => HomeCubit()
               ..updateCurrentDateTime()
               ..getHomeStatistics()
-              ..updateCurrentLocation()),
+              ..updateCurrentLocation()
+              ..getUserDataApiCal()),
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

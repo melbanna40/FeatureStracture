@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/CommonUtils/image_loader.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
-import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/Main/widgets/drawer.dart';
 import 'package:kafey/generated/l10n.dart';
@@ -23,14 +22,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 800),
-    vsync: this,
-  )..repeat(reverse: true);
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.easeIn,
-  );
+  // late final AnimationController _controller = AnimationController(
+  //   duration: const Duration(milliseconds: 800),
+  //   vsync: this,
+  // )..repeat(reverse: true);
+  // late final Animation<double> _animation = CurvedAnimation(
+  //   parent: _controller,
+  //   curve: Curves.easeIn,
+  // );
   late HomeCubit? cubit;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -49,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _controller.dispose();
+    // _controller.dispose();
     super.dispose();
   }
 
@@ -127,9 +126,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 cubit!.updateCurrentLocation();
               },
               child: Center(
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
+                child: Column(
                   children: [
                     Column(
                       children: [
@@ -138,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Container(
-                              height: 45,
+                              height: 40,
                               padding: EdgeInsets.symmetric(horizontal: 8),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
@@ -212,13 +209,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     S.of(context).enable_finger_print);
                               }
                             },
-                            child: FadeTransition(
-                              opacity: _animation,
-                              child: SvgPicture.asset(ImageUtils.getSVGPath(
-                                  cubit!.isLogged!
-                                      ? 'ic_clock_out'
-                                      : 'ic_clock_in')),
-                            ),
+                            child: SvgPicture.asset(ImageUtils.getSVGPath(
+                                cubit!.isLogged!
+                                    ? 'ic_clock_out'
+                                    : 'ic_clock_in')),
                           ),
                         ),
                         Gaps.vGap8,
@@ -291,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         Gaps.vGap16,
                       ],
                     ),
-                    Gaps.vGap8,
+                    Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -318,7 +312,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             Color(0xff707070)),
                       ],
                     ),
-                    Gaps.vGap50
+                    Spacer(),
                   ],
                 ),
               ),

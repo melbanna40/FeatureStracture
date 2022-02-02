@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/network/api/ApiResponse/login_response.dart';
+import 'package:kafey/network/api/network_api.dart';
 
 class HiveHelper {
   static ValueNotifier<Locale> mobileLanguage = ValueNotifier(Locale(
@@ -25,7 +26,7 @@ class HiveHelper {
   static String getBaseUrl() {
     return Hive.box(HiveHelper.KEY_APP_BASE_URL).isNotEmpty
         ? Hive.box(HiveHelper.KEY_APP_BASE_URL).get(HiveHelper.KEY_APP_BASE_URL)
-        : '';
+        : Api.firstBaseUrl;
   }
 
   static void setUserToken(String token) {

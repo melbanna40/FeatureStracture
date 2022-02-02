@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
 import 'package:kafey/CommonUtils/log_utils.dart';
+import 'package:kafey/Helpers/hivr_helper.dart';
 
 import 'api/network_api.dart';
 import 'exception/error_status.dart';
@@ -13,7 +15,10 @@ import 'net_response.dart';
 Map<String, dynamic> headers = {
   "Accept": "application/json",
   "Content-Type": "application/json",
-  "lang": "ar",
+  "lang": Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE).isNotEmpty
+      ? Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE)
+          .get(HiveHelper.KEY_BOX_APP_LANGUAGE.toString())
+      : "ar"
 };
 
 class DioUtils {
