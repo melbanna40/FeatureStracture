@@ -125,7 +125,7 @@ class _RequestDetailsState extends State<RequestDetails> {
                                         .cubit
                                         .mNotificationDataList![widget.index]
                                         .details!
-                                        .reason,
+                                        .reason??'',
                                     style: KStyles.textWhiteStyle14,
                                   ),
                                   Text(

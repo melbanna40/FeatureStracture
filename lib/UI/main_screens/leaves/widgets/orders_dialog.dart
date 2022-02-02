@@ -66,9 +66,16 @@ class _OrdersDialogState extends State<OrdersDialog> {
                                                 widget.index]
                                             .details!
                                             .status ==
-                                        '2'
-                                    ? Icons.check
-                                    : Icons.close,
+                                        1
+                                    ? Icons.warning
+                                    : widget
+                                    .cubit
+                                    .mMyLeavesHistoryDataList![
+                                widget.index]
+                                    .details!
+                                    .status ==
+                                    2
+                                    ? Icons.check:Icons.close,
                                 size: 80,
                                 color: Colors.white,
                               ),

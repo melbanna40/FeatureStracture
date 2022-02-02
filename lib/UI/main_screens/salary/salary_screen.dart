@@ -101,8 +101,7 @@ class _SalaryScreenState extends State<SalaryScreen>
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Container(
-                                      width: 24,
-                                      child: Center(
+                                       child: Center(
                                         child: Text(
                                           cubit!
                                               .mMySalariesHistoryDataList![
