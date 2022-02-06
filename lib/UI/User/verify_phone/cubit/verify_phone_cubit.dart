@@ -1,23 +1,15 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:kafey/Helpers/hivr_helper.dart';
-
-import 'package:kafey/base/presenter/base_presenter.dart';
-import 'package:kafey/dependencies/dependency_init.dart';
-import 'package:kafey/network/api/network_api.dart';
 import 'package:meta/meta.dart';
+
 part 'verify_phone_state.dart';
 
 class VerifyPhoneCubit extends Cubit<VerifyPhoneState> {
   VerifyPhoneCubit() : super(VerifyPhoneInitial());
 
-  final BasePresenter _presenter = getIt<BasePresenter>();
+  // final BasePresenter _presenter = getIt<BasePresenter>();
+
   // VerifyCodeModel model = VerifyCodeModel();
 
   /// --------------- Post Verify Code ------------------ ///
@@ -58,6 +50,4 @@ class VerifyPhoneCubit extends Cubit<VerifyPhoneState> {
     //   CommonUtils.showToastMessage(msg);
     // });
   }
-
-
 }

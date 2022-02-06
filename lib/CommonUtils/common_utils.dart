@@ -35,5 +35,6 @@ class CommonUtils {
       Log.d('Device id ${iosInfo.identifierForVendor}');
       return iosInfo.identifierForVendor;
     }
+    return null;
   }
 }

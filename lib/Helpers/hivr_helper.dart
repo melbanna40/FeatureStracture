@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:kafey/CommonUtils/log_utils.dart';
-import 'package:kafey/network/api/ApiResponse/login_response.dart';
 import 'package:kafey/network/api/network_api.dart';
 
 class HiveHelper {
@@ -39,8 +38,6 @@ class HiveHelper {
         ? Hive.box(HiveHelper.KEY_BOX_TOKEN).get(HiveHelper.KEY_BOX_TOKEN)
         : '';
   }
-
-
 
   static String getAppLanguage() {
     return Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE).isNotEmpty

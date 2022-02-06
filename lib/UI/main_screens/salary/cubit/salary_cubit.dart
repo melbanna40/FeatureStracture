@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -10,7 +9,6 @@ import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
-import 'package:kafey/network/api/ApiResponse/my_leaves_history_response.dart';
 import 'package:kafey/network/api/ApiResponse/my_salaries_response.dart';
 import 'package:kafey/network/api/network_api.dart';
 import 'package:kafey/network/network_util.dart';
@@ -33,22 +31,21 @@ class SalaryCubit extends Cubit<SalaryState> {
         params: {
           if (status != null) 'status[]': status,
         }, onSuccess: (data) {
-          if (data.code == 200) {
-            mMySalariesHistoryDataList = data.data!;
-            emit(SalarySuccess());
-          } else if (data.code == 401) {
-            Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
-            Get.offAll(LoginScreen());
-          } else if (data.code == 400) {
-            emit(SalaryError());
-            // CommonUtils.showToastMessage(data.message);
-          } else {
-            emit(SalaryError());
-          }
-        }, onError: (code, msg) {
-          emit(SalaryError());
-          CommonUtils.showToastMessage(msg);
-        });
+      if (data.code == 200) {
+        mMySalariesHistoryDataList = data.data!;
+        emit(SalarySuccess());
+      } else if (data.code == 401) {
+        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Get.offAll(LoginScreen());
+      } else if (data.code == 400) {
+        emit(SalaryError());
+        // CommonUtils.showToastMessage(data.message);
+      } else {
+        emit(SalaryError());
+      }
+    }, onError: (code, msg) {
+      emit(SalaryError());
+      CommonUtils.showToastMessage(msg);
+    });
   }
-
 }

@@ -189,9 +189,9 @@ class HomeCubit extends Cubit<HomeState> {
   Future getUserDataApiCal() async {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
-    await _presenter.requestFutureData<ProfileResponse>(Method.post,
+    await _presenter.requestFutureData<ProfileResponse>(Method.get,
         url: Api.getUserDataApiCal,
-        options: Options(method: Method.post.toString(), headers: headers),
+        options: Options(method: Method.get.toString(), headers: headers),
         onSuccess: (data) {
       if (data.code == 200) {
         emit(HomeSuccess());

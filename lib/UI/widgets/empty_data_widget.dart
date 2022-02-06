@@ -6,7 +6,7 @@ import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 
 class EmptyDataWidget extends StatefulWidget {
-  Function? onRefreshClicked;
+  final Function? onRefreshClicked;
 
   EmptyDataWidget({Key? key, this.onRefreshClicked}) : super(key: key);
 

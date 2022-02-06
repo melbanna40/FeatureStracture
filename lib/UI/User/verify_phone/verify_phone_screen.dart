@@ -1,28 +1,22 @@
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:kafey/UI/User/verify_phone/widgets/confirm_phone_custom_text_field.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 
-
 import 'cubit/verify_phone_cubit.dart';
 
 class VerifyPhoneScreen extends StatelessWidget {
+  VerifyPhoneScreen(this.phone, {Key? key}) : super(key: key);
   final String phone;
-   VerifyPhoneScreen( this.phone, {Key? key}) : super(key: key) ;
-
   bool isShow = false,
       isFirstText = false,
       isSecondText = false,
       isThirdText = false,
       isFourText = false;
-  String? firstText, secondText, thirdText, fourText;
 
+  String? firstText, secondText, thirdText, fourText;
   String? code;
 
   FocusNode? firstNode = FocusNode();
@@ -32,13 +26,12 @@ class VerifyPhoneScreen extends StatelessWidget {
 
   int currentSeconds = 0;
   bool isScreenOn = true;
-  Timer? _timer;
+
+  // Timer? _timer;
 
   String get timerText =>
       '${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
   final int timerMaxSeconds = 60;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +55,7 @@ class VerifyPhoneScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                S.of(context).Enter_4_digit_code_sent_to_you_at +
-                   phone,
+                S.of(context).Enter_4_digit_code_sent_to_you_at + phone,
                 style: const TextStyle(color: Colors.grey, fontSize: 12),
               ),
               Directionality(
@@ -114,28 +106,31 @@ class VerifyPhoneScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     color: Theme.of(context).primaryColor,
-                    onPressed: ()async {
-                      if (isFirstText && isSecondText && isThirdText && isFourText){
-                      cubit.postLogin(int.parse(phone), int.parse(checkToSendRequest()!));
-                      // await Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE)
-                      //     .put(HiveHelper.KEY_BOX_USER_RESPONSE, cubit.model.userData!.seller!);
-                      }else{
+                    onPressed: () async {
+                      if (isFirstText &&
+                          isSecondText &&
+                          isThirdText &&
+                          isFourText) {
+                        cubit.postLogin(
+                            int.parse(phone), int.parse(checkToSendRequest()!));
+                        // await Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE)
+                        //     .put(HiveHelper.KEY_BOX_USER_RESPONSE, cubit.model.userData!.seller!);
+                      } else {
                         Get.snackbar(
-                          Get.locale == const Locale('ar')? "تأكد من ادخال الكود" : "put the 4 digits",
+                          Get.locale == const Locale('ar')
+                              ? "تأكد من ادخال الكود"
+                              : "put the 4 digits",
                           "",
                           snackPosition: SnackPosition.BOTTOM,
-
                         );
                       }
 
-                        // Log.e(cubit.model.data!.phone.toString());
-                        // Navigator.pushReplacement(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => MainScreen()));
-                      }
-
-                    ,
+                      // Log.e(cubit.model.data!.phone.toString());
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => MainScreen()));
+                    },
                     child: Text(
                       S.of(context).continue_key,
                       style: TextStyle(
@@ -179,34 +174,33 @@ class VerifyPhoneScreen extends StatelessWidget {
     });
   }
 
-  startTimeout([int? milliseconds]) {
-    var duration = const Duration(seconds: 1);
-    _timer = Timer.periodic(duration, (timer) {
-      if (isScreenOn) {
-        // setState(() {
-        //   print(timer.tick);
-        //   currentSeconds = timer.tick;
-        //   if (currentSeconds == timerMaxSeconds) {
-        //     isShow = true;
-        //   }
-        //   if (timer.tick >= timerMaxSeconds || !is_screen_on) {
-        //     timer.cancel();
-        //   }
-        // });
-      }
-    });
-  }
+  // startTimeout([int? milliseconds]) {
+  //   var duration = const Duration(seconds: 1);
+  //   _timer = Timer.periodic(duration, (timer) {
+  //     if (isScreenOn) {
+  //       // setState(() {
+  //       //   print(timer.tick);
+  //       //   currentSeconds = timer.tick;
+  //       //   if (currentSeconds == timerMaxSeconds) {
+  //       //     isShow = true;
+  //       //   }
+  //       //   if (timer.tick >= timerMaxSeconds || !is_screen_on) {
+  //       //     timer.cancel();
+  //       //   }
+  //       // });
+  //     }
+  //   });
+  // }
 
   String? checkToSendRequest() {
     if (isFirstText && isSecondText && isThirdText && isFourText) {
       code = "$firstText$secondText$thirdText$fourText";
       doVerify(code!);
-      return code!;
     }
+    return code!;
   }
 
   void doVerify(String code) {
-
     // FocusScope.of(context).unfocus();
     // if (widget.params!["source"] == Const.SOURCE_FORGET_PASSWORD) {
     //   mPresenter!.doVerifyCodeForgetPassword(widget.params!["email"], code);
@@ -259,11 +253,10 @@ class VerifyPhoneScreen extends StatelessWidget {
     }
   }
 
-  onDispose(){
+  onDispose() {
     firstNode!.dispose();
     secondNode.dispose();
     thirdNode.dispose();
     fourNode.dispose();
-
   }
 }

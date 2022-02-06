@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
-import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/Helpers/hivr_helper.dart';
 import 'package:kafey/UI/User/login/login_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
