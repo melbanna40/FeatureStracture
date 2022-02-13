@@ -17,9 +17,10 @@ class TimeUpdatedDialog extends StatefulWidget {
 class _TimeUpdatedDialogState extends State<TimeUpdatedDialog> {
   @override
   void initState() {
-    if (mounted)
-      Future.delayed(Duration(seconds: 2))
+    if (mounted) {
+      Future.delayed(const Duration(seconds: 2))
           .then((value) => Navigator.pop(context));
+    }
     super.initState();
   }
 
@@ -36,7 +37,7 @@ class _TimeUpdatedDialogState extends State<TimeUpdatedDialog> {
             child: Center(
               child: ListView(
                 padding: const EdgeInsets.all(15),
-                children: [
+                children: const [
                   Gaps.vGap50,
                   Icon(
                     CupertinoIcons.clock,

@@ -9,7 +9,6 @@ import 'package:kafey/CommonUtils/log_utils.dart';
 import 'package:kafey/UI/User/change_password/cubit/change_password_cubit.dart';
 import 'package:kafey/UI/User/new_employee/cubit/forget_password_cubit.dart';
 import 'package:kafey/UI/main_screens/attendance/cubit/attendance_cubit.dart';
-import 'package:kafey/UI/main_screens/home/cubit/home_cubit.dart';
 import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
 import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
 import 'package:kafey/UI/main_screens/salary/cubit/salary_cubit.dart';
@@ -43,7 +42,7 @@ void main() async {
       .requestPermission(alert: true, badge: true, sound: true);
   FirebaseMessaging.instance.getToken().then((token) {
     assert(token != null);
-    print(token);
+    // print(token);
   });
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -60,7 +59,7 @@ class MyApp extends StatelessWidget {
           filled: true,
           focusColor: Colors.white,
           fillColor: Colors.white,
-          contentPadding: EdgeInsets.all(8.0),
+          contentPadding: const EdgeInsets.all(8.0),
           // constraints: const BoxConstraints(
           //   minHeight: 30,
           //   maxHeight: 40,
@@ -75,8 +74,8 @@ class MyApp extends StatelessWidget {
                 Radius.circular(8),
               ),
               borderSide: BorderSide(color: Colors.red, width: 1)),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(
+          focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(
                 Radius.circular(8),
               ),
               borderSide:
@@ -122,12 +121,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 AttendanceCubit()..getAttendanceHistoryApiCal()),
-        BlocProvider(
-            create: (context) => HomeCubit()
-              ..updateCurrentDateTime()
-              ..getHomeStatistics()
-              ..updateCurrentLocation()
-              ..getUserDataApiCal()),
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -145,7 +138,7 @@ class MyApp extends StatelessWidget {
           DefaultMaterialLocalizations.delegate,
           DefaultWidgetsLocalizations.delegate,
         ],
-        home: SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

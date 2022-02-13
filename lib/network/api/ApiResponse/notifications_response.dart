@@ -10,19 +10,19 @@ class NotificationsResponse {
     if (json['data'] != null) {
       data = <NotificationData>[];
       json['data'].forEach((v) {
-        data!.add(new NotificationData.fromJson(v));
+        data!.add(NotificationData.fromJson(v));
       });
     }
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    data['message'] = this.message;
+    data['message'] = message;
     return data;
   }
 }
@@ -40,16 +40,16 @@ class NotificationData {
     notifiableId = json['notifiable_id'];
     readAt = json['read_at'];
     details =
-        json['details'] != null ? new Details.fromJson(json['details']) : null;
+        json['details'] != null ? Details.fromJson(json['details']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['notifiable_id'] = this.notifiableId;
-    data['read_at'] = this.readAt;
-    if (this.details != null) {
-      data['details'] = this.details!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['notifiable_id'] = notifiableId;
+    data['read_at'] = readAt;
+    if (details != null) {
+      data['details'] = details!.toJson();
     }
     return data;
   }
@@ -84,7 +84,7 @@ class Details {
     to = json['to'];
     numberOfDayes = json['number_of_dayes'];
     leaveType = json['leave_type'] != null
-        ? new LeaveType.fromJson(json['leave_type'])
+        ? LeaveType.fromJson(json['leave_type'])
         : null;
     reason = json['reason'];
     comment = json['comment'];
@@ -95,19 +95,19 @@ class Details {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['from'] = this.from;
-    data['to'] = this.to;
-    data['number_of_dayes'] = this.numberOfDayes;
-    if (this.leaveType != null) {
-      data['leave_type'] = this.leaveType!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['from'] = from;
+    data['to'] = to;
+    data['number_of_dayes'] = numberOfDayes;
+    if (leaveType != null) {
+      data['leave_type'] = leaveType!.toJson();
     }
-    data['reason'] = this.reason;
-    data['comment'] = this.comment;
-    data['attachment'] = this.attachment;
-    data['status'] = this.status;
-    data['body'] = this.body;
-    data['notification_status'] = this.notification_status;
+    data['reason'] = reason;
+    data['comment'] = comment;
+    data['attachment'] = attachment;
+    data['status'] = status;
+    data['body'] = body;
+    data['notification_status'] = notification_status;
     return data;
   }
 }
@@ -138,13 +138,13 @@ class LeaveType {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['tenant_id'] = this.tenantId;
-    data['name'] = this.name;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['color'] = this.color;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['tenant_id'] = tenantId;
+    data['name'] = name;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['color'] = color;
     return data;
   }
 }

@@ -8,18 +8,18 @@ class MyLeavesBalanceResponse {
   MyLeavesBalanceResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     data = json['data'] != null
-        ? new MyLeavesBalanceData.fromJson(json['data'])
+        ? MyLeavesBalanceData.fromJson(json['data'])
         : null;
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['message'] = this.message;
+    data['message'] = message;
     return data;
   }
 }
@@ -34,21 +34,21 @@ class MyLeavesBalanceData {
     if (json['leaves_type'] != null) {
       leavesType = <LeavesType>[];
       json['leaves_type'].forEach((v) {
-        leavesType!.add(new LeavesType.fromJson(v));
+        leavesType!.add(LeavesType.fromJson(v));
       });
     }
     statisics = json['statisics'] != null
-        ? new Statisics.fromJson(json['statisics'])
+        ? Statisics.fromJson(json['statisics'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.leavesType != null) {
-      data['leaves_type'] = this.leavesType!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (leavesType != null) {
+      data['leaves_type'] = leavesType!.map((v) => v.toJson()).toList();
     }
-    if (this.statisics != null) {
-      data['statisics'] = this.statisics!.toJson();
+    if (statisics != null) {
+      data['statisics'] = statisics!.toJson();
     }
     return data;
   }
@@ -65,16 +65,16 @@ class LeavesType {
     leaveId = json['leave_id'];
     numOfDays = json['num_of_days'];
     leaveType = json['leave_type'] != null
-        ? new LeaveType.fromJson(json['leave_type'])
+        ? LeaveType.fromJson(json['leave_type'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['leave_id'] = this.leaveId;
-    data['num_of_days'] = this.numOfDays;
-    if (this.leaveType != null) {
-      data['leave_type'] = this.leaveType!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['leave_id'] = leaveId;
+    data['num_of_days'] = numOfDays;
+    if (leaveType != null) {
+      data['leave_type'] = leaveType!.toJson();
     }
     return data;
   }
@@ -109,14 +109,14 @@ class LeaveType {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['color'] = this.color;
-    data['total_balance'] = this.totalBalance;
-    data['employe_balance'] = this.employeBalance;
-    data['num_of_leave_days'] = this.numOfLeaveDays;
-    data['percentage'] = this.percentage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['color'] = color;
+    data['total_balance'] = totalBalance;
+    data['employe_balance'] = employeBalance;
+    data['num_of_leave_days'] = numOfLeaveDays;
+    data['percentage'] = percentage;
     return data;
   }
 }
@@ -141,11 +141,11 @@ class Statisics {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_employee_leaves'] = this.totalEmployeeLeaves;
-    data['total_Balance'] = this.totalBalance;
-    data['remaining'] = this.remaining;
-    data['precentage'] = this.precentage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total_employee_leaves'] = totalEmployeeLeaves;
+    data['total_Balance'] = totalBalance;
+    data['remaining'] = remaining;
+    data['precentage'] = precentage;
     return data;
   }
 }

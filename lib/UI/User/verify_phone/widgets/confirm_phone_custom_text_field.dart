@@ -4,7 +4,7 @@ class ConfirmPhoneCustomTextField extends StatelessWidget {
   final FocusNode focusNode;
   final Function(String) onChange;
 
-  ConfirmPhoneCustomTextField(this.focusNode, this.onChange, {Key? key})
+  const ConfirmPhoneCustomTextField(this.focusNode, this.onChange, {Key? key})
       : super(key: key);
 
   @override

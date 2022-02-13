@@ -9,10 +9,11 @@ import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
-  final String user_id;
-  final String tenant_id;
+  final String userId;
+  final String tenantId;
 
-  ChangePasswordScreen(this.user_id, this.tenant_id);
+  ChangePasswordScreen(this.userId, this.tenantId, {Key? key})
+      : super(key: key);
 
   final _oldPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
@@ -59,7 +60,7 @@ class ChangePasswordScreen extends StatelessWidget {
                                     : CupertinoIcons.eye_slash)),
                             label: Text(S.of(context).password),
                             hintText: S.of(context).password,
-                            prefixIcon: Icon(CupertinoIcons.lock_shield),
+                            prefixIcon: const Icon(CupertinoIcons.lock_shield),
                           ),
                           controller: _oldPasswordController,
                         ),
@@ -76,23 +77,23 @@ class ChangePasswordScreen extends StatelessWidget {
                                     : CupertinoIcons.eye_slash)),
                             label: Text(S.of(context).confirm_password),
                             hintText: S.of(context).confirm_password,
-                            prefixIcon: Icon(CupertinoIcons.lock_shield),
+                            prefixIcon: const Icon(CupertinoIcons.lock_shield),
                           ),
                           controller: _newPasswordController,
                         ),
                         Gaps.vGap30,
                         Container(
                           width: double.infinity,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: MColors.colorPrimarySwatch,
-                            borderRadius: const BorderRadius.horizontal(
+                            borderRadius: BorderRadius.horizontal(
                                 left: Radius.circular(8),
                                 right: Radius.circular(8)),
                           ),
                           child: MaterialButton(
                               child: Text(
                                 S.of(context).submit,
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               onPressed: () async {
                                 if (_oldPasswordController.text.isEmpty) {
@@ -112,7 +113,9 @@ class ChangePasswordScreen extends StatelessWidget {
                                       'الرقم السري غير متطابق');
                                 } else {
                                   cubit.doChangePassword(
-                                      _newPasswordController.text, user_id, tenant_id);
+                                      _newPasswordController.text,
+                                      userId,
+                                      tenantId);
                                 }
                               }),
                         ),

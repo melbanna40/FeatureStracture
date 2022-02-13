@@ -6,20 +6,19 @@ class SalaryDetailsResponse {
   SalaryDetailsResponse({this.data, this.code, this.message});
 
   SalaryDetailsResponse.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null
-        ? new SalaryDetailsData.fromJson(json['data'])
-        : null;
+    data =
+        json['data'] != null ? SalaryDetailsData.fromJson(json['data']) : null;
     code = json['code'];
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['code'] = this.code;
-    data['message'] = this.message;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }
@@ -41,11 +40,11 @@ class SalaryDetailsData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['basic_salary'] = this.basicSalary;
-    data['net_salary'] = this.netSalary;
-    data['bonuses_sum'] = this.bonusesSum;
-    data['discounts_sum'] = this.discountsSum;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['basic_salary'] = basicSalary;
+    data['net_salary'] = netSalary;
+    data['bonuses_sum'] = bonusesSum;
+    data['discounts_sum'] = discountsSum;
     return data;
   }
 }

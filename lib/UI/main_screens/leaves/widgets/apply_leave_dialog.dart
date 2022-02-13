@@ -12,7 +12,9 @@ class ApplyLeaveDialog extends StatefulWidget {
   final List<LeavesType>? mLeavesTypeList;
   final Function(Map<String, dynamic>)? onCreateClickedCallBack;
 
-  ApplyLeaveDialog(this.mLeavesTypeList, {this.onCreateClickedCallBack});
+  const ApplyLeaveDialog(this.mLeavesTypeList,
+      {Key? key, this.onCreateClickedCallBack})
+      : super(key: key);
 
   @override
   _ApplyLeaveDialogState createState() => _ApplyLeaveDialogState();
@@ -39,11 +41,11 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
         elevation: 0,
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "طلب أجازة",
           style: TextStyle(color: MColors.colorPrimarySwatch, fontSize: 26),
         ),
-        leading: BackButton(
+        leading: const BackButton(
           color: MColors.colorPrimarySwatch,
         ),
       ),
@@ -53,7 +55,7 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("اختار تاريخ الأجازة", style: KStyles.textStyle16),
+              const Text("اختار تاريخ الأجازة", style: KStyles.textStyle16),
               InkWell(
                 onTap: () async {
                   final picked = await showDateRangePicker(
@@ -63,10 +65,9 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                       builder: (context, child) {
                         return Theme(
                           data: ThemeData.light().copyWith(
-                            appBarTheme: AppBarTheme(
-                              foregroundColor: MColors.colorPrimarySwatch,
-                              backgroundColor: MColors.colorPrimarySwatch
-                            ),
+                            appBarTheme: const AppBarTheme(
+                                foregroundColor: MColors.colorPrimarySwatch,
+                                backgroundColor: MColors.colorPrimarySwatch),
                             //Header background color
                             primaryColor: MColors.colorPrimarySwatch,
                             //Background color
@@ -74,7 +75,7 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                             //Divider color
                             dividerColor: Colors.grey,
                             //Non selected days of the month color
-                            textTheme: TextTheme(
+                            textTheme: const TextTheme(
                               bodyText2: TextStyle(color: Colors.black),
                             ),
                             colorScheme: ColorScheme.fromSwatch().copyWith(
@@ -90,7 +91,7 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                         );
                       });
                   if (picked != null) {
-                    print(picked);
+                    // print(picked);
                     start = DateFormat('yyyy-MM-dd', 'en').format(picked.start);
                     end = DateFormat('yyyy-MM-dd', 'en').format(picked.end);
 
@@ -103,9 +104,9 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                   controller: _dateController,
                   enabled: false,
                   style: KStyles.textStyle16,
-                  decoration: InputDecoration(
-                      border: const OutlineInputBorder(
-                        borderSide: const BorderSide(
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
                             color: MColors.colorPrimarySwatch, width: 1.0),
                       ),
                       suffixIcon: Icon(
@@ -120,7 +121,7 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
               //     lastDate: DateTime(2030),),
               // ),
               Gaps.vGap15,
-              Text("اختار نوع الأجازة", style: KStyles.textStyle16),
+              const Text("اختار نوع الأجازة", style: KStyles.textStyle16),
               DropdownButtonHideUnderline(
                 child: DropdownButton<LeavesType>(
                   isExpanded: true,
@@ -161,10 +162,10 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Text(
                                     '${item.leaveType?.employeBalance.toString()} يوم متبقي',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xff828282),
                                       fontSize: 11,
                                       fontFamily: 'Dubai',
@@ -183,8 +184,8 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                 ),
               ),
               Gaps.vGap15,
-              Text("السبب", style: KStyles.textStyle16),
-              Container(
+              const Text("السبب", style: KStyles.textStyle16),
+              SizedBox(
                 height: 200,
                 child: TextFormField(
                   maxLines: 5,
@@ -194,14 +195,14 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
               Gaps.vGap15,
               Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: MColors.colorPrimarySwatch,
-                    borderRadius: const BorderRadius.horizontal(
+                    borderRadius: BorderRadius.horizontal(
                         left: Radius.circular(8), right: Radius.circular(8))),
                 child: MaterialButton(
                     child: Text(
                       S.of(context).submit,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     onPressed: () {
                       if (start == null || end == null) {

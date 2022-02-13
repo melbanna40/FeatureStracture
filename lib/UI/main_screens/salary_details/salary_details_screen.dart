@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
 import 'package:kafey/UI/widgets/empty_data_widget.dart';
 import 'package:kafey/UI/widgets/loading_widget.dart';
+import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/styles.dart';
 
@@ -12,7 +13,7 @@ import 'cubit/salary_details_cubit.dart';
 class SalaryDetailsScreen extends StatefulWidget {
   final int id;
 
-  SalaryDetailsScreen(this.id, {Key? key}) : super(key: key);
+  const SalaryDetailsScreen(this.id, {Key? key}) : super(key: key);
 
   @override
   State<SalaryDetailsScreen> createState() => _SalaryDetailsScreenState();
@@ -29,12 +30,12 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
           centerTitle: true,
           elevation: 0,
           title: Text(
-            "الرواتب",
+            S.of(context).salaries,
             style: KStyles.textStyle30,
           ),
           actions: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               child: Column(
                 children: [
                   Gaps.vGap8,
@@ -60,7 +61,7 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
             );
           } else {
             return Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               child: RefreshIndicator(
                 onRefresh: () async {
                   // cubit!.getHomeStatistics();
@@ -72,34 +73,34 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                       children: [
                         Container(
                           height: 222,
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             left: 37,
                             right: 37,
                           ),
                           decoration: BoxDecoration(
-                            color: Color(0xffebebeb),
+                            color: const Color(0xffebebeb),
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Container(
-                            margin: EdgeInsets.only(top: 40),
-                            padding: EdgeInsets.all(16),
+                            margin: const EdgeInsets.only(top: 40),
+                            padding: const EdgeInsets.all(16),
                             child: Column(
                               children: [
                                 Row(
                                   children: [
                                     Text(
-                                      'المرتب الأساسي',
-                                      style: TextStyle(
+                                      S.of(context).basic_salary,
+                                      style: const TextStyle(
                                         color: Colors.black,
                                         fontFamily: 'Dubai',
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Text(
                                       cubit.mSalaryDetailsData?.basicSalary ??
                                           '',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.black,
                                         fontFamily: 'Dubai',
                                         fontWeight: FontWeight.w700,
@@ -133,27 +134,27 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                                 Row(
                                   children: [
                                     Text(
-                                      'الحوافز',
-                                      style: TextStyle(
+                                      S.of(context).incentives,
+                                      style: const TextStyle(
                                         color: Colors.black,
                                         fontFamily: 'Dubai',
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Container(
                                       decoration: BoxDecoration(
-                                        color: Color(0xff00c950),
+                                        color: const Color(0xff00c950),
                                         borderRadius: BorderRadius.circular(13),
                                       ),
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             vertical: 4, horizontal: 8),
                                         child: Text(
                                           cubit.mSalaryDetailsData
                                                   ?.bonusesSum ??
                                               '',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'Dubai',
                                             fontWeight: FontWeight.w700,
@@ -203,13 +204,13 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                           child: Container(
                             height: 47,
                             width: double.infinity,
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                               left: 37,
                               right: 37,
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                 tileMode: TileMode.mirror,
                                 colors: [
                                   Color(0xff0eedff),
@@ -219,8 +220,8 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                'الاستحقاقات',
-                                style: TextStyle(
+                                S.of(context).benefits,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                   fontFamily: 'Dubai',
@@ -237,17 +238,17 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                       children: [
                         Container(
                           height: 200,
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             left: 37,
                             right: 37,
                           ),
                           decoration: BoxDecoration(
-                            color: Color(0xffebebeb),
+                            color: const Color(0xffebebeb),
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Container(
-                            margin: EdgeInsets.only(top: 40),
-                            padding: EdgeInsets.all(16),
+                            margin: const EdgeInsets.only(top: 40),
+                            padding: const EdgeInsets.all(16),
                             child: Column(
                               children: [
                                 // Row(
@@ -297,27 +298,27 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                                 Row(
                                   children: [
                                     Text(
-                                      'الخصومات',
-                                      style: TextStyle(
+                                      S.of(context).discounts,
+                                      style: const TextStyle(
                                         color: Colors.black,
                                         fontFamily: 'Dubai',
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     Container(
                                       decoration: BoxDecoration(
-                                        color: Color(0xffff3434),
+                                        color: const Color(0xffff3434),
                                         borderRadius: BorderRadius.circular(13),
                                       ),
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             vertical: 4, horizontal: 8),
                                         child: Text(
                                           cubit.mSalaryDetailsData
                                                   ?.discountsSum ??
                                               '',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'Dubai',
                                             fontWeight: FontWeight.w700,
@@ -335,13 +336,13 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                           child: Container(
                             height: 47,
                             width: double.infinity,
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                               left: 37,
                               right: 37,
                             ),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
-                                gradient: LinearGradient(
+                                gradient: const LinearGradient(
                                   tileMode: TileMode.mirror,
                                   colors: [
                                     Color(0xff0eedff),
@@ -350,8 +351,8 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                                 )),
                             child: Center(
                               child: Text(
-                                'الاستقطاعات',
-                                style: TextStyle(
+                                S.of(context).deductions,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                   fontFamily: 'Dubai',
@@ -365,28 +366,28 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                     ),
                     Gaps.vGap16,
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 8),
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
                       child: Row(
                         children: [
                           Text(
-                            'اجمالي المرتب',
-                            style: TextStyle(
+                            S.of(context).total_salary,
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 18,
                               fontFamily: 'Dubai',
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                               left: 37,
                               right: 37,
                             ),
-                            padding: EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                 tileMode: TileMode.mirror,
                                 colors: [
                                   Color(0xff0eedff),
@@ -397,7 +398,7 @@ class _SalaryDetailsScreenState extends State<SalaryDetailsScreen> {
                             child: Center(
                               child: Text(
                                 cubit.mSalaryDetailsData?.netSalary ?? '',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Dubai',
                                   fontWeight: FontWeight.w700,

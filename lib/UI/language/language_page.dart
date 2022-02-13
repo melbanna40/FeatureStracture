@@ -9,7 +9,6 @@ import 'package:kafey/res/m_colors.dart';
 class LanguagesScreen extends StatefulWidget {
   const LanguagesScreen({Key? key}) : super(key: key);
 
-
   @override
   _LanguagesScreenState createState() => _LanguagesScreenState();
 }
@@ -23,7 +22,8 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
   void initState() {
     super.initState();
     selectedLocal = Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE)
-            .get(HiveHelper.KEY_BOX_APP_LANGUAGE) ?? appLanguages[0];
+            .get(HiveHelper.KEY_BOX_APP_LANGUAGE) ??
+        appLanguages[0];
   }
 
   @override
@@ -34,12 +34,14 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
           S.of(context).app_language,
           style: const TextStyle(color: Colors.black87),
         ),
-        leading:
-        InkWell(
-          onTap: (){
-            Navigator.pop(context);
-          },
-            child: Icon(CupertinoIcons.back,color: MColors.colorPrimarySwatch,)),
+        leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              CupertinoIcons.back,
+              color: MColors.colorPrimarySwatch,
+            )),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -49,7 +51,6 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
   }
 
   Widget buildBody(BuildContext context, List<String> languages) {
-
     double mHeight = MediaQuery.of(context).size.height;
     double mWidth = MediaQuery.of(context).size.width;
 
@@ -105,15 +106,12 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
                   onPressed: () async {
                     if (HiveHelper.mobileLanguage.value !=
                         Locale(selectedLocal!)) {
-                      HiveHelper.mobileLanguage.value =
-                           Locale(selectedLocal!);
+                      HiveHelper.mobileLanguage.value = Locale(selectedLocal!);
                     }
                     await Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE)
                         .put(HiveHelper.KEY_BOX_APP_LANGUAGE, selectedLocal);
                     Get.updateLocale(Locale(selectedLocal!));
-                    setState(() {
-
-                    });
+                    setState(() {});
                     FocusScope.of(context).unfocus();
                     Navigator.pop(context);
                   },
@@ -123,7 +121,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   color: Theme.of(context).primaryColor,
-                  child:  Text(
+                  child: Text(
                     S.of(context).submit,
                     style: const TextStyle(
                         color: Colors.white,

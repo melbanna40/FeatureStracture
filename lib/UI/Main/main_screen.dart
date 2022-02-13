@@ -30,12 +30,12 @@ class _MainScreenState extends State<MainScreen> {
     LoginCubit().doSaveDeviceToken(HiveHelper.getUserToken());
 
     var initializationSettingsAndroid =
-        new AndroidInitializationSettings('@drawable/splash');
+        const AndroidInitializationSettings('@drawable/splash');
 
-    var initializationSettingsIOS = new IOSInitializationSettings(
+    var initializationSettingsIOS = IOSInitializationSettings(
         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
 
-    var initializationSettings = new InitializationSettings(
+    var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
 
     FlutterLocalNotificationsPlugin().initialize(initializationSettings,
@@ -53,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
     _firebaseMessaging.requestPermission(alert: true, badge: true, sound: true);
     _firebaseMessaging.getToken().then((token) {
       assert(token != null);
-      print(token);
+      // print(token);
     });
   }
 
@@ -65,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
       0,
       message.data['title'],
       message.data['body'],
-      NotificationDetails(
+      const NotificationDetails(
         android: AndroidNotificationDetails(
           'channelid', 'flutterfcm',
           importance: Importance.max,
@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
 
     Navigator.push(
       context,
-      new MaterialPageRoute(builder: (context) => MainScreen()),
+      MaterialPageRoute(builder: (context) => const MainScreen()),
     );
   }
 
@@ -95,13 +95,13 @@ class _MainScreenState extends State<MainScreen> {
     // display a dialog with the notification details, tap ok to go to another page
     showDialog(
       context: context,
-      builder: (BuildContext context) => new CupertinoAlertDialog(
-        title: new Text(title ?? ''),
-        content: new Text(body ?? ''),
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Text(title ?? ''),
+        content: Text(body ?? ''),
         actions: [
           CupertinoDialogAction(
             isDefaultAction: true,
-            child: new Text('Ok'),
+            child: const Text('Ok'),
             onPressed: () async {
               Navigator.of(context, rootNavigator: true).pop();
               // CommonUtils.showToastMessage(title);
@@ -191,14 +191,14 @@ class _MainScreenState extends State<MainScreen> {
                         width: 19,
                         height: 16,
                         color: cubit.currentIndex == 0
-                            ? Color(0xff0995f5)
+                            ? const Color(0xff0995f5)
                             : Colors.black,
                       ),
                       Text(
                         'المرتبات',
                         style: TextStyle(
                           color: cubit.currentIndex == 0
-                              ? Color(0xff0995f5)
+                              ? const Color(0xff0995f5)
                               : Colors.black,
                           fontSize: 9,
                           fontFamily: 'Dubai',
@@ -216,14 +216,14 @@ class _MainScreenState extends State<MainScreen> {
                       SvgPicture.asset(
                         ImageUtils.getSVGPath('ic_notifications_outline'),
                         color: cubit.currentIndex == 1
-                            ? Color(0xff0995f5)
+                            ? const Color(0xff0995f5)
                             : Colors.black,
                       ),
                       Text(
                         'الاشعارات',
                         style: TextStyle(
                           color: cubit.currentIndex == 1
-                              ? Color(0xff0995f5)
+                              ? const Color(0xff0995f5)
                               : Colors.black,
                           fontSize: 9,
                           fontFamily: 'Dubai',
@@ -233,33 +233,31 @@ class _MainScreenState extends State<MainScreen> {
                     ],
                   ),
                 ),
-                Container(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(32),
-                          gradient: LinearGradient(
-                            tileMode: TileMode.mirror,
-                            colors: [
-                              Color(0xff2ad8fe),
-                              Color(0xff5a7bef),
-                            ],
-                          ),
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.all(16),
-                          child: SvgPicture.asset(
-                            ImageUtils.getSVGPath('ic_finger_print_nav'),
-                            color: cubit.currentIndex == 2
-                                ? Colors.white
-                                : Colors.black,
-                          ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(32),
+                        gradient: const LinearGradient(
+                          tileMode: TileMode.mirror,
+                          colors: [
+                            Color(0xff2ad8fe),
+                            Color(0xff5a7bef),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                      child: Container(
+                        margin: const EdgeInsets.all(16),
+                        child: SvgPicture.asset(
+                          ImageUtils.getSVGPath('ic_finger_print_nav'),
+                          color: cubit.currentIndex == 2
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
                   margin: const EdgeInsets.all(4),
@@ -269,14 +267,14 @@ class _MainScreenState extends State<MainScreen> {
                       SvgPicture.asset(
                         ImageUtils.getSVGPath('ic_attendance'),
                         color: cubit.currentIndex == 3
-                            ? Color(0xff0995f5)
+                            ? const Color(0xff0995f5)
                             : Colors.black,
                       ),
                       Text(
                         'طلب الاجازه',
                         style: TextStyle(
                           color: cubit.currentIndex == 3
-                              ? Color(0xff0995f5)
+                              ? const Color(0xff0995f5)
                               : Colors.black,
                           fontSize: 9,
                           fontFamily: 'Dubai',
@@ -294,14 +292,14 @@ class _MainScreenState extends State<MainScreen> {
                       SvgPicture.asset(
                         ImageUtils.getSVGPath('time_table'),
                         color: cubit.currentIndex == 4
-                            ? Color(0xff0995f5)
+                            ? const Color(0xff0995f5)
                             : Colors.black,
                       ),
                       Text(
                         S.of(context).attendance,
                         style: TextStyle(
                           color: cubit.currentIndex == 4
-                              ? Color(0xff0995f5)
+                              ? const Color(0xff0995f5)
                               : Colors.black,
                           fontSize: 9,
                           fontFamily: 'Dubai',

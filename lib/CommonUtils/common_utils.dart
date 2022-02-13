@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/log_utils.dart';
 
@@ -18,9 +18,48 @@ class CommonUtils {
     Get.snackbar(
       title ?? '',
       message ?? '',
-      duration: Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 1500),
       snackPosition: SnackPosition.TOP,
     );
+  }
+
+  static bool isLoadingDialogVisible = false;
+
+  static void showCustomDialog() {
+    showGeneralDialog(
+      context: Get.context!,
+      barrierLabel: "Barrier",
+      barrierDismissible: false,
+      useRootNavigator: false,
+      barrierColor: Colors.white.withOpacity(0.4),
+      transitionDuration: const Duration(milliseconds: 200),
+      pageBuilder: (_, __, ___) {
+        isLoadingDialogVisible = true;
+        return const SizedBox();
+      },
+      transitionBuilder: (_, anim, __, child) {
+        Tween<Offset> tween;
+        if (anim.status == AnimationStatus.reverse) {
+          tween = Tween(begin: const Offset(-1, 0), end: Offset.zero);
+        } else {
+          tween = Tween(begin: const Offset(1, 0), end: Offset.zero);
+        }
+        return SlideTransition(
+          position: tween.animate(anim),
+          child: FadeTransition(
+            opacity: anim,
+            child: child,
+          ),
+        );
+      },
+    );
+  }
+
+  static void closeCustomDialog() {
+    if (isLoadingDialogVisible) {
+      isLoadingDialogVisible = false;
+      Navigator.pop(Get.context!);
+    }
   }
 
   static Future<String?> getDeviceId() async {

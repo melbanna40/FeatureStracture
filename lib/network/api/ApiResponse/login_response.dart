@@ -6,18 +6,18 @@ class LoginResponse {
   LoginResponse({this.data, this.code, this.message});
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new UserDataModel.fromJson(json['data']) : null;
+    data = json['data'] != null ? UserDataModel.fromJson(json['data']) : null;
     code = json['code'];
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['code'] = this.code;
-    data['message'] = this.message;
+    data['code'] = code;
+    data['message'] = message;
     return data;
   }
 }
@@ -31,27 +31,27 @@ class UserDataModel {
 
   UserDataModel(
       {this.nextStep,
-        this.accessToken,
-        this.tokenType,
-        this.expiresIn,
-        this.user});
+      this.accessToken,
+      this.tokenType,
+      this.expiresIn,
+      this.user});
 
   UserDataModel.fromJson(Map<String, dynamic> json) {
     nextStep = json['next_step'];
     accessToken = json['access_token'];
     tokenType = json['token_type'];
     expiresIn = json['expires_in'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['next_step'] = this.nextStep;
-    data['access_token'] = this.accessToken;
-    data['token_type'] = this.tokenType;
-    data['expires_in'] = this.expiresIn;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['next_step'] = nextStep;
+    data['access_token'] = accessToken;
+    data['token_type'] = tokenType;
+    data['expires_in'] = expiresIn;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     return data;
   }
@@ -76,20 +76,20 @@ class User {
 
   User(
       {this.id,
-        this.name,
-        this.phone,
-        this.tenantId,
-        this.email,
-        this.emailVerifiedAt,
-        this.deviceToken,
-        this.image,
-        this.loggedBefore,
-        this.type,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.macAddress,
-        this.companyDomain});
+      this.name,
+      this.phone,
+      this.tenantId,
+      this.email,
+      this.emailVerifiedAt,
+      this.deviceToken,
+      this.image,
+      this.loggedBefore,
+      this.type,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.macAddress,
+      this.companyDomain});
 
   User.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'];
@@ -110,22 +110,22 @@ class User {
   }
 
   Map<dynamic, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['phone'] = this.phone;
-    data['tenant_id'] = this.tenantId;
-    data['email'] = this.email;
-    data['email_verified_at'] = this.emailVerifiedAt;
-    data['device_token'] = this.deviceToken;
-    data['image'] = this.image;
-    data['logged_before'] = this.loggedBefore;
-    data['type'] = this.type;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['deleted_at'] = this.deletedAt;
-    data['mac_address'] = this.macAddress;
-    data['company_domain'] = this.companyDomain;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['phone'] = phone;
+    data['tenant_id'] = tenantId;
+    data['email'] = email;
+    data['email_verified_at'] = emailVerifiedAt;
+    data['device_token'] = deviceToken;
+    data['image'] = image;
+    data['logged_before'] = loggedBefore;
+    data['type'] = type;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['deleted_at'] = deletedAt;
+    data['mac_address'] = macAddress;
+    data['company_domain'] = companyDomain;
     return data;
   }
 }

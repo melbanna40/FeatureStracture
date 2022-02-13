@@ -34,8 +34,8 @@ class _LeavesScreenState extends State<LeavesScreen>
     List<Widget> taps = [
       Tab(
         child: Text(
-          "الطلبات",
-          style: TextStyle(
+          S.of(context).requests,
+          style: const TextStyle(
             fontSize: 16,
             fontFamily: 'Dubai',
             fontWeight: FontWeight.w700,
@@ -44,8 +44,8 @@ class _LeavesScreenState extends State<LeavesScreen>
       ),
       Tab(
         child: Text(
-          "الأجازات السابقة",
-          style: TextStyle(
+          S.of(context).previous_holidays,
+          style: const TextStyle(
             fontSize: 16,
             fontFamily: 'Dubai',
             fontWeight: FontWeight.w700,
@@ -70,12 +70,12 @@ class _LeavesScreenState extends State<LeavesScreen>
         centerTitle: true,
         elevation: 0,
         title: Text(
-          "اجازاتي",
+          S.of(context).my_vacation,
           style: KStyles.textStyle30,
         ),
         actions: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Column(
               children: [
                 Gaps.vGap8,
@@ -106,14 +106,14 @@ class _LeavesScreenState extends State<LeavesScreen>
                 Gaps.vGap16,
                 Container(
                   width: 200,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: MColors.colorPrimarySwatch,
-                      borderRadius: const BorderRadius.horizontal(
+                      borderRadius: BorderRadius.horizontal(
                           left: Radius.circular(8), right: Radius.circular(8))),
                   child: MaterialButton(
                       child: Text(
                         S.of(context).refresh,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
                         _onRefresh(cubit);
@@ -152,15 +152,15 @@ class _LeavesScreenState extends State<LeavesScreen>
                             Text(
                               cubit.mMyLeavesBalanceData!.statisics!.remaining
                                   .toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: MColors.colorPrimarySwatch,
                                   fontSize: 60,
                                   fontWeight: FontWeight.bold),
                             ),
-                            const Text(
-                              "رصيد الأجازات",
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 20),
+                            Text(
+                              S.of(context).vacations_balance,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 20),
                             ),
                           ],
                         ),
@@ -181,8 +181,8 @@ class _LeavesScreenState extends State<LeavesScreen>
                               right: Radius.circular(8))),
                       child: MaterialButton(
                           child: Text(
-                            "اضغط لطلب اجازة",
-                            style: TextStyle(color: Colors.white),
+                            S.of(context).request_vacation,
+                            style: const TextStyle(color: Colors.white),
                           ),
                           onPressed: () {
                             Get.to(ApplyLeaveDialog(
@@ -208,13 +208,13 @@ class _LeavesScreenState extends State<LeavesScreen>
                     Gaps.vGap30,
                     StaggeredGridView.countBuilder(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: cubit.mMyLeavesBalanceData!.leavesType!.length,
                       crossAxisCount: 6,
                       mainAxisSpacing: 8,
                       crossAxisSpacing: 12,
                       itemBuilder: (context, index) => Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: cubit
                                     .mMyLeavesBalanceData!
@@ -230,7 +230,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                     .withOpacity(.2)
                                 : Colors.grey.withOpacity(.2),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                                const BorderRadius.all(Radius.circular(20))),
                         child: Column(
                           children: [
                             CircularPercentIndicator(
@@ -268,13 +268,14 @@ class _LeavesScreenState extends State<LeavesScreen>
                           ],
                         ),
                       ),
-                      staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+                      staggeredTileBuilder: (index) =>
+                          const StaggeredTile.fit(2),
                     ),
                     Gaps.vGap40,
                     Container(
                         height: 40,
                         width: double.infinity,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
 
                             // color: MColors.colorPrimarySwatch.withOpacity(.2),
                             borderRadius:
@@ -289,7 +290,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                             // onTap: _taped,
                             indicatorColor: Colors.white,
                             indicatorSize: TabBarIndicatorSize.tab,
-                            padding: EdgeInsets.symmetric(horizontal: 7),
+                            padding: const EdgeInsets.symmetric(horizontal: 7),
                             indicator: BoxDecoration(
                                 gradient: LinearGradient(
                                   begin: Alignment.topCenter,
@@ -297,8 +298,8 @@ class _LeavesScreenState extends State<LeavesScreen>
                                   colors: MColors.gradientColors,
                                 ),
                                 // color: MColors.colorPrimarySwatch,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20))),
 
                             // UnderlineTabIndicator(
                             //
@@ -315,22 +316,21 @@ class _LeavesScreenState extends State<LeavesScreen>
                             ),
                           ),
                         )),
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height * 0.3,
                       child: TabBarView(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         controller: _cardController,
                         children: List.generate(2, (index) {
                           return BlocProvider(
                             create: (BuildContext context) {
                               if (index == 0) {
                                 return LeavesCubit()
-                                  ..getMyLeavesHistory(
-                                      status: new List.from([1]));
+                                  ..getMyLeavesHistory(status: List.from([1]));
                               } else {
                                 return LeavesCubit()
                                   ..getMyLeavesHistory(
-                                      status: new List.from([2, 3]));
+                                      status: List.from([2, 3]));
                               }
                             },
                             child: BlocBuilder<LeavesCubit, LeavesState>(
@@ -341,15 +341,17 @@ class _LeavesScreenState extends State<LeavesScreen>
                                 return const LoadingWidget();
                               } else if (cubit
                                   .mMyLeavesHistoryDataList!.isEmpty) {
-                                return EmptyDataWidget(onRefreshClicked: (){
-                                  if (index == 0) {
-                                    cubit.getMyLeavesHistory(
-                                          status: new List.from([1]));
-                                  } else {
-                                    cubit.getMyLeavesHistory(
-                                          status: new List.from([2, 3]));
-                                  }
-                                },);
+                                return EmptyDataWidget(
+                                  onRefreshClicked: () {
+                                    if (index == 0) {
+                                      cubit.getMyLeavesHistory(
+                                          status: List.from([1]));
+                                    } else {
+                                      cubit.getMyLeavesHistory(
+                                          status: List.from([2, 3]));
+                                    }
+                                  },
+                                );
                               } else {
                                 Future.delayed(Duration.zero);
                                 return RefreshIndicator(
@@ -360,7 +362,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                       itemCount: cubit.mMyLeavesHistoryDataList
                                               ?.length ??
                                           0,
-                                      physics: BouncingScrollPhysics(),
+                                      physics: const BouncingScrollPhysics(),
                                       itemBuilder:
                                           (BuildContext context, int inx) {
                                         return cubit.mMyLeavesHistoryDataList !=
@@ -372,10 +374,9 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                     if (isOk) {}
                                                   }, cubit, inx);
                                                 },
-                                                child: Container(
-                                                    child: Row(
+                                                child: Row(
                                                   children: [
-                                                    CircleAvatar(
+                                                    const CircleAvatar(
                                                       radius: 4,
                                                     ),
                                                     Gaps.hGap4,
@@ -384,14 +385,14 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                       style:
                                                           KStyles.textStyle13,
                                                     ),
-                                                    Spacer(),
+                                                    const Spacer(),
                                                     Chip(
                                                         elevation: 2,
                                                         padding:
-                                                            EdgeInsets.symmetric(
+                                                            const EdgeInsets.symmetric(
                                                                 horizontal: 4),
                                                         shape:
-                                                            RoundedRectangleBorder(
+                                                            const RoundedRectangleBorder(
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .all(
@@ -417,7 +418,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                                     cubit.mMyLeavesHistoryDataList![inx].details!.status! == 3
                                                                 ? Colors.red.withOpacity(0.3)
                                                                 : Colors.green.withOpacity(0.3),
-                                                        label: Container(
+                                                        label: SizedBox(
                                                           width: 60,
                                                           child: Center(
                                                             child: Text(
@@ -425,13 +426,21 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                                           null &&
                                                                       cubit.mMyLeavesHistoryDataList![inx].details!.status! ==
                                                                           1
-                                                                  ? 'مُعلق'
+                                                                  ? S
+                                                                      .of(
+                                                                          context)
+                                                                      .pending
                                                                   : cubit.mMyLeavesHistoryDataList![inx].details!.status !=
                                                                               null &&
                                                                           cubit.mMyLeavesHistoryDataList![inx].details!.status! ==
                                                                               3
-                                                                      ? 'مرفوض'
-                                                                      : 'مقبول',
+                                                                      ? S
+                                                                          .of(
+                                                                              context)
+                                                                          .rejected
+                                                                      : S
+                                                                          .of(context)
+                                                                          .accepted,
                                                               style: TextStyle(
                                                                 color: cubit.mMyLeavesHistoryDataList![inx].details!.status !=
                                                                             null &&
@@ -452,7 +461,7 @@ class _LeavesScreenState extends State<LeavesScreen>
                                                           ),
                                                         )),
                                                   ],
-                                                )),
+                                                ),
                                               )
                                             : Container();
                                       },
@@ -480,7 +489,7 @@ class _LeavesScreenState extends State<LeavesScreen>
       barrierLabel: "Barrier",
       barrierDismissible: false,
       barrierColor: Colors.white.withOpacity(0.2),
-      transitionDuration: Duration(milliseconds: 200),
+      transitionDuration: const Duration(milliseconds: 200),
       pageBuilder: (_, __, ___) {
         return OrdersDialog(
           callback: callback,
@@ -491,9 +500,9 @@ class _LeavesScreenState extends State<LeavesScreen>
       transitionBuilder: (_, anim, __, child) {
         Tween<Offset> tween;
         if (anim.status == AnimationStatus.reverse) {
-          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
+          tween = Tween(begin: const Offset(-1, 0), end: Offset.zero);
         } else {
-          tween = Tween(begin: Offset(1, 0), end: Offset.zero);
+          tween = Tween(begin: const Offset(1, 0), end: Offset.zero);
         }
 
         return SlideTransition(

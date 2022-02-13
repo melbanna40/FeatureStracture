@@ -10,19 +10,19 @@ class MySalariesResponse {
     if (json['data'] != null) {
       data = <MySalariesData>[];
       json['data'].forEach((v) {
-        data!.add(new MySalariesData.fromJson(v));
+        data!.add(MySalariesData.fromJson(v));
       });
     }
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    data['message'] = this.message;
+    data['message'] = message;
     return data;
   }
 }
@@ -45,12 +45,12 @@ class MySalariesData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['value'] = this.value;
-    data['note'] = this.note;
-    data['month'] = this.month;
-    data['created_at'] = this.createdAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['value'] = value;
+    data['note'] = note;
+    data['month'] = month;
+    data['created_at'] = createdAt;
     return data;
   }
 }

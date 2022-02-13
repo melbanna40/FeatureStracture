@@ -39,7 +39,7 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
               padding: const EdgeInsets.all(8),
               children: [
                 Row(
-                  children: [
+                  children: const [
                     Icon(
                       CupertinoIcons.clock,
                       color: MColors.colorPrimarySwatch,
@@ -51,7 +51,7 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
                     ),
                   ],
                 ),
-                Container(
+                SizedBox(
                   height: 150,
                   child: CupertinoTimerPicker(
                       mode: CupertinoTimerPickerMode.hm,
@@ -61,7 +61,7 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
                         });
                       }),
                 ),
-                Divider(),
+                const Divider(),
                 // Text(
                 //   "قائد الفريق",
                 //   style: TextStyle(fontSize: 12, color: Colors.grey),
@@ -73,11 +73,11 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
                 //   ),
                 // ),
                 Gaps.vGap15,
-                Text(
+                const Text(
                   "تعليق",
                   style: TextStyle(fontSize: 15, color: Colors.grey),
                 ),
-                Container(
+                SizedBox(
                   height: 100,
                   child: TextFormField(
                     controller: noteController,
@@ -87,14 +87,14 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
                 Gaps.vGap30,
                 Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: MColors.colorPrimarySwatch,
-                      borderRadius: const BorderRadius.horizontal(
+                      borderRadius: BorderRadius.horizontal(
                           left: Radius.circular(8), right: Radius.circular(8))),
                   child: MaterialButton(
                       child: Text(
                         S.of(context).submit,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
                         if (pickedTime != null) {
@@ -104,7 +104,6 @@ class _ClockOutDialogState extends State<ClockOutDialog> {
                               'notes': noteController.text,
                           });
                           Navigator.pop(context);
-
                         }
                         // Navigator.pop(context);
                         // showDialog(

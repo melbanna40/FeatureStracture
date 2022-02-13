@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                           decoration: InputDecoration(
                               label: Text(S.of(context).company_domain),
                               hintText: S.of(context).company_domain,
-                              prefixIcon: Icon(Icons.add_business)),
+                              prefixIcon: const Icon(Icons.add_business)),
                           controller: _companyDomainController,
                         ),
                         Gaps.vGap12,
@@ -57,6 +57,7 @@ class LoginScreen extends StatelessWidget {
                           // textDirection: TextDirection.ltr,
                           decoration: InputDecoration(
                               label: Text(S.of(context).phoneNumber),
+                              counter: const SizedBox.shrink(),
                               suffixIcon: CountryCodePicker(
                                 hideMainText: true,
                                 // showFlag: false,
@@ -99,8 +100,8 @@ class LoginScreen extends StatelessWidget {
                               ),
                               hintText: S.of(context).phoneNumber,
                               prefixIcon:
-                                  Icon(CupertinoIcons.person_alt_circle)),
-                          keyboardType: TextInputType.number,
+                                  const Icon(CupertinoIcons.person_alt_circle)),
+                          keyboardType: TextInputType.number, maxLength: 10,
                           // inputFormatters: <TextInputFormatter>[
                           //   FilteringTextInputFormatter.digitsOnly
                           // ],
@@ -119,21 +120,22 @@ class LoginScreen extends StatelessWidget {
                                       : CupertinoIcons.eye_slash)),
                               label: Text(S.of(context).password),
                               hintText: S.of(context).password,
-                              prefixIcon: Icon(CupertinoIcons.lock_shield)),
+                              prefixIcon:
+                                  const Icon(CupertinoIcons.lock_shield)),
                           controller: _passwordController,
                         ),
                         Gaps.vGap30,
                         Container(
                           width: double.infinity,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               color: MColors.colorPrimarySwatch,
-                              borderRadius: const BorderRadius.horizontal(
+                              borderRadius: BorderRadius.horizontal(
                                   left: Radius.circular(8),
                                   right: Radius.circular(8))),
                           child: MaterialButton(
                               child: Text(
                                 S.of(context).login,
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               onPressed: () async {
                                 if (_phoneController.text.isEmpty) {
@@ -141,6 +143,10 @@ class LoginScreen extends StatelessWidget {
                                 } else if (_passwordController.text.isEmpty) {
                                   CommonUtils.showToastMessage(
                                       'Enter Password');
+                                } else if (_companyDomainController
+                                    .text.isEmpty) {
+                                  CommonUtils.showToastMessage(
+                                      'Enter Company Domain');
                                 } else if (_passwordController.text.length <
                                     4) {
                                   CommonUtils.showToastMessage(
@@ -150,7 +156,7 @@ class LoginScreen extends StatelessWidget {
                                       // "${cubit.countryCode}"
                                       "${_phoneController.text}",
                                       _passwordController.text,
-                                      _companyDomainController.text);
+                                      '${_companyDomainController.text}.ikafey.xyz');
                                 }
                               }),
                         ),

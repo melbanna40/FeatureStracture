@@ -7,17 +7,17 @@ class ProfileResponse {
 
   ProfileResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'];
-    data = json['data'] != null ? new ProfileData.fromJson(json['data']) : null;
+    data = json['data'] != null ? ProfileData.fromJson(json['data']) : null;
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['message'] = this.message;
+    data['message'] = message;
     return data;
   }
 }
@@ -60,17 +60,17 @@ class ProfileData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['empJobTitle'] = this.empJobTitle;
-    data['empDateOfJoin'] = this.empDateOfJoin;
-    data['empBranch'] = this.empBranch;
-    data['empDepartment'] = this.empDepartment;
-    data['empJobType'] = this.empJobType;
-    data['companyName'] = this.companyName;
-    data['userName'] = this.userName;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['image'] = this.image;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['empJobTitle'] = empJobTitle;
+    data['empDateOfJoin'] = empDateOfJoin;
+    data['empBranch'] = empBranch;
+    data['empDepartment'] = empDepartment;
+    data['empJobType'] = empJobType;
+    data['companyName'] = companyName;
+    data['userName'] = userName;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['image'] = image;
     return data;
   }
 }

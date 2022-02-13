@@ -32,7 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   bool? isLogged = false;
 
-  RadialGradient currentGradient = RadialGradient(
+  RadialGradient currentGradient = const RadialGradient(
     tileMode: TileMode.mirror,
     colors: [
       Colors.lightBlue,
@@ -72,8 +72,10 @@ class HomeCubit extends Cubit<HomeState> {
   HomeStatisticsData? mHomeStatisticsData;
 
   Future getHomeStatistics() async {
+    emit(HomeLoading());
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
+    // CommonUtils.showCustomDialog();
     await _presenter.requestFutureData<HomeStatisticsResponse>(Method.get,
         url: Api.getHomeStatisticsApiCall,
         options: Options(method: Method.get.toString(), headers: headers),
@@ -99,12 +101,13 @@ class HomeCubit extends Cubit<HomeState> {
     }, onError: (code, msg) {
       emit(HomeError());
       CommonUtils.showToastMessage(msg);
-    });
+    }).then((value) => null);
   }
 
   Future doClockInApiCal() async {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
+    CommonUtils.showCustomDialog();
     var location = await LocationHelper.determinePosition();
 
     CommonUtils.showToastMessage('جآر التحميل');
@@ -119,6 +122,7 @@ class HomeCubit extends Cubit<HomeState> {
         isLogged = !isLogged!;
         emit(UpdateCurrentDateState());
         getHomeStatistics();
+        CommonUtils.showToastMessage(data.message);
       } else if (data.code == 400) {
         CommonUtils.showToastMessage(data.message);
         emit(HomeError());
@@ -126,12 +130,13 @@ class HomeCubit extends Cubit<HomeState> {
     }, onError: (code, msg) {
       emit(HomeError());
       CommonUtils.showToastMessage(msg);
-    });
+    }).then((value) => CommonUtils.closeCustomDialog());
   }
 
   Future doClockOutApiCal() async {
     headers[HttpHeaders.authorizationHeader] =
         "Bearer " + HiveHelper.getUserToken();
+    CommonUtils.showCustomDialog();
     var location = await LocationHelper.determinePosition();
     CommonUtils.showToastMessage('جآر التحميل');
     await _presenter.requestFutureData<GlobalResponse>(Method.post,
@@ -145,6 +150,7 @@ class HomeCubit extends Cubit<HomeState> {
         isLogged = !isLogged!;
         emit(UpdateCurrentDateState());
         getHomeStatistics();
+        CommonUtils.showToastMessage(data.message);
       } else if (data.code == 400) {
         CommonUtils.showToastMessage(data.message);
         emit(HomeError());
@@ -152,13 +158,13 @@ class HomeCubit extends Cubit<HomeState> {
     }, onError: (code, msg) {
       emit(HomeError());
       CommonUtils.showToastMessage(msg);
-    });
+    }).then((value) => CommonUtils.closeCustomDialog());
   }
 
   void clearData() {
     Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
     Hive.box(HiveHelper.KEY_APP_BASE_URL).clear();
-     Get.offAll(() => LoginScreen());
+    Get.offAll(() => LoginScreen());
   }
 
   Future doLogoutApiCall() async {

@@ -22,7 +22,7 @@ class Api {
   static const String doClockOutApiCall = "ess/clock-out";
 
   static String doUpdateAttendanceRequestApiCall(String id) =>
-      "ess/edit_attendance_request/${id}";
+      "ess/edit_attendance_request/$id";
 
   static const String getAttendanceHistoryApiCall = "ess/attendance-history";
 

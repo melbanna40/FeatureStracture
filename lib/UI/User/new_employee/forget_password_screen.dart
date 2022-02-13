@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/CommonUtils/image_utils.dart';
- import 'package:kafey/generated/l10n.dart';
+import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/m_colors.dart';
 
@@ -12,7 +12,7 @@ import 'cubit/forget_password_cubit.dart';
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({Key? key}) : super(key: key);
   final _emailNumberController = TextEditingController();
-  final  emailFocusNode = FocusNode();
+  final emailFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -49,20 +49,21 @@ class ForgetPasswordScreen extends StatelessWidget {
                         decoration: InputDecoration(
                             label: Text(S.of(context).email),
                             hintText: S.of(context).email,
-                            prefixIcon: Icon(CupertinoIcons.person_alt_circle)),
+                            prefixIcon:
+                                const Icon(CupertinoIcons.person_alt_circle)),
                       ),
                       Gaps.vGap30,
                       Container(
                         width: double.infinity,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: MColors.colorPrimarySwatch,
-                            borderRadius: const BorderRadius.horizontal(
+                            borderRadius: BorderRadius.horizontal(
                                 left: Radius.circular(8),
                                 right: Radius.circular(8))),
                         child: MaterialButton(
                             child: Text(
                               S.of(context).login,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                             onPressed: () {
                               if (_emailNumberController.text.isEmpty) {

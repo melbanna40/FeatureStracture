@@ -14,11 +14,11 @@ class MainCubit extends Cubit<MainState> {
 
   int currentIndex = 2;
   List<Widget> screens = [
-    SalaryScreen(),
-    NotificationsScreen(),
-    HomeScreen(),
-    LeavesScreen(),
-    AttendanceScreen(),
+    const SalaryScreen(),
+    const NotificationsScreen(),
+    const HomeScreen(),
+    const LeavesScreen(),
+    const AttendanceScreen(),
   ];
 
   void changeBottomNavBar(int index) {

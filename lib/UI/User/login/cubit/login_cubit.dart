@@ -36,7 +36,7 @@ class LoginCubit extends Cubit<LoginState> {
   final BasePresenter _presenter = getIt<BasePresenter>();
 
   Future doServerLogin(
-      String phone, String password, String company_sub_domain) async {
+      String phone, String password, String companySubDomain) async {
     emit(LoginLoadingState());
     CommonUtils.showToastMessage('جآر التحميل');
     await _presenter.requestFutureData<LoginResponse>(Method.post,
@@ -46,7 +46,7 @@ class LoginCubit extends Cubit<LoginState> {
         params: {
           "phone": phone.trim(),
           "password": password.trim(),
-          "company_sub_domain": company_sub_domain.trim(),
+          "company_sub_domain": companySubDomain.trim(),
           // "mac_address": await CommonUtils.getDeviceId(),
         }, onSuccess: (data) {
       if (data.code == 200) {
@@ -61,7 +61,7 @@ class LoginCubit extends Cubit<LoginState> {
           HiveHelper.setUserToken(data.data!.accessToken!);
           // HiveHelper.setUserData(data.data!.toJson());
 
-          Get.offAll(() => MainScreen());
+          Get.offAll(() => const MainScreen());
         } else if (data.data!.user!.loggedBefore! == 0 &&
             data.data!.nextStep == 'redirect_to_change_password') {
           Get.to(() => ChangePasswordScreen(data.data!.user!.id.toString(),

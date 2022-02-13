@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -31,131 +33,119 @@ class _OrdersDialogState extends State<OrdersDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(4),
-        child: Form(
-          child: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              // padding: const EdgeInsets.all(8),
-              child: Center(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-                  child: Container(
-                    color: Colors.transparent.withOpacity(.2),
-                    child: Container(
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            ImageUtils.getSVGPath('bg_dialog'),
-                            height: 350,
-                            width: 200,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                widget
-                                            .cubit
-                                            .mMyLeavesHistoryDataList![
-                                                widget.index]
-                                            .details!
-                                            .status ==
-                                        1
-                                    ? Icons.warning
-                                    : widget
-                                    .cubit
-                                    .mMyLeavesHistoryDataList![
-                                widget.index]
-                                    .details!
-                                    .status ==
-                                    2
-                                    ? Icons.check:Icons.close,
-                                size: 80,
-                                color: Colors.white,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("نوع الأجازة:  ",
-                                          style: KStyles.texBlackBold),
-                                      Text("تبدأ الأجازة من :  ",
-                                          style: KStyles.texBlackBold),
-                                      Text("تنتهي الأجازة يوم :  ",
-                                          style: KStyles.texBlackBold),
-                                      Text("سبب الأجازة هو:  ",
-                                          style: KStyles.texBlackBold),
-                                      Text("معلومات اضافية:  ",
-                                          style: KStyles.texBlackBold),
-                                      // Text(widget.cubit.mNotificationDataList![widget.index]
-                                      //     .details!.leaveType!.name!,style: KStyles.textWhiteStyle14,
-                                      //     )
-                                    ],
-                                  ),
-                                  Gaps.hGap20,
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // Text(
-                                      //   widget
-                                      //       .cubit
-                                      //       .mMyLeavesHistoryDataList![widget.index]
-                                      //       .leaveType!
-                                      //       .name??"",
-                                      //   style: KStyles.textWhiteStyle14,
-                                      // ),
-                                      Text(
-                                        widget
-                                                .cubit
-                                                .mMyLeavesHistoryDataList![
-                                                    widget.index]
-                                                .details!
-                                                .from ??
-                                            "",
-                                        style: KStyles.textWhiteStyle14,
-                                      ),
-                                      Text(
-                                        widget
-                                                .cubit
-                                                .mMyLeavesHistoryDataList![
-                                                    widget.index]
-                                                .details!
-                                                .to ??
-                                            "",
-                                        style: KStyles.textWhiteStyle14,
-                                      ),
-                                      Text(
-                                        widget
-                                                .cubit
-                                                .mMyLeavesHistoryDataList![
-                                                    widget.index]
-                                                .details!
-                                                .reason ??
-                                            "",
-                                        style: KStyles.textWhiteStyle14,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(4),
+      child: Form(
+        child: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Center(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+              child: Container(
+                color: Colors.transparent.withOpacity(.2),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      ImageUtils.getSVGPath('bg_dialog'),
+                      height: 350,
+                      width: 200,
                     ),
-                  ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          widget.cubit.mMyLeavesHistoryDataList![widget.index]
+                                      .details!.status ==
+                                  1
+                              ? Icons.warning
+                              : widget
+                                          .cubit
+                                          .mMyLeavesHistoryDataList![
+                                              widget.index]
+                                          .details!
+                                          .status ==
+                                      2
+                                  ? Icons.check
+                                  : Icons.close,
+                          size: 80,
+                          color: Colors.white,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text("نوع الأجازة:  ",
+                                    style: KStyles.texBlackBold),
+                                Text("تبدأ الأجازة من :  ",
+                                    style: KStyles.texBlackBold),
+                                Text("تنتهي الأجازة يوم :  ",
+                                    style: KStyles.texBlackBold),
+                                Text("سبب الأجازة هو:  ",
+                                    style: KStyles.texBlackBold),
+                                Text("معلومات اضافية:  ",
+                                    style: KStyles.texBlackBold),
+                                // Text(widget.cubit.mNotificationDataList![widget.index]
+                                //     .details!.leaveType!.name!,style: KStyles.textWhiteStyle14,
+                                //     )
+                              ],
+                            ),
+                            Gaps.hGap20,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Text(
+                                //   widget
+                                //       .cubit
+                                //       .mMyLeavesHistoryDataList![widget.index]
+                                //       .leaveType!
+                                //       .name??"",
+                                //   style: KStyles.textWhiteStyle14,
+                                // ),
+                                Text(
+                                  widget
+                                          .cubit
+                                          .mMyLeavesHistoryDataList![
+                                              widget.index]
+                                          .details!
+                                          .from ??
+                                      "",
+                                  style: KStyles.textWhiteStyle14,
+                                ),
+                                Text(
+                                  widget
+                                          .cubit
+                                          .mMyLeavesHistoryDataList![
+                                              widget.index]
+                                          .details!
+                                          .to ??
+                                      "",
+                                  style: KStyles.textWhiteStyle14,
+                                ),
+                                Text(
+                                  widget
+                                          .cubit
+                                          .mMyLeavesHistoryDataList![
+                                              widget.index]
+                                          .details!
+                                          .reason ??
+                                      "",
+                                  style: KStyles.textWhiteStyle14,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),

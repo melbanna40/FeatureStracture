@@ -6,11 +6,12 @@ import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dar
 import 'package:kafey/UI/main_screens/notifications/widget/request_details_dialog.dart';
 import 'package:kafey/UI/widgets/empty_data_widget.dart';
 import 'package:kafey/UI/widgets/loading_widget.dart';
+import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
 import 'package:kafey/res/styles.dart';
 
 class NotificationsScreen extends StatefulWidget {
-  NotificationsScreen({Key? key}) : super(key: key);
+  const NotificationsScreen({Key? key}) : super(key: key);
 
   @override
   State<NotificationsScreen> createState() => _NotificationsScreenState();
@@ -27,12 +28,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         centerTitle: true,
         elevation: 0,
         title: Text(
-          "الاشعارات",
+          S.of(context).notification,
           style: KStyles.textStyle30,
         ),
         actions: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Column(
               children: [
                 Gaps.vGap8,
@@ -57,7 +58,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           );
         } else {
           return Container(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: RefreshIndicator(
               onRefresh: () async {
                 _onRefresh(cubit);
@@ -70,56 +71,51 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       if (isOk) {}
                     }, cubit, index);
                   },
-                  child: Container(
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 4,
-                        ),
-                        Gaps.hGap4,
-                        Text(
-                          cubit.mNotificationDataList![index].details!.body !=
-                                  null
-                              ? cubit
-                                  .mNotificationDataList![index].details!.body
-                              : cubit.mNotificationDataList![index].details!
-                                  .leaveType!.name,
-                          style: KStyles.textStyle13,
-                        ),
-                        Spacer(),
-                        Chip(
-                          elevation: 2,
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(4),
-                            ),
+                  child: Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 4,
+                      ),
+                      Gaps.hGap4,
+                      Text(
+                        cubit.mNotificationDataList![index].details!.body ??
+                            cubit.mNotificationDataList![index].details!
+                                .leaveType!.name,
+                        style: KStyles.textStyle13,
+                      ),
+                      const Spacer(),
+                      Chip(
+                        elevation: 2,
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(4),
                           ),
-                          backgroundColor: (cubit.mNotificationDataList![index]
-                                      .details!.status ==
-                                  '2')
-                              ? Colors.green.withOpacity(.3)
-                              : Colors.red.withOpacity(.3),
-                          label: Container(
-                            width: 60,
-                            child: Center(
-                              child: Text(
-                                cubit.mNotificationDataList![index].details!
-                                        .notification_status ??
-                                    '',
-                                style: TextStyle(
-                                  color: (cubit.mNotificationDataList![index]
-                                              .details!.status ==
-                                          '2')
-                                      ? Colors.green
-                                      : Colors.red,
-                                ),
+                        ),
+                        backgroundColor: (cubit.mNotificationDataList![index]
+                                    .details!.status ==
+                                '2')
+                            ? Colors.green.withOpacity(.3)
+                            : Colors.red.withOpacity(.3),
+                        label: SizedBox(
+                          width: 60,
+                          child: Center(
+                            child: Text(
+                              cubit.mNotificationDataList![index].details!
+                                      .notification_status ??
+                                  '',
+                              style: TextStyle(
+                                color: (cubit.mNotificationDataList![index]
+                                            .details!.status ==
+                                        '2')
+                                    ? Colors.green
+                                    : Colors.red,
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -137,7 +133,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       barrierLabel: "Barrier",
       barrierDismissible: false,
       barrierColor: Colors.white.withOpacity(0.2),
-      transitionDuration: Duration(milliseconds: 200),
+      transitionDuration: const Duration(milliseconds: 200),
       pageBuilder: (_, __, ___) {
         return RequestDetails(
           callback: callback,
@@ -148,9 +144,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       transitionBuilder: (_, anim, __, child) {
         Tween<Offset> tween;
         if (anim.status == AnimationStatus.reverse) {
-          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
+          tween = Tween(begin: const Offset(-1, 0), end: Offset.zero);
         } else {
-          tween = Tween(begin: Offset(1, 0), end: Offset.zero);
+          tween = Tween(begin: const Offset(1, 0), end: Offset.zero);
         }
 
         return SlideTransition(

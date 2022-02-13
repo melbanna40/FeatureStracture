@@ -8,7 +8,7 @@ import 'package:kafey/res/m_colors.dart';
 class EmptyDataWidget extends StatefulWidget {
   final Function? onRefreshClicked;
 
-  EmptyDataWidget({Key? key, this.onRefreshClicked}) : super(key: key);
+  const EmptyDataWidget({Key? key, this.onRefreshClicked}) : super(key: key);
 
   @override
   _EmptyDataWidgetState createState() => _EmptyDataWidgetState();
@@ -53,14 +53,14 @@ class _EmptyDataWidgetState extends State<EmptyDataWidget>
           Gaps.vGap16,
           Container(
             width: 200,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: MColors.colorPrimarySwatch,
-                borderRadius: const BorderRadius.horizontal(
+                borderRadius: BorderRadius.horizontal(
                     left: Radius.circular(8), right: Radius.circular(8))),
             child: MaterialButton(
                 child: Text(
                   S.of(context).refresh,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
                   widget.onRefreshClicked?.call();

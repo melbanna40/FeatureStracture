@@ -30,113 +30,110 @@ class _CheckDialogState extends State<CheckDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(4),
-        child: Form(
-          child: Container(
-              // padding: const EdgeInsets.all(8),
-              child: Center(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-              child: Container(
-                color: Colors.transparent.withOpacity(.2),
-                child: Container(
-                    child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      ImageUtils.getSVGPath('bg_dialog'),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '" لم يحن موعد الرحيل بعد"',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w700,
-                          ),
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(4),
+      child: Form(
+        child: Center(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+            child: Container(
+              color: Colors.transparent.withOpacity(.2),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SvgPicture.asset(
+                    ImageUtils.getSVGPath('bg_dialog'),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        '" لم يحن موعد الرحيل بعد"',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontFamily: 'Dubai',
+                          fontWeight: FontWeight.w700,
                         ),
-                        Gaps.vGap8,
-                        Text(
-                          'هل أنت متأكد من \n ${widget.cubit!.isLogged! ? S.of(context).clock_out : S.of(context).clock_in}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontFamily: 'Dubai',
-                            fontWeight: FontWeight.w700,
-                          ),
+                      ),
+                      Gaps.vGap8,
+                      Text(
+                        'هل أنت متأكد من \n ${widget.cubit!.isLogged! ? S.of(context).clock_out : S.of(context).clock_in}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontFamily: 'Dubai',
+                          fontWeight: FontWeight.w700,
                         ),
-                        Gaps.vGap8,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                widget.callback!.call(true);
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                height: 30,
-                                width: 50,
-                                margin: EdgeInsets.symmetric(horizontal: 16),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'نعم',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 17,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                      ),
+                      Gaps.vGap8,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              widget.callback!.call(true);
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 50,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'نعم',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                    fontFamily: 'Dubai',
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
                             ),
-                            InkWell(
-                              onTap: () {
-                                // callback.call(false);
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                height: 30,
-                                width: 50,
-                                margin: EdgeInsets.symmetric(horizontal: 16),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'لا',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 17,
-                                      fontFamily: 'Dubai',
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              // callback.call(false);
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 50,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'لا',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                    fontFamily: 'Dubai',
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
-                )),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
-          )),
+          ),
         ),
       ),
     );

@@ -21,8 +21,7 @@ class _SplashScreenState extends State<SplashScreen>
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 800),
     vsync: this,
-  )
-    ..repeat(reverse: true, period: const Duration(milliseconds: 800));
+  )..repeat(reverse: true, period: const Duration(milliseconds: 800));
   late final Animation<double> _animation = CurvedAnimation(
     parent: _controller,
     curve: Curves.easeIn,
@@ -34,13 +33,12 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     timer = Timer.periodic(
         const Duration(
-          seconds: 5,
+          seconds: 4,
         ), (timer) {
-      if (HiveHelper
-          .getUserToken()
-          .isNotEmpty) {
-        Get.offAll(() => MainScreen());
+      if (HiveHelper.getUserToken().isNotEmpty) {
+        Get.offAll(() => const MainScreen());
       } else {
+        // Get.offAll(() => MainScreen());
         Get.offAll(() => LoginScreen());
       }
     });
@@ -59,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen>
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Spacer(),
+          const Spacer(),
           Center(
             child: FadeTransition(
               opacity: _animation,
@@ -69,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen>
           Gaps.vGap100,
           Center(
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               child: Column(
                 children: [
                   Gaps.vGap8,
@@ -79,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen>
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
       // Lottie.asset(

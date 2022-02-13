@@ -10,12 +10,12 @@ import 'package:kafey/res/styles.dart';
 class CustomDrawer extends StatelessWidget {
   final HomeCubit cubit;
 
-  CustomDrawer(this.cubit);
+  const CustomDrawer(this.cubit, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(26), bottomLeft: Radius.circular(26)),
       child: Drawer(
           child: Container(
@@ -27,7 +27,7 @@ class CustomDrawer extends StatelessWidget {
           ),
         ),
         child: Container(
-          margin: EdgeInsets.only(top: 100),
+          margin: const EdgeInsets.only(top: 100),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,10 +35,10 @@ class CustomDrawer extends StatelessWidget {
                 Container(
                   width: 60.0,
                   height: 60.0,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Color(0xff0077ff),
+                      color: const Color(0xff0077ff),
                       width: 2,
                     ),
                   ),
@@ -82,7 +82,7 @@ class CustomDrawer extends StatelessWidget {
                 Gaps.vGap12,
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       "تاريخ التعيين",
                       style: KStyles.textWhiteStyle22,
                     ),
@@ -145,17 +145,18 @@ class CustomDrawer extends StatelessWidget {
                         color: Colors.white,
                       ),
                       Gaps.hGap10,
-                      Text("تسجيل الخروج", style: KStyles.textWhiteStyle22),
+                      const Text("تسجيل الخروج",
+                          style: KStyles.textWhiteStyle22),
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.25,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       " © جميع الحقوق محفوظة",
                       style: KStyles.textWhiteStyle14,
                     ),

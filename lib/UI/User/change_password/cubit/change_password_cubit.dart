@@ -2,7 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:kafey/CommonUtils/common_utils.dart';
-import 'package:kafey/UI/User/login/login_screen.dart';
+import 'package:kafey/Helpers/hivr_helper.dart';
+import 'package:kafey/UI/Main/main_screen.dart';
 import 'package:kafey/base/presenter/base_presenter.dart';
 import 'package:kafey/dependencies/dependency_init.dart';
 import 'package:kafey/network/api/ApiResponse/change_password_response.dart';
@@ -31,20 +32,21 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   final BasePresenter _presenter = getIt<BasePresenter>();
 
   Future doChangePassword(
-      String new_password, String user_id, String tenant_id) async {
+      String newPassword, String userId, String tenantId) async {
     emit(ChangePasswordLoadingState());
     await _presenter.requestFutureData<ChangePasswordResponse>(Method.post,
         url: Api.doNewChangePasswordFirstApiCall,
         options: Options(method: Method.post.toString()),
         params: {
-          "tenant_id": tenant_id,
-          "user_id": user_id,
-          "new_password": new_password,
+          "tenant_id": tenantId,
+          "user_id": userId,
+          "new_password": newPassword,
           "mac_address": await CommonUtils.getDeviceId(),
         }, onSuccess: (data) {
       if (data.code == 200) {
         emit(ChangePasswordSuccessState());
-        Get.offAll(() => LoginScreen());
+        HiveHelper.setUserToken(data.data!.accessToken!);
+        Get.offAll(() => const MainScreen());
       } else {
         emit(ChangePasswordErrorState());
         CommonUtils.showToastMessage(data.message);
