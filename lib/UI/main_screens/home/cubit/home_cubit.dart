@@ -92,7 +92,7 @@ class HomeCubit extends Cubit<HomeState> {
         CommonUtils.showToastMessage(data.message);
         emit(HomeSuccess());
       } else if (data.code == 401) {
-        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Hive.box(HiveHelper.boxKeyUserToken).clear();
         Get.offAll(LoginScreen());
       } else {
         CommonUtils.showToastMessage(data.message);
@@ -162,8 +162,8 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void clearData() {
-    Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
-    Hive.box(HiveHelper.KEY_APP_BASE_URL).clear();
+    Hive.box(HiveHelper.boxKeyUserToken).clear();
+    Hive.box(HiveHelper.keyAppBaseUrl).clear();
     Get.offAll(() => LoginScreen());
   }
 

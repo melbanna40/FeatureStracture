@@ -33,10 +33,10 @@ void main() async {
 
   await Hive.initFlutter();
 
-  await Hive.openBox(HiveHelper.KEY_BOX_APP_LANGUAGE);
-  await Hive.openBox(HiveHelper.KEY_BOX_LOGIN_RESPONSE);
-  await Hive.openBox(HiveHelper.KEY_BOX_TOKEN);
-  await Hive.openBox(HiveHelper.KEY_APP_BASE_URL);
+  await Hive.openBox(HiveHelper.keyBoxAppLanguage);
+  await Hive.openBox(HiveHelper.boxKeyLoginResponse);
+  await Hive.openBox(HiveHelper.boxKeyUserToken);
+  await Hive.openBox(HiveHelper.keyAppBaseUrl);
 
   FirebaseMessaging.instance
       .requestPermission(alert: true, badge: true, sound: true);
@@ -125,9 +125,9 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: mThemeData,
-        locale: Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE).isNotEmpty
-            ? Locale(Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE)
-                .get(HiveHelper.KEY_BOX_APP_LANGUAGE.toString()))
+        locale: Hive.box(HiveHelper.keyBoxAppLanguage).isNotEmpty
+            ? Locale(Hive.box(HiveHelper.keyBoxAppLanguage)
+                .get(HiveHelper.keyBoxAppLanguage.toString()))
             : const Locale("ar"),
         supportedLocales: S.delegate.supportedLocales,
         localizationsDelegates: const [

@@ -34,6 +34,8 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   Future doChangePassword(
       String newPassword, String userId, String tenantId) async {
     emit(ChangePasswordLoadingState());
+    CommonUtils.showCustomDialog();
+    CommonUtils.showToastMessage('جآر التحميل');
     await _presenter.requestFutureData<ChangePasswordResponse>(Method.post,
         url: Api.doNewChangePasswordFirstApiCall,
         options: Options(method: Method.post.toString()),
@@ -46,13 +48,16 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
       if (data.code == 200) {
         emit(ChangePasswordSuccessState());
         HiveHelper.setUserToken(data.data!.accessToken!);
+
         Get.offAll(() => const MainScreen());
-      } else {
+      } else if (data.code == 400 || data.code == 422) {
         emit(ChangePasswordErrorState());
+        CommonUtils.closeCustomDialog();
         CommonUtils.showToastMessage(data.message);
       }
     }, onError: (code, msg) {
       emit(ChangePasswordErrorState());
+      CommonUtils.closeCustomDialog();
       CommonUtils.showToastMessage(msg);
     });
   }

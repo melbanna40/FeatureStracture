@@ -5,24 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 //screen sizes
-const double WIDTH_MOBILE = 600;
-const double WIDTH_TABLET = 900;
-const double WIDTH_DESKTOP = 1024;
+const double widthMobile = 600;
+const double widthTablet = 900;
+const double widthDesktop = 1024;
 
-const double WIDTH_MAX_APP_WIDTH = 1200;
+const double widthMaxAppWidth = 1200;
 
 class ResponsiveHelper {
   final Size deviceSize;
 
   ResponsiveHelper(BuildContext context, Size size) : deviceSize = size;
 
-  bool get isDesktop => deviceSize.width >= WIDTH_DESKTOP;
+  bool get isDesktop => deviceSize.width >= widthDesktop;
 
-  double get optimalDeviceWidth => min(deviceSize.width, WIDTH_MAX_APP_WIDTH);
+  double get optimalDeviceWidth => min(deviceSize.width, widthMaxAppWidth);
 
   bool isTablet({includeMobile = false}) =>
-      deviceSize.width < WIDTH_DESKTOP &&
-      (deviceSize.width > WIDTH_MOBILE || includeMobile);
+      deviceSize.width < widthDesktop &&
+      (deviceSize.width > widthMobile || includeMobile);
 
   T value<T>({
     required T mobile,
@@ -41,7 +41,7 @@ class ResponsiveHelper {
           ? mobile + (2 * increment)
           : mobile + increment;
 
-  bool get isMobile => deviceSize.width <= WIDTH_MOBILE;
+  bool get isMobile => deviceSize.width <= widthMobile;
 
   double get defaultSmallGap => isDesktop
       ? 10
@@ -226,9 +226,9 @@ class ResponsiveWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth >= WIDTH_DESKTOP) {
+        if (constraints.maxWidth >= widthDesktop) {
           return desktop;
-        } else if (constraints.maxWidth > WIDTH_MOBILE) {
+        } else if (constraints.maxWidth > widthMobile) {
           return tablet;
         } else {
           return mobile;

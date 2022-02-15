@@ -15,9 +15,9 @@ import 'net_response.dart';
 Map<String, dynamic> headers = {
   "Accept": "application/json",
   "Content-Type": "application/json",
-  "lang": Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE).isNotEmpty
-      ? Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE)
-          .get(HiveHelper.KEY_BOX_APP_LANGUAGE.toString())
+  "lang": Hive.box(HiveHelper.keyBoxAppLanguage).isNotEmpty
+      ? Hive.box(HiveHelper.keyBoxAppLanguage)
+          .get(HiveHelper.keyBoxAppLanguage.toString())
       : "ar"
 };
 

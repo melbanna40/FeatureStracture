@@ -35,7 +35,7 @@ class SalaryCubit extends Cubit<SalaryState> {
         mMySalariesHistoryDataList = data.data!;
         emit(SalarySuccess());
       } else if (data.code == 401) {
-        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Hive.box(HiveHelper.boxKeyUserToken).clear();
         Get.offAll(LoginScreen());
       } else if (data.code == 400) {
         emit(SalaryError());

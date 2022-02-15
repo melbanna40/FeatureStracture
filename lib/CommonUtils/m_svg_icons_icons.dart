@@ -29,7 +29,7 @@ class MSvgIcons {
   static const _kFontFam = 'MSvgIcons';
   static const String? _kFontPkg = null;
 
-  static const IconData notifications_active = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData notificationsActive = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData users = IconData(0xf0c0, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData clipboard_list = IconData(0xf46d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData clipboardList = IconData(0xf46d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

@@ -48,7 +48,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
         mAttendanceHistoryDataList = data.data!;
         emit(AttendanceSuccess());
       } else if (data.code == 401) {
-        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Hive.box(HiveHelper.boxKeyUserToken).clear();
         Get.offAll(LoginScreen());
       } else {
         emit(AttendanceError());
@@ -75,7 +75,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
         CommonUtils.showToastMessage(data.message);
         emit(AttendanceSuccess());
       } else if (data.code == 401) {
-        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Hive.box(HiveHelper.boxKeyUserToken).clear();
         Get.offAll(LoginScreen());
       } else {
         emit(AttendanceError());

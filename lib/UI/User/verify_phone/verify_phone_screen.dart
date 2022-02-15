@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:kafey/CommonUtils/common_utils.dart';
 import 'package:kafey/UI/User/verify_phone/widgets/confirm_phone_custom_text_field.dart';
 import 'package:kafey/generated/l10n.dart';
 import 'package:kafey/res/gaps.dart';
@@ -9,9 +9,15 @@ import 'cubit/verify_phone_cubit.dart';
 
 class VerifyPhoneScreen extends StatelessWidget {
   VerifyPhoneScreen(this.phone, {Key? key}) : super(key: key);
+
   final String phone;
-  bool isShow = false,
-      isFirstText = false,
+
+  final FocusNode firstNode = FocusNode();
+  final FocusNode secondNode = FocusNode();
+  final FocusNode thirdNode = FocusNode();
+  final FocusNode fourNode = FocusNode();
+
+  bool isFirstText = false,
       isSecondText = false,
       isThirdText = false,
       isFourText = false;
@@ -19,23 +25,9 @@ class VerifyPhoneScreen extends StatelessWidget {
   String? firstText, secondText, thirdText, fourText;
   String? code;
 
-  FocusNode? firstNode = FocusNode();
-  FocusNode secondNode = FocusNode();
-  FocusNode thirdNode = FocusNode();
-  FocusNode fourNode = FocusNode();
-
-  int currentSeconds = 0;
-  bool isScreenOn = true;
-
-  // Timer? _timer;
-
-  String get timerText =>
-      '${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
-  final int timerMaxSeconds = 60;
-
   @override
   Widget build(BuildContext context) {
-    firstNode!.requestFocus();
+    firstNode.requestFocus();
     return BlocBuilder<VerifyPhoneCubit, VerifyPhoneState>(
         builder: (context, state) {
       final cubit = BlocProvider.of<VerifyPhoneCubit>(context);
@@ -66,29 +58,25 @@ class VerifyPhoneScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ConfirmPhoneCustomTextField(firstNode!, (text) {
+                      ConfirmPhoneCustomTextField(firstNode, (text) {
                         isFirstText = text.length == 1;
                         firstText = text;
-                        checkToSendRequest();
                         goNextNodeFocus(1, text.length);
                       }),
                       ConfirmPhoneCustomTextField(secondNode, (text) {
                         isSecondText = text.length == 1;
                         secondText = text;
                         goNextNodeFocus(2, text.length);
-                        checkToSendRequest();
                       }),
                       ConfirmPhoneCustomTextField(thirdNode, (text) {
                         isThirdText = text.length == 1;
                         thirdText = text;
                         goNextNodeFocus(3, text.length);
-                        checkToSendRequest();
                       }),
                       ConfirmPhoneCustomTextField(fourNode, (text) {
                         isFourText = text.length == 1;
                         fourText = text;
                         goNextNodeFocus(4, text.length);
-                        checkToSendRequest();
                       })
                     ],
                   ),
@@ -113,23 +101,10 @@ class VerifyPhoneScreen extends StatelessWidget {
                           isFourText) {
                         cubit.postLogin(
                             int.parse(phone), int.parse(checkToSendRequest()!));
-                        // await Hive.box(HiveHelper.KEY_BOX_USER_RESPONSE)
-                        //     .put(HiveHelper.KEY_BOX_USER_RESPONSE, cubit.model.userData!.seller!);
                       } else {
-                        Get.snackbar(
-                          Get.locale == const Locale('ar')
-                              ? "تأكد من ادخال الكود"
-                              : "put the 4 digits",
-                          "",
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
+                        CommonUtils.showToastMessage(
+                            S.of(context).Enter_4_digit_code_sent_to_you_at);
                       }
-
-                      // Log.e(cubit.model.data!.phone.toString());
-                      // Navigator.pushReplacement(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => MainScreen()));
                     },
                     child: Text(
                       S.of(context).continue_key,
@@ -174,50 +149,11 @@ class VerifyPhoneScreen extends StatelessWidget {
     });
   }
 
-  // startTimeout([int? milliseconds]) {
-  //   var duration = const Duration(seconds: 1);
-  //   _timer = Timer.periodic(duration, (timer) {
-  //     if (isScreenOn) {
-  //       // setState(() {
-  //       //   print(timer.tick);
-  //       //   currentSeconds = timer.tick;
-  //       //   if (currentSeconds == timerMaxSeconds) {
-  //       //     isShow = true;
-  //       //   }
-  //       //   if (timer.tick >= timerMaxSeconds || !is_screen_on) {
-  //       //     timer.cancel();
-  //       //   }
-  //       // });
-  //     }
-  //   });
-  // }
-
   String? checkToSendRequest() {
     if (isFirstText && isSecondText && isThirdText && isFourText) {
       code = "$firstText$secondText$thirdText$fourText";
-      doVerify(code!);
     }
     return code!;
-  }
-
-  void doVerify(String code) {
-    // FocusScope.of(context).unfocus();
-    // if (widget.params!["source"] == Const.SOURCE_FORGET_PASSWORD) {
-    //   mPresenter!.doVerifyCodeForgetPassword(widget.params!["email"], code);
-    // } else if (widget.params!["source"] == Const.SOURCE_REGISTER) {
-    //   mPresenter!.doVerifyCode(widget.params!["email"], code);
-    // } else if (widget.params!["source"] == Const.SOURCE_LOGIN) {
-    //   mPresenter!.doVerifyCode(widget.params!["email"], code);
-    // }
-  }
-
-  void resendCode() {
-    // if (widget.params["source"] == Const.SOURCE_FORGET_PASSWORD) {
-    //   mPresenter.sendCodeForgetPassword(widget.params["email"]);
-    // } else if (widget.params["source"] == Const.SOURCE_REGISTER ||
-    //     widget.params["source"] == Const.SOURCE_LOGIN) {
-    //   mPresenter.sendCodeRegister(widget.params["email"]);
-    // }
   }
 
   void goNextNodeFocus(int numberText, int size) {
@@ -226,14 +162,14 @@ class VerifyPhoneScreen extends StatelessWidget {
         if (size == 1) {
           secondNode.requestFocus();
         } else {
-          firstNode!.requestFocus();
+          firstNode.requestFocus();
         }
         break;
       case 2:
         if (size == 1) {
           thirdNode.requestFocus();
         } else {
-          firstNode!.requestFocus();
+          firstNode.requestFocus();
         }
         break;
       case 3:
@@ -251,12 +187,5 @@ class VerifyPhoneScreen extends StatelessWidget {
         }
         break;
     }
-  }
-
-  onDispose() {
-    firstNode!.dispose();
-    secondNode.dispose();
-    thirdNode.dispose();
-    fourNode.dispose();
   }
 }

@@ -21,8 +21,8 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
   @override
   void initState() {
     super.initState();
-    selectedLocal = Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE)
-            .get(HiveHelper.KEY_BOX_APP_LANGUAGE) ??
+    selectedLocal = Hive.box(HiveHelper.keyBoxAppLanguage)
+            .get(HiveHelper.keyBoxAppLanguage) ??
         appLanguages[0];
   }
 
@@ -108,8 +108,8 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
                         Locale(selectedLocal!)) {
                       HiveHelper.mobileLanguage.value = Locale(selectedLocal!);
                     }
-                    await Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE)
-                        .put(HiveHelper.KEY_BOX_APP_LANGUAGE, selectedLocal);
+                    await Hive.box(HiveHelper.keyBoxAppLanguage)
+                        .put(HiveHelper.keyBoxAppLanguage, selectedLocal);
                     Get.updateLocale(Locale(selectedLocal!));
                     setState(() {});
                     FocusScope.of(context).unfocus();

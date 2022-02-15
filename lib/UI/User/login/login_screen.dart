@@ -154,7 +154,7 @@ class LoginScreen extends StatelessWidget {
                                 } else {
                                   cubit.doServerLogin(
                                       // "${cubit.countryCode}"
-                                      "${_phoneController.text}",
+                                      _phoneController.text,
                                       _passwordController.text,
                                       '${_companyDomainController.text}.ikafey.xyz');
                                 }

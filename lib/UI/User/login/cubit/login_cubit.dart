@@ -38,6 +38,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future doServerLogin(
       String phone, String password, String companySubDomain) async {
     emit(LoginLoadingState());
+    CommonUtils.showCustomDialog();
     CommonUtils.showToastMessage('جآر التحميل');
     await _presenter.requestFutureData<LoginResponse>(Method.post,
         url: Api.doNewLoginApiCall,
@@ -64,15 +65,22 @@ class LoginCubit extends Cubit<LoginState> {
           Get.offAll(() => const MainScreen());
         } else if (data.data!.user!.loggedBefore! == 0 &&
             data.data!.nextStep == 'redirect_to_change_password') {
+          CommonUtils.closeCustomDialog();
           Get.to(() => ChangePasswordScreen(data.data!.user!.id.toString(),
               data.data!.user!.tenantId.toString()));
         }
       } else if (data.code == 400) {
         emit(LoginErrorState());
+        CommonUtils.closeCustomDialog();
+        CommonUtils.showToastMessage(data.message);
+      } else if (data.code == 422) {
+        emit(LoginErrorState());
+        CommonUtils.closeCustomDialog();
         CommonUtils.showToastMessage(data.message);
       }
     }, onError: (code, msg) {
       emit(LoginErrorState());
+      CommonUtils.closeCustomDialog();
       CommonUtils.showToastMessage(msg);
     });
   }
@@ -89,7 +97,7 @@ class LoginCubit extends Cubit<LoginState> {
       if (data.code == 200) {
         emit(LoginSuccessState());
       } else if (data.code == 401) {
-        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Hive.box(HiveHelper.boxKeyUserToken).clear();
         Get.offAll(LoginScreen());
       } else if (data.code == 400) {
         CommonUtils.showToastMessage(data.message);

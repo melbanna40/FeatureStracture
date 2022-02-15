@@ -58,31 +58,31 @@ class NotificationData {
 class Details {
   dynamic from;
   dynamic to;
-  dynamic numberOfDayes;
+  dynamic numberOfDays;
   LeaveType? leaveType;
   dynamic reason;
   String? comment;
   dynamic attachment;
   dynamic status;
   dynamic body;
-  dynamic notification_status;
+  dynamic notificationStatus;
 
   Details(
       {this.from,
       this.to,
-      this.numberOfDayes,
+      this.numberOfDays,
       this.leaveType,
       this.reason,
       this.comment,
       this.attachment,
       this.status,
       this.body,
-      this.notification_status});
+      this.notificationStatus});
 
   Details.fromJson(Map<String, dynamic> json) {
     from = json['from'];
     to = json['to'];
-    numberOfDayes = json['number_of_dayes'];
+    numberOfDays = json['number_of_dayes'];
     leaveType = json['leave_type'] != null
         ? LeaveType.fromJson(json['leave_type'])
         : null;
@@ -91,14 +91,14 @@ class Details {
     attachment = json['attachment'];
     status = json['status'];
     body = json['body'];
-    notification_status = json['notification_status'];
+    notificationStatus = json['notification_status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['from'] = from;
     data['to'] = to;
-    data['number_of_dayes'] = numberOfDayes;
+    data['number_of_dayes'] = numberOfDays;
     if (leaveType != null) {
       data['leave_type'] = leaveType!.toJson();
     }
@@ -107,7 +107,7 @@ class Details {
     data['attachment'] = attachment;
     data['status'] = status;
     data['body'] = body;
-    data['notification_status'] = notification_status;
+    data['notification_status'] = notificationStatus;
     return data;
   }
 }

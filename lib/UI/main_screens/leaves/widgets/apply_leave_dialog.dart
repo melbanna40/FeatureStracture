@@ -23,8 +23,8 @@ class ApplyLeaveDialog extends StatefulWidget {
 class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
   final _dateController = TextEditingController();
   final _reasonController = TextEditingController();
-  var start;
-  var end;
+  String? start;
+  String? end;
   LeavesType? selectedLeaveType;
 
   @override
@@ -96,7 +96,7 @@ class _ApplyLeaveDialogState extends State<ApplyLeaveDialog> {
                     end = DateFormat('yyyy-MM-dd', 'en').format(picked.end);
 
                     _dateController.text =
-                        "   من   " + start + "  إلى    " + end;
+                        "   من   " + start! + "  إلى    " + end!;
                     setState(() {});
                   }
                 },

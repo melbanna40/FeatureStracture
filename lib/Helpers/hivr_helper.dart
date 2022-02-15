@@ -5,44 +5,44 @@ import 'package:kafey/network/api/network_api.dart';
 
 class HiveHelper {
   static ValueNotifier<Locale> mobileLanguage = ValueNotifier(Locale(
-      '${Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE).get(HiveHelper.KEY_BOX_APP_LANGUAGE) != null}',
+      '${Hive.box(HiveHelper.keyBoxAppLanguage).get(HiveHelper.keyBoxAppLanguage) != null}',
       'ar'));
-  static const KEY_BOX_LOGIN_RESPONSE = "boxKeyLoginResponse";
+  static const boxKeyLoginResponse = "boxKeyLoginResponse";
 
-  static var KEY_BOX_TOKEN = "boxKeyUserToken";
+  static var boxKeyUserToken = "boxKeyUserToken";
 
   static var boxKeyAppTheme = "boxKeyAppTheme";
-  static var KEY_BOX_APP_LANGUAGE = "KEY_BOX_APP_LANGUAGE";
-  static var KEY_APP_BASE_URL = "KEY_APP_BASE_URL";
+  static var keyBoxAppLanguage = "keyBoxAppLanguage";
+  static var keyAppBaseUrl = "keyAppBaseUrl";
 
   static void setBaseUrl(String baseUrl) {
-    Hive.box(HiveHelper.KEY_APP_BASE_URL)
-        .put(HiveHelper.KEY_APP_BASE_URL, baseUrl)
+    Hive.box(HiveHelper.keyAppBaseUrl)
+        .put(HiveHelper.keyAppBaseUrl, baseUrl)
         .whenComplete(() => Log.i(baseUrl));
   }
 
   static String getBaseUrl() {
-    return Hive.box(HiveHelper.KEY_APP_BASE_URL).isNotEmpty
-        ? Hive.box(HiveHelper.KEY_APP_BASE_URL).get(HiveHelper.KEY_APP_BASE_URL)
+    return Hive.box(HiveHelper.keyAppBaseUrl).isNotEmpty
+        ? Hive.box(HiveHelper.keyAppBaseUrl).get(HiveHelper.keyAppBaseUrl)
         : Api.firstBaseUrl;
   }
 
   static void setUserToken(String token) {
-    Hive.box(HiveHelper.KEY_BOX_TOKEN)
-        .put(HiveHelper.KEY_BOX_TOKEN, token)
+    Hive.box(HiveHelper.boxKeyUserToken)
+        .put(HiveHelper.boxKeyUserToken, token)
         .whenComplete(() => Log.i(getUserToken()));
   }
 
   static String getUserToken() {
-    return Hive.box(HiveHelper.KEY_BOX_TOKEN).isNotEmpty
-        ? Hive.box(HiveHelper.KEY_BOX_TOKEN).get(HiveHelper.KEY_BOX_TOKEN)
+    return Hive.box(HiveHelper.boxKeyUserToken).isNotEmpty
+        ? Hive.box(HiveHelper.boxKeyUserToken).get(HiveHelper.boxKeyUserToken)
         : '';
   }
 
   static String getAppLanguage() {
-    return Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE).isNotEmpty
-        ? Hive.box(HiveHelper.KEY_BOX_APP_LANGUAGE)
-            .get(HiveHelper.KEY_BOX_APP_LANGUAGE)
+    return Hive.box(HiveHelper.keyBoxAppLanguage).isNotEmpty
+        ? Hive.box(HiveHelper.keyBoxAppLanguage)
+            .get(HiveHelper.keyBoxAppLanguage)
         : 'ar';
   }
 }

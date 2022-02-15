@@ -41,7 +41,7 @@ class LeavesCubit extends Cubit<LeavesState> {
         emit(LeavesSuccess());
         CommonUtils.showToastMessage(data.message);
       } else if (data.code == 401) {
-        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Hive.box(HiveHelper.boxKeyUserToken).clear();
         Get.offAll(LoginScreen());
       } else {
         emit(LeavesError());
@@ -69,7 +69,7 @@ class LeavesCubit extends Cubit<LeavesState> {
         // Log.json(mMyLeavesHistoryDataList.toString());
         emit(LeavesSuccess());
       } else if (data.code == 401) {
-        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Hive.box(HiveHelper.boxKeyUserToken).clear();
         Get.offAll(LoginScreen());
       } else if (data.code == 400) {
         emit(LeavesError());
@@ -96,7 +96,7 @@ class LeavesCubit extends Cubit<LeavesState> {
         getMyLeavesHistory();
         emit(LeavesSuccess());
       } else if (data.code == 401) {
-        Hive.box(HiveHelper.KEY_BOX_TOKEN).clear();
+        Hive.box(HiveHelper.boxKeyUserToken).clear();
         Get.offAll(LoginScreen());
       } else if (data.code == 400) {
         CommonUtils.showToastMessage(data.message);

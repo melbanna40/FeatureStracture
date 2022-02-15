@@ -102,7 +102,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           child: Center(
                             child: Text(
                               cubit.mNotificationDataList![index].details!
-                                      .notification_status ??
+                                      .notificationStatus ??
                                   '',
                               style: TextStyle(
                                 color: (cubit.mNotificationDataList![index]
