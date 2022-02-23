@@ -1,3 +1,7 @@
+import 'package:dev_banna/CommonUtils/log_utils.dart';
+import 'package:dev_banna/features/temp/cubit/temp_cubit.dart';
+import 'package:dev_banna/features/temp/ui/temp_screen.dart';
+import 'package:dev_banna/res/m_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -5,19 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:kafey/CommonUtils/log_utils.dart';
-import 'package:kafey/UI/User/change_password/cubit/change_password_cubit.dart';
-import 'package:kafey/UI/User/new_employee/cubit/forget_password_cubit.dart';
-import 'package:kafey/UI/main_screens/attendance/cubit/attendance_cubit.dart';
-import 'package:kafey/UI/main_screens/leaves/cubit/leaves_cubit.dart';
-import 'package:kafey/UI/main_screens/notifications/cubit/notification_cubit.dart';
-import 'package:kafey/UI/main_screens/salary/cubit/salary_cubit.dart';
-import 'package:kafey/UI/main_screens/salary_details/cubit/salary_details_cubit.dart';
-import 'package:kafey/res/m_colors.dart';
 
 import 'Helpers/hivr_helper.dart';
-import 'UI/User/login/cubit/login_cubit.dart';
-import 'UI/splash/splash_screen.dart';
 import 'dependencies/dependency_init.dart';
 import 'generated/l10n.dart';
 
@@ -29,7 +22,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
   await Hive.initFlutter();
 
@@ -38,13 +31,13 @@ void main() async {
   await Hive.openBox(HiveHelper.boxKeyUserToken);
   await Hive.openBox(HiveHelper.keyAppBaseUrl);
 
-  FirebaseMessaging.instance
-      .requestPermission(alert: true, badge: true, sound: true);
-  FirebaseMessaging.instance.getToken().then((token) {
-    assert(token != null);
-    // print(token);
-  });
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.instance
+  //     .requestPermission(alert: true, badge: true, sound: true);
+  // FirebaseMessaging.instance.getToken().then((token) {
+  //   assert(token != null);
+  //   // print(token);
+  // });
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
 }
@@ -81,13 +74,14 @@ class MyApp extends StatelessWidget {
               borderSide:
                   BorderSide(color: MColors.colorPrimarySwatch, width: 1)),
           enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8),
-              ),
-              borderSide: BorderSide(
-                color: MColors.colorPrimarySwatch,
-                width: 1.5,
-              )),
+            borderRadius: BorderRadius.all(
+              Radius.circular(8),
+            ),
+            borderSide: BorderSide(
+              color: MColors.colorPrimarySwatch,
+              width: 1.5,
+            ),
+          ),
           hintStyle: const TextStyle(
             color: Colors.grey,
           ),
@@ -106,39 +100,25 @@ class MyApp extends StatelessWidget {
         fontFamily: "Dubai",
         primaryColor: MColors.colorPrimary);
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => LoginCubit()),
-        BlocProvider(create: (context) => ForgetPasswordCubit()),
-        BlocProvider(create: (context) => ChangePasswordCubit()),
-        BlocProvider(
-            create: (context) => SalaryCubit()..getMySalariesHistory()),
-        BlocProvider(create: (context) => SalaryDetailsCubit()),
-        BlocProvider(
-            create: (context) =>
-                NotificationsCubit()..getNotificationsHistoryApiCal()),
-        BlocProvider(create: (context) => LeavesCubit()..getMyLeavesBalances()),
-        BlocProvider(
-            create: (context) =>
-                AttendanceCubit()..getAttendanceHistoryApiCal()),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: mThemeData,
+      locale: Hive.box(HiveHelper.keyBoxAppLanguage).isNotEmpty
+          ? Locale(Hive.box(HiveHelper.keyBoxAppLanguage)
+              .get(HiveHelper.keyBoxAppLanguage.toString()))
+          : const Locale("ar"),
+      supportedLocales: S.delegate.supportedLocales,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        DefaultMaterialLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
       ],
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: mThemeData,
-        locale: Hive.box(HiveHelper.keyBoxAppLanguage).isNotEmpty
-            ? Locale(Hive.box(HiveHelper.keyBoxAppLanguage)
-                .get(HiveHelper.keyBoxAppLanguage.toString()))
-            : const Locale("ar"),
-        supportedLocales: S.delegate.supportedLocales,
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          DefaultMaterialLocalizations.delegate,
-          DefaultWidgetsLocalizations.delegate,
-        ],
-        home: const SplashScreen(),
+      home: BlocProvider(
+        create: (context) => getIt<TempCubit>()..getTempData(),
+        child: const TempScreen(),
       ),
     );
   }

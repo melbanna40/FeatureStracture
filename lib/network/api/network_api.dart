@@ -1,4 +1,4 @@
-import 'package:kafey/Helpers/hivr_helper.dart';
+import 'package:dev_banna/Helpers/hivr_helper.dart';
 
 class Api {
   //base Url
@@ -46,4 +46,10 @@ class Api {
       "user/user-notifications-history";
 
   static const String doLogoutApiCall = "logout";
+
+  static const String tempBaseUrl = "http://0.0.0.0:3000//";
+
+  static const String getTempDataApiCall = "users";
+
+
 }

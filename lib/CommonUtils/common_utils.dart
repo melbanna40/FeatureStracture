@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kafey/CommonUtils/log_utils.dart';
+import 'package:dev_banna/CommonUtils/log_utils.dart';
 
 class CommonUtils {
   static Color getColorFromHex(String hexColor) {
@@ -21,6 +21,7 @@ class CommonUtils {
       duration: const Duration(milliseconds: 1500),
       snackPosition: SnackPosition.TOP,
     );
+    // Get.closeCurrentSnackbar();
   }
 
   static bool isLoadingDialogVisible = false;

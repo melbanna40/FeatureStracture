@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1086168399400:android:6b00752253ff97e336bf1d",
         "android_client_info": {
-          "package_name": "com.ingaz.kafey"
+          "package_name": "com.dev.banna"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "1086168399400-ec493l8f7phcfdgnpr620rarh7f0hreb.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.ingaz.kafey"
+                "bundle_id": "com.dev.banna"
               }
             }
           ]

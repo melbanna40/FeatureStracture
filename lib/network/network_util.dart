@@ -1,10 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:dev_banna/CommonUtils/log_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hive/hive.dart';
-import 'package:kafey/CommonUtils/log_utils.dart';
-import 'package:kafey/Helpers/hivr_helper.dart';
 
 import 'api/network_api.dart';
 import 'exception/error_status.dart';
@@ -12,13 +11,10 @@ import 'exception/exception_handle.dart';
 import 'interceptors.dart';
 import 'net_response.dart';
 
+//Set default Header Not configured User-Agent Eye open API 403
 Map<String, dynamic> headers = {
-  "Accept": "application/json",
-  "Content-Type": "application/json",
-  "lang": Hive.box(HiveHelper.keyBoxAppLanguage).isNotEmpty
-      ? Hive.box(HiveHelper.keyBoxAppLanguage)
-          .get(HiveHelper.keyBoxAppLanguage.toString())
-      : "ar"
+  HttpHeaders.acceptHeader: "application/json",
+  HttpHeaders.contentTypeHeader: 'application/json'
 };
 
 class DioUtils {
@@ -41,32 +37,46 @@ class DioUtils {
     _options = BaseOptions(
       baseUrl: Api.baseUrl,
       connectTimeout: 15000,
+
+      ///The interval between receiving data before and after the response stream
       receiveTimeout: 5000,
+
+      ///If the returned is json (content-type), dio is automatically converted to json by default, no need to manually transfer
+      ///(https://github.com/flutterchina/dio/issues/30)
       responseType: ResponseType.plain,
+
+      //Default headers configuration
       headers: headers,
+
       validateStatus: (status) {
+        //Whether to use http status code for judgment, true means not to use http status code for judgment
         return true;
       },
     );
-
     _dio = Dio(_options);
 
+    //Add cookie blocker management
+//    _dio.interceptors.add(CookieManager(CookieJar()));
+
+    //Unified request header interceptor
     _dio!.interceptors.add(AuthInterceptor());
 
+    //Web log blocker
     _dio!.interceptors.add(LoggingInterceptor());
 
     _dio!.interceptors.add(AdapterInterceptor());
   }
 
+  ///The returned data is processed uniformly and parsed into corresponding Bean
   Future<BaseResponse<T>> _request<T>(String method, String url,
-      {dynamic data,
+      {Map<String, dynamic>? data,
+      FormData? dataForm,
+      bool? isFormData = false,
       Map<String, dynamic>? queryParameters,
       CancelToken? cancelToken,
-      Options? options,
-      void Function(int, int)? onSendProgress}) async {
+      Options? options}) async {
     var response = await _dio!.request(url,
-        onSendProgress: onSendProgress,
-        data: data,
+        data: isFormData == true ? dataForm : data,
         queryParameters: queryParameters,
         options: _setOptions(method, options!),
         cancelToken: cancelToken);
@@ -75,8 +85,8 @@ class DioUtils {
           await compute(parseData, response.data.toString());
       return BaseResponse.fromJson(_map);
     } catch (e) {
-      Log.e(e.toString());
-      return BaseResponse(ErrorStatus.parseError, "PARSE_ERROR", null);
+      debugPrint('$e');
+      return BaseResponse(ErrorStatus.parseError, "parseError", null);
     }
   }
 
@@ -85,10 +95,11 @@ class DioUtils {
       Function(List<T> list)? onSuccessList,
       Function(int code, String msg)? onError,
       dynamic params,
+      FormData? dataForm,
+      bool? isFormData,
       Map<String, dynamic>? queryParameters,
       CancelToken? cancelToken,
       Options? options,
-      void Function(int, int)? onSendProgress,
       bool isList = false}) async {
     if (newBaseUrl.isNotEmpty) {
       _options!.baseUrl = newBaseUrl;
@@ -97,8 +108,9 @@ class DioUtils {
     }
     String requestMethod = _getMethod(method);
     return await _request<T>(requestMethod, url,
-            onSendProgress: onSendProgress,
             data: params,
+            isFormData: isFormData,
+            dataForm: dataForm,
             queryParameters: queryParameters,
             options: options,
             cancelToken: cancelToken)
