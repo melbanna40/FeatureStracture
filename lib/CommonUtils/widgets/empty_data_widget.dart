@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:dev_banna/CommonUtils/image_utils.dart';
-import 'package:dev_banna/generated/l10n.dart';
-import 'package:dev_banna/res/gaps.dart';
-import 'package:dev_banna/res/m_colors.dart';
+import 'package:byaan/CommonUtils/image_utils.dart';
+import 'package:byaan/generated/l10n.dart';
+import 'package:byaan/res/gaps.dart';
+import 'package:byaan/res/m_colors.dart';
 
 class EmptyDataWidget extends StatefulWidget {
   final Function? onRefreshClicked;
@@ -43,7 +43,7 @@ class _EmptyDataWidgetState extends State<EmptyDataWidget>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            ImageUtils.getSVGPath('ic_kafey_logo'),
+            ImageUtils.getImagePath('ic_kafey_logo', format: 'svg'),
             width: 100,
             height: 100,
             color: Colors.grey,

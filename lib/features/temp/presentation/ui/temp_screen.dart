@@ -1,6 +1,6 @@
-import 'package:dev_banna/features/temp/cubit/temp_cubit.dart';
-import 'package:dev_banna/features/widgets/empty_data_widget.dart';
-import 'package:dev_banna/features/widgets/loading_widget.dart';
+import 'package:byaan/features/temp/presentation/cubit/temp_cubit.dart';
+import 'package:byaan/CommonUtils//widgets/empty_data_widget.dart';
+import 'package:byaan/CommonUtils/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

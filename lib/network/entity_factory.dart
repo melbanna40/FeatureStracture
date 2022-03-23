@@ -1,5 +1,5 @@
-import 'package:dev_banna/features/temp/data/models/temp_response_entity.dart';
-import 'package:dev_banna/network/net_response.dart';
+import 'package:byaan/features/temp/data/models/temp_response_entity.dart';
+import 'package:byaan/network/net_response.dart';
 
 class EntityFactory {
   static T? generateOBJ<T>(json) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:dev_banna/CommonUtils/image_utils.dart';
+import 'package:byaan/CommonUtils/image_utils.dart';
 
 class LoadingWidget extends StatefulWidget {
   const LoadingWidget({Key? key}) : super(key: key);
@@ -37,7 +37,7 @@ class _LoadingWidgetState extends State<LoadingWidget>
       child: FadeTransition(
         opacity: _animation,
         child: SvgPicture.asset(
-          ImageUtils.getSVGPath('ic_kafey_logo'),
+          ImageUtils.getImagePath('ic_kafey_logo', format: 'svg'),
           width: 50,
           height: 50,
           color: Colors.grey,

@@ -1,4 +1,4 @@
-import 'package:dev_banna/Helpers/hivr_helper.dart';
+import 'package:byaan/Helpers/hivr_helper.dart';
 
 class Api {
   //base Url

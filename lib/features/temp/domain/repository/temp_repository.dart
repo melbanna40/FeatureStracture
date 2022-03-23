@@ -1,5 +1,6 @@
-import 'package:dev_banna/features/temp/data/services/network_service.dart';
+import 'package:byaan/features/temp/data/services/network_service.dart';
 import 'package:injectable/injectable.dart';
+
 @Injectable()
 class TempRepository {
   final TempNetworkService mWebService;
@@ -9,5 +10,4 @@ class TempRepository {
   Future<EitherTempResponse> getTempDataApiCall() async {
     return await mWebService.getTempDataApiCall();
   }
-
 }

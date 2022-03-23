@@ -1,9 +1,5 @@
-import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dev_banna/CommonUtils/log_utils.dart';
 
 class CommonUtils {
   static Color getColorFromHex(String hexColor) {
@@ -63,18 +59,18 @@ class CommonUtils {
     }
   }
 
-  static Future<String?> getDeviceId() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    if (Platform.isAndroid) {
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      Log.d('Device id ${androidInfo.device}');
-      return androidInfo.androidId;
-    }
-    if (Platform.isIOS) {
-      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-      Log.d('Device id ${iosInfo.identifierForVendor}');
-      return iosInfo.identifierForVendor;
-    }
-    return null;
-  }
+// static Future<String?> getDeviceId() async {
+//   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+//   if (Platform.isAndroid) {
+//     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+//     Log.d('Device id ${androidInfo.device}');
+//     return androidInfo.androidId;
+//   }
+//   if (Platform.isIOS) {
+//     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+//     Log.d('Device id ${iosInfo.identifierForVendor}');
+//     return iosInfo.identifierForVendor;
+//   }
+//   return null;
+// }
 }

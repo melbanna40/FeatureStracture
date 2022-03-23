@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dev_banna/CommonUtils/log_utils.dart';
+import 'package:byaan/CommonUtils/log_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 

@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:dev_banna/CommonUtils/log_utils.dart';
-import 'package:dev_banna/dependencies/dependency_init.dart';
-import 'package:dev_banna/features/temp/data/models/temp_response_entity.dart';
-import 'package:dev_banna/network/api/network_api.dart';
-import 'package:dev_banna/network/base_presenter.dart';
-import 'package:dev_banna/network/network_util.dart';
+import 'package:byaan/CommonUtils/log_utils.dart';
+import 'package:byaan/dependencies/dependency_init.dart';
+import 'package:byaan/features/temp/data/models/temp_response_entity.dart';
+import 'package:byaan/network/api/network_api.dart';
+import 'package:byaan/network/base_presenter.dart';
+import 'package:byaan/network/network_util.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 

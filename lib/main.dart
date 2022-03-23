@@ -1,23 +1,19 @@
-import 'package:dev_banna/CommonUtils/log_utils.dart';
-import 'package:dev_banna/features/temp/cubit/temp_cubit.dart';
-import 'package:dev_banna/features/temp/ui/temp_screen.dart';
-import 'package:dev_banna/res/m_colors.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:byaan/features/test/Drawerhiden/hidendrawer.dart';
+import 'package:byaan/res/m_colors.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import 'Helpers/hivr_helper.dart';
 import 'dependencies/dependency_init.dart';
 import 'generated/l10n.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  Log.i("Handling a background message: ${message.messageId}");
-}
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp();
+//   Log.i("Handling a background message: ${message.messageId}");
+// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,12 +63,13 @@ class MyApp extends StatelessWidget {
                 Radius.circular(8),
               ),
               borderSide: BorderSide(color: Colors.red, width: 1)),
-          focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8),
-              ),
-              borderSide:
-                  BorderSide(color: MColors.colorPrimarySwatch, width: 1)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(16),
+            ),
+            borderSide:
+                BorderSide(color: Colors.grey.withOpacity(0.2), width: 1),
+          ),
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(8),
@@ -102,11 +99,23 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: (context, widget) => ResponsiveWrapper.builder(
+        BouncingScrollWrapper.builder(context, widget!),
+        maxWidth: 1200,
+        minWidth: 480,
+        defaultScale: true,
+        breakpoints: [
+          const ResponsiveBreakpoint.resize(480, name: MOBILE),
+          const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+        ],
+      ),
       theme: mThemeData,
-      locale: Hive.box(HiveHelper.keyBoxAppLanguage).isNotEmpty
-          ? Locale(Hive.box(HiveHelper.keyBoxAppLanguage)
-              .get(HiveHelper.keyBoxAppLanguage.toString()))
-          : const Locale("ar"),
+      locale: const Locale("ar"),
+      // Hive.box(HiveHelper.keyBoxAppLanguage).isNotEmpty
+      //     ? Locale(Hive.box(HiveHelper.keyBoxAppLanguage)
+      //         .get(HiveHelper.keyBoxAppLanguage.toString()))
+      //     : const Locale("ar"),
       supportedLocales: S.delegate.supportedLocales,
       localizationsDelegates: const [
         S.delegate,
@@ -116,10 +125,8 @@ class MyApp extends StatelessWidget {
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,
       ],
-      home: BlocProvider(
-        create: (context) => getIt<TempCubit>()..getTempData(),
-        child: const TempScreen(),
-      ),
+      defaultTransition: Transition.cupertino,
+      home: const HiddenDrawer(),
     );
   }
 }

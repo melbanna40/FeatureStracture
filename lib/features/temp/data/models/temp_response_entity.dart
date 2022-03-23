@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:dev_banna/generated/json/base/json_field.dart';
-import 'package:dev_banna/generated/json/temp_response_entity.g.dart';
+import 'package:byaan/generated/json/base/json_field.dart';
+import 'package:byaan/generated/json/temp_response_entity.g.dart';
 
 typedef TempDataModelResource = List<TempDataModel>?;
 

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:sprintf/sprintf.dart';
-import 'package:dev_banna/CommonUtils/log_utils.dart';
+import 'package:byaan/CommonUtils/log_utils.dart';
 
 import 'exception/error_status.dart';
 

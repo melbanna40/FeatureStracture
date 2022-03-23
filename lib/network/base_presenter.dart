@@ -1,6 +1,6 @@
-import 'package:dev_banna/network/network_util.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:byaan/network/network_util.dart';
 
 import 'exception/error_status.dart';
 
@@ -52,7 +52,6 @@ class NetworkRequestImp implements BaseApiHelper {
         onSuccess(data);
       }
     }, onSuccessList: (data) {
-      if (isClose) //view.closeProgress();
       if (onSuccessList != null) {
         onSuccessList(data);
       }

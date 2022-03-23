@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:dev_banna/CommonUtils/log_utils.dart';
-import 'package:dev_banna/network/api/network_api.dart';
+import 'package:byaan/CommonUtils/log_utils.dart';
+import 'package:byaan/network/api/network_api.dart';
 
 class HiveHelper {
   static ValueNotifier<Locale> mobileLanguage = ValueNotifier(Locale(
