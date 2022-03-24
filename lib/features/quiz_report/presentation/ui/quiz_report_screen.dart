@@ -184,8 +184,8 @@ class QuizReportScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Spacer(),
-            CupertinoButton(
+            Gaps.vGap30,
+             CupertinoButton(
                 minSize: 60,
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.3,
@@ -203,8 +203,7 @@ class QuizReportScreen extends StatelessWidget {
                 onPressed: () {
                   Get.to(() => const SolutionsScreen());
                 }),
-            const Spacer(),
-          ],
+           ],
         ),
       ),
     );
