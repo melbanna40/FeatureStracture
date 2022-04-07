@@ -1,4 +1,6 @@
+import 'package:animated_search_bar/animated_search_bar.dart';
 import 'package:byaan/CommonUtils/image_utils.dart';
+import 'package:byaan/CommonUtils/log_utils.dart';
 import 'package:byaan/features/course_details/presentation/ui/course_details_screen.dart';
 import 'package:byaan/features/courses_list/presentation/ui/courses_list_screen.dart';
 import 'package:byaan/features/home/data/data.dart';
@@ -27,6 +29,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final List searchData = const [
+    'Steel Pan',
+    'Harp',
+    'Cake',
+    'Maracas',
+    'Clarinet',
+    'Odyssey',
+    'Slide Whistle',
+    'Piano',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,38 +68,40 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              S.of(context).welcome,
-              style: const TextStyle(
-                color: MColors.labelColor,
-                fontSize: 16,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                S.of(context).welcome,
+                style: const TextStyle(
+                  color: MColors.labelColor,
+                  fontSize: 16,
+                ),
               ),
-            ),
-            const Text("Ahmed",
-                style: TextStyle(
-                  color: MColors.textColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
-                )),
-          ],
-        )),
-        GestureDetector(
-          child: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: MColors.appBarColor,
-              border: Border.all(color: Colors.grey.withOpacity(.3)),
-            ),
-            child: SvgPicture.asset(
+              const Text("Ahmed",
+                  style: TextStyle(
+                    color: MColors.textColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                  )),
+            ],
+          ),
+        ),
+        SizedBox(
+          width: Get.width * 0.7,
+          child: AnimatedSearchBar(
+            cursorColor: Colors.black,
+            searchIcon: SvgPicture.asset(
               ImageUtils.getImagePath('search', format: 'svg'),
-              width: 20,
-              height: 20,
             ),
+            closeIcon: Icon(Icons.close, color: Colors.black),
+              onChanged: (value) {
+               setState(() {
+                Log.e(value);
+                // searchText = value;
+              });
+            },
           ),
         ),
         Gaps.hGap8,

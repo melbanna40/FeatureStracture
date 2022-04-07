@@ -70,6 +70,12 @@ dependencies:
 
   flutter_timer_countdown: ^1.0.3
 
+  animated_search_bar: ^2.2.0
+
+  video_player: ^2.3.0
+
+  youtube_player_iframe: ^2.2.2
+
 #  location: ^4.3.0
 #  geolocator: ^8.0.1
 #  geocoding: ^2.0.2

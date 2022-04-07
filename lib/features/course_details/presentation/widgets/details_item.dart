@@ -10,7 +10,7 @@ class DetailsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(shrinkWrap: true,
+    return Column(
       children: [
         Gaps.vGap12,
         Text(description),
@@ -31,7 +31,10 @@ class DetailsItem extends StatelessWidget {
         Gaps.vGap12,
         Row(
           children: const [
-            Icon(Icons.schedule_rounded,size: 18,),
+            Icon(
+              Icons.schedule_rounded,
+              size: 18,
+            ),
             Gaps.hGap4,
             Text(
               '1 hour per class',
@@ -45,7 +48,11 @@ class DetailsItem extends StatelessWidget {
         Row(
           children: [
             SvgPicture.asset(
-                ImageUtils.getImagePath('profile', format: 'svg'),width: 18,height: 18,color: const Color(0xff0d1731),),
+              ImageUtils.getImagePath('profile', format: 'svg'),
+              width: 18,
+              height: 18,
+              color: const Color(0xff0d1731),
+            ),
             Gaps.hGap4,
             const Text(
               'Expert mentors',
