@@ -10,7 +10,7 @@ class DetailsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
         Gaps.vGap12,
         Text(description),
