@@ -200,9 +200,9 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen>
                           color: Color(0xff6e767c),
                         ),
                       ),
-                       Text(
+                      Text(
                         '${765.00} ${S.current.currency}',
-                        style:const TextStyle(
+                        style: const TextStyle(
                           color: Color(0xff0d1731),
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
@@ -290,4 +290,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen>
       ),
     ];
   }
+
+
+
 }

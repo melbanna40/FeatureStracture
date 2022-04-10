@@ -64,5 +64,7 @@
   "notification": "Notification",
   "privacy": "Privacy",
   "help": "Help",
-  "logOut": "LogOut"
+  "logOut": "LogOut",
+  "hello": "Hello there",
+  "exicited": "We are excited to see you here"
 }

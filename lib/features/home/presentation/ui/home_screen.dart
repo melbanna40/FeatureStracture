@@ -96,8 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ImageUtils.getImagePath('search', format: 'svg'),
             ),
             closeIcon: Icon(Icons.close, color: Colors.black),
-              onChanged: (value) {
-               setState(() {
+            onChanged: (value) {
+              setState(() {
                 Log.e(value);
                 // searchText = value;
               });
@@ -275,13 +275,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getRecommend() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(
-          recommends.length,
-          (index) => Padding(
+    return SizedBox(
+      height: 100,
+      child: ListView.builder(
+        itemCount: recommends.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Padding(
             padding: const EdgeInsets.only(right: 10),
             child: RecommendItem(
               data: recommends[index],
@@ -289,8 +289,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 Get.to(() => CourseDetailsScreen(recommends[index]));
               },
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

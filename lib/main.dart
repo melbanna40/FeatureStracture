@@ -1,3 +1,4 @@
+import 'package:byaan/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -111,12 +112,14 @@ class MyApp extends StatelessWidget {
         ],
       ),
       theme: mThemeData,
-      locale: const Locale("ar"),
+      locale: const Locale("en"),
       // Hive.box(HiveHelper.keyBoxAppLanguage).isNotEmpty
       //     ? Locale(Hive.box(HiveHelper.keyBoxAppLanguage)
       //         .get(HiveHelper.keyBoxAppLanguage.toString()))
       //     : const Locale("ar"),
       supportedLocales: S.delegate.supportedLocales,
+      onGenerateRoute: AppRoutes.onGenerateRoute,
+
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -126,7 +129,6 @@ class MyApp extends StatelessWidget {
         DefaultWidgetsLocalizations.delegate,
       ],
       defaultTransition: Transition.cupertino,
-      home: const HiddenDrawer(),
     );
   }
 }

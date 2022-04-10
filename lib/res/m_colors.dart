@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MColors {
-  static const Color colorPrimary = Color(0xFF5C3E91);
+  static const Color colorPrimary = Color(0xFF5c3e91);
 
   static const Color secondaryPrimary = Color(0xFFe96561);
   static List<Color> gradientColors = [
