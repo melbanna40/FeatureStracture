@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:byaan/CommonUtils/image_utils.dart';
 import 'package:byaan/generated/l10n.dart';
 import 'package:byaan/res/gaps.dart';
@@ -55,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 padding: const EdgeInsets.all(6),
                 child: TextField(
                   decoration: InputDecoration(
-                    label: Text("Phone"),
+                    label: const Text("Phone"),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,

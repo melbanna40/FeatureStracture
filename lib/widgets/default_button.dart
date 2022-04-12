@@ -75,7 +75,7 @@ class DefaultButton extends StatelessWidget {
                     prefixIcon!,
                     Container(
                         alignment: Alignment.center,
-                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
                         child: Text(
                           btnLbl,
                           textAlign: TextAlign.center,
@@ -102,7 +102,7 @@ class DefaultButton extends StatelessWidget {
                     )
                   : Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
                       child: Text(
                         btnLbl,
                         textAlign: TextAlign.center,

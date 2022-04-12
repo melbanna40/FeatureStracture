@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
             searchIcon: SvgPicture.asset(
               ImageUtils.getImagePath('search', format: 'svg'),
             ),
-            closeIcon: Icon(Icons.close, color: Colors.black),
+            closeIcon: const Icon(Icons.close, color: Colors.black),
             onChanged: (value) {
               setState(() {
                 Log.e(value);

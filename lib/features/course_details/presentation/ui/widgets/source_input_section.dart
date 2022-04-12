@@ -124,7 +124,7 @@ class _SourceInputSectionState extends State<SourceInputSection> {
       case PlaylistType.channel:
         return 'Enter channel name';
     }
-    return 'Enter youtube \<video id\> or \<link\>';
+    return 'Enter youtube <video id> or <link>';
   }
 
   String? _cleanId(String source) {

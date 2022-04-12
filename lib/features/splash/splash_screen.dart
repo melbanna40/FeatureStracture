@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import '../../animation/slide_in.dart';
 import '../../res/strings.dart';
 import '../../widgets/page_container.dart';
 
@@ -13,7 +12,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool _startMovingUp = false;
+  final bool _startMovingUp = false;
   Future initData() async => await Future.delayed(const Duration(seconds: 3));
 
   Future<void> _checkShowingIntro() async {

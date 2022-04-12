@@ -1,12 +1,7 @@
 import 'package:byaan/features/Auth/login/ui/login_screen.dart';
 import 'package:byaan/features/Auth/signup/ui/signup_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:byaan/CommonUtils/image_utils.dart';
-import 'package:byaan/generated/l10n.dart';
 import 'package:byaan/res/gaps.dart';
-import 'package:byaan/res/m_colors.dart';
 
 import '../../../widgets/hex_color.dart';
 
@@ -83,9 +78,9 @@ class _AuthScreenState extends State<AuthScreen>
                 controller: _cardController,
                 children: List.generate(2, (index) {
                   if (index == 0) {
-                    return LoginScreen();
+                    return const LoginScreen();
                   } else if (index == 1) {
-                    return SignupScreen();
+                    return const SignupScreen();
                   } else {
                     return const SizedBox();
                   }

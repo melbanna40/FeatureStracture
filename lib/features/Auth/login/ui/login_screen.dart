@@ -5,7 +5,6 @@ import 'package:byaan/CommonUtils/image_utils.dart';
 import 'package:byaan/generated/l10n.dart';
 import 'package:byaan/res/gaps.dart';
 import 'package:byaan/res/m_colors.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../../../../res/strings.dart';
 import '../../../../widgets/default_button.dart';
@@ -61,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(6),
                 child: TextField(
                   decoration: InputDecoration(
-                    label: Text("Phone"),
+                    label: const Text("Phone"),
                     focusedBorder: InputBorder.none,
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
