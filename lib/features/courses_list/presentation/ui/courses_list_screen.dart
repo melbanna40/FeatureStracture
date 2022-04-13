@@ -35,12 +35,11 @@ class CoursesListScreen extends StatelessWidget {
                   child: const Icon(CupertinoIcons.back),
                 ),
               ),
-               Text(
+              Text(
                 S.current.premium_courses,
                 style: const TextStyle(
                   color: Color(0xff0d1731),
                   fontSize: 18,
-                  
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -54,7 +53,7 @@ class CoursesListScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return CoursesListItem(
                     onTap: () {
-                      Get.to(() =>   CourseDetailsScreen(features[index]));
+                      Get.to(() => CourseDetailsScreen(features[index]));
                     },
                     data: features[index]);
               },

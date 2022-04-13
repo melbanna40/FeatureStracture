@@ -27,10 +27,10 @@ class PlayPauseButtonBar extends StatelessWidget {
               ),
               onPressed: value.isReady
                   ? () {
-                value.playerState == PlayerState.playing
-                    ? context.ytController.pause()
-                    : context.ytController.play();
-              }
+                      value.playerState == PlayerState.playing
+                          ? context.ytController.pause()
+                          : context.ytController.play();
+                    }
                   : null,
             );
           },

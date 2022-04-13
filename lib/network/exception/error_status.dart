@@ -1,34 +1,45 @@
 ///Manage the status of error codes
 class ErrorStatus {
   //Code of successful data
-  static const int requestDataOk = 0;
+  // ignore: constant_identifier_names
+  static const REQUEST_DATA_OK = 0;
 
   //The request is successful
-  static const int success = 200;
+  // ignore: constant_identifier_names
+  static const int SUCCESS = 200;
 
   //The server access FORBIDDEN
-  static const int forbidden = 403;
+  // ignore: constant_identifier_names
+  static const int FORBIDDEN = 403;
 
-  static const int notFound = 404;
+  // ignore: constant_identifier_names
+  static const int NOT_FOUND = 404;
 
   //Other errors
-  static const int unknownError = 1000;
+  // ignore: constant_identifier_names
+  static const int UNKNOWN_ERROR = 1000;
 
   //network error
-  static const int networkError = 1001;
+  // ignore: constant_identifier_names
+  static const int NETWORK_ERROR = 1001;
 
   //Server connection error
-  static const int socketError = 1002;
+  // ignore: constant_identifier_names
+  static const int SOCKET_ERROR = 1002;
 
   //internal Server error
-  static const int serverError = 1003;
+  // ignore: constant_identifier_names
+  static const int SERVER_ERROR = 1003;
 
   //TIMEOUT_ERROR
-  static const int timeoutError = 1004;
+  // ignore: constant_identifier_names
+  static const int TIMEOUT_ERROR = 1004;
 
   //CANCEL_ERROR
-  static const int cancelError = 1005;
+  // ignore: constant_identifier_names
+  static const int CANCEL_ERROR = 1005;
 
   //PARSE_ERROR
-  static const int parseError = 1006;
+  // ignore: constant_identifier_names
+  static const int PARSE_ERROR = 1006;
 }

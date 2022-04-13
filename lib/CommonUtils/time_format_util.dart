@@ -1,19 +1,17 @@
-
-class TimeFormatUtil{
-
-  static String durationFormat(int duration ){
-    var minute = duration~/60;
-    var second = duration%60;
-    if(minute<=9){
-      if(second<=9){
+class TimeFormatUtil {
+  static String durationFormat(int duration) {
+    var minute = duration ~/ 60;
+    var second = duration % 60;
+    if (minute <= 9) {
+      if (second <= 9) {
         return "0$minute' 0$second''";
-      }else{
+      } else {
         return "0$minute' $second''";
       }
-    }else{
-      if(second<=9){
+    } else {
+      if (second <= 9) {
         return "$minute' 0$second''";
-      }else{
+      } else {
         return "$minute' $second''";
       }
     }

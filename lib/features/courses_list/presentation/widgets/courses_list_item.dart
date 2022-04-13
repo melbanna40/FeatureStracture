@@ -88,7 +88,6 @@ class CoursesListItem extends StatelessWidget {
                         style: const TextStyle(
                           color: Color(0xff0d1731),
                           fontSize: 16,
-                          
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -117,7 +116,6 @@ class CoursesListItem extends StatelessWidget {
                         style: TextStyle(
                           color: Color(0xff0d1731),
                           fontSize: 12,
-                          
                         ),
                       ),
                     ],

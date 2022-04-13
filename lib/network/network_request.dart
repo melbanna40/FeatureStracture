@@ -1,15 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:byaan/network/network_util.dart';
 
 import 'exception/error_status.dart';
+import 'newtork_utails.dart';
 
-abstract class BaseApiHelper {
+abstract class NetworkRequest {
   Future requestFutureData<T>(Method method,
       {String? url,
       String? newBaseUrl,
-      bool isFormData,
-      FormData formData,
       bool isShow = true,
       bool isClose = true,
       Function(T t)? onSuccess,
@@ -22,16 +20,14 @@ abstract class BaseApiHelper {
       bool isList = false});
 }
 
-@Injectable(as: BaseApiHelper)
-class NetworkRequestImp implements BaseApiHelper {
+@Injectable(as: NetworkRequest)
+class NetworkRequestImp implements NetworkRequest {
   @override
   Future requestFutureData<T>(Method method,
       {String? url,
       String? newBaseUrl,
       bool isShow = true,
       bool isClose = true,
-      bool isFormData = false,
-      FormData? formData,
       Function(T t)? onSuccess,
       Function(List<T> list)? onSuccessList,
       Function(int code, String msg)? onError,
@@ -42,8 +38,6 @@ class NetworkRequestImp implements BaseApiHelper {
       bool isList = false}) async {
     await DioUtils.instance.requestDataFuture<T>(method, url!, newBaseUrl ?? "",
         params: params,
-        isFormData: isFormData,
-        dataForm: formData,
         queryParameters: queryParams,
         options: options,
         cancelToken: cancelToken, onSuccess: (data) {
@@ -52,7 +46,7 @@ class NetworkRequestImp implements BaseApiHelper {
         onSuccess(data);
       }
     }, onSuccessList: (data) {
-      if (onSuccessList != null) {
+      if (isClose && onSuccessList != null) {
         onSuccessList(data);
       }
     }, onError: (code, msg) {
@@ -64,7 +58,7 @@ class NetworkRequestImp implements BaseApiHelper {
 
   _onError(int code, String msg, Function(int code, String msg) onError) {
     //view.closeProgress();
-    if (code != ErrorStatus.cancelError) {
+    if (code != ErrorStatus.CANCEL_ERROR) {
       // view!.showToasts(msg);
     }
     onError(code, msg);

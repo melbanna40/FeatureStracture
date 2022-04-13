@@ -4,9 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:byaan/res/m_colors.dart';
 
 class CustomImage extends StatelessWidget {
-  const CustomImage(this.image, {Key? key, this.width = 100, this.height = 100, this.bgColor,
-    this.borderWidth = 0, this.borderColor, this.trBackground = false, this.fit = BoxFit.cover,
-    this.isNetwork = true, this.radius = 50, this.borderRadius, this.isShadow = true}) : super(key: key);
+  const CustomImage(this.image,
+      {Key? key,
+      this.width = 100,
+      this.height = 100,
+      this.bgColor,
+      this.borderWidth = 0,
+      this.borderColor,
+      this.trBackground = false,
+      this.fit = BoxFit.cover,
+      this.isNetwork = true,
+      this.radius = 50,
+      this.borderRadius,
+      this.isShadow = true})
+      : super(key: key);
   final String image;
   final double width;
   final double height;
@@ -22,44 +33,43 @@ class CustomImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-      Container(width: width, height: height,
+    return Container(
+        width: width,
+        height: height,
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: borderRadius ?? BorderRadius.circular(radius),
           boxShadow: [
-            if(isShadow) BoxShadow(
-              color: MColors.shadowColor.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: const Offset(0, 1), // changes position of shadow
-            ),
+            if (isShadow)
+              BoxShadow(
+                color: MColors.shadowColor.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 1), // changes position of shadow
+              ),
           ],
         ),
-        child: isNetwork ?
-          CachedNetworkImage(
-            imageUrl: image,
-            placeholder: (context, url) => const BlankImageWidget(),
-            errorWidget: (context, url, error) => const BlankImageWidget(),
-            imageBuilder: (context, imageProvider) => Container(
-              decoration: BoxDecoration(
-                borderRadius: borderRadius ?? BorderRadius.circular(radius),
-                image: DecorationImage(
-                  image: imageProvider, fit: fit),
-              ),
-            ),
-          )
-        : 
-        Image(
-          image: AssetImage(image), 
-          fit: fit,
-        )
-      );
+        child: isNetwork
+            ? CachedNetworkImage(
+                imageUrl: image,
+                placeholder: (context, url) => const BlankImageWidget(),
+                errorWidget: (context, url, error) => const BlankImageWidget(),
+                imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: borderRadius ?? BorderRadius.circular(radius),
+                    image: DecorationImage(image: imageProvider, fit: fit),
+                  ),
+                ),
+              )
+            : Image(
+                image: AssetImage(image),
+                fit: fit,
+              ));
   }
 }
 
 class BlankImageWidget extends StatefulWidget {
-  const BlankImageWidget({ Key? key }) : super(key: key);
+  const BlankImageWidget({Key? key}) : super(key: key);
 
   @override
   _BlankImageWidgetState createState() => _BlankImageWidgetState();
@@ -70,7 +80,8 @@ class _BlankImageWidgetState extends State<BlankImageWidget> {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.all(0),
-      child: Center(child: SizedBox(
+      child: Center(
+          child: SizedBox(
         child: Card(
           margin: EdgeInsets.zero,
           clipBehavior: Clip.antiAlias,

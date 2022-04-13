@@ -185,16 +185,16 @@ class QuizReportScreen extends StatelessWidget {
               ),
             ),
             Gaps.vGap30,
-             CupertinoButton(
+            CupertinoButton(
                 minSize: 60,
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.3,
                     vertical: 16),
                 color: const Color(0xff5c3e91),
                 borderRadius: BorderRadius.circular(18),
-                child:  Text(
+                child: Text(
                   S.current.see_the_answer,
-                  style:const TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -203,7 +203,7 @@ class QuizReportScreen extends StatelessWidget {
                 onPressed: () {
                   Get.to(() => const SolutionsScreen());
                 }),
-           ],
+          ],
         ),
       ),
     );

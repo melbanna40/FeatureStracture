@@ -12,7 +12,7 @@ class QuizItem extends StatefulWidget {
 }
 
 class _QuizItemState extends State<QuizItem> {
-   bool isSuffixIcon = false;
+  bool isSuffixIcon = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,6 @@ class _QuizItemState extends State<QuizItem> {
           style: const TextStyle(
             color: Color(0xff0d1731),
             fontSize: 16,
-            
           ),
         ),
         Gaps.vGap30,

@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:byaan/CommonUtils/log_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
+import '../CommonUtils/log_utils.dart';
 import 'api/network_api.dart';
 import 'exception/error_status.dart';
 import 'exception/exception_handle.dart';
@@ -13,8 +12,9 @@ import 'net_response.dart';
 
 //Set default Header Not configured User-Agent Eye open API 403
 Map<String, dynamic> headers = {
-  HttpHeaders.acceptHeader: "application/json",
-  HttpHeaders.contentTypeHeader: 'application/json'
+  "Accept": "application/json",
+  // "User-Agent": "insomnia/6.4.1",
+//  "Content-Type":"application/x-www-form-urlencoded",
 };
 
 class DioUtils {
@@ -36,7 +36,7 @@ class DioUtils {
   DioUtils._internal() {
     _options = BaseOptions(
       baseUrl: Api.baseUrl,
-      connectTimeout: 15000,
+      connectTimeout: 25000,
 
       ///The interval between receiving data before and after the response stream
       receiveTimeout: 5000,
@@ -70,13 +70,11 @@ class DioUtils {
   ///The returned data is processed uniformly and parsed into corresponding Bean
   Future<BaseResponse<T>> _request<T>(String method, String url,
       {Map<String, dynamic>? data,
-      FormData? dataForm,
-      bool? isFormData = false,
       Map<String, dynamic>? queryParameters,
       CancelToken? cancelToken,
       Options? options}) async {
     var response = await _dio!.request(url,
-        data: isFormData == true ? dataForm : data,
+        data: data,
         queryParameters: queryParameters,
         options: _setOptions(method, options!),
         cancelToken: cancelToken);
@@ -85,8 +83,7 @@ class DioUtils {
           await compute(parseData, response.data.toString());
       return BaseResponse.fromJson(_map);
     } catch (e) {
-      debugPrint('$e');
-      return BaseResponse(ErrorStatus.parseError, "parseError", null);
+      return BaseResponse(ErrorStatus.PARSE_ERROR, "PARSE_ERROR", null);
     }
   }
 
@@ -95,8 +92,6 @@ class DioUtils {
       Function(List<T> list)? onSuccessList,
       Function(int code, String msg)? onError,
       dynamic params,
-      FormData? dataForm,
-      bool? isFormData,
       Map<String, dynamic>? queryParameters,
       CancelToken? cancelToken,
       Options? options,
@@ -109,13 +104,11 @@ class DioUtils {
     String requestMethod = _getMethod(method);
     return await _request<T>(requestMethod, url,
             data: params,
-            isFormData: isFormData,
-            dataForm: dataForm,
             queryParameters: queryParameters,
             options: options,
             cancelToken: cancelToken)
         .then((BaseResponse<T> result) {
-      if (result.code == ErrorStatus.requestDataOk) {
+      if (result.code == ErrorStatus.REQUEST_DATA_OK) {
         if (isList) {
           if (onSuccessList != null) {
             onSuccessList(result.listData!);
@@ -138,7 +131,7 @@ class DioUtils {
   }
 
   BaseResponse parseError() {
-    return BaseResponse(ErrorStatus.parseError, "Data parsing error", null);
+    return BaseResponse(ErrorStatus.PARSE_ERROR, "Data parsing error", null);
   }
 
   Options _setOptions(String method, Options options) {
@@ -178,7 +171,7 @@ class DioUtils {
         .asBroadcastStream()
         .listen((result) {
       //Successful data returned
-      if (result.code == ErrorStatus.requestDataOk) {
+      if (result.code == ErrorStatus.REQUEST_DATA_OK) {
         if (isList) {
           if (onSuccessList != null) {
             onSuccessList(result.listData!);

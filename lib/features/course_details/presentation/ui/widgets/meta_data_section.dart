@@ -41,15 +41,15 @@ class MetaDataSection extends StatelessWidget {
                       items: PlaybackRate.all
                           .map(
                             (rate) => DropdownMenuItem(
-                          child: Text(
-                            '${rate}x',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w300,
+                              child: Text(
+                                '${rate}x',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              value: rate,
                             ),
-                          ),
-                          value: rate,
-                        ),
-                      )
+                          )
                           .toList(),
                       onChanged: (double? newValue) {
                         if (newValue != null) {

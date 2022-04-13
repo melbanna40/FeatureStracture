@@ -1,8 +1,10 @@
 import 'package:animated_search_bar/animated_search_bar.dart';
 import 'package:byaan/CommonUtils/image_utils.dart';
 import 'package:byaan/CommonUtils/log_utils.dart';
+import 'package:byaan/CommonUtils/widgets/empty_data_widget.dart';
 import 'package:byaan/features/course_details/presentation/ui/course_details_screen.dart';
 import 'package:byaan/features/courses_list/presentation/ui/courses_list_screen.dart';
+import 'package:byaan/features/home/application/home_cubit/home_cubit.dart';
 import 'package:byaan/features/home/data/data.dart';
 import 'package:byaan/features/home/presentation/widgets/category_box.dart';
 import 'package:byaan/features/home/presentation/widgets/feature_item.dart';
@@ -16,8 +18,12 @@ import 'package:byaan/widgets/custom_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+
+import '../../../../CommonUtils/widgets/loading_widget.dart';
+import '../../data/model/home_model/home_model.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? openDrawer;
@@ -126,95 +132,108 @@ class _HomeScreenState extends State<HomeScreen> {
 
   buildBody() {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10, bottom: 10),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            margin: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  S.of(context).premium_courses,
-                  style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      color: MColors.textColor),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => const CoursesListScreen());
-                  },
-                  child: const Icon(CupertinoIcons.forward),
-                ),
-              ],
-            ),
-          ),
-          getRecommend(),
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          if (state is HomeLoading) {
+            return LoadingWidget();
+          } else if (state is HomeLoaded) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            S.of(context).premium_courses,
+                            style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: MColors.textColor),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => const CoursesListScreen());
+                            },
+                            child: const Icon(CupertinoIcons.forward),
+                          ),
+                        ],
+                      ),
+                    ),
+                    getRecommend(state.homeModel!.featuredCourses!),
 
-          getCategories(),
+                    getCategories(state.homeModel!.categories!),
 
-          // getCategories(),
-          const SizedBox(
-            height: 15,
-          ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  S.of(context).live_courses,
-                  style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      color: MColors.textColor),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => const CoursesListScreen());
-                  },
-                  child: const Icon(CupertinoIcons.forward),
-                ),
-              ],
-            ),
-          ),
-          getFeature(),
-          GestureDetector(
-              onTap: () {
-                Get.to(() => const QuizScreen());
-              },
-              child: const HomeTestExamWidget()),
-          Container(
-            margin: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  S.of(context).free_courses,
-                  style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      color: MColors.textColor),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => const CoursesListScreen());
-                  },
-                  child: const Icon(CupertinoIcons.forward),
-                ),
-              ],
-            ),
-          ),
-          getFree(),
-        ]),
+                    // getCategories(),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            S.of(context).live_courses,
+                            style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: MColors.textColor),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => const CoursesListScreen());
+                            },
+                            child: const Icon(CupertinoIcons.forward),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // getFeature(),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(() => const QuizScreen());
+                        },
+                        child: const HomeTestExamWidget()),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            S.of(context).free_courses,
+                            style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: MColors.textColor),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => const CoursesListScreen());
+                            },
+                            child: const Icon(CupertinoIcons.forward),
+                          ),
+                        ],
+                      ),
+                    ),
+                    getFree(state.homeModel!.freeCourses!),
+                  ]),
+            );
+          } else if (state is HomeFailure) {
+            return EmptyDataWidget();
+          }
+          return EmptyDataWidget();
+        },
       ),
     );
   }
 
   int selectedCollection = 0;
 
-  getCategories() {
+  getCategories(List<Categories> categories) {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(15, 10, 0, 10),
       scrollDirection: Axis.horizontal,
@@ -225,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(right: 15),
             child: CategoryBox(
               selectedColor: Colors.white,
-              data: categories[index],
+              categories: categories[index],
               onTap: () {
                 setState(() {
                   selectedCollection = index;
@@ -251,12 +270,12 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               Get.to(() => CourseDetailsScreen(features[index]));
             },
-            data: features[index]),
+            freeCourses: features[index]),
       ),
     );
   }
 
-  getFree() {
+  getFree(List<FreeCourses> freeCourses) {
     return CarouselSlider(
       options: CarouselOptions(
           enlargeCenterPage: true,
@@ -264,27 +283,27 @@ class _HomeScreenState extends State<HomeScreen> {
           viewportFraction: .75,
           aspectRatio: context.isTablet ? 1.9 : 1.1),
       items: List.generate(
-        myCompleteCourses.length,
+        freeCourses.length,
         (index) => FeatureItem(
             onTap: () {
               Get.to(() => CourseDetailsScreen(myCompleteCourses[index]));
             },
-            data: myCompleteCourses[index]),
+            freeCourses: freeCourses[index]),
       ),
     );
   }
 
-  getRecommend() {
+  getRecommend(List<FeaturedCourses> featuredCourses) {
     return SizedBox(
       height: 100,
       child: ListView.builder(
-        itemCount: recommends.length,
+        itemCount: featuredCourses.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(right: 10),
             child: RecommendItem(
-              data: recommends[index],
+              featuredCourses: featuredCourses[index],
               onTap: () {
                 Get.to(() => CourseDetailsScreen(recommends[index]));
               },

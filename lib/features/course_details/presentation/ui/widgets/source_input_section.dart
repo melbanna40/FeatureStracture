@@ -78,22 +78,22 @@ class _SourceInputSectionState extends State<SourceInputSection> {
                   onTap: _playlistType == null
                       ? null
                       : () {
-                    context.ytController.loadPlaylist(
-                      _textController.text,
-                      listType: _playlistType!,
-                    );
-                  },
+                          context.ytController.loadPlaylist(
+                            _textController.text,
+                            listType: _playlistType!,
+                          );
+                        },
                 ),
                 _Button(
                   action: 'CUE PLAYLIST',
                   onTap: _playlistType == null
                       ? null
                       : () {
-                    context.ytController.cuePlaylist(
-                      _textController.text,
-                      listType: _playlistType!,
-                    );
-                  },
+                          context.ytController.cuePlaylist(
+                            _textController.text,
+                            listType: _playlistType!,
+                          );
+                        },
                 ),
               ],
             ),
@@ -191,7 +191,7 @@ class _PlaylistTypeDropDownState extends State<_PlaylistTypeDropDown> {
       items: PlaylistType.all
           .map(
             (type) => DropdownMenuItem(child: Text(type), value: type),
-      )
+          )
           .toList(),
       onChanged: (value) {
         _playlistType = value;
@@ -219,9 +219,9 @@ class _Button extends StatelessWidget {
       onPressed: onTap == null
           ? null
           : () {
-        onTap?.call();
-        FocusScope.of(context).unfocus();
-      },
+              onTap?.call();
+              FocusScope.of(context).unfocus();
+            },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 14.0),
         child: Text(

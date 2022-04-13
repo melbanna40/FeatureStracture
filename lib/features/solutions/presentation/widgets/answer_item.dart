@@ -29,7 +29,7 @@ class AnswerItem extends StatelessWidget {
       child: ExpansionTile(
         trailing: const SizedBox.shrink(),
         title: Row(children: [
-          Text('${index+1}.'),
+          Text('${index + 1}.'),
           Expanded(
               child: Container(
             padding: const EdgeInsets.all(8.0),

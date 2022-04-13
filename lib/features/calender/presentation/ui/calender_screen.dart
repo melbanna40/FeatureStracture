@@ -44,7 +44,6 @@ class CalenderScreen extends StatelessWidget {
                   style: const TextStyle(
                     color: Color(0xff0d1731),
                     fontSize: 18,
-                    
                     fontWeight: FontWeight.w500,
                   ),
                 ),

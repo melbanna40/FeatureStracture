@@ -38,7 +38,7 @@ class CourseDetailsBannerView extends StatelessWidget {
             CustomImage(
               data["image"],
               width: double.infinity,
-              height: MediaQuery.of(context).size.height*0.35,
+              height: MediaQuery.of(context).size.height * 0.35,
               radius: 15,
             ),
             Container(
@@ -82,7 +82,6 @@ class CourseDetailsBannerView extends StatelessWidget {
                           S.current.preview,
                           style: const TextStyle(
                             color: Colors.black,
-                            
                           ),
                         ),
                         const Spacer(),

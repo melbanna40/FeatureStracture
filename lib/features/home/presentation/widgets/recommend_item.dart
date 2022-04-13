@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:byaan/res/m_colors.dart';
 import 'package:byaan/widgets/custom_image.dart';
 
+import '../../data/model/home_model/home_model.dart';
+
 class RecommendItem extends StatelessWidget {
-  const RecommendItem({Key? key, required this.data, this.onTap})
+  const RecommendItem({Key? key, this.onTap, required this.featuredCourses})
       : super(key: key);
-  final data;
+  final FeaturedCourses featuredCourses;
   final GestureTapCallback? onTap;
 
   @override
@@ -31,7 +33,7 @@ class RecommendItem extends StatelessWidget {
           child: Row(
             children: [
               CustomImage(
-                data["image"],
+                featuredCourses.image!,
                 radius: 15,
                 height: 80,
               ),
@@ -43,7 +45,7 @@ class RecommendItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data["name"],
+                      featuredCourses.title!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -62,7 +64,7 @@ class RecommendItem extends StatelessWidget {
                           width: 2,
                         ),
                         Text(
-                          data["duration"],
+                          featuredCourses.duration!,
                           style: const TextStyle(
                               fontSize: 12, color: MColors.labelColor),
                         ),
@@ -82,13 +84,13 @@ class RecommendItem extends StatelessWidget {
                           width: 2,
                         ),
                         Text(
-                          data["review"],
+                          featuredCourses.totalRating.toString(),
                           style: const TextStyle(
                               fontSize: 12, color: MColors.labelColor),
                         ),
                         const Spacer(),
                         Text(
-                          data["price"],
+                          featuredCourses.price.toString(),
                           style: const TextStyle(
                               fontSize: 14, color: MColors.textColor),
                         ),

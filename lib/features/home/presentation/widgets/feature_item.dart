@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:byaan/res/m_colors.dart';
 
 import '../../../../widgets/custom_image.dart';
+import '../../data/model/home_model/home_model.dart';
 
 class FeatureItem extends StatelessWidget {
   const FeatureItem(
-      {Key? key, required this.data, this.width = 280, this.onTap})
+      {Key? key, required this.freeCourses, this.width = 280, this.onTap})
       : super(key: key);
-  final data;
+  final FreeCourses freeCourses;
   final double width;
   final GestureTapCallback? onTap;
 
@@ -34,9 +35,9 @@ class FeatureItem extends StatelessWidget {
         child: Column(
           children: [
             CustomImage(
-              data["image"],
+              freeCourses.image!,
               width: double.infinity,
-              height: MediaQuery.of(context).size.height*0.30,
+              height: MediaQuery.of(context).size.height * 0.30,
               radius: 15,
             ),
             Container(
@@ -49,17 +50,17 @@ class FeatureItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        data["name"],
+                        freeCourses.title!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontSize: 17,
+                            fontSize: 15,
                             color: MColors.textColor,
                             fontWeight: FontWeight.w600),
                       ),
-                      Text(
-                        data["price"],
-                        style: const TextStyle(
+                      const Text(
+                        "free",
+                        style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.w500),
                       ),
                     ],
@@ -70,13 +71,15 @@ class FeatureItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      getAttribute(Icons.play_circle_outlined,
-                          MColors.labelColor, data["session"]),
+                      getAttribute(
+                          Icons.play_circle_outlined,
+                          MColors.labelColor,
+                          "${freeCourses.level.toString()} lessons"),
                       const SizedBox(
                         width: 12,
                       ),
                       getAttribute(Icons.schedule_rounded, MColors.labelColor,
-                          data["duration"]),
+                          "${freeCourses.duration.toString()} Hours"),
                       // const SizedBox(
                       //   width: 12,
                       // ),

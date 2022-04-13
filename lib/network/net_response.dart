@@ -1,24 +1,22 @@
-
-import 'package:byaan/CommonUtils/base_response_constants.dart';
-
+import '../res/constant.dart';
 import 'entity_factory.dart';
 
 ///Basic classes for data analysis
 class BaseResponse<T> {
   int? code;
   String? message;
-  T ?data;
-  List<T> ?listData = [];
+  T? data;
+  List<T>? listData = [];
 
   BaseResponse(this.code, this.message, this.data);
 
   BaseResponse.fromJson(Map<String, dynamic> json) {
-    code = json[BaseResponseConstants.code];
-    message = json[BaseResponseConstants.message];
-    if (json.containsKey(BaseResponseConstants.data)) {
-      if (json[BaseResponseConstants.data] is List) {
-        for (var item in (json[BaseResponseConstants.data] as List)) {
-          if (T.toString() == "String") {
+    code = json[AppConstant.code];
+    message = json[AppConstant.message];
+    if (json.containsKey(AppConstant.data)) {
+      if (json[AppConstant.data] is List) {
+        for (var item in (json[AppConstant.data] as List)) {
+          if (T.toString() == "Striang") {
             listData!.add(item.toString() as T);
           } else {
             listData!.add(EntityFactory.generateOBJ<T>(item)!);
@@ -26,11 +24,11 @@ class BaseResponse<T> {
         }
       } else {
         if (T.toString() == "String") {
-          data = json[BaseResponseConstants.data].toString() as T;
+          data = json[AppConstant.data].toString() as T;
         } else if (T.toString() == "Map<dynamic, dynamic>") {
-          data = json[BaseResponseConstants.data] as T;
+          data = json[AppConstant.data] as T;
         } else {
-          data = EntityFactory.generateOBJ(json[BaseResponseConstants.data]);
+          data = EntityFactory.generateOBJ(json[AppConstant.data]);
         }
       }
     }

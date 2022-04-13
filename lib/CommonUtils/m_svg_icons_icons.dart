@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/MSvgIcons.ttf
 ///
-/// 
+///
 /// * Material Design Icons, Copyright (C) Google, Inc
 ///         Author:    Google
 ///         License:   Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
@@ -29,7 +29,10 @@ class MSvgIcons {
   static const _kFontFam = 'MSvgIcons';
   static const String? _kFontPkg = null;
 
-  static const IconData notificationsActive = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData users = IconData(0xf0c0, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData clipboardList = IconData(0xf46d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData notificationsActive =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData users =
+      IconData(0xf0c0, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData clipboardList =
+      IconData(0xf46d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

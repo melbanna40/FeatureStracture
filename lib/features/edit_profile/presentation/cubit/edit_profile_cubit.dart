@@ -36,5 +36,4 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       emit(_obscurePasswordCash);
     }
   }
-
 }

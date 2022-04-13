@@ -1,16 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:sprintf/sprintf.dart';
-import 'package:byaan/CommonUtils/log_utils.dart';
 
+import '../CommonUtils/log_utils.dart';
 import 'exception/error_status.dart';
 
 ///Header management interceptor
 class AuthInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    // TODO: add header to each request {
-    //  options.headers["Authorization"] = " $value"
-    //  }
     options.headers["Accept"] = "application/json";
     super.onRequest(options, handler);
   }
@@ -50,8 +47,7 @@ class LoggingInterceptor extends Interceptor {
     Log.w("RequestMethod:" + options.method);
     Log.w("RequestHeaders:" + options.headers.toString());
     Log.w("RequestContentType:" + options.contentType.toString());
-    Log.w(
-        "RequestDataOptions:${options.data is FormData ? (options.data as FormData).toString() : options.data.toString()}");
+    Log.w("RequestDataOptions:${options.data.toString()}");
 
     return super.onRequest(options, handler);
   }
@@ -75,11 +71,24 @@ class LoggingInterceptor extends Interceptor {
 
 //parsing data
 class AdapterInterceptor extends Interceptor {
-  static const String defaultError = "\"NOT_FOUND\"";
-  static const String notFoundError = "Some Thing Wrong Happened";
+  // ignore: constant_identifier_names
+  static const String MSG = "msg";
+  // ignore: constant_identifier_names
+  static const String SLASH = "\"";
+  // ignore: constant_identifier_names
+  static const String MESSAGE = "message";
+  // ignore: constant_identifier_names
+  static const String ERROR = "validateError";
 
-  static const String failureFormat = "{\"code\":%d,\"message\":\"%s\"}";
-  static const String successFormat =
+  // ignore: constant_identifier_names
+  static const String DEFAULT = "\"NOT_FOUND\"";
+  // ignore: constant_identifier_names
+  static const String NOT_FOUND = "Some Thing Wrong Happened";
+
+  // ignore: constant_identifier_names
+  static const String FAILURE_FORMAT = "{\"code\":%d,\"message\":\"%s\"}";
+  // ignore: constant_identifier_names
+  static const String SUCCESS_FORMAT =
       "{\"code\":0,\"data\":%s,\"message\":\"\"}";
 
   @override
@@ -99,17 +108,17 @@ class AdapterInterceptor extends Interceptor {
   Response adapterData(Response response) {
     String result;
     String content = response.data == null ? "" : response.data.toString();
-    if (response.statusCode == ErrorStatus.success) {
+    if (response.statusCode == ErrorStatus.SUCCESS) {
       if (content.isEmpty) {
-        content = defaultError;
+        content = DEFAULT;
       }
-      result = sprintf(successFormat, [content]);
-      response.statusCode = ErrorStatus.success;
+      result = sprintf(SUCCESS_FORMAT, [content]);
+      response.statusCode = ErrorStatus.SUCCESS;
     } else {
-      result = sprintf(failureFormat, [response.statusCode, notFoundError]);
-      response.statusCode = ErrorStatus.success;
+      result = sprintf(FAILURE_FORMAT, [response.statusCode, NOT_FOUND]);
+      response.statusCode = ErrorStatus.SUCCESS;
     }
-    if (response.statusCode == ErrorStatus.success) {
+    if (response.statusCode == ErrorStatus.SUCCESS) {
       Log.d("ResponseCode:${response.statusCode}");
       Log.d("response:${response.data}");
     } else {

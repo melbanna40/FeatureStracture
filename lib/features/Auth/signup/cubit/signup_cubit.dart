@@ -27,8 +27,8 @@ class SignupCubit extends Cubit<SignupState> {
   void obscurePassword() {
     _obscure = !_obscure;
     if (_obscure == false) {
-      _obscurePasswordCash = SignupObscurePassword(
-          obscure: _obscure, icon: CupertinoIcons.eye);
+      _obscurePasswordCash =
+          SignupObscurePassword(obscure: _obscure, icon: CupertinoIcons.eye);
       emit(_obscurePasswordCash);
     } else {
       _obscurePasswordCash = SignupObscurePassword(
@@ -36,5 +36,4 @@ class SignupCubit extends Cubit<SignupState> {
       emit(_obscurePasswordCash);
     }
   }
-
 }

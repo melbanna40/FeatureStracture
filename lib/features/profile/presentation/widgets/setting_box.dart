@@ -5,7 +5,10 @@ import 'package:byaan/res/m_colors.dart';
 
 class SettingBox extends StatelessWidget {
   const SettingBox(
-      {Key? key, required this.title, required this.icon, this.color = MColors.darker})
+      {Key? key,
+      required this.title,
+      required this.icon,
+      this.color = MColors.darker})
       : super(key: key);
   final String title;
   final String icon;

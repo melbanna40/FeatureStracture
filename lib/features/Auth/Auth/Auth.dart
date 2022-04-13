@@ -1,5 +1,5 @@
-import 'package:byaan/features/Auth/login/ui/login_screen.dart';
-import 'package:byaan/features/Auth/signup/ui/signup_screen.dart';
+import 'package:byaan/features/auth/login/ui/login_screen.dart';
+import 'package:byaan/features/auth/signup/ui/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:byaan/res/gaps.dart';
 

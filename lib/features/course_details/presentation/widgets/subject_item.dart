@@ -55,9 +55,9 @@ class SubjectItem extends StatelessWidget {
                   ),
                 ),
                 Gaps.hGap16,
-                  Text(
+                Text(
                   data['duration'],
-                  style:const TextStyle(
+                  style: const TextStyle(
                     color: Color(0xff0d1731),
                     fontWeight: FontWeight.w500,
                   ),

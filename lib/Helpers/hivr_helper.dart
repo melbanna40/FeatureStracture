@@ -24,7 +24,7 @@ class HiveHelper {
   static String getBaseUrl() {
     return Hive.box(HiveHelper.keyAppBaseUrl).isNotEmpty
         ? Hive.box(HiveHelper.keyAppBaseUrl).get(HiveHelper.keyAppBaseUrl)
-        : Api.firstBaseUrl;
+        : Api.baseUrl;
   }
 
   static void setUserToken(String token) {

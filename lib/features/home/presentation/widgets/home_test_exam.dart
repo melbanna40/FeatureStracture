@@ -47,7 +47,6 @@ class HomeTestExamWidget extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
-                  
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -56,7 +55,6 @@ class HomeTestExamWidget extends StatelessWidget {
                 S.current.checkYourPreparation,
                 style: const TextStyle(
                   color: Color(0xff6e767c),
-                  
                 ),
               ),
             ],
