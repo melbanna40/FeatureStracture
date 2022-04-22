@@ -1,13 +1,11 @@
+import 'package:byaan/Helpers/hive_helper.dart';
+
 class Api {
   //base Url
 
-  static const String mainAppUrl = "https://qayem.online/";
+  static String baseUrl = HiveHelper.getBaseUrl();
 
-  static const String baseUrl = "${mainAppUrl}api/";
+  static const String tempBaseUrl = "http://0.0.0.0:3000//";
 
-  static const String doRegisterApiCall = "register";
-
-  static const String doServerLoginApiCall = "login";
-
-  static const String doHomeApiCall = "all-home-page";
+  static const String getTempDataApiCall = "users";
 }

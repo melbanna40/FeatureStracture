@@ -1,8 +1,6 @@
-import 'package:badges/badges.dart';
+import 'package:byaan/res/m_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:byaan/CommonUtils/image_utils.dart';
-import 'package:byaan/res/m_colors.dart';
 
 class NotificationBox extends StatelessWidget {
   const NotificationBox(
@@ -23,21 +21,7 @@ class NotificationBox extends StatelessWidget {
             color: MColors.appBarColor,
             border: Border.all(color: Colors.grey.withOpacity(.3)),
           ),
-          child: notifiedNumber > 0
-              ? Badge(
-                  badgeColor: MColors.actionColor,
-                  padding: const EdgeInsets.all(3),
-                  position: BadgePosition.topEnd(top: -7, end: 0),
-                  badgeContent: const Text(
-                    '',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  child: SvgPicture.asset(
-                    ImageUtils.getImagePath('bell', format: 'svg'),
-                    width: 20,
-                    height: 20,
-                  ))
-              : SvgPicture.asset("assets/icons/bell.svg")),
+          child: SvgPicture.asset("assets/icons/bell.svg")),
     );
   }
 }

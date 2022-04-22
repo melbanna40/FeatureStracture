@@ -6,9 +6,10 @@ import 'package:byaan/res/gaps.dart';
 import 'package:byaan/res/m_colors.dart';
 
 class EmptyDataWidget extends StatefulWidget {
+  final String? message;
   final Function? onRefreshClicked;
 
-  const EmptyDataWidget({Key? key, this.onRefreshClicked}) : super(key: key);
+  const EmptyDataWidget({Key? key, this.onRefreshClicked, this.message}) : super(key: key);
 
   @override
   _EmptyDataWidgetState createState() => _EmptyDataWidgetState();
@@ -49,7 +50,7 @@ class _EmptyDataWidgetState extends State<EmptyDataWidget>
             color: Colors.grey,
           ),
           Gaps.vGap16,
-          Text(S.of(context).empty_data),
+          Text(widget.message??S.of(context).empty_data),
           Gaps.vGap16,
           Container(
             width: 200,

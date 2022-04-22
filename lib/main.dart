@@ -1,4 +1,4 @@
-import 'package:byaan/routes/app_routes.dart';
+import 'package:byaan/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -6,34 +6,19 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:byaan/res/m_colors.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-import 'Helpers/hivr_helper.dart';
+import 'Helpers/hive_helper.dart';
 import 'dependencies/dependency_init.dart';
 import 'generated/l10n.dart';
 
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-//   Log.i("Handling a background message: ${message.messageId}");
-// }
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
-  // await Firebase.initializeApp();
 
   await Hive.initFlutter();
-
-  await Hive.openBox(HiveHelper.keyBoxAppLanguage);
-  await Hive.openBox(HiveHelper.boxKeyLoginResponse);
   await Hive.openBox(HiveHelper.boxKeyUserToken);
   await Hive.openBox(HiveHelper.keyAppBaseUrl);
-
-  // FirebaseMessaging.instance
-  //     .requestPermission(alert: true, badge: true, sound: true);
-  // FirebaseMessaging.instance.getToken().then((token) {
-  //   assert(token != null);
-  //   // print(token);
-  // });
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(const MyApp());
 }
@@ -112,12 +97,8 @@ class MyApp extends StatelessWidget {
       ),
       theme: mThemeData,
       locale: const Locale("en"),
-      // Hive.box(HiveHelper.keyBoxAppLanguage).isNotEmpty
-      //     ? Locale(Hive.box(HiveHelper.keyBoxAppLanguage)
-      //         .get(HiveHelper.keyBoxAppLanguage.toString()))
-      //     : const Locale("ar"),
+
       supportedLocales: S.delegate.supportedLocales,
-      onGenerateRoute: AppRoutes.onGenerateRoute,
 
       localizationsDelegates: const [
         S.delegate,
@@ -128,6 +109,7 @@ class MyApp extends StatelessWidget {
         DefaultWidgetsLocalizations.delegate,
       ],
       defaultTransition: Transition.cupertino,
+      home: const SplashScreen(),
     );
   }
 }

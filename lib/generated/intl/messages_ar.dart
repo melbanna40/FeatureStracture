@@ -20,11 +20,11 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(numberOfCourses) => "${numberOfCourses} دوره";
+  static String m0(number_of_courses) => "${number_of_courses} دوره";
 
-  static String m1(numberOfHours) => "${numberOfHours} ساعه";
+  static String m1(number_of_hours) => "${number_of_hours} ساعه";
 
-  static String m2(numberOfLessons) => "${numberOfLessons} درس";
+  static String m2(number_of_lessons) => "${number_of_lessons} درس";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -56,9 +56,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
         "empty_data":
             MessageLookupByLibrary.simpleMessage("عذراً لايوجد بيانات"),
+        "exicited":
+            MessageLookupByLibrary.simpleMessage("متشوقين لروئيتك هنا معنا"),
         "failed": MessageLookupByLibrary.simpleMessage("باءت بالفشل"),
         "free_courses": MessageLookupByLibrary.simpleMessage("دورات مجانية"),
         "get_now": MessageLookupByLibrary.simpleMessage("احصل عليه الآن"),
+        "hello": MessageLookupByLibrary.simpleMessage("مرحبا بك هنا"),
         "help": MessageLookupByLibrary.simpleMessage("المساعده"),
         "hours": m1,
         "incorrect": MessageLookupByLibrary.simpleMessage("غير صحيح"),

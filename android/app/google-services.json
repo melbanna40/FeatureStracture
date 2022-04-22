@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "1086168399400",
+    "project_number": "1086162318399400",
     "project_id": "kafey-1e1aa",
     "storage_bucket": "kafey-1e1aa.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1086168399400:android:6b00752253ff97e336bf1d",
+        "mobilesdk_app_id": "1:1086161238399400:android:6b00752253ff97e336bf1d",
         "android_client_info": {
           "package_name": "com.ingaz.byaan"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1086168399400-7mlssrtd32a0ei651klfsuth0053r8lr.apps.googleusercontent.com",
+          "client_id": "1086168399400-7mlssrtd32a0ei321651klfsuth0053r8lr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDJtjEUvIWJ9s7KBkssT2szaKQ0ls-Pjhk"
+          "current_key": "123"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1086168399400-7mlssrtd32a0ei651klfsuth0053r8lr.apps.googleusercontent.com",
+              "client_id": "1086168331299400-7mlssrtd332a0e312i651klfsuth0053r8lr.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1086168399400-ec493l8f7phcfdgnpr620rarh7f0hreb.apps.googleusercontent.com",
+              "client_id": "1086168399400-ec493l8f7phcfdg312npr620rarh7f0hreb.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.ingaz.byaan"

@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1086168399400-ec493l8f7phcfdgnpr620rarh7f0hreb.apps.googleusercontent.com</string>
+	<string>1086168399400-ec493l8f7phcfdgqnpr620rarh7f0hreb.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1086168399400-ec493l8f7phcfdgnpr620rarh7f0hreb</string>
+	<string>com.googleusercontent.apps.108616e8399400-ec493l8f7phcfdqgnpr620rarh7f0hreb</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC01eNW9FLy4hg7T5bdgsSrNEYssQowK0o</string>
+	<string>AIzaSyC01eNW9FLy4hg7T5bdegsSrNEYssQowK0o</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1086168399400</string>
+	<string>10861q68399400</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.ingaz.byaan</string>
 	<key>PROJECT_ID</key>
-	<string>kafey-1e1aa</string>
+	<string>kafey-11e1aa</string>
 	<key>STORAGE_BUCKET</key>
-	<string>kafey-1e1aa.appspot.com</string>
+	<string>kafey-11e1aa.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1086168399400:ios:7b8fea46c90d6d2b36bf1d</string>
+	<string>1:108616e8399400:ios:7b8fea46c90d6d2b36bf1d</string>
 </dict>
 </plist>
